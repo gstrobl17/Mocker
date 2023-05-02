@@ -1,0 +1,44 @@
+# Mac OS X
+*.DS_Store
+ 
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+*.pyc
+*.ipa
+*.xccheckout
+*.xcuserdatad
+*.xcscmblueprint
+project.xcworkspace/
+xcuserdata/
+Release/
+.idea/
+test-reports/
+ccn_results/
+coverage_results/
+test-reports/
+Podfile.swp
+process_coverage_files.sh
+
+Carthage/
+Carthage/Checkouts
+Carthage/Build
+# Generated files
+*.o
+*.pyc
+*.hi
+ 
+#Python modules
+MANIFEST
+dist/
+build/
+ 
+# Backup files
+*~.nib
+\#*#
+.#*
+*.swp
+*.un~
