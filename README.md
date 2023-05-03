@@ -1,6 +1,8 @@
 # Mocker
 
-Mocker is a Mac OS app. It is a tool that generates Mock implementations for protocols in the style of the Strobl Approach to Unit Testing.
+Mocker, a Mac OS app, is a tool that generates Mock implementations for protocols in the style of the Strobl Approach to Unit Testing.
+
+![MockerScreenShot](/assets/MockerScreenShot.png)
 
 To use Mocker, select an Xcode project to load it into the tool. The swift files in the Xcode project are listed in the left pane. Next, select one of the swift files. If the selected file contains protocols, you can select the protocol you want to generate a Mock for. By default the first protocol in the file will be selected. The code for the Mock if the selected protocol will be displayed in the right pane.
 
