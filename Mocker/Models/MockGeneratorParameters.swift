@@ -36,7 +36,7 @@ class MockGeneratorParameters: SyntaxVisitor {
         self.includeTestableImport = includeTestableImport
         self.testableTargetName = testableTargetName
         self.trackPropertyActivity = trackPropertyActivity
-        super.init()
+        super.init(viewMode: .sourceAccurate)
 
         // To get an object tree for the selected protocol,
         //  add a break point here and use "po protocolDeclaration".
