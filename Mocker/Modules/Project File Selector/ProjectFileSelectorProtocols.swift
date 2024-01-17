@@ -41,14 +41,14 @@ protocol ProjectFileSelectorPresenterProtocol: AnyObject {
 }
 
 // MARK: Interactor -
-protocol ProjectFileSelectorInteractorOutputProtocol: AnyObject {
+protocol ProjectFileSelectorInteractorOutputProtocol: AnyObject { //swiftlint:disable:this type_name
 
     func showSelectedFile(_ url: URL)
 
     /* Interactor -> Presenter */
 }
 
-protocol ProjectFileSelectorInteractorInputProtocol: AnyObject {
+protocol ProjectFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
 
     var presenter: ProjectFileSelectorInteractorOutputProtocol? { get set }
     var url: URL? { get }

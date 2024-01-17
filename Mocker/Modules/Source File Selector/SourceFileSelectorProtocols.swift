@@ -34,12 +34,12 @@ protocol SourceFileSelectorPresenterProtocol: AnyObject {
 }
 
 // MARK: Interactor -
-protocol SourceFileSelectorInteractorOutputProtocol: AnyObject {
+protocol SourceFileSelectorInteractorOutputProtocol: AnyObject {    //swiftlint:disable:this type_name
     
     /* Interactor -> Presenter */
 }
 
-protocol SourceFileSelectorInteractorInputProtocol: AnyObject {
+protocol SourceFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
     
     var presenter: SourceFileSelectorInteractorOutputProtocol? { get set }
     

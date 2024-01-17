@@ -208,3 +208,5 @@ extension MockMockFileParametersView.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+//swiftlint:enable identifier_name

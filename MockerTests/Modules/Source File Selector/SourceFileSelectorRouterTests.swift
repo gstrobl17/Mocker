@@ -10,10 +10,6 @@ import XCTest
 
 class SourceFileSelectorRouterTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-    }
-
     func testCreateModule() {
         
         let viewController = SourceFileSelectorRouter.createModule()

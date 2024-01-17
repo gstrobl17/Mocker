@@ -25,12 +25,6 @@ class FilterPresenterTests: XCTestCase {
         presenter = FilterPresenter(interface: view, interactor: interactor, router: router)
     }
 
-    override func tearDown() {
-        // Put teardown code here. 
-        // This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
     // MARK: - FilterPresenterProtocol methods -
    
     func test_viewHasLoaded() {

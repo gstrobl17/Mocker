@@ -17,10 +17,6 @@ class GodfatherRouterTests: XCTestCase {
     let mockGeneratorFactory = MockMockGeneratorFactory()
     let openPanelFactory = MockOpenPanelFactory()
     let filteringHandler = MockAsyncFilteringHandler()
-
-    override func setUp() {
-        super.setUp()
-    }
     
     func testCreateModule() {
         let viewController = ViewController()

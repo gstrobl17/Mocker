@@ -21,12 +21,6 @@ class FilterInteractorTests: XCTestCase {
         userDefaults = MockUserDefaults()
     }
 
-    override func tearDown() {
-        // Put teardown code here. 
-        // This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
     // MARK: - init -
 
     func testInit() {

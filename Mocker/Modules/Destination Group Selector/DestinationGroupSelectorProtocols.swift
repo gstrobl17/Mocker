@@ -8,19 +8,19 @@
 import AppKit
 
 // MARK: Interface -
-protocol DestinationGroupSelectorInterfaceProtocol: AnyObject {
+protocol DestinationGroupSelectorInterfaceProtocol: AnyObject { //swiftlint:disable:this type_name
 
     var delegate: DestinationGroupSelectorInterfaceDelegate? { get set }
     
     func present(tree rootTreeNode: TreeNode, for project: Project)
 }
 
-protocol DestinationGroupSelectorInterfaceDelegate: AnyObject {
+protocol DestinationGroupSelectorInterfaceDelegate: AnyObject { //swiftlint:disable:this type_name
     func destinationGroupSelector(_ interface: DestinationGroupSelectorInterfaceProtocol, groupSelected treeNode: TreeNode)
 }
 
 // MARK: Wireframe -
-protocol DestinationGroupSelectorWireframeProtocol: AnyObject {
+protocol DestinationGroupSelectorWireframeProtocol: AnyObject { //swiftlint:disable:this type_name
 
     var viewController: NSViewController? { get set }
 
@@ -30,14 +30,14 @@ protocol DestinationGroupSelectorWireframeProtocol: AnyObject {
 }
 
 // MARK: Interactor -
-protocol DestinationGroupSelectorInteractorOutputProtocol: AnyObject {
+protocol DestinationGroupSelectorInteractorOutputProtocol: AnyObject {  //swiftlint:disable:this type_name
 
     func present(tree rootTreeNode: TreeNode, for project: Project)
     func select(treeNode: TreeNode)
     /* Interactor -> Presenter */
 }
 
-protocol DestinationGroupSelectorInteractorInputProtocol: AnyObject {
+protocol DestinationGroupSelectorInteractorInputProtocol: AnyObject {   //swiftlint:disable:this type_name
 
     var presenter: DestinationGroupSelectorInteractorOutputProtocol? { get set }
     var selectedNode: TreeNode? { get }
@@ -48,7 +48,7 @@ protocol DestinationGroupSelectorInteractorInputProtocol: AnyObject {
 }
 
 // MARK: Presenter -
-protocol DestinationGroupSelectorPresenterProtocol: AnyObject {
+protocol DestinationGroupSelectorPresenterProtocol: AnyObject { //swiftlint:disable:this type_name
 
     var interactor: DestinationGroupSelectorInteractorInputProtocol? { get set }
 

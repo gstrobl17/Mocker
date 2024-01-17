@@ -55,7 +55,7 @@ protocol MockFileParametersPresenterProtocol: AnyObject {
 }
 
 // MARK: Interactor -
-protocol MockFileParametersInteractorOutputProtocol: AnyObject {
+protocol MockFileParametersInteractorOutputProtocol: AnyObject {    //swiftlint:disable:this type_name
 
     func setParameters(prefix: String,
                        stripTrailingProtocol: Bool,
@@ -67,7 +67,7 @@ protocol MockFileParametersInteractorOutputProtocol: AnyObject {
     /* Interactor -> Presenter */
 }
 
-protocol MockFileParametersInteractorInputProtocol: AnyObject {
+protocol MockFileParametersInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
 
     var presenter: MockFileParametersInteractorOutputProtocol? { get set }
 

@@ -164,3 +164,5 @@ extension MockMockFileParametersInteractorInput.MethodParameter: CustomStringCon
         return value
     }
 }
+
+//swiftlint:enable identifier_name

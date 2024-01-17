@@ -142,3 +142,5 @@ extension MockProjectFileSelectorView.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+//swiftlint:enable weak_delegate identifier_name

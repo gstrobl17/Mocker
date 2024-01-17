@@ -10,11 +10,7 @@ import XCTest
 @testable import Mocker
 
 class String_ExtensionsTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-    }
-
+    
     // MARK: - firstUppercased -
     
     func testFirstUppercased() {
@@ -94,3 +90,5 @@ class String_ExtensionsTests: XCTestCase {
         XCTAssertEqual(result, "(view: UIView, interface: NoteViewInterfaceProtocol)")
     }
 }
+
+// swiftlint:enable type_name

@@ -158,3 +158,5 @@ extension MockFileSynthesisInteractorOutput.MethodParameter: CustomStringConvert
         return value
     }
 }
+
+//swiftlint:enable identifier_name

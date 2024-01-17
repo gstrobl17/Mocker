@@ -342,7 +342,7 @@ class GodfatherInteractorTests: XCTestCase {
         let trackPropertyActivity = true
         let interactor = createInterator()
         interactor.currentProject = MockProject()
-        interactor.currentSourceFile = SourceFileInformation()
+        interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
         interactor.currentProtocolDeclaration = nil
         
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
@@ -363,7 +363,7 @@ class GodfatherInteractorTests: XCTestCase {
         let trackPropertyActivity = true
         let interactor = createInterator()
         interactor.currentProject = MockProject()
-        interactor.currentSourceFile = SourceFileInformation()
+        interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
         interactor.currentProtocolDeclaration = SyntaxFactory.makeProtocolDecl(
             attributes: nil,
             modifiers: nil,
@@ -393,7 +393,7 @@ class GodfatherInteractorTests: XCTestCase {
         let trackPropertyActivity = true
         let interactor = createInterator()
         interactor.currentProject = MockProject()
-        interactor.currentSourceFile = SourceFileInformation()
+        interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
         interactor.currentProtocolDeclaration = SyntaxFactory.makeProtocolDecl(
             attributes: nil,
             modifiers: nil,
@@ -438,3 +438,4 @@ class GodfatherInteractorTests: XCTestCase {
     }
 }
 
+//swiftlint:enable type_body_length file_length

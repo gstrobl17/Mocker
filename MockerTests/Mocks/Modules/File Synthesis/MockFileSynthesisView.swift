@@ -162,3 +162,5 @@ extension MockFileSynthesisView.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+//swiftlint:enable identifier_name

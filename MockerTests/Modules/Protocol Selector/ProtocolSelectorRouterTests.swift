@@ -9,10 +9,6 @@ import XCTest
 @testable import Mocker
 
 class ProtocolSelectorRouterTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-    }
     
     func testCreateModule() {
         

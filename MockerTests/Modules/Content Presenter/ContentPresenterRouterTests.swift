@@ -10,10 +10,6 @@ import XCTest
 
 class ContentPresenterRouterTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-    }
-    
     func testCreateModule() {
         
         _ = ContentPresenterRouter.createModule()

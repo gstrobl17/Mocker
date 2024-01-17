@@ -209,7 +209,7 @@ extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
             do {
                 currentSourceFileCode = try String(contentsOf: fileURL)
                 let sourceFileSyntax = try SyntaxParser.parse(fileURL)
-                let sourceFileInformation = SourceFileInformation()
+                let sourceFileInformation = SourceFileInformation(viewMode: .sourceAccurate)
                 sourceFileInformation.walk(sourceFileSyntax)
                 currentSourceFile = sourceFileInformation
             } catch let error {

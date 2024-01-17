@@ -11,10 +11,6 @@ import XCTest
 class ProjectFileSelectorRouterTests: XCTestCase {
 
     let openPanelFactory = MockOpenPanelFactory()
-    
-    override func setUp() {
-        super.setUp()
-    }
 
     func testCreateModule() {
         

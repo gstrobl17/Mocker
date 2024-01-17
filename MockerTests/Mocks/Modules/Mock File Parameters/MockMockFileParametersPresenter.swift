@@ -164,3 +164,5 @@ extension MockMockFileParametersPresenter.MethodParameter: CustomStringConvertib
         return value
     }
 }
+
+//swiftlint:enable identifier_name

@@ -142,3 +142,5 @@ extension MockFileManager.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+//swiftlint:enable identifier_name syntactic_sugar

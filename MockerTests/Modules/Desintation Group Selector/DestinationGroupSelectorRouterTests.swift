@@ -12,10 +12,6 @@ class DestinationGroupSelectorRouterTests: XCTestCase {
     
     let userDefaults = MockUserDefaults()
     let fileManager = MockFileManager()
-
-    override func setUp() {
-        super.setUp()
-    }
     
     func testCreateModule() {
         

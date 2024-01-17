@@ -11,10 +11,6 @@ import XCTest
 class MockFileParametersRouterTests: XCTestCase {
 
     let userDefaults = MockUserDefaults()
-
-    override func setUp() {
-        super.setUp()
-    }
     
     func testCreateModule() {
         
