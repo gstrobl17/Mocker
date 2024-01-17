@@ -24,19 +24,29 @@ class NameTracker {
     }
     
     private var nameMapping: [Name: [UniqueNameDefinition]] = [:]
-    
+    private(set) var nonStaticUniqueNames: Set<String> = []
+    private(set) var staticUniqueNames: Set<String> = []
+
     private(set) var nonStaticNameCount = 0
     private(set) var staticNameCount = 0
 
-    func generateCalledAttributeNames(for parameters: MockGeneratorParameters) {
+    private func resetState() {
         nameMapping.removeAll()
+        nonStaticUniqueNames.removeAll()
+        staticUniqueNames.removeAll()
+    }
+    
+    func generateCalledAttributeNames(for parameters: MockGeneratorParameters) {
+        resetState()
 
         parameters.variables.forEach { variable in
             if variable.hasGetter {
                 if variable.isStatic {
                     staticNameCount += 1
+                    staticUniqueNames.insert(variable.nameForCode)
                 } else {
                     nonStaticNameCount += 1
+                    nonStaticUniqueNames.insert(variable.nameForCode)
                 }
                 addTracking(of: variable.calledGetterVariableName, identifiedBy: variable.getterSignatureString)
             }
@@ -61,7 +71,7 @@ class NameTracker {
     }
 
     func generateParameterNames(for parameters: MockGeneratorParameters) {
-        nameMapping.removeAll()
+        resetState()
         
         parameters.variables.forEach { variable in
             if variable.hasSetter {

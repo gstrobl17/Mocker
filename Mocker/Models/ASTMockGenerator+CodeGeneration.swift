@@ -241,7 +241,7 @@ extension ASTMockGenerator {
         }
         for method in parameters.methods where !method.isStatic {
             for parameter in method.signature.input.parameterList {
-                guard let parameterName = parameterName(for: parameter) else { continue }
+                guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
                     code += "\(indentation)\(indentation)static let \(parameterName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
@@ -279,7 +279,7 @@ extension ASTMockGenerator {
         }
         for method in parameters.methods where method.isStatic {
             for parameter in method.signature.input.parameterList {
-                guard let parameterName = parameterName(for: parameter) else { continue }
+                guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
                     code += "\(indentation)\(indentation)static let \(parameterName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
@@ -319,7 +319,7 @@ extension ASTMockGenerator {
 
         for method in parameters.methods {
             for parameter in method.signature.input.parameterList {
-                guard let parameterName = parameterName(for: parameter) else { continue }
+                guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 
                 if !usedNames.contains(parameterName) {
                     contentGenerated = true
@@ -489,7 +489,7 @@ extension ASTMockGenerator {
 
         for method in parameters.methods {
             for parameter in method.signature.input.parameterList {
-                guard let parameterName = parameterName(for: parameter) else { continue }
+                guard let parameterName = parameterName(for: parameter, in: method) else { continue }
 
                 if !usedNames.contains(parameterName) {
                     let modifier = method.isStatic ? "\(parameters.mockName)." : ""
@@ -580,7 +580,7 @@ extension ASTMockGenerator {
 
             // Parameter value capture
             for parameter in method.signature.input.parameterList {
-                let parameterName = self.parameterName(for: parameter) ?? parameter.nameForParameter
+                let parameterName = self.parameterName(for: parameter, in: method) ?? parameter.nameForParameter
                 code += "\(indentation)\(indentation)self.\(parameterName) = \(parameter.nameForParameter)\n"
                 let optionSetVariableName = (method.isStatic) ? VariableName.assignedStaticParameters : VariableName.assignedParameters
                 code += "\(indentation)\(indentation)\(optionSetVariableName).insert(.\(parameterName))\n"
@@ -731,7 +731,7 @@ extension ASTMockGenerator {
         }
         for method in parameters.methods where !method.isStatic {
             for parameter in method.signature.input.parameterList {
-                guard let parameterName = parameterName(for: parameter) else { continue }
+                guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
                     generateOpenSetContainsBlock(for: parameterName)
                     usedNames.insert(parameterName)
@@ -753,7 +753,7 @@ extension ASTMockGenerator {
         }
         for method in parameters.methods where method.isStatic {
             for parameter in method.signature.input.parameterList {
-                guard let parameterName = parameterName(for: parameter) else { continue }
+                guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
                     generateOpenSetContainsBlock(for: parameterName)
                     usedNames.insert(parameterName)

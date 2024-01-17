@@ -27,6 +27,8 @@ class ASTMockGenerator: MockGenerating {
         static let calledStaticMethods = "calledStaticMethods"
         static let assignedParameters = "assignedParameters"
         static let assignedStaticParameters = "assignedStaticParameters"
+        
+        static let parameterNameSuffixForNameCollisions = "Parameter"
     }
 
     enum TypeName {
@@ -72,16 +74,20 @@ class ASTMockGenerator: MockGenerating {
         return calledAttributeName
     }
 
-    func parameterName(for parameter: FunctionParameterSyntax) -> String? {
+    func parameterName(for parameter: FunctionParameterSyntax, in method: FunctionDeclSyntax) -> String? {
         switch parameter.isResultCompletionHandler {
         case .yes(let details):
             return completionHandlerVariableName(for: details)
         case .no:
             let name = parameter.nameForParameter
             let type = parameter.baseTypeNameForParameter
-            guard let parameterName = parameterTracker.uniqueName(for: name, identifiedBy: type) else {
+            guard var parameterName = parameterTracker.uniqueName(for: name, identifiedBy: type) else {
                 assertionFailure("Unmapped parameter name/type: {\(name), \(type)})")
                 return nil
+            }
+            let nameCollisionWithProperty = (method.isStatic) ? calledAttributeTracker.staticUniqueNames.contains(parameterName) : calledAttributeTracker.nonStaticUniqueNames.contains(parameterName)
+            if nameCollisionWithProperty {
+                parameterName += VariableName.parameterNameSuffixForNameCollisions
             }
             return parameterName
         }
@@ -203,11 +209,11 @@ class ASTMockGenerator: MockGenerating {
         areMethodNamesValid(for: parameters.methods.filter { $0.isStatic })
     }
 
-    private func areParameterNamesValid(for methods: [FunctionDeclSyntax]) -> Bool {
+    private func areParameterNamesValid(for methods: [FunctionDeclSyntax], isMethodStatic: Bool) -> Bool {
         var valid = true
         for method in methods {
             for parameter in method.signature.input.parameterList {
-                guard let parameterName = parameterName(for: parameter) else { continue }
+                guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if parameterName.count < SwiftlintSupport.IdentifierName.minLength || parameterName.count > SwiftlintSupport.IdentifierName.maxLength {
                     valid = false
                     break
@@ -218,11 +224,11 @@ class ASTMockGenerator: MockGenerating {
     }
 
     func areNonStaticMethodParamterAssignedNamesValid(for parameters: MockGeneratorParameters) -> Bool {
-        areParameterNamesValid(for: parameters.methods.filter { !$0.isStatic })
+        areParameterNamesValid(for: parameters.methods.filter { !$0.isStatic }, isMethodStatic: false)
     }
 
     func areStaticMethodParamterAssignedNamesValid(for parameters: MockGeneratorParameters) -> Bool {
-        areParameterNamesValid(for: parameters.methods.filter { $0.isStatic })
+        areParameterNamesValid(for: parameters.methods.filter { $0.isStatic }, isMethodStatic: false)
     }
 
     func areResultCompletionHandlerVariableNamesValid(for parameters: MockGeneratorParameters) -> Bool {
