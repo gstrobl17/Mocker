@@ -146,7 +146,7 @@ extension ASTMockGenerator {
     
     func startOptionSetDeclaration(name: String, count: Int) {
         code += "\(indentation)struct \(name): OptionSet {\n"
-        let optionalTodo = (count > UInt.bitWidth) ? "  // TODO: Increase the size of OptionSet storage. There are more options (\(count) than bits (\(UInt.bitWidth)." : ""
+        let optionalTodo = (count > UInt.bitWidth) ? "  // TODO: Increase the size of OptionSet storage. There are more options (\(count)) than bits (\(UInt.bitWidth))." : ""
         code += "\(indentation)\(indentation)let rawValue: UInt" + optionalTodo + "\n"
     }
 
