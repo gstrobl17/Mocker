@@ -144,9 +144,10 @@ extension ASTMockGenerator {
         }
     }
     
-    func startOptionSetDeclaration(name: String) {
+    func startOptionSetDeclaration(name: String, count: Int) {
         code += "\(indentation)struct \(name): OptionSet {\n"
-        code += "\(indentation)\(indentation)let rawValue: Int\n"
+        let optionalTodo = (count > UInt.bitWidth) ? "  // TODO: Increase the size of OptionSet storage. There are more options (\(count) than bits (\(UInt.bitWidth)." : ""
+        code += "\(indentation)\(indentation)let rawValue: UInt" + optionalTodo + "\n"
     }
 
     func generateNonStaticMethodCalledOptionSet(for parameters: MockGeneratorParameters) {
@@ -159,25 +160,30 @@ extension ASTMockGenerator {
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
         }
-        startOptionSetDeclaration(name: TypeName.Method)
+        
+        // Pre-generate the individual options (so that we know the count when we declare the option set)
+        var options = ""
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where !variable.isStatic {
                 if variable.hasGetter, let calledAttributeName = getterCalledAttributeName(for: variable) {
-                    code += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
                 if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    code += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
             }
         }
         for method in parameters.methods where !method.isStatic {
             guard let calledAttributeName = calledAttributeName(for: method) else { continue }
-            code += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+            options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
             valueNumber += 1
         }
+
+        startOptionSetDeclaration(name: TypeName.Method, count: valueNumber)
+        code += options
         code += "\(indentation)}\n"
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
@@ -195,25 +201,30 @@ extension ASTMockGenerator {
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
         }
-        startOptionSetDeclaration(name: TypeName.StaticMethod)
+        
+        // Pre-generate the individual options (so that we know the count when we declare the option set)
+        var options = ""
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.isStatic {
                 if variable.hasGetter, let calledAttributeName = getterCalledAttributeName(for: variable) {
-                    code += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
                 if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    code += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
             }
         }
         for method in parameters.methods where method.isStatic {
             guard let calledAttributeName = calledAttributeName(for: method) else { continue }
-            code += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.StaticMethod)(rawValue: 1 << \(valueNumber))\n"
+            options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.StaticMethod)(rawValue: 1 << \(valueNumber))\n"
             valueNumber += 1
         }
+
+        startOptionSetDeclaration(name: TypeName.StaticMethod, count: valueNumber)
+        code += options
         code += "\(indentation)}\n"
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
@@ -232,11 +243,13 @@ extension ASTMockGenerator {
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
         }
-        startOptionSetDeclaration(name: TypeName.MethodParameter)
+        
+        // Pre-generate the individual options (so that we know the count when we declare the option set)
+        var options = ""
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.hasSetter && !variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
-                code += "\(indentation)\(indentation)static let \(variable.setterCaptureValueVariableName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
+                options += "\(indentation)\(indentation)static let \(variable.setterCaptureValueVariableName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
                 valueNumber += 1
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
@@ -245,12 +258,15 @@ extension ASTMockGenerator {
             for parameter in method.signature.input.parameterList {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
-                    code += "\(indentation)\(indentation)static let \(parameterName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)static let \(parameterName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                     usedNames.insert(parameterName)
                 }
             }
         }
+
+        startOptionSetDeclaration(name: TypeName.MethodParameter, count: valueNumber)
+        code += options
         code += "\(indentation)}\n"
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
@@ -269,11 +285,13 @@ extension ASTMockGenerator {
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
         }
-        startOptionSetDeclaration(name: TypeName.StaticMethodParameter)
+        
+        // Pre-generate the individual options (so that we know the count when we declare the option set)
+        var options = ""
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.hasSetter && variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
-                code += "\(indentation)\(indentation)static let \(variable.setterCaptureValueVariableName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
+                options += "\(indentation)\(indentation)static let \(variable.setterCaptureValueVariableName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
                 valueNumber += 1
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
@@ -282,12 +300,15 @@ extension ASTMockGenerator {
             for parameter in method.signature.input.parameterList {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
-                    code += "\(indentation)\(indentation)static let \(parameterName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)static let \(parameterName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                     usedNames.insert(parameterName)
                 }
             }
         }
+
+        startOptionSetDeclaration(name: TypeName.StaticMethodParameter, count: valueNumber)
+        code += options
         code += "\(indentation)}\n"
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
