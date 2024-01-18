@@ -143,6 +143,11 @@ extension ASTMockGenerator {
             first = false
         }
     }
+    
+    func startOptionSetDeclaration(name: String) {
+        code += "\(indentation)struct \(name): OptionSet {\n"
+        code += "\(indentation)\(indentation)let rawValue: Int\n"
+    }
 
     func generateNonStaticMethodCalledOptionSet(for parameters: MockGeneratorParameters) {
         var addIdentifierNameComments = false
@@ -154,8 +159,7 @@ extension ASTMockGenerator {
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
         }
-        code += "\(indentation)struct \(TypeName.Method): OptionSet {\n"
-        code += "\(indentation)\(indentation)let rawValue: Int\n"
+        startOptionSetDeclaration(name: TypeName.Method)
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where !variable.isStatic {
@@ -191,8 +195,7 @@ extension ASTMockGenerator {
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
         }
-        code += "\(indentation)struct \(TypeName.StaticMethod): OptionSet {\n"
-        code += "\(indentation)\(indentation)let rawValue: Int\n"
+        startOptionSetDeclaration(name: TypeName.StaticMethod)
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.isStatic {
@@ -229,8 +232,7 @@ extension ASTMockGenerator {
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
         }
-        code += "\(indentation)struct \(TypeName.MethodParameter): OptionSet {\n"
-        code += "\(indentation)\(indentation)let rawValue: Int\n"
+        startOptionSetDeclaration(name: TypeName.MethodParameter)
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.hasSetter && !variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
@@ -267,8 +269,7 @@ extension ASTMockGenerator {
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
         }
-        code += "\(indentation)struct \(TypeName.StaticMethodParameter): OptionSet {\n"
-        code += "\(indentation)\(indentation)let rawValue: Int\n"
+        startOptionSetDeclaration(name: TypeName.StaticMethodParameter)
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.hasSetter && variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
@@ -672,7 +673,7 @@ extension ASTMockGenerator {
         }
     }
 
-    func generateOpenSetContainsBlock(for name: String) {
+    func generateOptionSetContainsBlock(for name: String) {
         code += "\(indentation)\(indentation)if self.contains(.\(name)) {\n"
         code += "\(indentation)\(indentation)\(indentation)handleFirst()\n"
         code += "\(indentation)\(indentation)\(indentation)value += \".\(name)\"\n"
@@ -685,16 +686,16 @@ extension ASTMockGenerator {
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where !variable.isStatic {
                 if variable.hasGetter, let calledAttributeName = getterCalledAttributeName(for: variable) {
-                    generateOpenSetContainsBlock(for: calledAttributeName)
+                    generateOptionSetContainsBlock(for: calledAttributeName)
                 }
                 if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    generateOpenSetContainsBlock(for: calledAttributeName)
+                    generateOptionSetContainsBlock(for: calledAttributeName)
                 }
             }
         }
         for method in parameters.methods where !method.isStatic {
             guard let calledAttributeName = calledAttributeName(for: method) else { continue }
-            generateOpenSetContainsBlock(for: calledAttributeName)
+            generateOptionSetContainsBlock(for: calledAttributeName)
         }
         generateEndingOfOptionSetExtension()
     }
@@ -705,16 +706,16 @@ extension ASTMockGenerator {
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.isStatic {
                 if variable.hasGetter, let calledAttributeName = getterCalledAttributeName(for: variable) {
-                    generateOpenSetContainsBlock(for: calledAttributeName)
+                    generateOptionSetContainsBlock(for: calledAttributeName)
                 }
                 if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    generateOpenSetContainsBlock(for: calledAttributeName)
+                    generateOptionSetContainsBlock(for: calledAttributeName)
                 }
             }
         }
         for method in parameters.methods where method.isStatic {
             guard let calledAttributeName = calledAttributeName(for: method) else { continue }
-            generateOpenSetContainsBlock(for: calledAttributeName)
+            generateOptionSetContainsBlock(for: calledAttributeName)
         }
         generateEndingOfOptionSetExtension()
     }
@@ -725,7 +726,7 @@ extension ASTMockGenerator {
         generateBeginningOfOptionSetExtension(with: "\(parameters.mockName).\(TypeName.MethodParameter)")
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.hasSetter && !variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
-                generateOpenSetContainsBlock(for: variable.setterCaptureValueVariableName)
+                generateOptionSetContainsBlock(for: variable.setterCaptureValueVariableName)
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
         }
@@ -733,7 +734,7 @@ extension ASTMockGenerator {
             for parameter in method.signature.input.parameterList {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
-                    generateOpenSetContainsBlock(for: parameterName)
+                    generateOptionSetContainsBlock(for: parameterName)
                     usedNames.insert(parameterName)
                 }
             }
@@ -747,7 +748,7 @@ extension ASTMockGenerator {
         generateBeginningOfOptionSetExtension(with: "\(parameters.mockName).\(TypeName.StaticMethodParameter)")
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.hasSetter && variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
-                generateOpenSetContainsBlock(for: variable.setterCaptureValueVariableName)
+                generateOptionSetContainsBlock(for: variable.setterCaptureValueVariableName)
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
         }
@@ -755,7 +756,7 @@ extension ASTMockGenerator {
             for parameter in method.signature.input.parameterList {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
-                    generateOpenSetContainsBlock(for: parameterName)
+                    generateOptionSetContainsBlock(for: parameterName)
                     usedNames.insert(parameterName)
                 }
             }
