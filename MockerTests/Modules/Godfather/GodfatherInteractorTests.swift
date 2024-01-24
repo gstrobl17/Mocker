@@ -268,17 +268,10 @@ class GodfatherInteractorTests: XCTestCase {
 
     // MARK: - SourceFileSelectorInterfaceDelegate methods -
 
-    func test_protocolSelectorProtocolSelected() {
+    func test_protocolSelectorProtocolSelected() throws {
         let protocolSelector = MockProtocolSelectorView()
-        let protocolDeclaration = SyntaxFactory.makeProtocolDecl(
-            attributes: nil,
-            modifiers: nil,
-            protocolKeyword: SyntaxFactory.makeToken(.protocolKeyword, presence: .present),
-            identifier: SyntaxFactory.makeToken(.identifier("ABCD"), presence: .present),
-            primaryAssociatedTypeClause: nil,
-            inheritanceClause: nil,
-            genericWhereClause: nil,
-            members: SyntaxFactory.makeBlankMemberDeclBlock())
+        let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
+        let protocolDeclaration = ProtocolDeclSyntax(identifier: identifier, members: MemberDeclBlockSyntax(members: MemberDeclListSyntax([])))
         let interactor = createInterator()
 
         interactor.protocolSelector(protocolSelector, protocolSelected: protocolDeclaration)
@@ -354,7 +347,7 @@ class GodfatherInteractorTests: XCTestCase {
         }
     }
     
-    func test_mockFileParametersMethod_mockNameIsEmpty() {
+    func test_mockFileParametersMethod_mockNameIsEmpty() throws {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = ""
         let includeTestableImport = true
@@ -364,15 +357,8 @@ class GodfatherInteractorTests: XCTestCase {
         let interactor = createInterator()
         interactor.currentProject = MockProject()
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
-        interactor.currentProtocolDeclaration = SyntaxFactory.makeProtocolDecl(
-            attributes: nil,
-            modifiers: nil,
-            protocolKeyword: SyntaxFactory.makeToken(.protocolKeyword, presence: .present),
-            identifier: SyntaxFactory.makeToken(.identifier("ABCD"), presence: .present),
-            primaryAssociatedTypeClause: nil,
-            inheritanceClause: nil,
-            genericWhereClause: nil,
-            members: SyntaxFactory.makeBlankMemberDeclBlock())
+        let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
+        interactor.currentProtocolDeclaration = ProtocolDeclSyntax(identifier: identifier, members: MemberDeclBlockSyntax(members: MemberDeclListSyntax([])))
         
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
         
@@ -384,7 +370,7 @@ class GodfatherInteractorTests: XCTestCase {
         }
     }
 
-    func test_mockFileParametersMethod_mockNameIsValid() {
+    func test_mockFileParametersMethod_mockNameIsValid() throws {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = "Name"
         let includeTestableImport = true
@@ -394,15 +380,8 @@ class GodfatherInteractorTests: XCTestCase {
         let interactor = createInterator()
         interactor.currentProject = MockProject()
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
-        interactor.currentProtocolDeclaration = SyntaxFactory.makeProtocolDecl(
-            attributes: nil,
-            modifiers: nil,
-            protocolKeyword: SyntaxFactory.makeToken(.protocolKeyword, presence: .present),
-            identifier: SyntaxFactory.makeToken(.identifier("ABCD"), presence: .present),
-            primaryAssociatedTypeClause: nil,
-            inheritanceClause: nil,
-            genericWhereClause: nil,
-            members: SyntaxFactory.makeBlankMemberDeclBlock())
+        let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
+        interactor.currentProtocolDeclaration = ProtocolDeclSyntax(identifier: identifier, members: MemberDeclBlockSyntax(members: MemberDeclListSyntax([])))
 
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
         
