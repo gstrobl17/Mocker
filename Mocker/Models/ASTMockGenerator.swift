@@ -11,6 +11,8 @@ import SwiftSyntax
 class ASTMockGenerator: MockGenerating {
 
     let swiftlintAware: Bool
+    let dateFactory: DateCreating
+    let fullNameProvider: FullNameProviding
     internal var code = ""
     internal var contentGenerated = false
     internal let indentation = "    "
@@ -38,8 +40,14 @@ class ASTMockGenerator: MockGenerating {
         static let StaticMethodParameter = "StaticMethodParameter"
     }
 
-    init(swiftlintAware: Bool) {
+    init(
+        swiftlintAware: Bool,
+        dateFactory: DateCreating = DateFactory(),
+        fullNameProvider: FullNameProviding = FullNameProvider()
+    ) {
         self.swiftlintAware = swiftlintAware
+        self.dateFactory = dateFactory
+        self.fullNameProvider = fullNameProvider
     }
 
     // MARK: - Pre-parsing functions -

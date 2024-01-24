@@ -50,13 +50,13 @@ extension ASTMockGenerator {
             code += "//  \(projectName)\n"
         }
         code += "//\n"
-        code += "// Created by \(NSFullUserName()) on \(formatter.string(from: Date())).\n"
+        code += "// Created by \(fullNameProvider.name) on \(formatter.string(from: dateFactory.now)).\n"
         var organizationName = ""
         if let projectOrganizationName = parameters.project.organizationName {
             organizationName = " \(projectOrganizationName)"
         }
 
-        code += "// Copyright © \(Calendar.current.component(.year, from: Date()))\(organizationName). All rights reserved.\n"
+        code += "// Copyright © \(Calendar.current.component(.year, from: dateFactory.now))\(organizationName). All rights reserved.\n"
         code += "//\n"
     }
 
