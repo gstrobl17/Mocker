@@ -1,0 +1,410 @@
+//swiftlint:disable function_body_length file_length
+//
+//  ASTMockGeneratorTests+Misc+CloudStorage.swift
+//  MockerTests
+//
+//  Created by Greg Strobl on 1/25/24.
+//  Copyright © 2024 Goodman Productions. All rights reserved.
+//
+
+@testable import Mocker
+import XCTest
+import SwiftSyntax
+import SwiftSyntaxParser
+
+extension ASTMockGeneratorTests {
+    
+    var cloudStorageProtocol: String {
+        """
+        protocol CloudStorage {
+            func object(forKey aKey: String) -> Any?
+            func set(_ anObject: Any?, forKey aKey: String)
+            func removeObject(forKey aKey: String)
+            func data(forKey aKey: String) -> Data?
+            func set(_ aData: Data?, forKey aKey: String)
+            func synchronize() -> Bool
+        }
+        """
+    }
+    
+    func testCodeGeneration_cloudStorageProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: cloudStorageProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           class MockTest: CloudStorage {
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               struct Method: OptionSet {
+                                   let rawValue: UInt
+                                   static let objectForKeyAKeyCalled = Method(rawValue: 1 << 0)
+                                   static let setAnObjectForKeyAKeyCalled = Method(rawValue: 1 << 1)
+                                   static let removeObjectForKeyAKeyCalled = Method(rawValue: 1 << 2)
+                                   static let dataForKeyAKeyCalled = Method(rawValue: 1 << 3)
+                                   static let setADataForKeyAKeyCalled = Method(rawValue: 1 << 4)
+                                   static let synchronizeCalled = Method(rawValue: 1 << 5)
+                               }
+                               private(set) var calledMethods = Method()
+
+                               struct MethodParameter: OptionSet {
+                                   let rawValue: UInt
+                                   static let aKey = MethodParameter(rawValue: 1 << 0)
+                                   static let anObject = MethodParameter(rawValue: 1 << 1)
+                                   static let aData = MethodParameter(rawValue: 1 << 2)
+                               }
+                               private(set) var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) var aKey: String?
+                               private(set) var anObject: Any?
+                               private(set) var aData: Data?
+
+                               // MARK: - Variables to Use as Method Return Values
+
+                               var objectForKeyAKeyReturnValue: Any?
+                               var dataForKeyAKeyReturnValue: Data?
+                               var synchronizeReturnValue: Bool!
+
+
+                               func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   aKey = nil
+                                   anObject = nil
+                                   aData = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               func object(forKey aKey: String) -> Any? {
+                                   calledMethods.insert(.objectForKeyAKeyCalled)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                                   return objectForKeyAKeyReturnValue
+                               }
+
+                               func set(_ anObject: Any?, forKey aKey: String) {
+                                   calledMethods.insert(.setAnObjectForKeyAKeyCalled)
+                                   self.anObject = anObject
+                                   assignedParameters.insert(.anObject)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                               }
+
+                               func removeObject(forKey aKey: String) {
+                                   calledMethods.insert(.removeObjectForKeyAKeyCalled)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                               }
+
+                               func data(forKey aKey: String) -> Data? {
+                                   calledMethods.insert(.dataForKeyAKeyCalled)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                                   return dataForKeyAKeyReturnValue
+                               }
+
+                               func set(_ aData: Data?, forKey aKey: String) {
+                                   calledMethods.insert(.setADataForKeyAKeyCalled)
+                                   self.aData = aData
+                                   assignedParameters.insert(.aData)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                               }
+
+                               func synchronize() -> Bool {
+                                   calledMethods.insert(.synchronizeCalled)
+                                   return synchronizeReturnValue
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.objectForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".objectForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.setAnObjectForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".setAnObjectForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.removeObjectForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".removeObjectForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.dataForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".dataForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.setADataForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".setADataForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.synchronizeCalled) {
+                                       handleFirst()
+                                       value += ".synchronizeCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.aKey) {
+                                       handleFirst()
+                                       value += ".aKey"
+                                   }
+                                   if self.contains(.anObject) {
+                                       handleFirst()
+                                       value += ".anObject"
+                                   }
+                                   if self.contains(.aData) {
+                                       handleFirst()
+                                       value += ".aData"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+    
+    func testCodeGeneration_cloudStorageProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: cloudStorageProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           class MockTest: CloudStorage {
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               struct Method: OptionSet {
+                                   let rawValue: UInt
+                                   static let objectForKeyAKeyCalled = Method(rawValue: 1 << 0)
+                                   static let setAnObjectForKeyAKeyCalled = Method(rawValue: 1 << 1)
+                                   static let removeObjectForKeyAKeyCalled = Method(rawValue: 1 << 2)
+                                   static let dataForKeyAKeyCalled = Method(rawValue: 1 << 3)
+                                   static let setADataForKeyAKeyCalled = Method(rawValue: 1 << 4)
+                                   static let synchronizeCalled = Method(rawValue: 1 << 5)
+                               }
+                               private(set) var calledMethods = Method()
+
+                               struct MethodParameter: OptionSet {
+                                   let rawValue: UInt
+                                   static let aKey = MethodParameter(rawValue: 1 << 0)
+                                   static let anObject = MethodParameter(rawValue: 1 << 1)
+                                   static let aData = MethodParameter(rawValue: 1 << 2)
+                               }
+                               private(set) var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) var aKey: String?
+                               private(set) var anObject: Any?
+                               private(set) var aData: Data?
+
+                               // MARK: - Variables to Use as Method Return Values
+
+                               //swiftlint:disable implicitly_unwrapped_optional
+                               var objectForKeyAKeyReturnValue: Any?
+                               var dataForKeyAKeyReturnValue: Data?
+                               var synchronizeReturnValue: Bool!
+                               //swiftlint:enable implicitly_unwrapped_optional
+
+
+                               func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   aKey = nil
+                                   anObject = nil
+                                   aData = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               func object(forKey aKey: String) -> Any? {
+                                   calledMethods.insert(.objectForKeyAKeyCalled)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                                   return objectForKeyAKeyReturnValue
+                               }
+
+                               func set(_ anObject: Any?, forKey aKey: String) {
+                                   calledMethods.insert(.setAnObjectForKeyAKeyCalled)
+                                   self.anObject = anObject
+                                   assignedParameters.insert(.anObject)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                               }
+
+                               func removeObject(forKey aKey: String) {
+                                   calledMethods.insert(.removeObjectForKeyAKeyCalled)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                               }
+
+                               func data(forKey aKey: String) -> Data? {
+                                   calledMethods.insert(.dataForKeyAKeyCalled)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                                   return dataForKeyAKeyReturnValue
+                               }
+
+                               func set(_ aData: Data?, forKey aKey: String) {
+                                   calledMethods.insert(.setADataForKeyAKeyCalled)
+                                   self.aData = aData
+                                   assignedParameters.insert(.aData)
+                                   self.aKey = aKey
+                                   assignedParameters.insert(.aKey)
+                               }
+
+                               func synchronize() -> Bool {
+                                   calledMethods.insert(.synchronizeCalled)
+                                   return synchronizeReturnValue
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.objectForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".objectForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.setAnObjectForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".setAnObjectForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.removeObjectForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".removeObjectForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.dataForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".dataForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.setADataForKeyAKeyCalled) {
+                                       handleFirst()
+                                       value += ".setADataForKeyAKeyCalled"
+                                   }
+                                   if self.contains(.synchronizeCalled) {
+                                       handleFirst()
+                                       value += ".synchronizeCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.aKey) {
+                                       handleFirst()
+                                       value += ".aKey"
+                                   }
+                                   if self.contains(.anObject) {
+                                       handleFirst()
+                                       value += ".anObject"
+                                   }
+                                   if self.contains(.aData) {
+                                       handleFirst()
+                                       value += ".aData"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+}
+//swiftlint:enable function_body_length file_length
