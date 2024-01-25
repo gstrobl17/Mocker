@@ -97,10 +97,12 @@ final class ASTMockGeneratorTests: XCTestCase {
     
     // MARK: Empty Protocol
     
-    let emptyProtocol = """
-                        protocol Empty {
-                        }
-                        """
+    var emptyProtocol: String {
+        """
+        protocol Empty {
+        }
+        """
+    }
     
     func testCodeGeneration_emptyProtocol_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
@@ -134,6 +136,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let code = generator.generateMockCode(for: parameters)
         
         XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
     }
     
     func testCodeGeneration_emptyProtocol_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
@@ -169,6 +172,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let code = generator.generateMockCode(for: parameters)
         
         XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
     }
     
     func testCodeGeneration_emptyProtocol_swiftlintAwareTRUE_includeTestableImportTRUE_emptyImportList() throws {
@@ -201,5 +205,6 @@ final class ASTMockGeneratorTests: XCTestCase {
         let code = generator.generateMockCode(for: parameters)
         
         XCTAssertEqual(code, expectedCode)
-    }
+        printFirstDifference(code, expectedCode)
+   }
 }
