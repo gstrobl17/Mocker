@@ -1,6 +1,6 @@
 //swiftlint:disable function_body_length file_length
 //
-//  ASTMockGeneratorTests+SingleFunctionProtocol.swift
+//  ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift
 //  MockerTests
 //
 //  Created by Greg Strobl on 1/25/24.
@@ -14,20 +14,20 @@ import SwiftSyntaxParser
 
 extension ASTMockGeneratorTests {
     
-    // MARK: Single Function Protocol, No Input Parameters, No Return Value
+    // MARK: Single Static Function Protocol, No Input Parameters, No Return Value
     
-    var singleFunctionProtocolNoInputParametersNoReturnValue: String {
+    var singleStaticFunctionProtocolNoInputParametersNoReturnValue: String {
         """
         protocol SingleFunction {
-           func foo()
+           static func foo()
         }
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
@@ -47,26 +47,26 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() {
+                                   calledStaticMethods.insert(.fooCalled)
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -96,10 +96,10 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
@@ -120,26 +120,26 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() {
+                                   calledStaticMethods.insert(.fooCalled)
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -169,20 +169,20 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Single Function Protocol, 3 Input Parameters, No Return Value
+    // MARK: Single Static Function Protocol, 3 Input Parameters, No Return Value
     
-    var singleFunctionProtocol3InputParametersNoReturnValue: String {
+    var singleStaticFunctionProtocol3InputParametersNoReturnValue: String {
         """
         protocol SingleFunction {
-           func foo(_ a: String, b: Int, c: Bool)
+             static func foo(_ a: String, b: Int, c: Bool)
         }
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol3InputParametersNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocol3InputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
@@ -202,50 +202,50 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooABCCalled = Method(rawValue: 1 << 0)
+                                   static let fooABCCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct MethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet {
                                    let rawValue: UInt
-                                   static let a = MethodParameter(rawValue: 1 << 0)
-                                   static let b = MethodParameter(rawValue: 1 << 1)
-                                   static let c = MethodParameter(rawValue: 1 << 2)
+                                   static let a = StaticMethodParameter(rawValue: 1 << 0)
+                                   static let b = StaticMethodParameter(rawValue: 1 << 1)
+                                   static let c = StaticMethodParameter(rawValue: 1 << 2)
                                }
-                               private(set) var assignedParameters = MethodParameter()
+                               private(set) static var assignedStaticParameters = StaticMethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var a: String?
-                               private(set) var b: Int?
-                               private(set) var c: Bool?
+                               private(set) static var a: String?
+                               private(set) static var b: Int?
+                               private(set) static var c: Bool?
 
 
                                func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   a = nil
-                                   b = nil
-                                   c = nil
+                                   MockTest.calledStaticMethods = []
+                                   MockTest.assignedStaticParameters = []
+                                   MockTest.a = nil
+                                   MockTest.b = nil
+                                   MockTest.c = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo(_ a: String, b: Int, c: Bool) {
-                                   calledMethods.insert(.fooABCCalled)
+                               static func foo(_ a: String, b: Int, c: Bool) {
+                                   calledStaticMethods.insert(.fooABCCalled)
                                    self.a = a
-                                   assignedParameters.insert(.a)
+                                   assignedStaticParameters.insert(.a)
                                    self.b = b
-                                   assignedParameters.insert(.b)
+                                   assignedStaticParameters.insert(.b)
                                    self.c = c
-                                   assignedParameters.insert(.c)
+                                   assignedStaticParameters.insert(.c)
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -267,7 +267,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest.MethodParameter: CustomStringConvertible {
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -305,10 +305,10 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol3InputParametersNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocol3InputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
@@ -329,52 +329,52 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooABCCalled = Method(rawValue: 1 << 0)
+                                   static let fooABCCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
                                //swiftlint:disable identifier_name
-                               struct MethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet {
                                    let rawValue: UInt
-                                   static let a = MethodParameter(rawValue: 1 << 0)
-                                   static let b = MethodParameter(rawValue: 1 << 1)
-                                   static let c = MethodParameter(rawValue: 1 << 2)
+                                   static let a = StaticMethodParameter(rawValue: 1 << 0)
+                                   static let b = StaticMethodParameter(rawValue: 1 << 1)
+                                   static let c = StaticMethodParameter(rawValue: 1 << 2)
                                }
                                //swiftlint:enable identifier_name
-                               private(set) var assignedParameters = MethodParameter()
+                               private(set) static var assignedStaticParameters = StaticMethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var a: String?
-                               private(set) var b: Int?
-                               private(set) var c: Bool?
+                               private(set) static var a: String?
+                               private(set) static var b: Int?
+                               private(set) static var c: Bool?
 
 
                                func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   a = nil
-                                   b = nil
-                                   c = nil
+                                   MockTest.calledStaticMethods = []
+                                   MockTest.assignedStaticParameters = []
+                                   MockTest.a = nil
+                                   MockTest.b = nil
+                                   MockTest.c = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo(_ a: String, b: Int, c: Bool) {
-                                   calledMethods.insert(.fooABCCalled)
+                               static func foo(_ a: String, b: Int, c: Bool) {
+                                   calledStaticMethods.insert(.fooABCCalled)
                                    self.a = a
-                                   assignedParameters.insert(.a)
+                                   assignedStaticParameters.insert(.a)
                                    self.b = b
-                                   assignedParameters.insert(.b)
+                                   assignedStaticParameters.insert(.b)
                                    self.c = c
-                                   assignedParameters.insert(.c)
+                                   assignedStaticParameters.insert(.c)
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -396,7 +396,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest.MethodParameter: CustomStringConvertible {
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -434,20 +434,20 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Single Function Protocol, No Input Parameters, Int Return Value
+    // MARK: Single Static Function Protocol, No Input Parameters, Int Return Value
     
-    var singleFunctionProtocolNoInputParametersIntReturnValue: String {
+    var singleStaticFunctionProtocolNoInputParametersIntReturnValue: String {
         """
         protocol SingleFunction {
-           func foo() -> Int
+            static func foo() -> Int
         }
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersIntReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolNoInputParametersIntReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
@@ -467,31 +467,31 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
                                // MARK: - Variables to Use as Method Return Values
 
-                               var fooReturnValue: Int!
+                               static var fooReturnValue: Int!
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() -> Int {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() -> Int {
+                                   calledStaticMethods.insert(.fooCalled)
                                    return fooReturnValue
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -521,10 +521,10 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersIntReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolNoInputParametersIntReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
@@ -545,33 +545,33 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
                                // MARK: - Variables to Use as Method Return Values
 
                                //swiftlint:disable implicitly_unwrapped_optional
-                               var fooReturnValue: Int!
+                               static var fooReturnValue: Int!
                                //swiftlint:enable implicitly_unwrapped_optional
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() -> Int {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() -> Int {
+                                   calledStaticMethods.insert(.fooCalled)
                                    return fooReturnValue
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -601,20 +601,20 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Single Function Protocol, Optional Void Completion Handler Input Parameter, No Return Value
+    // MARK: Single Static Function Protocol, Optional Void Completion Handler Input Parameter, No Return Value
     
-    var singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue: String {
+    var singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue: String {
         """
         protocol SingleFunction {
-            func foo(completion: (() -> Void)?)
+            static func foo(completion: (() -> Void)?)
         }
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
@@ -634,40 +634,40 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCompletionCalled = Method(rawValue: 1 << 0)
+                                   static let fooCompletionCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct MethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet {
                                    let rawValue: UInt
-                                   static let completion = MethodParameter(rawValue: 1 << 0)
+                                   static let completion = StaticMethodParameter(rawValue: 1 << 0)
                                }
-                               private(set) var assignedParameters = MethodParameter()
+                               private(set) static var assignedStaticParameters = StaticMethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var completion: (() -> Void)?
+                               private(set) static var completion: (() -> Void)?
 
 
                                func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   completion = nil
+                                   MockTest.calledStaticMethods = []
+                                   MockTest.assignedStaticParameters = []
+                                   MockTest.completion = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo(completion: (() -> Void)?) {
-                                   calledMethods.insert(.fooCompletionCalled)
+                               static func foo(completion: (() -> Void)?) {
+                                   calledStaticMethods.insert(.fooCompletionCalled)
                                    self.completion = completion
-                                   assignedParameters.insert(.completion)
+                                   assignedStaticParameters.insert(.completion)
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -689,7 +689,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest.MethodParameter: CustomStringConvertible {
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -719,10 +719,10 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
@@ -743,40 +743,40 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCompletionCalled = Method(rawValue: 1 << 0)
+                                   static let fooCompletionCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct MethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet {
                                    let rawValue: UInt
-                                   static let completion = MethodParameter(rawValue: 1 << 0)
+                                   static let completion = StaticMethodParameter(rawValue: 1 << 0)
                                }
-                               private(set) var assignedParameters = MethodParameter()
+                               private(set) static var assignedStaticParameters = StaticMethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var completion: (() -> Void)?
+                               private(set) static var completion: (() -> Void)?
 
 
                                func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   completion = nil
+                                   MockTest.calledStaticMethods = []
+                                   MockTest.assignedStaticParameters = []
+                                   MockTest.completion = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo(completion: (() -> Void)?) {
-                                   calledMethods.insert(.fooCompletionCalled)
+                               static func foo(completion: (() -> Void)?) {
+                                   calledStaticMethods.insert(.fooCompletionCalled)
                                    self.completion = completion
-                                   assignedParameters.insert(.completion)
+                                   assignedStaticParameters.insert(.completion)
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -798,7 +798,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest.MethodParameter: CustomStringConvertible {
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -828,20 +828,20 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Single Function Protocol, Escaping Result Completion Handler Input Parameter, No Return Value
+    // MARK: Single Static Function Protocol, Escaping Result Completion Handler Input Parameter, No Return Value
     
-    var singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue: String {
+    var singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue: String {
         """
         protocol SingleFunction {
-            func foo(completionHandler: @escaping (Result<[Item], Error>) -> Void)
+            static func foo(completionHandler: @escaping (Result<[Item], Error>) -> Void)
         }
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
@@ -861,21 +861,21 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCompletionHandlerCalled = Method(rawValue: 1 << 0)
+                                   static let fooCompletionHandlerCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct MethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet {
                                    let rawValue: UInt
-                                   static let itemsCompletionHandler = MethodParameter(rawValue: 1 << 0)
+                                   static let itemsCompletionHandler = StaticMethodParameter(rawValue: 1 << 0)
                                }
-                               private(set) var assignedParameters = MethodParameter()
+                               private(set) static var assignedStaticParameters = StaticMethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var itemsCompletionHandler: ((Result<[Item], Error>) -> Void)?
+                               private(set) static var itemsCompletionHandler: ((Result<[Item], Error>) -> Void)?
 
                                // MARK: - Variables to Use to Control Completion Handlers
 
@@ -886,17 +886,17 @@ extension ASTMockGeneratorTests {
                                var fooCompletionHandlerCompletionHanderResult: Result<[Item], Error> = .failure(MockError)
 
                                func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   itemsCompletionHandler = nil
+                                   MockTest.calledStaticMethods = []
+                                   MockTest.assignedStaticParameters = []
+                                   MockTest.itemsCompletionHandler = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo(completionHandler: @escaping (Result<[Item], Error>) -> Void) {
-                                   calledMethods.insert(.fooCompletionHandlerCalled)
+                               static func foo(completionHandler: @escaping (Result<[Item], Error>) -> Void) {
+                                   calledStaticMethods.insert(.fooCompletionHandlerCalled)
                                    self.itemsCompletionHandler = completionHandler
-                                   assignedParameters.insert(.itemsCompletionHandler)
+                                   assignedStaticParameters.insert(.itemsCompletionHandler)
                                    if shouldCallCompletionHandler {
                                        completionHandler(itemsCompletionHandlerResult)
                                    }
@@ -907,7 +907,7 @@ extension ASTMockGeneratorTests {
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -929,7 +929,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest.MethodParameter: CustomStringConvertible {
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -959,10 +959,10 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
@@ -983,21 +983,21 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCompletionHandlerCalled = Method(rawValue: 1 << 0)
+                                   static let fooCompletionHandlerCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct MethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet {
                                    let rawValue: UInt
-                                   static let itemsCompletionHandler = MethodParameter(rawValue: 1 << 0)
+                                   static let itemsCompletionHandler = StaticMethodParameter(rawValue: 1 << 0)
                                }
-                               private(set) var assignedParameters = MethodParameter()
+                               private(set) static var assignedStaticParameters = StaticMethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var itemsCompletionHandler: ((Result<[Item], Error>) -> Void)?
+                               private(set) static var itemsCompletionHandler: ((Result<[Item], Error>) -> Void)?
 
                                // MARK: - Variables to Use to Control Completion Handlers
 
@@ -1008,17 +1008,17 @@ extension ASTMockGeneratorTests {
                                var fooCompletionHandlerCompletionHanderResult: Result<[Item], Error> = .failure(MockError)
 
                                func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   itemsCompletionHandler = nil
+                                   MockTest.calledStaticMethods = []
+                                   MockTest.assignedStaticParameters = []
+                                   MockTest.itemsCompletionHandler = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo(completionHandler: @escaping (Result<[Item], Error>) -> Void) {
-                                   calledMethods.insert(.fooCompletionHandlerCalled)
+                               static func foo(completionHandler: @escaping (Result<[Item], Error>) -> Void) {
+                                   calledStaticMethods.insert(.fooCompletionHandlerCalled)
                                    self.itemsCompletionHandler = completionHandler
-                                   assignedParameters.insert(.itemsCompletionHandler)
+                                   assignedStaticParameters.insert(.itemsCompletionHandler)
                                    if shouldCallCompletionHandler {
                                        completionHandler(itemsCompletionHandlerResult)
                                    }
@@ -1029,7 +1029,7 @@ extension ASTMockGeneratorTests {
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -1051,7 +1051,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest.MethodParameter: CustomStringConvertible {
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -1081,20 +1081,20 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Single Function Protocol, Aync, No Input Parameters, No Return Value
+    // MARK: Single Static Function Protocol, Aync, No Input Parameters, No Return Value
     
-    var singleFunctionProtocolAsyncNoInputParametersNoReturnValue: String {
+    var singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue: String {
         """
         protocol SingleFunction {
-           func foo() async
+           static func foo() async
         }
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncNoInputParametersNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
@@ -1114,26 +1114,26 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() async {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() async {
+                                   calledStaticMethods.insert(.fooCalled)
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -1163,10 +1163,10 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncNoInputParametersNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
@@ -1187,26 +1187,26 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() async {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() async {
+                                   calledStaticMethods.insert(.fooCalled)
                                }
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -1236,20 +1236,20 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Single Function Protocol, Aync, Throws, No Input Parameters, No Return Value
+    // MARK: Single Static Function Protocol, Aync, Throws, No Input Parameters, No Return Value
     
-    var singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue: String {
+    var singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue: String {
         """
         protocol SingleFunction {
-           func foo() async throws
+           static func foo() async throws
         }
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
@@ -1269,24 +1269,24 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
-                               var errorToThrow: Error!
-                               var fooShouldThrowError = false
+                               static var errorToThrow: Error!
+                               static var fooShouldThrowError = false
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() async throws {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() async throws {
+                                   calledStaticMethods.insert(.fooCalled)
                                    if fooShouldThrowError && errorToThrow != nil {
                                        throw errorToThrow
                                    }
@@ -1294,7 +1294,7 @@ extension ASTMockGeneratorTests {
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -1324,10 +1324,10 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
@@ -1348,24 +1348,24 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
-                               var errorToThrow: Error!
-                               var fooShouldThrowError = false
+                               static var errorToThrow: Error!
+                               static var fooShouldThrowError = false
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() async throws {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() async throws {
+                                   calledStaticMethods.insert(.fooCalled)
                                    if fooShouldThrowError && errorToThrow != nil {
                                        throw errorToThrow
                                    }
@@ -1373,7 +1373,7 @@ extension ASTMockGeneratorTests {
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -1394,7 +1394,7 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-
+                           
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1403,20 +1403,20 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Single Function Protocol, Aync, Throws, No Input Parameters, SomeItem Return Value
+    // MARK: Single Static Function Protocol, Aync, Throws, No Input Parameters, SomeItem Return Value
     
-    var singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue: String {
+    var singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue: String {
         """
         protocol SingleFunction {
-           func foo() async throws -> SomeItem
+           static func foo() async throws -> SomeItem
         }
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
@@ -1436,28 +1436,28 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
                                // MARK: - Variables to Use as Method Return Values
 
-                               var fooReturnValue: SomeItem!
+                               static var fooReturnValue: SomeItem!
 
-                               var errorToThrow: Error!
-                               var fooShouldThrowError = false
+                               static var errorToThrow: Error!
+                               static var fooShouldThrowError = false
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() async throws -> SomeItem {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() async throws -> SomeItem {
+                                   calledStaticMethods.insert(.fooCalled)
                                    if fooShouldThrowError && errorToThrow != nil {
                                        throw errorToThrow
                                    }
@@ -1466,7 +1466,7 @@ extension ASTMockGeneratorTests {
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -1487,7 +1487,7 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-
+                           
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1496,10 +1496,10 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue))
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
@@ -1520,30 +1520,30 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct StaticMethod: OptionSet {
                                    let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
+                                   static let fooCalled = StaticMethod(rawValue: 1 << 0)
                                }
-                               private(set) var calledMethods = Method()
+                               private(set) static var calledStaticMethods = StaticMethod()
 
                                // MARK: - Variables to Use as Method Return Values
 
                                //swiftlint:disable implicitly_unwrapped_optional
-                               var fooReturnValue: SomeItem!
+                               static var fooReturnValue: SomeItem!
                                //swiftlint:enable implicitly_unwrapped_optional
 
-                               var errorToThrow: Error!
-                               var fooShouldThrowError = false
+                               static var errorToThrow: Error!
+                               static var fooShouldThrowError = false
 
 
                                func reset() {
-                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo() async throws -> SomeItem {
-                                   calledMethods.insert(.fooCalled)
+                               static func foo() async throws -> SomeItem {
+                                   calledStaticMethods.insert(.fooCalled)
                                    if fooShouldThrowError && errorToThrow != nil {
                                        throw errorToThrow
                                    }
@@ -1552,7 +1552,7 @@ extension ASTMockGeneratorTests {
 
                            }
 
-                           extension MockTest.Method: CustomStringConvertible {
+                           extension MockTest.StaticMethod: CustomStringConvertible {
                                var description: String {
                                    var value = "["
                                    var first = true
@@ -1573,7 +1573,7 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-                           
+
                            """
         
         let code = generator.generateMockCode(for: parameters)

@@ -63,6 +63,7 @@
 		647C06A7217261C200778040 /* FilteringOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C06A6217261C200778040 /* FilteringOperation.swift */; };
 		647C06A9217264A600778040 /* AsyncFilteringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C06A8217264A600778040 /* AsyncFilteringHandler.swift */; };
 		647C06AB2172653F00778040 /* ProjectFilteringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C06AA2172653F00778040 /* ProjectFilteringHandler.swift */; };
+		6486919F2B62D6D00021A9F1 /* ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6486919E2B62D6D00021A9F1 /* ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift */; };
 		6488BA322B6178F5004A1812 /* DateCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA312B6178F5004A1812 /* DateCreating.swift */; };
 		6488BA342B61793A004A1812 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA332B61793A004A1812 /* DateFactory.swift */; };
 		6488BA362B61797F004A1812 /* FullNameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA352B61797F004A1812 /* FullNameProviding.swift */; };
@@ -287,6 +288,7 @@
 		647C06A6217261C200778040 /* FilteringOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringOperation.swift; sourceTree = "<group>"; };
 		647C06A8217264A600778040 /* AsyncFilteringHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncFilteringHandler.swift; sourceTree = "<group>"; };
 		647C06AA2172653F00778040 /* ProjectFilteringHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFilteringHandler.swift; sourceTree = "<group>"; };
+		6486919E2B62D6D00021A9F1 /* ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift"; sourceTree = "<group>"; };
 		6488BA312B6178F5004A1812 /* DateCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCreating.swift; sourceTree = "<group>"; };
 		6488BA332B61793A004A1812 /* DateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
 		6488BA352B61797F004A1812 /* FullNameProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullNameProviding.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 			children = (
 				6488BA3D2B6184AA004A1812 /* ASTMockGeneratorTests.swift */,
 				6488BA3F2B625E88004A1812 /* ASTMockGeneratorTests+SingleFunctionProtocol.swift */,
+				6486919E2B62D6D00021A9F1 /* ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift */,
 				6418CFA721428099008DD695 /* NameTrackerTests.swift */,
 			);
 			path = Models;
@@ -1324,6 +1327,7 @@
 				6424DB62204C46550064DB65 /* MockFileSynthesisInteractorOutput.swift in Sources */,
 				64C608FA20435770005D6869 /* MockMockFileParametersInteractorOutput.swift in Sources */,
 				6424DB70205007660064DB65 /* FileSynthesisPresenterTests.swift in Sources */,
+				6486919F2B62D6D00021A9F1 /* ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift in Sources */,
 				64C6090020435906005D6869 /* MockMockFileParametersView.swift in Sources */,
 				6488BA4B2B62978A004A1812 /* XCTTest+Extensions.swift in Sources */,
 				64C607F6203F9D87005D6869 /* MockSourceFileSelectorInteractorInput.swift in Sources */,
