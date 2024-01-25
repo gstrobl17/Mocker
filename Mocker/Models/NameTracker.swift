@@ -36,11 +36,11 @@ class NameTracker {
         staticUniqueNames.removeAll()
     }
     
-    func generateCalledAttributeNames(for parameters: MockGeneratorParameters) {
+    func generatePropertyNames(for parameters: MockGeneratorParameters) {
         resetState()
 
-        parameters.variables.forEach { variable in
-            if variable.hasGetter {
+        if !parameters.trackPropertyActivity {
+            parameters.variables.forEach { variable in
                 if variable.isStatic {
                     staticNameCount += 1
                     staticUniqueNames.insert(variable.nameForCode)
@@ -50,13 +50,32 @@ class NameTracker {
                 }
                 addTracking(of: variable.calledGetterVariableName, identifiedBy: variable.getterSignatureString)
             }
-            if variable.hasSetter {
-                if variable.isStatic {
-                    staticNameCount += 1
-                } else {
-                    nonStaticNameCount += 1
+        }
+    }
+
+    func generateCalledAttributeNames(for parameters: MockGeneratorParameters) {
+        resetState()
+
+        if parameters.trackPropertyActivity {
+            parameters.variables.forEach { variable in
+                if variable.hasGetter {
+                    if variable.isStatic {
+                        staticNameCount += 1
+                        staticUniqueNames.insert(variable.nameForCode)
+                    } else {
+                        nonStaticNameCount += 1
+                        nonStaticUniqueNames.insert(variable.nameForCode)
+                    }
+                    addTracking(of: variable.calledGetterVariableName, identifiedBy: variable.getterSignatureString)
                 }
-                addTracking(of: variable.calledSetterVariableName, identifiedBy: variable.setterSignatureString)
+                if variable.hasSetter {
+                    if variable.isStatic {
+                        staticNameCount += 1
+                    } else {
+                        nonStaticNameCount += 1
+                    }
+                    addTracking(of: variable.calledSetterVariableName, identifiedBy: variable.setterSignatureString)
+                }
             }
         }
         
@@ -73,14 +92,16 @@ class NameTracker {
     func generateParameterNames(for parameters: MockGeneratorParameters) {
         resetState()
         
-        parameters.variables.forEach { variable in
-            if variable.hasSetter {
-                if variable.isStatic {
-                    staticNameCount += 1
-                } else {
-                    nonStaticNameCount += 1
+        if parameters.trackPropertyActivity {
+            parameters.variables.forEach { variable in
+                if variable.hasSetter {
+                    if variable.isStatic {
+                        staticNameCount += 1
+                    } else {
+                        nonStaticNameCount += 1
+                    }
+                    addTracking(of: variable.calledSetterVariableName, identifiedBy: variable.setterSignatureString)
                 }
-                addTracking(of: variable.calledSetterVariableName, identifiedBy: variable.setterSignatureString)
             }
         }
 

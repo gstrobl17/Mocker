@@ -16,6 +16,7 @@ class ASTMockGenerator: MockGenerating {
     internal var code = ""
     internal var contentGenerated = false
     internal let indentation = "    "
+    internal let propertyTracker = NameTracker()
     internal let calledAttributeTracker = NameTracker()
     internal let parameterTracker = NameTracker()
     internal var generateInstanceErrorToThrowVariable = false
@@ -93,7 +94,8 @@ class ASTMockGenerator: MockGenerating {
                 assertionFailure("Unmapped parameter name/type: {\(name), \(type)})")
                 return nil
             }
-            let nameCollisionWithProperty = (method.isStatic) ? calledAttributeTracker.staticUniqueNames.contains(parameterName) : calledAttributeTracker.nonStaticUniqueNames.contains(parameterName)
+            let nameCollisionWithProperty = (method.isStatic) ? calledAttributeTracker.staticUniqueNames.contains(parameterName) || propertyTracker.staticUniqueNames.contains(parameterName)
+                                                              : calledAttributeTracker.nonStaticUniqueNames.contains(parameterName) || propertyTracker.nonStaticUniqueNames.contains(parameterName)
             if nameCollisionWithProperty {
                 parameterName += VariableName.parameterNameSuffixForNameCollisions
             }
@@ -158,6 +160,7 @@ class ASTMockGenerator: MockGenerating {
     func generateMockCode(for parameters: MockGeneratorParameters) -> String {
 
         // Preprocessing
+        propertyTracker.generatePropertyNames(for: parameters)
         calledAttributeTracker.generateCalledAttributeNames(for: parameters)
         parameterTracker.generateParameterNames(for: parameters)
         determineIfAnyMethodsThrow(for: parameters)
