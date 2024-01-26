@@ -72,6 +72,8 @@
 		648691AB2B62FE1E0021A9F1 /* ASTMockGeneratorTests+Misc+NotificationCenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648691AA2B62FE1E0021A9F1 /* ASTMockGeneratorTests+Misc+NotificationCenterProtocol.swift */; };
 		648691AD2B6300170021A9F1 /* ASTMockGeneratorTests+Misc+SearchableIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648691AC2B6300170021A9F1 /* ASTMockGeneratorTests+Misc+SearchableIndex.swift */; };
 		648691AF2B63015C0021A9F1 /* ASTMockGeneratorTests+Misc+WarmUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648691AE2B63015C0021A9F1 /* ASTMockGeneratorTests+Misc+WarmUpManager.swift */; };
+		648691B12B636E680021A9F1 /* ASTMockGeneratorTests+Misc+JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648691B02B636E680021A9F1 /* ASTMockGeneratorTests+Misc+JSONDecoding.swift */; };
+		648691B32B636FB90021A9F1 /* ASTMockGeneratorTests+Misc+KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648691B22B636FB90021A9F1 /* ASTMockGeneratorTests+Misc+KeyValueStoring.swift */; };
 		6488BA322B6178F5004A1812 /* DateCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA312B6178F5004A1812 /* DateCreating.swift */; };
 		6488BA342B61793A004A1812 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA332B61793A004A1812 /* DateFactory.swift */; };
 		6488BA362B61797F004A1812 /* FullNameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA352B61797F004A1812 /* FullNameProviding.swift */; };
@@ -305,6 +307,8 @@
 		648691AA2B62FE1E0021A9F1 /* ASTMockGeneratorTests+Misc+NotificationCenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTMockGeneratorTests+Misc+NotificationCenterProtocol.swift"; sourceTree = "<group>"; };
 		648691AC2B6300170021A9F1 /* ASTMockGeneratorTests+Misc+SearchableIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTMockGeneratorTests+Misc+SearchableIndex.swift"; sourceTree = "<group>"; };
 		648691AE2B63015C0021A9F1 /* ASTMockGeneratorTests+Misc+WarmUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTMockGeneratorTests+Misc+WarmUpManager.swift"; sourceTree = "<group>"; };
+		648691B02B636E680021A9F1 /* ASTMockGeneratorTests+Misc+JSONDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTMockGeneratorTests+Misc+JSONDecoding.swift"; sourceTree = "<group>"; };
+		648691B22B636FB90021A9F1 /* ASTMockGeneratorTests+Misc+KeyValueStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTMockGeneratorTests+Misc+KeyValueStoring.swift"; sourceTree = "<group>"; };
 		6488BA312B6178F5004A1812 /* DateCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCreating.swift; sourceTree = "<group>"; };
 		6488BA332B61793A004A1812 /* DateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
 		6488BA352B61797F004A1812 /* FullNameProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullNameProviding.swift; sourceTree = "<group>"; };
@@ -480,6 +484,8 @@
 				648691A42B62F9FB0021A9F1 /* ASTMockGeneratorTests+Misc+CloudStorage.swift */,
 				648691A62B62FB1C0021A9F1 /* ASTMockGeneratorTests+Misc+FileManagerProtocol.swift */,
 				648691A82B62FCE00021A9F1 /* ASTMockGeneratorTests+Misc+HelpPresenting.swift */,
+				648691B02B636E680021A9F1 /* ASTMockGeneratorTests+Misc+JSONDecoding.swift */,
+				648691B22B636FB90021A9F1 /* ASTMockGeneratorTests+Misc+KeyValueStoring.swift */,
 				648691AA2B62FE1E0021A9F1 /* ASTMockGeneratorTests+Misc+NotificationCenterProtocol.swift */,
 				648691AC2B6300170021A9F1 /* ASTMockGeneratorTests+Misc+SearchableIndex.swift */,
 				648691AE2B63015C0021A9F1 /* ASTMockGeneratorTests+Misc+WarmUpManager.swift */,
@@ -1341,9 +1347,11 @@
 				647C069A21723FC600778040 /* FilterRouterTests.swift in Sources */,
 				6488BA472B628A3E004A1812 /* firstDifferenceBetweenStrings.swift in Sources */,
 				64C6091020457865005D6869 /* MockMockGeneratorFactory.swift in Sources */,
+				648691B32B636FB90021A9F1 /* ASTMockGeneratorTests+Misc+KeyValueStoring.swift in Sources */,
 				64C607E9203F8A0C005D6869 /* MockProjectFileSelectorPresenter.swift in Sources */,
 				64C608CF2042F2A3005D6869 /* MockFileManager.swift in Sources */,
 				64C608E5204337C2005D6869 /* ProtocolSelectorPresenterTests.swift in Sources */,
+				648691B12B636E680021A9F1 /* ASTMockGeneratorTests+Misc+JSONDecoding.swift in Sources */,
 				64C608C92042ECDB005D6869 /* MockUserDefaults.swift in Sources */,
 				64C607F8203F9E36005D6869 /* MockSourceFileSelectorInteractorOutput.swift in Sources */,
 				6424DB56204AACD80064DB65 /* MockDestinationGroupSelectorRouter.swift in Sources */,
