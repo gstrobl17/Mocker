@@ -242,24 +242,4 @@ class ASTMockGenerator: MockGenerating {
         areParameterNamesValid(for: parameters.methods.filter { $0.isStatic }, isMethodStatic: false)
     }
 
-    func areResultCompletionHandlerVariableNamesValid(for parameters: MockGeneratorParameters) -> Bool {
-        var valid = true
-
-        for method in parameters.methods {
-            for parameter in method.signature.input.parameterList where parameter.isFunction {
-                if case let FunctionParameterSyntax.ResultCompletionHandlerAnswer.yes(details) = parameter.isResultCompletionHandler {
-                    let name = completionHandlerResultVariableName(for: details)
-
-                    if name.count < SwiftlintSupport.IdentifierName.minLength || name.count > SwiftlintSupport.IdentifierName.maxLength {
-                        valid = false
-                        break
-                    }
-                }
-                if !valid { break }
-            }
-            if !valid { break }
-        }
-        return valid
-    }
-
 }
