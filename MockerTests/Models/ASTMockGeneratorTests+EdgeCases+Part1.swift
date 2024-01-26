@@ -2074,7 +2074,5 @@ extension ASTMockGeneratorTests {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
-    
-    // MARK: Protocol with Function with a Result Completion Handler With a Long Type Name
 }
 //swiftlint:enable function_body_length file_length
