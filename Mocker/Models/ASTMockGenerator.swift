@@ -204,7 +204,7 @@ class ASTMockGenerator: MockGenerating {
         var valid = true
         for method in methods {
             guard let calledAttributeName = calledAttributeName(for: method) else { continue }
-            if calledAttributeName.count < SwiftlintSupport.IdentifierName.minLength || calledAttributeName.count > SwiftlintSupport.IdentifierName.maxLength {
+            if !isNameValid(calledAttributeName) {
                 valid = false
                 break
             }
@@ -225,7 +225,7 @@ class ASTMockGenerator: MockGenerating {
         for method in methods {
             for parameter in method.signature.input.parameterList {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
-                if parameterName.count < SwiftlintSupport.IdentifierName.minLength || parameterName.count > SwiftlintSupport.IdentifierName.maxLength {
+                if !isNameValid(parameterName) {
                     valid = false
                     break
                 }
@@ -242,4 +242,37 @@ class ASTMockGenerator: MockGenerating {
         areParameterNamesValid(for: parameters.methods.filter { $0.isStatic }, isMethodStatic: false)
     }
 
+    func areShouldCallAndResultVariableNamesValid(for parameters: MockGeneratorParameters) -> Bool {
+        var valid = true
+        for method in parameters.methods {
+            for parameter in method.signature.input.parameterList where parameter.isFunction {
+                let shouldCallVariableName = parameter.shouldCallVariableName
+                if !isNameValid(shouldCallVariableName) {
+                    valid = false
+                    break
+                }
+                
+                if case let FunctionParameterSyntax.ResultCompletionHandlerAnswer.yes(details) = parameter.isResultCompletionHandler {
+                    let resultVariableName = completionHandlerResultVariableName(for: details)
+                    if !isNameValid(resultVariableName) {
+                        valid = false
+                        break
+                    }
+                    
+                    let methodResultVariableName = method.completionHandlerResultVariableName
+                    let shouldCallVariableName = method.shouldCallCompletionHandlerVariableName
+                    assert(shouldCallVariableName.count > methodResultVariableName.count)
+                    if !isNameValid(shouldCallVariableName) {
+                        valid = false
+                        break
+                    }
+                }
+            }
+        }
+        return valid
+    }
+                
+    func isNameValid(_ name: String) -> Bool {
+        !(name.count < SwiftlintSupport.IdentifierName.minLength || name.count > SwiftlintSupport.IdentifierName.maxLength)
+    }
 }

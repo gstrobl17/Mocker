@@ -1001,11 +1001,13 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables to Use to Control Completion Handlers
 
+                               //swiftlint:disable identifier_name
                                var shouldCallCompletionHandler = false
                                var itemsCompletionHandlerResult = .failure(MockError)
 
                                var shouldCallFooCompletionHandlerCompletionHander = false
                                var fooCompletionHandlerCompletionHanderResult: Result<[Item], Error> = .failure(MockError)
+                               //swiftlint:enable identifier_name
 
                                func reset() {
                                    MockTest.calledStaticMethods = []

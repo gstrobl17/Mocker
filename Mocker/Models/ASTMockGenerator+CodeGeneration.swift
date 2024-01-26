@@ -375,7 +375,7 @@ extension ASTMockGenerator {
             let modifier = method.isStatic ? "static " : ""
             let implicitlyUnwrappedOptionalModifier = returnType.isOptional ? "" : "!"
             var swiftlintCommand = ""
-            if swiftlintAware && (method.returnValueVariableName.count < SwiftlintSupport.IdentifierName.minLength || method.returnValueVariableName.count > SwiftlintSupport.IdentifierName.maxLength) {
+            if swiftlintAware && !isNameValid(method.returnValueVariableName) {
                 swiftlintCommand = " \(SwiftlintSupport.IdentifierName.disableThisComment)"
             }
             code += "\(indentation)\(modifier)var \(method.returnValueVariableName): \(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(implicitlyUnwrappedOptionalModifier)\(swiftlintCommand)\n"
@@ -405,13 +405,12 @@ extension ASTMockGenerator {
     }
 
     func generateShouldCallAttributes(for parameters: MockGeneratorParameters) { //swiftlint:disable:this cyclomatic_complexity function_body_length
-        var first = true
         var firstShouldCallVariable = true
         var usedNames: Set<String> = []
 
         var addVariableNameComments = false
         if swiftlintAware {
-            addVariableNameComments = !areNonStaticMethodNamesValid(for: parameters)
+            addVariableNameComments = !areShouldCallAndResultVariableNamesValid(for: parameters)
         }
 
         contentGenerated = true
@@ -424,17 +423,15 @@ extension ASTMockGenerator {
 
                 if !usedNames.contains(shouldCallVariableName) {
                     generateMark(with: "Variables to Use to Control Completion Handlers")
+                    if addVariableNameComments {
+                        code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
+                    }
                     code += "\(indentation)var \(shouldCallVariableName) = false\n"
                     usedNames.insert(shouldCallVariableName)
                 }
 
                 if case let FunctionParameterSyntax.ResultCompletionHandlerAnswer.yes(details) = parameter.isResultCompletionHandler {
                     let resultVariableName = completionHandlerResultVariableName(for: details)
-
-                    if first && addVariableNameComments {
-                        code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
-                        first = false
-                    }
 
                     if !usedNames.contains(resultVariableName) {
                         code += "\(indentation)var \(resultVariableName) = .failure(MockError)\n"
@@ -464,11 +461,6 @@ extension ASTMockGenerator {
 
                     let resultVariableName = method.completionHandlerResultVariableName
 
-                    if first && addVariableNameComments {
-                        code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
-                        first = false
-                    }
-
                     if !usedNames.contains(resultVariableName) {
                         code += "\(indentation)var \(resultVariableName): \(parameter.typeNameForDetail(detail)) = .failure(MockError)\n"
                         usedNames.insert(resultVariableName)
@@ -477,7 +469,7 @@ extension ASTMockGenerator {
             }
         }
 
-        if !first && addVariableNameComments {
+        if addVariableNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
         }
     }
