@@ -361,13 +361,24 @@ extension ASTMockGenerator {
     func generateReturnValueAttributes(for parameters: MockGeneratorParameters) {
         var first = true
         
+        // Determine if any of return values will be implicitly unwrapped optional
+        var hasImplicitlyUnwrappedOptionals = false
+        for method in parameters.methods {
+            guard let returnType = method.signature.output?.returnType else { continue }
+            if !returnType.isOptional {
+                // This return value will be a "!"
+                hasImplicitlyUnwrappedOptionals = true
+                break
+            }
+        }
+        
         for method in parameters.methods {
             guard let returnType = method.signature.output?.returnType else { continue }
             
             contentGenerated = true
             if first {
                 generateMark(with: "Variables to Use as Method Return Values")
-                if swiftlintAware {
+                if swiftlintAware && hasImplicitlyUnwrappedOptionals {
                     code += "\(indentation)\(SwiftlintSupport.ImplicitlyUnwrappedOptional.disableComment)\n"
                 }
                 first = false
@@ -381,7 +392,7 @@ extension ASTMockGenerator {
             code += "\(indentation)\(modifier)var \(method.returnValueVariableName): \(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(implicitlyUnwrappedOptionalModifier)\(swiftlintCommand)\n"
         }
 
-        if !first && swiftlintAware {
+        if !first && swiftlintAware && hasImplicitlyUnwrappedOptionals {
             code += "\(indentation)\(SwiftlintSupport.ImplicitlyUnwrappedOptional.enableComment)\n"
         }
 

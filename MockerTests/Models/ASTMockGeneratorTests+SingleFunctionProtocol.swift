@@ -1583,6 +1583,171 @@ extension ASTMockGeneratorTests {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
+    
+    // MARK: Single Function Protocol, No Input Parameters, Optional SomeItem Return Value
+    
+    var singleFunctionProtocolNoInputParametersOptionalSomeItemNoReturnValue: String {
+        """
+        protocol SingleFunction {
+           func foo() -> SomeItem?
+        }
+        """
+    }
+    
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalSomeItemNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalSomeItemNoReturnValue))
+        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+
+                           import Foundation
+                           import UIKit
+                           import Core
+                           
+                           class MockTest: SingleFunction {
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               struct Method: OptionSet {
+                                   let rawValue: UInt
+                                   static let fooCalled = Method(rawValue: 1 << 0)
+                               }
+                               private(set) var calledMethods = Method()
+
+                               // MARK: - Variables to Use as Method Return Values
+
+                               var fooReturnValue: SomeItem?
+
+
+                               func reset() {
+                                   calledMethods = []
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               func foo() -> SomeItem? {
+                                   calledMethods.insert(.fooCalled)
+                                   return fooReturnValue
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.fooCalled) {
+                                       handleFirst()
+                                       value += ".fooCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+    
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalSomeItemNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalSomeItemNoReturnValue))
+        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           class MockTest: SingleFunction {
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               struct Method: OptionSet {
+                                   let rawValue: UInt
+                                   static let fooCalled = Method(rawValue: 1 << 0)
+                               }
+                               private(set) var calledMethods = Method()
+
+                               // MARK: - Variables to Use as Method Return Values
+
+                               var fooReturnValue: SomeItem?
+
+
+                               func reset() {
+                                   calledMethods = []
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               func foo() -> SomeItem? {
+                                   calledMethods.insert(.fooCalled)
+                                   return fooReturnValue
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.fooCalled) {
+                                       handleFirst()
+                                       value += ".fooCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
 
 }
 //swiftlint:enable function_body_length file_length

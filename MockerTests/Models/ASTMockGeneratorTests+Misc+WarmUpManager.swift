@@ -371,11 +371,9 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables to Use as Method Return Values
 
-                               //swiftlint:disable implicitly_unwrapped_optional
                                var warmUpForIndexReturnValue: WarmUp?
                                var warmUpForUuidReturnValue: WarmUp?
                                var indexForWarmUpReturnValue: Int?
-                               //swiftlint:enable implicitly_unwrapped_optional
 
                                // MARK: - Variables to Use to Control Completion Handlers
 
