@@ -24,16 +24,21 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
         static let reloadProjectCalled = Method(rawValue: 1 << 2)
         static let viewHasAppearedCalled = Method(rawValue: 1 << 3)
         static let displayChoiceChoiceCalled = Method(rawValue: 1 << 4)
+        static let openRecentProjectFileUrlCalled = Method(rawValue: 1 << 5)
     }
     private(set) var calledMethods = Method()
 
     struct MethodParameter: OptionSet {
         let rawValue: Int
         static let choice = MethodParameter(rawValue: 1 << 0)
+        static let url = MethodParameter(rawValue: 1 << 1)
     }
     private(set) var assignedParameters = MethodParameter()
 
+    // MARK: - Variables for Captured Parameter Values
+
     private(set) var choice: DisplayChoice?
+    private(set) var url: URL?
 
     var canReloadProjectReturnValue = false
 
@@ -41,6 +46,7 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
         calledMethods = []
         assignedParameters = []
         choice = nil
+        url = nil
     }
 
     func selectProject() {
@@ -64,6 +70,12 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
         calledMethods.insert(.displayChoiceChoiceCalled)
         self.choice = choice
         assignedParameters.insert(.choice)
+    }
+
+    func openRecentProjectFile(_ url: URL) {
+        calledMethods.insert(.openRecentProjectFileUrlCalled)
+        self.url = url
+        assignedParameters.insert(.url)
     }
 
 }
@@ -100,6 +112,10 @@ extension MockGodfatherInteractorInput.Method: CustomStringConvertible {
             handleFirst()
             value += ".displayChoiceChoiceCalled"
         }
+        if self.contains(.openRecentProjectFileUrlCalled) {
+            handleFirst()
+            value += ".openRecentProjectFileUrlCalled"
+        }
 
         value += "]"
         return value
@@ -121,6 +137,10 @@ extension MockGodfatherInteractorInput.MethodParameter: CustomStringConvertible 
         if self.contains(.choice) {
             handleFirst()
             value += ".choice"
+        }
+        if self.contains(.url) {
+            handleFirst()
+            value += ".url"
         }
 
         value += "]"

@@ -29,28 +29,32 @@ class ViewController: NSViewController {
 
     private var windowSetup = false
     private var userDefaults = UserDefaults.standard
-    private var godfatherView: (GodfatherViewProtocol & GodfatherInterfaceProtocol)!
+    var godfatherView: (GodfatherViewProtocol & GodfatherInterfaceProtocol)!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         splitView.delegate = self
         
-        godfatherView = GodfatherRouter.createModule(viewController: self,
-                                                     userDefaults: userDefaults,
-                                                     fileManager: FileManager.default,
-                                                     projectFactory: XCProjectFactory(),
-                                                     mockGeneratorFactory: ASTMockGeneratorFactory(),
-                                                     openPanelFactory: AppKitOpenPanelFactory(),
-                                                     projectFileSelectorRouterType: ProjectFileSelectorRouter.self,
-                                                     sourceFileSelectorRouterType: SourceFileSelectorRouter.self,
-                                                     sourceFileFilterRouterType: FilterRouter.self,
-                                                     protocolSelectorRouterType: ProtocolSelectorRouter.self,
-                                                     mockFileParametersRouterType: MockFileParametersRouter.self,
-                                                     contentPresenterRouterType: ContentPresenterRouter.self,
-                                                     fileSynthesisRouterRouterType: FileSynthesisRouter.self,
-                                                     destinationGroupSelectorRouterType: DestinationGroupSelectorRouter.self,
-                                                     filteringHandler: ProjectFilteringHandler())
+        godfatherView = GodfatherRouter.createModule(
+            viewController: self,
+            userDefaults: userDefaults,
+            fileManager: FileManager.default,
+            projectFactory: XCProjectFactory(),
+            mockGeneratorFactory: ASTMockGeneratorFactory(),
+            openPanelFactory: AppKitOpenPanelFactory(),
+            projectFileSelectorRouterType: ProjectFileSelectorRouter.self,
+            sourceFileSelectorRouterType: SourceFileSelectorRouter.self,
+            sourceFileFilterRouterType: FilterRouter.self,
+            protocolSelectorRouterType: ProtocolSelectorRouter.self,
+            mockFileParametersRouterType: MockFileParametersRouter.self,
+            contentPresenterRouterType: ContentPresenterRouter.self,
+            fileSynthesisRouterRouterType: FileSynthesisRouter.self,
+            destinationGroupSelectorRouterType: DestinationGroupSelectorRouter.self,
+            filteringHandler: ProjectFilteringHandler(),
+            recentDocumentManager: RecentDocumentManager(userDefaults: userDefaults),
+            documentController: MockerDocumentController.shared
+        )
     }
     
     override func viewWillAppear() {
@@ -87,6 +91,10 @@ class ViewController: NSViewController {
         return false
     }
     
+    @IBAction private func openDocument(_ sender: Any) {
+        godfatherView.selectProject()
+    }
+
     @IBAction private func selectProject(_ sender: Any) {
         godfatherView.selectProject()
     }

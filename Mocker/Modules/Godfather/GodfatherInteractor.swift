@@ -36,6 +36,8 @@ class GodfatherInteractor {
     let mockFileParameters: NSViewController & MockFileParametersInterfaceProtocol
     let contentPresenter: NSViewController & ContentPresenterInterfaceProtocol
     let filteringHandler: AsyncFilteringHandler
+    let recentDocumentManager: RecentDocumentManaging
+    let documentController: DocumentControlling
     internal var currentProject: Project?
     private(set) var targetOfCurrentSourceFile: XCTarget? {
         didSet {
@@ -61,18 +63,22 @@ class GodfatherInteractor {
         }
     }
 
-    init(userDefaults: KeyValueStoring,
-         fileManager: FileManaging,
-         projectFactory: ProjectFactory,
-         mockGeneratorFactory: MockGeneratorFactory,
-         openPanelFactory: OpenPanelFactory,
-         projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
-         sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
-         sourceFileFilterRouterType: FilterWireframeProtocol.Type,
-         protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
-         mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
-         contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-         filteringHandler: AsyncFilteringHandler) {
+    init(
+        userDefaults: KeyValueStoring,
+        fileManager: FileManaging,
+        projectFactory: ProjectFactory,
+        mockGeneratorFactory: MockGeneratorFactory,
+        openPanelFactory: OpenPanelFactory,
+        projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
+        sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
+        sourceFileFilterRouterType: FilterWireframeProtocol.Type,
+        protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
+        mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
+        contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
+        filteringHandler: AsyncFilteringHandler,
+        recentDocumentManager: RecentDocumentManaging,
+        documentController: DocumentControlling
+    ) {
         
         self.userDefaults = userDefaults
         self.fileManager = fileManager
@@ -85,6 +91,8 @@ class GodfatherInteractor {
         mockFileParameters = mockFileParametersRouterType.createModule(userDefaults: userDefaults)
         contentPresenter = contentPresenterRouterType.createModule()
         self.filteringHandler = filteringHandler
+        self.recentDocumentManager = recentDocumentManager
+        self.documentController = documentController
 
         projectFileSelector.delegate = self
         sourceFileSelector.delegate = self
@@ -108,6 +116,9 @@ class GodfatherInteractor {
             renderFilteredSourceFileTree()
             mockFileParameters.setup(for: project)
             mockFileParameters.clearProtocol()
+            
+            recentDocumentManager.add(url)
+            documentController.noteNewRecentDocumentURL(url)
         } else {
             reportProjectLoadFailure()
         }
@@ -176,6 +187,11 @@ extension GodfatherInteractor: GodfatherInteractorInputProtocol {
         case .source:
             contentPresenter.present(text: currentSourceFileCode)
         }
+    }
+    
+    func openRecentProjectFile(_ url: URL) {
+        openProjectFile(url)
+        projectFileSelector.renderURLOfSelectedFile(url)
     }
 
 }

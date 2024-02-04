@@ -139,6 +139,17 @@ class GodfatherPresenterTests: XCTestCase {
         XCTAssertEqual(view.assignedParameters, [.viewController])
         XCTAssertEqual(interactor.calledMethods, [])
     }
+    
+    func test_openRecentProjectFile() throws {
+        let url = try XCTUnwrap(URL(string: "b.txt"))
+        
+        presenter.openRecentProjectFile(url)
+        
+        XCTAssertEqual(view.calledMethods, [])
+        XCTAssertEqual(interactor.calledMethods, [.openRecentProjectFileUrlCalled])
+        XCTAssertEqual(interactor.assignedParameters, [.url])
+        XCTAssertEqual(interactor.url, url)
+    }
 
     // MARK: - GodfatherInteractorOutputProtocol methods -
 

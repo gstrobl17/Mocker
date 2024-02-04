@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserDefaultsKey {
+enum UserDefaultsKey {
     static let projectFilePath = "Project File Path"
     static let leftPaneWidth = "Left Pane Width"
     static let mockPrefix = "Mock Prefix"
@@ -19,15 +19,18 @@ struct UserDefaultsKey {
     static let addNewFileToProject = "Add New File To Project"
     static let windowFrameAutosaveName = "Window Frame Autosave Name"
     static let sourceFileFilterValue = "Source File Filter Value"
+    static let recentDocuments = "Recent Documents"
+    static let maxRecentDocumentCount = "Max Recent Document Count"
 }
 
-struct DefaultUserDefaultValue {
+enum DefaultUserDefaultValue {
     static let mockPrefix = "Mock"
     static let stripTrailingProtocol = true
     static let swiftlintAware = true
     static let includeTestableImport = true
     static let trackPropertyActivity = false
     static let addNewFileToProject = true
+    static let maxRecentDocumentCount = 20
 }
 
 extension KeyValueStoring {
@@ -138,6 +141,32 @@ extension KeyValueStoring {
         }
         set {
             set(newValue, forKey: UserDefaultsKey.sourceFileFilterValue)
+        }
+    }
+
+    var recentDocuments: [URL] {
+        get {
+            guard let arrayOfStrings = object(forKey: UserDefaultsKey.recentDocuments) as? [String] else {
+                return []
+            }
+            return arrayOfStrings.compactMap { URL(string: $0) }
+        }
+        set {
+            let arrayOfStrings = newValue.map { $0.absoluteString }
+            set(arrayOfStrings, forKey: UserDefaultsKey.recentDocuments)
+        }
+    }
+
+    var maxRecentDocumentCount: Int {
+        get {
+            let possibleValue = integer(forKey: UserDefaultsKey.maxRecentDocumentCount)
+            if possibleValue != 0 {
+                return possibleValue
+            }
+            return DefaultUserDefaultValue.maxRecentDocumentCount
+        }
+        set {
+            set(newValue, forKey: UserDefaultsKey.maxRecentDocumentCount)
         }
     }
 

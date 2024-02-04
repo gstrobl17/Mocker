@@ -55,6 +55,10 @@ extension GodfatherView: GodfatherInterfaceProtocol {
         return generateButton.isEnabled
     }
 
+    func openRecentProjectFile(_ url: URL) {
+        presenter?.openRecentProjectFile(url)
+    }
+    
 }
 
 extension GodfatherView: GodfatherViewProtocol {

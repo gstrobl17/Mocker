@@ -19,6 +19,7 @@ protocol GodfatherInterfaceProtocol: AnyObject {
     func displayChoice(_ choice: DisplayChoice)
     func generateMock()
     func canGenerateMock() -> Bool
+    func openRecentProjectFile(_ url: URL)
 }
 
 // MARK: Wireframe -
@@ -26,23 +27,26 @@ protocol GodfatherWireframeProtocol: AnyObject {
     var view: (GodfatherViewProtocol & GodfatherInterfaceProtocol)? { get }
     
     // swiftlint:disable function_parameter_count
-    static func createModule(viewController: ViewController,
-                             userDefaults: KeyValueStoring,
-                             fileManager: FileManaging,
-                             projectFactory: ProjectFactory,
-                             mockGeneratorFactory: MockGeneratorFactory,
-                             openPanelFactory: OpenPanelFactory,
-                             projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
-                             sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
-                             sourceFileFilterRouterType: FilterWireframeProtocol.Type,
-                             protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
-                             mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
-                             contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-                             fileSynthesisRouterRouterType: FileSynthesisWireframeProtocol.Type,
-                             destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type,
-                             filteringHandler: AsyncFilteringHandler) -> (GodfatherViewProtocol & GodfatherInterfaceProtocol)
+    static func createModule(
+        viewController: ViewController,
+        userDefaults: KeyValueStoring,
+        fileManager: FileManaging,
+        projectFactory: ProjectFactory,
+        mockGeneratorFactory: MockGeneratorFactory,
+        openPanelFactory: OpenPanelFactory,
+        projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
+        sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
+        sourceFileFilterRouterType: FilterWireframeProtocol.Type,
+        protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
+        mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
+        contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
+        fileSynthesisRouterRouterType: FileSynthesisWireframeProtocol.Type,
+        destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type,
+        filteringHandler: AsyncFilteringHandler,
+        recentDocumentManager: RecentDocumentManaging,
+        documentController: DocumentControlling
+    ) -> (GodfatherViewProtocol & GodfatherInterfaceProtocol)
     // swiftlint:enable function_parameter_count
-
 }
 
 // MARK: Presenter -
@@ -56,6 +60,7 @@ protocol GodfatherPresenterProtocol: AnyObject {
     func displayChoice(_ choice: DisplayChoice)
     func generateButtonPressed()
     func viewHasAppeared()
+    func openRecentProjectFile(_ url: URL)
 }
 
 // MARK: Interactor -
@@ -93,6 +98,7 @@ protocol GodfatherInteractorInputProtocol: AnyObject {
     func reloadProject()
     func viewHasAppeared()
     func displayChoice(_ choice: DisplayChoice)
+    func openRecentProjectFile(_ url: URL)
     /* Presenter -> Interactor */
 }
 

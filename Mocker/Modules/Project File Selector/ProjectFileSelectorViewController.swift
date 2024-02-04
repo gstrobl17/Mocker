@@ -52,6 +52,11 @@ class ProjectFileSelectorViewController: NSViewController, ProjectFileSelectorIn
         reloadPressed(self)
     }
 
+    func renderURLOfSelectedFile(_ url: URL) {
+        textField.stringValue = url.path
+        presenter?.setURL(url)
+    }
+
 }
 
 extension ProjectFileSelectorViewController: ProjectFileSelectorViewProtocol {
