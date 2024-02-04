@@ -70,6 +70,10 @@ extension GodfatherPresenter: GodfatherPresenterProtocol {
         interactor?.viewHasAppeared()
     }
     
+    func openRecentProjectFile(_ url: URL) {
+        interactor?.openRecentProjectFile(url)
+    }
+
 }
 
 extension GodfatherPresenter: GodfatherInteractorOutputProtocol {

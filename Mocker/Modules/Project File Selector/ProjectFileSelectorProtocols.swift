@@ -14,6 +14,7 @@ protocol ProjectFileSelectorInterfaceProtocol: AnyObject {
     func canReloadProject() -> Bool
     func reloadProject()
     func showSelectedFile(_ url: URL)
+    func renderURLOfSelectedFile(_ url: URL)
 }
 
 protocol ProjectFileSelectorInterfaceDelegate: AnyObject {

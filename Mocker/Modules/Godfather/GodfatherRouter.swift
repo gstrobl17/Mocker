@@ -12,35 +12,43 @@ class GodfatherRouter: GodfatherWireframeProtocol {
     weak var view: (GodfatherViewProtocol & GodfatherInterfaceProtocol)?
 
     // swiftlint:disable:next function_parameter_count
-    static func createModule(viewController: ViewController,
-                             userDefaults: KeyValueStoring,
-                             fileManager: FileManaging,
-                             projectFactory: ProjectFactory,
-                             mockGeneratorFactory: MockGeneratorFactory,
-                             openPanelFactory: OpenPanelFactory,
-                             projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
-                             sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
-                             sourceFileFilterRouterType: FilterWireframeProtocol.Type,
-                             protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
-                             mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
-                             contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-                             fileSynthesisRouterRouterType: FileSynthesisWireframeProtocol.Type,
-                             destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type,
-                             filteringHandler: AsyncFilteringHandler) -> (GodfatherViewProtocol & GodfatherInterfaceProtocol) {
+    static func createModule(
+        viewController: ViewController,
+        userDefaults: KeyValueStoring,
+        fileManager: FileManaging,
+        projectFactory: ProjectFactory,
+        mockGeneratorFactory: MockGeneratorFactory,
+        openPanelFactory: OpenPanelFactory,
+        projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
+        sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
+        sourceFileFilterRouterType: FilterWireframeProtocol.Type,
+        protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
+        mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
+        contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
+        fileSynthesisRouterRouterType: FileSynthesisWireframeProtocol.Type,
+        destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type,
+        filteringHandler: AsyncFilteringHandler,
+        recentDocumentManager: RecentDocumentManaging,
+        documentController: DocumentControlling
+    ) -> (GodfatherViewProtocol & GodfatherInterfaceProtocol) {
 
         let view = GodfatherView(viewController: viewController)
-        let interactor = GodfatherInteractor(userDefaults: userDefaults,
-                                             fileManager: fileManager,
-                                             projectFactory: projectFactory,
-                                             mockGeneratorFactory: mockGeneratorFactory,
-                                             openPanelFactory: openPanelFactory,
-                                             projectFileSelectorRouterType: projectFileSelectorRouterType,
-                                             sourceFileSelectorRouterType: sourceFileSelectorRouterType,
-                                             sourceFileFilterRouterType: sourceFileFilterRouterType,
-                                             protocolSelectorRouterType: protocolSelectorRouterType,
-                                             mockFileParametersRouterType: mockFileParametersRouterType,
-                                             contentPresenterRouterType: contentPresenterRouterType,
-                                             filteringHandler: filteringHandler)
+        let interactor = GodfatherInteractor(
+            userDefaults: userDefaults,
+            fileManager: fileManager,
+            projectFactory: projectFactory,
+            mockGeneratorFactory: mockGeneratorFactory,
+            openPanelFactory: openPanelFactory,
+            projectFileSelectorRouterType: projectFileSelectorRouterType,
+            sourceFileSelectorRouterType: sourceFileSelectorRouterType,
+            sourceFileFilterRouterType: sourceFileFilterRouterType,
+            protocolSelectorRouterType: protocolSelectorRouterType,
+            mockFileParametersRouterType: mockFileParametersRouterType,
+            contentPresenterRouterType: contentPresenterRouterType,
+            filteringHandler: filteringHandler,
+            recentDocumentManager: recentDocumentManager,
+            documentController: documentController
+        )
         let router = GodfatherRouter()
         let presenter = GodfatherPresenter(interface: view,
                                            interactor: interactor,

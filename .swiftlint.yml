@@ -52,12 +52,12 @@ opt_in_rules:
   - sorted_imports
 #  - strict_fileprivate
   - switch_case_on_newline
+  - todo
   - trailing_closure
   - unneeded_parentheses_in_closure_argument
   - vertical_parameter_alignment_on_call
   - yoda_condition
 disabled_rules:
-  - todo
   - trailing_whitespace
   - line_length
   - trailing_newline

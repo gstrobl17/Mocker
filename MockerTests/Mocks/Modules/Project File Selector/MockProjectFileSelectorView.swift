@@ -16,19 +16,20 @@ class MockProjectFileSelectorView: NSViewController, ProjectFileSelectorViewProt
 
     struct Method: OptionSet {
         let rawValue: Int
-        static let showSelectedFileUrlCalled = Method(rawValue: 1)
-        static let openModalSheetWithOpenPanelCompletionHandlerHandlerCalled = Method(rawValue: 2)
-        static let selectProjectCalled = Method(rawValue: 4)
-        static let canReloadProjectCalled = Method(rawValue: 8)
-        static let reloadProjectCalled = Method(rawValue: 16)
+        static let showSelectedFileUrlCalled = Method(rawValue: 1 << 0)
+        static let openModalSheetWithOpenPanelCompletionHandlerHandlerCalled = Method(rawValue: 1 << 1)
+        static let selectProjectCalled = Method(rawValue: 1 << 2)
+        static let canReloadProjectCalled = Method(rawValue: 1 << 3)
+        static let reloadProjectCalled = Method(rawValue: 1 << 4)
+        static let renderURLOfSelectedFileUrlCalled = Method(rawValue: 1 << 5)
     }
     private(set) var calledMethods = Method()
 
     struct MethodParameter: OptionSet {
         let rawValue: Int
-        static let url = MethodParameter(rawValue: 1)
-        static let openPanel = MethodParameter(rawValue: 2)
-        static let handler = MethodParameter(rawValue: 4)
+        static let url = MethodParameter(rawValue: 1 << 0)
+        static let openPanel = MethodParameter(rawValue: 1 << 1)
+        static let handler = MethodParameter(rawValue: 1 << 2)
     }
     private(set) var assignedParameters = MethodParameter()
 
@@ -73,6 +74,12 @@ class MockProjectFileSelectorView: NSViewController, ProjectFileSelectorViewProt
         calledMethods.insert(.reloadProjectCalled)
     }
 
+    func renderURLOfSelectedFile(_ url: URL) {
+        calledMethods.insert(.renderURLOfSelectedFileUrlCalled)
+        self.url = url
+        assignedParameters.insert(.url)
+    }
+
 }
 
 extension MockProjectFileSelectorView.Method: CustomStringConvertible {
@@ -106,6 +113,10 @@ extension MockProjectFileSelectorView.Method: CustomStringConvertible {
         if self.contains(.showSelectedFileUrlCalled) {
             handleFirst()
             value += ".showSelectedFileUrlCalled"
+        }
+        if self.contains(.renderURLOfSelectedFileUrlCalled) {
+            handleFirst()
+            value += ".renderURLOfSelectedFileUrlCalled"
         }
 
         value += "]"
