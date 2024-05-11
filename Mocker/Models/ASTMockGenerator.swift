@@ -21,6 +21,7 @@ class ASTMockGenerator: MockGenerating {
     internal let parameterTracker = NameTracker()
     internal var generateInstanceErrorToThrowVariable = false
     internal var generateClassErrorToThrowVariable = false
+    internal var publicAccessQualifier = ""
 
     enum VariableName {
         static let staticErrorToThrow = "errorToThrow"
@@ -158,7 +159,8 @@ class ASTMockGenerator: MockGenerating {
     // MARK: - MockGenerating implementation -
 
     func generateMockCode(for parameters: MockGeneratorParameters) -> String {
-
+        publicAccessQualifier = parameters.public ? "public " : ""
+        
         // Preprocessing
         propertyTracker.generatePropertyNames(for: parameters)
         calledAttributeTracker.generateCalledAttributeNames(for: parameters)

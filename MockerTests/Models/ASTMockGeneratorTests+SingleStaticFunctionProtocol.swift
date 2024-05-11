@@ -24,7 +24,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolNoInputParametersNoReturnValue))
@@ -96,7 +96,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolNoInputParametersNoReturnValue))
@@ -179,7 +179,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocol3InputParametersNoReturnValue))
@@ -305,7 +305,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocol3InputParametersNoReturnValue))
@@ -444,7 +444,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolNoInputParametersIntReturnValue))
@@ -521,7 +521,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolNoInputParametersIntReturnValue))
@@ -611,7 +611,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
@@ -719,7 +719,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
@@ -838,7 +838,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
@@ -959,7 +959,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
@@ -1093,7 +1093,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue))
@@ -1165,7 +1165,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncNoInputParametersNoReturnValue))
@@ -1248,7 +1248,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
@@ -1326,7 +1326,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
@@ -1415,7 +1415,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue))
@@ -1498,7 +1498,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticFunctionProtocolAsyncThrowsNoInputParametersSomeItemNoReturnValue))

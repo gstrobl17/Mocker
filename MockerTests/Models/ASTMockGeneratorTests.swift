@@ -1,3 +1,4 @@
+//swiftlint:disable type_body_length file_length
 //
 //  ASTMockGeneratorTests.swift
 //  MockerTests
@@ -109,7 +110,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         """
     }
     
-    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
@@ -144,7 +145,42 @@ final class ASTMockGeneratorTests: XCTestCase {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_emptyProtocol_includeHeaderFALSE_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: Empty {
+
+
+                               public func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_emptyProtocol_includeHeaderFALSE_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeHeader: false, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
@@ -169,7 +205,32 @@ final class ASTMockGeneratorTests: XCTestCase {
         printFirstDifference(code, expectedCode)
     }
 
-    func testCodeGeneration_emptyProtocol_organizationSetupInProject_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_emptyProtocol_includeHeaderFALSE_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+        let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, includeHeader: false, includeTestableImport: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: Empty {
+
+
+                               public func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_emptyProtocol_organizationSetupInProject_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
         project.objectsReturnValue = ["something": ["attributes": ["ORGANIZATIONNAME": Default.organizationName]]]
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
@@ -205,7 +266,43 @@ final class ASTMockGeneratorTests: XCTestCase {
         printFirstDifference(code, expectedCode)
     }
 
-    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_emptyProtocol_organizationSetupInProject_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+        project.objectsReturnValue = ["something": ["attributes": ["ORGANIZATIONNAME": Default.organizationName]]]
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear) Acme Corp. All rights reserved.
+                           //
+
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: Empty {
+
+
+                               public func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
@@ -240,8 +337,44 @@ final class ASTMockGeneratorTests: XCTestCase {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
-    
-    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE_emptyImportList() throws {
+
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: Empty {
+
+
+                               public func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE_emptyImportList_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
@@ -273,4 +406,39 @@ final class ASTMockGeneratorTests: XCTestCase {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
    }
+
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE_emptyImportList_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
+        let parameters = createParameters(imports: [], protocolDeclaration: decl, includeTestableImport: true, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+
+                           @testable import Mocker
+
+                           public class MockTest: Empty {
+
+
+                               public func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+   }
 }
+
+//swiftlint:enable type_body_length file_length

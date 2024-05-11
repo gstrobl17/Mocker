@@ -41,7 +41,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_keyValueStoringProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_keyValueStoringProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: keyValueStoringProtocol))
@@ -445,7 +445,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_keyValueStoringProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_keyValueStoringProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: keyValueStoringProtocol))

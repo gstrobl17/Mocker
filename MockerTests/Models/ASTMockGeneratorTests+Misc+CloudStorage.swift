@@ -27,7 +27,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_cloudStorageProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_cloudStorageProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: cloudStorageProtocol))
@@ -216,7 +216,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_cloudStorageProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_cloudStorageProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: cloudStorageProtocol))

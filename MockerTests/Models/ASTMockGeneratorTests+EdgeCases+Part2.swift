@@ -103,7 +103,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_veryLargeProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_veryLargeProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeProtocol))
@@ -1465,7 +1465,7 @@ extension ASTMockGeneratorTests {
         //printFirstDifference(code, expectedCode)  //Uncomment if needed. Too slow for regular execution
     }
     
-    func testCodeGeneration_veryLargeProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_veryLargeProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeProtocol))
@@ -3139,7 +3139,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_veryLargeStaticProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_veryLargeStaticProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeStaticProtocol))
@@ -4474,7 +4474,7 @@ extension ASTMockGeneratorTests {
         //printFirstDifference(code, expectedCode)  //Uncomment if needed. Too slow for regular execution
     }
     
-    func testCodeGeneration_veryLargeStaticProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_veryLargeStaticProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeStaticProtocol))

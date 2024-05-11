@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension ASTMockGenerator {
-
+    
     // MARK: - Code generation methods -
 
     func generateSpacing(lines: Int = 1) {
@@ -75,7 +75,7 @@ extension ASTMockGenerator {
 
     func startClass(for parameters: MockGeneratorParameters) {
         contentGenerated = true
-        code += "class \(parameters.mockName): \(parameters.protocolDeclaration.identifier.text) {\n"
+        code += "\(publicAccessQualifier)class \(parameters.mockName): \(parameters.protocolDeclaration.identifier.text) {\n"
     }
 
     func generateProtocolAttributes(for parameters: MockGeneratorParameters) {
@@ -488,7 +488,7 @@ extension ASTMockGenerator {
     func generateResetFunction(for parameters: MockGeneratorParameters) {
         var usedNames: Set<String> = []
         contentGenerated = true
-        code += "\(indentation)func reset() {\n"
+        code += "\(indentation)\(publicAccessQualifier)func reset() {\n"
 
         // Called attributes
         if calledAttributeTracker.nonStaticNameCount > 0 {

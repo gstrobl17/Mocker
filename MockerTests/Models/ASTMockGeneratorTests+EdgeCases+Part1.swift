@@ -29,7 +29,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: resultCompletionHandersProtocol))
@@ -278,7 +278,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: resultCompletionHandersProtocol))
@@ -544,7 +544,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: throwingMethodsProtocol))
@@ -679,7 +679,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: throwingMethodsProtocol))
@@ -824,7 +824,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_protocolWithDelegate_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_protocolWithDelegate_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
@@ -864,7 +864,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
@@ -904,7 +904,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 
-    func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
@@ -1040,7 +1040,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithLongStaticMethodName))
@@ -1149,7 +1149,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 
-    func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithLongStaticMethodName))
@@ -1271,7 +1271,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithManyParameters))
@@ -1540,7 +1540,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 
-    func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithManyParameters))
@@ -1825,7 +1825,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithLongCompletionHandlerName))
@@ -1947,7 +1947,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 
-    func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithLongCompletionHandlerName))

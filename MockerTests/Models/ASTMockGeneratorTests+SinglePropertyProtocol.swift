@@ -24,7 +24,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singlePropertyProtocolGet_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_singlePropertyProtocolGet_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singlePropertyProtocolGet))
@@ -64,7 +64,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singlePropertyProtocolGet_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_singlePropertyProtocolGet_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singlePropertyProtocolGet))
@@ -153,7 +153,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singlePropertyProtocolSet_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_singlePropertyProtocolSet_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singlePropertyProtocolSet))
@@ -193,7 +193,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singlePropertyProtocolSet_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_singlePropertyProtocolSet_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singlePropertyProtocolSet))
@@ -320,7 +320,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singlePropertyProtocolGetSet_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_singlePropertyProtocolGetSet_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singlePropertyProtocolGetSet))
@@ -360,7 +360,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singlePropertyProtocolGetSet_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_singlePropertyProtocolGetSet_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singlePropertyProtocolGetSet))
@@ -496,7 +496,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticPropertyProtocolGet_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_singleStaticPropertyProtocolGet_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticPropertyProtocolGet))
@@ -536,7 +536,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticPropertyProtocolGet_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_singleStaticPropertyProtocolGet_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticPropertyProtocolGet))
@@ -625,7 +625,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticPropertyProtocolSet_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_singleStaticPropertyProtocolSet_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticPropertyProtocolSet))
@@ -665,7 +665,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticPropertyProtocolSet_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_singleStaticPropertyProtocolSet_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticPropertyProtocolSet))
@@ -792,7 +792,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleStaticPropertyProtocolGetSet_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_singleStaticPropertyProtocolGetSet_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticPropertyProtocolGetSet))
@@ -832,7 +832,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleStaticPropertyProtocolGetSet_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_singleStaticPropertyProtocolGetSet_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: singleStaticPropertyProtocolGetSet))

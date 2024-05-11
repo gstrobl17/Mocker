@@ -28,7 +28,7 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_helpPresentingProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE() throws {
+    func testCodeGeneration_helpPresentingProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: helpPresentingProtocol))
@@ -108,7 +108,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_helpPresentingProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE() throws {
+    func testCodeGeneration_helpPresentingProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: helpPresentingProtocol))
