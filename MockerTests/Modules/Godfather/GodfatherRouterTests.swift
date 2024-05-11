@@ -36,7 +36,6 @@ class GodfatherRouterTests: XCTestCase {
             protocolSelectorRouterType: MockProtocolSelectorRouter.self,
             mockFileParametersRouterType: MockMockFileParametersRouter.self,
             contentPresenterRouterType: MockContentPresenterRouter.self,
-            fileSynthesisRouterRouterType: MockFileSynthesisRouter.self,
             destinationGroupSelectorRouterType: MockDestinationGroupSelectorRouter.self,
             filteringHandler: filteringHandler,
             recentDocumentManager: recentDocumentManager,

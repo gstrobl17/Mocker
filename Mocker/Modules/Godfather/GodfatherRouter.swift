@@ -25,7 +25,6 @@ class GodfatherRouter: GodfatherWireframeProtocol {
         protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
         mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
         contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-        fileSynthesisRouterRouterType: FileSynthesisWireframeProtocol.Type,
         destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type,
         filteringHandler: AsyncFilteringHandler,
         recentDocumentManager: RecentDocumentManaging,
@@ -54,7 +53,6 @@ class GodfatherRouter: GodfatherWireframeProtocol {
                                            interactor: interactor,
                                            router: router,
                                            userDefaults: userDefaults,
-                                           fileSynthesisRouterRouterType: fileSynthesisRouterRouterType,
                                            destinationGroupSelectorRouterType: destinationGroupSelectorRouterType)
 
         view.presenter = presenter

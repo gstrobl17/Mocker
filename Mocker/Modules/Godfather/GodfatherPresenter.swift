@@ -14,20 +14,17 @@ class GodfatherPresenter {
     let router: GodfatherWireframeProtocol
     
     let userDefaults: KeyValueStoring
-    let fileSynthesisRouterRouterType: FileSynthesisWireframeProtocol.Type
     let destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type
 
     init(interface: GodfatherViewProtocol,
          interactor: GodfatherInteractorInputProtocol?,
          router: GodfatherWireframeProtocol,
          userDefaults: KeyValueStoring,
-         fileSynthesisRouterRouterType: FileSynthesisWireframeProtocol.Type,
          destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type) {
         self.view = interface
         self.interactor = interactor
         self.router = router
         self.userDefaults = userDefaults
-        self.fileSynthesisRouterRouterType = fileSynthesisRouterRouterType
         self.destinationGroupSelectorRouterType = destinationGroupSelectorRouterType
     }
 

@@ -48,7 +48,6 @@ class ViewController: NSViewController {
             protocolSelectorRouterType: ProtocolSelectorRouter.self,
             mockFileParametersRouterType: MockFileParametersRouter.self,
             contentPresenterRouterType: ContentPresenterRouter.self,
-            fileSynthesisRouterRouterType: FileSynthesisRouter.self,
             destinationGroupSelectorRouterType: DestinationGroupSelectorRouter.self,
             filteringHandler: ProjectFilteringHandler(),
             recentDocumentManager: RecentDocumentManager(userDefaults: userDefaults),

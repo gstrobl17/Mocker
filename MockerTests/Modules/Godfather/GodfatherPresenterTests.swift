@@ -28,7 +28,6 @@ class GodfatherPresenterTests: XCTestCase {
                                        interactor: interactor,
                                        router: router,
                                        userDefaults: userDefaults,
-                                       fileSynthesisRouterRouterType: MockFileSynthesisRouter.self,
                                        destinationGroupSelectorRouterType: MockDestinationGroupSelectorRouter.self)
     }
 
