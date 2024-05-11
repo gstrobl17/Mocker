@@ -10,7 +10,11 @@ import AppKit
 
 class MockGodfatherView: GodfatherViewProtocol {
 
+    // MARK: - Variables for Protocol Conformance
+
     var presenter: GodfatherPresenterProtocol?
+
+    // MARK: - Variables for Trackings Method Invocation
 
     struct Method: OptionSet {
         let rawValue: Int
@@ -18,7 +22,7 @@ class MockGodfatherView: GodfatherViewProtocol {
         static let displayAlertCalled = Method(rawValue: 1 << 1)
         static let displayActivityIndicatorMessageCalled = Method(rawValue: 1 << 2)
         static let closeActivityIndicatorCalled = Method(rawValue: 1 << 3)
-        static let enableGenerateButtonAndDisplayChoiceFlagCalled = Method(rawValue: 1 << 4)
+        static let enableDisplayChoiceFlagCalled = Method(rawValue: 1 << 4)
         static let setDisplayChoiceChoiceCalled = Method(rawValue: 1 << 5)
         static let displayAsSheetViewControllerCalled = Method(rawValue: 1 << 6)
         static let viewHasAppearedCalled = Method(rawValue: 1 << 7)
@@ -40,6 +44,8 @@ class MockGodfatherView: GodfatherViewProtocol {
         static let viewController = MethodParameter(rawValue: 1 << 10)
     }
     private(set) var assignedParameters = MethodParameter()
+
+    // MARK: - Variables for Captured Parameter Values
 
     private(set) var projectFileSelector: NSViewController?
     private(set) var sourceFileSelector: NSViewController?
@@ -68,6 +74,8 @@ class MockGodfatherView: GodfatherViewProtocol {
         choice = nil
         viewController = nil
     }
+
+    // MARK: - Methods for Protocol Conformance
 
     //swiftlint:disable:next function_parameter_count
     func install(projectFileSelector: NSViewController, sourceFileSelector: NSViewController, sourceFileFilter: NSViewController, protocolSelector: NSViewController, mockFileParameters: NSViewController, contentPresenter: NSViewController) {
@@ -102,8 +110,8 @@ class MockGodfatherView: GodfatherViewProtocol {
         calledMethods.insert(.closeActivityIndicatorCalled)
     }
 
-    func enableGenerateButtonAndDisplayChoice(_ flag: Bool) {
-        calledMethods.insert(.enableGenerateButtonAndDisplayChoiceFlagCalled)
+    func enableDisplayChoice(_ flag: Bool) {
+        calledMethods.insert(.enableDisplayChoiceFlagCalled)
         self.flag = flag
         assignedParameters.insert(.flag)
     }
@@ -154,9 +162,9 @@ extension MockGodfatherView.Method: CustomStringConvertible {
             handleFirst()
             value += ".closeActivityIndicatorCalled"
         }
-        if self.contains(.enableGenerateButtonAndDisplayChoiceFlagCalled) {
+        if self.contains(.enableDisplayChoiceFlagCalled) {
             handleFirst()
-            value += ".enableGenerateButtonAndDisplayChoiceFlagCalled"
+            value += ".enableDisplayChoiceFlagCalled"
         }
         if self.contains(.setDisplayChoiceChoiceCalled) {
             handleFirst()

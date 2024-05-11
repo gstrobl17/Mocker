@@ -15,15 +15,6 @@ class GodfatherView {
 
     init(viewController: ViewController) {
         self.viewController = viewController
-        
-        if viewController.generateButton != nil {
-            viewController.generateButton.target = self
-            viewController.generateButton.action = #selector(generateButtonPressed(_:))
-        }
-    }
-    
-    @objc func generateButtonPressed(_ sender: Any?) {
-        presenter?.generateButtonPressed()
     }
     
 }
@@ -44,15 +35,6 @@ extension GodfatherView: GodfatherInterfaceProtocol {
 
     func displayChoice(_ choice: DisplayChoice) {
         presenter?.displayChoice(choice)
-    }
-
-    func generateMock() {
-        generateButtonPressed(nil)
-    }
-    
-    func canGenerateMock() -> Bool {
-        guard let generateButton = viewController.generateButton else { return false }
-        return generateButton.isEnabled
     }
 
     func openRecentProjectFile(_ url: URL) {
@@ -126,9 +108,8 @@ extension GodfatherView: GodfatherViewProtocol {
         presenter?.viewHasAppeared()
     }
 
-    func enableGenerateButtonAndDisplayChoice(_ flag: Bool) {
-        guard let generateButton = viewController.generateButton, let displayChoiceSegmentedControl = viewController.displayChoiceSegmentedControl else { return }
-        generateButton.isEnabled = flag
+    func enableDisplayChoice(_ flag: Bool) {
+        guard let displayChoiceSegmentedControl = viewController.displayChoiceSegmentedControl else { return }
         displayChoiceSegmentedControl.isEnabled = flag
     }
     

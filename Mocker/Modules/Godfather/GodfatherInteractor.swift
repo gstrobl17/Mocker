@@ -20,7 +20,7 @@ class GodfatherInteractor {
                                protocolSelector: protocolSelector,
                                mockFileParameters: mockFileParameters,
                                contentPresenter: contentPresenter)
-            evaluateIfGenerationOrDisplayChoiceIsAvailable()
+            evaluateIfDisplayChoiceIsAvailable()
         }
     }
     
@@ -59,7 +59,7 @@ class GodfatherInteractor {
         didSet {
             contentPresenter.present(text: mockCode)
             presenter?.setDisplayChoice(.mock)
-            evaluateIfGenerationOrDisplayChoiceIsAvailable()
+            evaluateIfDisplayChoiceIsAvailable()
         }
     }
 
@@ -147,14 +147,14 @@ class GodfatherInteractor {
         }
     }
     
-    private func evaluateIfGenerationOrDisplayChoiceIsAvailable() {
-        var canGenerateFileOrChooseDisplay = false
+    private func evaluateIfDisplayChoiceIsAvailable() {
+        var canChooseDisplay = false
         
         if currentProject != nil && currentSourceFile != nil && currentProtocolDeclaration != nil && !mockCode.isEmpty {
-            canGenerateFileOrChooseDisplay = true
+            canChooseDisplay = true
         }
 
-        presenter?.canGenerateFileOrChooseDisplay(canGenerateFileOrChooseDisplay)
+        presenter?.canChooseDisplay(canChooseDisplay)
     }
 }
 

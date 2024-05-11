@@ -97,48 +97,6 @@ class GodfatherPresenterTests: XCTestCase {
         XCTAssertEqual(interactor.assignedParameters, [.choice])
         XCTAssertEqual(interactor.choice, .mock)
     }
-
-    func test_generateButtonPressed_noInteractor() {
-        presenter.interactor = nil
-        
-        presenter.generateButtonPressed()
-        
-        XCTAssertEqual(view.calledMethods, [])
-        XCTAssertEqual(interactor.calledMethods, [])
-    }
-
-    func test_generateButtonPressed_mockNameIsEmpty() {
-        interactor.currentProject = MockProject()
-        interactor.mockName = ""
-        
-        presenter.generateButtonPressed()
-        
-        XCTAssertEqual(view.calledMethods, [])
-        XCTAssertEqual(interactor.calledMethods, [])
-    }
-
-    func test_generateButtonPressed_mockNameGivenButMockCodeIsEmpty() {
-        interactor.currentProject = MockProject()
-        interactor.mockName = "MockFile"
-        interactor.mockCode = ""
-        
-        presenter.generateButtonPressed()
-        
-        XCTAssertEqual(view.calledMethods, [])
-        XCTAssertEqual(interactor.calledMethods, [])
-    }
-    
-    func test_generateButtonPressed_mockNameAndCodeNotEmpty() {
-        interactor.currentProject = MockProject()
-        interactor.mockName = "MockFile"
-        interactor.mockCode = "Not Empty"
-        
-        presenter.generateButtonPressed()
-        
-        XCTAssertEqual(view.calledMethods, [.displayAsSheetViewControllerCalled])
-        XCTAssertEqual(view.assignedParameters, [.viewController])
-        XCTAssertEqual(interactor.calledMethods, [])
-    }
     
     func test_openRecentProjectFile() throws {
         let url = try XCTUnwrap(URL(string: "b.txt"))
@@ -222,11 +180,11 @@ class GodfatherPresenterTests: XCTestCase {
         XCTAssertEqual(interactor.calledMethods, [])
     }
     
-    func test_canGenerateFileOrChooseDisplay() {
+    func test_canChooseDisplay() {
         
-        presenter.canGenerateFileOrChooseDisplay(true)
+        presenter.canChooseDisplay(true)
         
-        XCTAssertEqual(view.calledMethods, [.enableGenerateButtonAndDisplayChoiceFlagCalled])
+        XCTAssertEqual(view.calledMethods, [.enableDisplayChoiceFlagCalled])
         XCTAssertEqual(view.assignedParameters, [.flag])
         XCTAssertEqual(view.flag, true)
         XCTAssertEqual(interactor.calledMethods, [])

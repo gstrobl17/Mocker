@@ -17,8 +17,6 @@ protocol GodfatherInterfaceProtocol: AnyObject {
     func canReloadProject() -> Bool
     func reloadProject()
     func displayChoice(_ choice: DisplayChoice)
-    func generateMock()
-    func canGenerateMock() -> Bool
     func openRecentProjectFile(_ url: URL)
 }
 
@@ -58,7 +56,6 @@ protocol GodfatherPresenterProtocol: AnyObject {
     func canReloadProject() -> Bool
     func reloadProject()
     func displayChoice(_ choice: DisplayChoice)
-    func generateButtonPressed()
     func viewHasAppeared()
     func openRecentProjectFile(_ url: URL)
 }
@@ -78,7 +75,7 @@ protocol GodfatherInteractorOutputProtocol: AnyObject {
     func reportErrorCondition(with messageText: String, and informativeText: String)
     func showAsBusy(with message: String)
     func clearBusyMessage()
-    func canGenerateFileOrChooseDisplay(_ flag: Bool)
+    func canChooseDisplay(_ flag: Bool)
     func setDisplayChoice(_ choice: DisplayChoice)
     /* Interactor -> Presenter */
 }
@@ -118,7 +115,7 @@ protocol GodfatherViewProtocol: AnyObject {
     func display(_ alert: NSAlert)
     func displayActivityIndicator(_ message: String)
     func closeActivityIndicator()
-    func enableGenerateButtonAndDisplayChoice(_ flag: Bool)
+    func enableDisplayChoice(_ flag: Bool)
     func setDisplayChoice(_ choice: DisplayChoice)
     func displayAsSheet(_ viewController: NSViewController)
     /* Presenter -> ViewController */

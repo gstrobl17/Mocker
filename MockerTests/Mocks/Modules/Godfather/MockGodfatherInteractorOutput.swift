@@ -17,7 +17,7 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
         static let reportErrorConditionWithMessageTextAndInformativeTextCalled = Method(rawValue: 1 << 2)
         static let showAsBusyWithMessageCalled = Method(rawValue: 1 << 3)
         static let clearBusyMessageCalled = Method(rawValue: 1 << 4)
-        static let canGenerateFileOrChooseDisplayFlagCalled = Method(rawValue: 1 << 5)
+        static let canChooseDisplayFlagCalled = Method(rawValue: 1 << 5)
         static let setDisplayChoiceChoiceCalled = Method(rawValue: 1 << 6)
     }
     private(set) var calledMethods = Method()
@@ -110,8 +110,8 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
         calledMethods.insert(.clearBusyMessageCalled)
     }
 
-    func canGenerateFileOrChooseDisplay(_ flag: Bool) {
-        calledMethods.insert(.canGenerateFileOrChooseDisplayFlagCalled)
+    func canChooseDisplay(_ flag: Bool) {
+        calledMethods.insert(.canChooseDisplayFlagCalled)
         self.flag = flag
         assignedParameters.insert(.flag)
     }
@@ -156,9 +156,9 @@ extension MockGodfatherInteractorOutput.Method: CustomStringConvertible {
             handleFirst()
             value += ".clearBusyMessageCalled"
         }
-        if self.contains(.canGenerateFileOrChooseDisplayFlagCalled) {
+        if self.contains(.canChooseDisplayFlagCalled) {
             handleFirst()
-            value += ".canGenerateFileOrChooseDisplayFlagCalled"
+            value += ".canChooseDisplayFlagCalled"
         }
         if self.contains(.setDisplayChoiceChoiceCalled) {
             handleFirst()

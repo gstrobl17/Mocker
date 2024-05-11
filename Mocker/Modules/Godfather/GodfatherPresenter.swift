@@ -51,21 +51,6 @@ extension GodfatherPresenter: GodfatherPresenterProtocol {
         interactor?.displayChoice(choice)
     }
 
-    func generateButtonPressed() {
-        guard let interactor = interactor else { return }
-        guard !interactor.mockCode.isEmpty else { return }
-        if let project = interactor.currentProject, !interactor.mockCode.isEmpty, !interactor.mockName.isEmpty {
-            let fileSynthesisViewController = fileSynthesisRouterRouterType.createModule(mockName: interactor.mockName,
-                                                                                         mockCode: interactor.mockCode,
-                                                                                         project: project,
-                                                                                         fileSynthesizer: FileSynthesizer(),
-                                                                                         userDefaults: userDefaults,
-                                                                                         fileManager: interactor.fileManager,
-                                                                                         destinationGroupSelectorRouterType: destinationGroupSelectorRouterType)
-            view?.displayAsSheet(fileSynthesisViewController)
-        }
-    }
-
     func viewHasAppeared() {
         interactor?.viewHasAppeared()
     }
@@ -115,8 +100,8 @@ extension GodfatherPresenter: GodfatherInteractorOutputProtocol {
         view?.closeActivityIndicator()
     }
 
-    func canGenerateFileOrChooseDisplay(_ flag: Bool) {
-        view?.enableGenerateButtonAndDisplayChoice(flag)
+    func canChooseDisplay(_ flag: Bool) {
+        view?.enableDisplayChoice(flag)
     }
     
     func setDisplayChoice(_ choice: DisplayChoice) {

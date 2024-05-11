@@ -25,7 +25,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var mockFileParametersView: NSView!  //swiftlint:disable:this private_outlet
     @IBOutlet weak var contentPresenterView: NSView!    //swiftlint:disable:this private_outlet
     @IBOutlet weak var displayChoiceSegmentedControl: NSSegmentedControl! //swiftlint:disable:this private_outlet
-    @IBOutlet weak var generateButton: NSButton!        //swiftlint:disable:this private_outlet
 
     private var windowSetup = false
     private var userDefaults = UserDefaults.standard
@@ -80,9 +79,7 @@ class ViewController: NSViewController {
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(generateMock(_:)) {
-            return godfatherView.canGenerateMock()
-        } else if menuItem.action == #selector(selectProject(_:)) {
+        if menuItem.action == #selector(selectProject(_:)) {
             return true
         } else if menuItem.action == #selector(reloadProject(_:)) {
             return godfatherView.canReloadProject()
@@ -107,10 +104,6 @@ class ViewController: NSViewController {
         guard let sender = sender as? NSSegmentedControl else { return }
         guard let choice = DisplayChoice(rawValue: sender.selectedSegment) else { return }
         godfatherView.displayChoice(choice)
-    }
-    
-    @IBAction private func generateMock(_ sender: Any) {
-        godfatherView.generateMock()
     }
 
 }

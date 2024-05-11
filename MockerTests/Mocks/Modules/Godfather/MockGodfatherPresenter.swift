@@ -18,7 +18,6 @@ class MockGodfatherPresenter: GodfatherPresenterProtocol {
         static let canReloadProjectCalled = Method(rawValue: 1 << 1)
         static let reloadProjectCalled = Method(rawValue: 1 << 2)
         static let displayChoiceChoiceCalled = Method(rawValue: 1 << 3)
-        static let generateButtonPressedCalled = Method(rawValue: 1 << 4)
         static let viewHasAppearedCalled = Method(rawValue: 1 << 5)
         static let openRecentProjectFileUrlCalled = Method(rawValue: 1 << 6)
     }
@@ -66,10 +65,6 @@ class MockGodfatherPresenter: GodfatherPresenterProtocol {
         assignedParameters.insert(.choice)
     }
 
-    func generateButtonPressed() {
-        calledMethods.insert(.generateButtonPressedCalled)
-    }
-
     func viewHasAppeared() {
         calledMethods.insert(.viewHasAppearedCalled)
     }
@@ -109,10 +104,6 @@ extension MockGodfatherPresenter.Method: CustomStringConvertible {
         if self.contains(.displayChoiceChoiceCalled) {
             handleFirst()
             value += ".displayChoiceChoiceCalled"
-        }
-        if self.contains(.generateButtonPressedCalled) {
-            handleFirst()
-            value += ".generateButtonPressedCalled"
         }
         if self.contains(.viewHasAppearedCalled) {
             handleFirst()

@@ -93,7 +93,7 @@ class GodfatherInteractorTests: XCTestCase {
         )
         interactor.presenter = presenter
 
-        XCTAssertEqual(presenter.calledMethods, [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled, .canGenerateFileOrChooseDisplayFlagCalled])
+        XCTAssertEqual(presenter.calledMethods, [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled, .canChooseDisplayFlagCalled])
         XCTAssertEqual(presenter.assignedParameters, [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter, .flag])
         XCTAssertEqual(projectFactory.project.calledMethods, [])
         XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
@@ -322,7 +322,7 @@ class GodfatherInteractorTests: XCTestCase {
             
         interactor.sourceFileSelector(sourceFileSelector, fileSelected: treeNode)
     
-        XCTAssertEqual(presenter.calledMethods, [.canGenerateFileOrChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
+        XCTAssertEqual(presenter.calledMethods, [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
         XCTAssertEqual(presenter.assignedParameters, [.flag, .choice])
         XCTAssertEqual(presenter.flag, false)
         XCTAssertEqual(presenter.choice, .mock)

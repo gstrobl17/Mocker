@@ -33,11 +33,6 @@
                                                 <action selector="reloadProject:" target="Ady-hI-5gd" id="FnC-hZ-RqU"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Generate Mock" keyEquivalent="g" id="5fS-kt-mSB">
-                                            <connections>
-                                                <action selector="generateMock:" target="Ady-hI-5gd" id="3Gv-Wl-56i"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -410,18 +405,11 @@
                                                     <constraint firstAttribute="height" constant="117" id="YWG-Pm-c94"/>
                                                 </constraints>
                                             </customView>
-                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gZj-E0-sDF">
-                                                <rect key="frame" x="102" y="-7" width="105" height="32"/>
-                                                <buttonCell key="cell" type="push" title="Generate ..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="roL-PN-hvC">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                            </button>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Es3-Dx-XdM">
-                                                <rect key="frame" x="8" y="40" width="301" height="140"/>
+                                                <rect key="frame" x="8" y="26" width="301" height="154"/>
                                             </customView>
                                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PDT-sp-KUl">
-                                                <rect key="frame" x="7" y="13" width="92" height="20"/>
+                                                <rect key="frame" x="7" y="-1" width="92" height="20"/>
                                                 <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fill" style="roundRect" trackingMode="selectOne" id="pWy-bh-p5P">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <segments>
@@ -438,14 +426,12 @@
                                             <constraint firstItem="IPV-Yd-GRl" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="03B-Iw-Xl4"/>
                                             <constraint firstItem="PDT-sp-KUl" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="FwX-Pk-4aI"/>
                                             <constraint firstAttribute="trailing" secondItem="Es3-Dx-XdM" secondAttribute="trailing" id="HUB-6J-dWd"/>
-                                            <constraint firstItem="gZj-E0-sDF" firstAttribute="centerX" secondItem="erS-Cq-Cwx" secondAttribute="centerX" id="HcX-De-CZQ"/>
-                                            <constraint firstAttribute="bottom" secondItem="gZj-E0-sDF" secondAttribute="bottom" id="PF7-KL-sPh"/>
-                                            <constraint firstItem="gZj-E0-sDF" firstAttribute="top" secondItem="Es3-Dx-XdM" secondAttribute="bottom" constant="20" id="ScU-O0-PAZ"/>
                                             <constraint firstItem="IPV-Yd-GRl" firstAttribute="top" secondItem="1tC-3r-OJT" secondAttribute="bottom" constant="8" id="U2a-4x-avn"/>
                                             <constraint firstAttribute="trailing" secondItem="IPV-Yd-GRl" secondAttribute="trailing" id="XnP-y5-T1g"/>
                                             <constraint firstItem="PDT-sp-KUl" firstAttribute="top" secondItem="Es3-Dx-XdM" secondAttribute="bottom" constant="8" symbolic="YES" id="YqO-8c-YHB"/>
                                             <constraint firstAttribute="trailing" secondItem="1tC-3r-OJT" secondAttribute="trailing" id="eGV-1l-ARS"/>
                                             <constraint firstItem="Es3-Dx-XdM" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="eZ7-Ph-LAY"/>
+                                            <constraint firstAttribute="bottom" secondItem="PDT-sp-KUl" secondAttribute="bottom" id="egN-Hb-fIc"/>
                                             <constraint firstItem="1tC-3r-OJT" firstAttribute="top" secondItem="erS-Cq-Cwx" secondAttribute="top" id="i62-BO-jUB"/>
                                             <constraint firstItem="Es3-Dx-XdM" firstAttribute="top" secondItem="IPV-Yd-GRl" secondAttribute="bottom" constant="8" id="q8J-lf-2Li"/>
                                             <constraint firstItem="1tC-3r-OJT" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="y6U-Aa-xmH"/>
@@ -472,7 +458,6 @@
                     <connections>
                         <outlet property="contentPresenterView" destination="Es3-Dx-XdM" id="1Nq-PF-5fi"/>
                         <outlet property="displayChoiceSegmentedControl" destination="PDT-sp-KUl" id="AXC-5n-7Ra"/>
-                        <outlet property="generateButton" destination="gZj-E0-sDF" id="xUK-ik-NTu"/>
                         <outlet property="mockFileParametersView" destination="IPV-Yd-GRl" id="6Rq-ad-N9q"/>
                         <outlet property="projectFileSelectorView" destination="HhA-C9-KTJ" id="eez-WD-rR0"/>
                         <outlet property="protocolSelectorView" destination="1tC-3r-OJT" id="cCP-ae-dXI"/>
