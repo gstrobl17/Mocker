@@ -97,6 +97,15 @@ class GodfatherPresenterTests: XCTestCase {
         XCTAssertEqual(interactor.choice, .mock)
     }
     
+    func test_copyMockToClipboard() {
+        
+        presenter.copyMockToClipboard()
+        
+        XCTAssertEqual(view.calledMethods, [])
+        XCTAssertEqual(interactor.calledMethods, [.copyMockToClipboardCalled])
+        XCTAssertEqual(interactor.assignedParameters, [])
+    }
+
     func test_openRecentProjectFile() throws {
         let url = try XCTUnwrap(URL(string: "b.txt"))
         

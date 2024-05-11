@@ -38,6 +38,7 @@ class GodfatherInteractor {
     let filteringHandler: AsyncFilteringHandler
     let recentDocumentManager: RecentDocumentManaging
     let documentController: DocumentControlling
+    let pasteboard: Pasteboard
     internal var currentProject: Project?
     private(set) var targetOfCurrentSourceFile: XCTarget? {
         didSet {
@@ -77,7 +78,8 @@ class GodfatherInteractor {
         contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
         filteringHandler: AsyncFilteringHandler,
         recentDocumentManager: RecentDocumentManaging,
-        documentController: DocumentControlling
+        documentController: DocumentControlling,
+        pasteboard: Pasteboard = NSPasteboard.general
     ) {
         
         self.userDefaults = userDefaults
@@ -93,6 +95,7 @@ class GodfatherInteractor {
         self.filteringHandler = filteringHandler
         self.recentDocumentManager = recentDocumentManager
         self.documentController = documentController
+        self.pasteboard = pasteboard
 
         projectFileSelector.delegate = self
         sourceFileSelector.delegate = self
@@ -189,6 +192,11 @@ extension GodfatherInteractor: GodfatherInteractorInputProtocol {
         }
     }
     
+    func copyMockToClipboard() {
+        pasteboard.declareTypes([.string], owner: nil)
+        pasteboard.setString(mockCode, forType: .string)
+    }
+
     func openRecentProjectFile(_ url: URL) {
         openProjectFile(url)
         projectFileSelector.renderURLOfSelectedFile(url)

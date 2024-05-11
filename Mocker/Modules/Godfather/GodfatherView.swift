@@ -36,6 +36,10 @@ extension GodfatherView: GodfatherInterfaceProtocol {
     func displayChoice(_ choice: DisplayChoice) {
         presenter?.displayChoice(choice)
     }
+    
+    func copyMockToClipboard() {
+        presenter?.copyMockToClipboard()
+    }
 
     func openRecentProjectFile(_ url: URL) {
         presenter?.openRecentProjectFile(url)
@@ -109,7 +113,9 @@ extension GodfatherView: GodfatherViewProtocol {
     }
 
     func enableDisplayChoice(_ flag: Bool) {
+        guard let copyToClipboardButton = viewController.copyToClipboardButton else { return }
         guard let displayChoiceSegmentedControl = viewController.displayChoiceSegmentedControl else { return }
+        copyToClipboardButton.isEnabled = flag
         displayChoiceSegmentedControl.isEnabled = flag
     }
     

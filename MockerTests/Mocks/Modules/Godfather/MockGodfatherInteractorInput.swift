@@ -24,7 +24,8 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
         static let reloadProjectCalled = Method(rawValue: 1 << 2)
         static let viewHasAppearedCalled = Method(rawValue: 1 << 3)
         static let displayChoiceChoiceCalled = Method(rawValue: 1 << 4)
-        static let openRecentProjectFileUrlCalled = Method(rawValue: 1 << 5)
+        static let copyMockToClipboardCalled = Method(rawValue: 1 << 5)
+        static let openRecentProjectFileUrlCalled = Method(rawValue: 1 << 6)
     }
     private(set) var calledMethods = Method()
 
@@ -72,6 +73,10 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
         assignedParameters.insert(.choice)
     }
 
+    func copyMockToClipboard() {
+        calledMethods.insert(.copyMockToClipboardCalled)
+    }
+
     func openRecentProjectFile(_ url: URL) {
         calledMethods.insert(.openRecentProjectFileUrlCalled)
         self.url = url
@@ -111,6 +116,10 @@ extension MockGodfatherInteractorInput.Method: CustomStringConvertible {
         if self.contains(.displayChoiceChoiceCalled) {
             handleFirst()
             value += ".displayChoiceChoiceCalled"
+        }
+        if self.contains(.copyMockToClipboardCalled) {
+            handleFirst()
+            value += ".copyMockToClipboardCalled"
         }
         if self.contains(.openRecentProjectFileUrlCalled) {
             handleFirst()

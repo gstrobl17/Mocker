@@ -24,6 +24,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var protocolSelectorView: NSView!    //swiftlint:disable:this private_outlet
     @IBOutlet weak var mockFileParametersView: NSView!  //swiftlint:disable:this private_outlet
     @IBOutlet weak var contentPresenterView: NSView!    //swiftlint:disable:this private_outlet
+    @IBOutlet weak var copyToClipboardButton: NSButton! //swiftlint:disable:this private_outlet
     @IBOutlet weak var displayChoiceSegmentedControl: NSSegmentedControl! //swiftlint:disable:this private_outlet
 
     private var windowSetup = false
@@ -99,6 +100,10 @@ class ViewController: NSViewController {
         godfatherView.reloadProject()
     }
 
+    @IBAction private func copyToClipboardPressed(_ sender: Any) {
+        godfatherView.copyMockToClipboard()
+    }
+    
     @IBAction private func displayChoiceSegmentedChanged(_ sender: Any) {
         guard let sender = sender as? NSSegmentedControl else { return }
         guard let choice = DisplayChoice(rawValue: sender.selectedSegment) else { return }

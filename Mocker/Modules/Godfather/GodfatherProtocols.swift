@@ -17,6 +17,7 @@ protocol GodfatherInterfaceProtocol: AnyObject {
     func canReloadProject() -> Bool
     func reloadProject()
     func displayChoice(_ choice: DisplayChoice)
+    func copyMockToClipboard()
     func openRecentProjectFile(_ url: URL)
 }
 
@@ -55,6 +56,7 @@ protocol GodfatherPresenterProtocol: AnyObject {
     func canReloadProject() -> Bool
     func reloadProject()
     func displayChoice(_ choice: DisplayChoice)
+    func copyMockToClipboard()
     func viewHasAppeared()
     func openRecentProjectFile(_ url: URL)
 }
@@ -94,6 +96,7 @@ protocol GodfatherInteractorInputProtocol: AnyObject {
     func reloadProject()
     func viewHasAppeared()
     func displayChoice(_ choice: DisplayChoice)
+    func copyMockToClipboard()
     func openRecentProjectFile(_ url: URL)
     /* Presenter -> Interactor */
 }

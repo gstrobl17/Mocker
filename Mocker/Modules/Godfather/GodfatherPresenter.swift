@@ -48,6 +48,10 @@ extension GodfatherPresenter: GodfatherPresenterProtocol {
         interactor?.displayChoice(choice)
     }
 
+    func copyMockToClipboard() {
+        interactor?.copyMockToClipboard()
+    }
+
     func viewHasAppeared() {
         interactor?.viewHasAppeared()
     }

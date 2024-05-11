@@ -8,6 +8,7 @@
 import XCTest
 @testable import Mocker
 
+//swiftlint:disable:next type_body_length
 class MockFileParametersInteractorTests: XCTestCase {
 
     var presenter: MockMockFileParametersInteractorOutput!

@@ -27,6 +27,7 @@ class GodfatherInteractorTests: XCTestCase {
     var filteringHandler: MockAsyncFilteringHandler!
     var recentDocumentManager: MockRecentDocumentManaging!
     var documentController: MockDocumentControlling!
+    var pasteboard: MockPasteboard!
 
     override func setUp() {
         super.setUp()
@@ -46,6 +47,7 @@ class GodfatherInteractorTests: XCTestCase {
         filteringHandler = MockAsyncFilteringHandler()
         recentDocumentManager = MockRecentDocumentManaging()
         documentController = MockDocumentControlling()
+        pasteboard = MockPasteboard()
     }
 
     private func createInterator() -> GodfatherInteractor {
@@ -63,7 +65,8 @@ class GodfatherInteractorTests: XCTestCase {
             contentPresenterRouterType: contentPresenterRouterType,
             filteringHandler: filteringHandler,
             recentDocumentManager: recentDocumentManager,
-            documentController: documentController
+            documentController: documentController,
+            pasteboard: pasteboard
         )
         interactor.presenter = presenter
         interactor.currentSourceFileCode = "SOURCE"
@@ -100,6 +103,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     // MARK: - GodfatherInteractorInputProtocol methods -
@@ -116,6 +120,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     func test_canReloadProject_returnsFalse() {
@@ -132,6 +137,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     func test_canReloadProject_returnsTrue() {
@@ -148,6 +154,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     func test_reloadProject() {
@@ -162,6 +169,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     func test_viewHasAppeared_noUserDefaultValue() {
@@ -175,6 +183,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     func test_viewHasAppeared_userDefaultValueExists_fileDoesNotExist() {
@@ -190,6 +199,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [.fileExistsAtPathPathCalled])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     func test_viewHasAppeared_userDefaultValueExists_fileDoesExist() {
@@ -207,6 +217,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [.fileExistsAtPathPathCalled])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
 
         // First time
         MockProjectFileSelectorRouter.view.reset()
@@ -218,7 +229,8 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [.fileExistsAtPathPathCalled])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
-    }
+        XCTAssertEqual(pasteboard.calledMethods, [])
+}
     
     func test_displayChoice_mock() {
         let interactor = createInterator()
@@ -231,6 +243,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
     
     func test_displayChoice_source() {
@@ -244,8 +257,28 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
     
+    func test_copyMockToClipboard() {
+        let interactor = createInterator()
+
+        interactor.copyMockToClipboard()
+        
+        XCTAssertEqual(presenter.calledMethods, [])
+        XCTAssertEqual(projectFactory.project.calledMethods, [])
+        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
+        XCTAssertEqual(fileManager.calledMethods, [])
+        XCTAssertEqual(recentDocumentManager.calledMethods, [])
+        XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [.declareTypesNewTypesOwnerNewOwnerCalled, .setStringStringForTypeDataTypeCalled])
+        XCTAssertEqual(pasteboard.assignedParameters, [.newTypes, .newOwner, .string, .dataType])
+        XCTAssertEqual(pasteboard.newTypes, [.string])
+        XCTAssertNil(pasteboard.newOwner)
+        XCTAssertEqual(pasteboard.string, interactor.mockCode)
+        XCTAssertEqual(pasteboard.dataType, NSPasteboard.PasteboardType.string)
+    }
+
     func test_openRecentProjectFile() throws {
         let url = try XCTUnwrap(URL(string: "a.txt"))
         let interactor = createInterator()
@@ -266,6 +299,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(documentController.calledMethods, [.noteNewRecentDocumentURLUrlCalled])
         XCTAssertEqual(documentController.assignedParameters, [.url])
         XCTAssertEqual(documentController.url, url)
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     // MARK: - ProjectFileSelectorInterfaceDelegate methods -
@@ -288,6 +322,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
     
     func test_projectFileSelectorFileSelected_projectFileCreationSucceeds() {
@@ -311,6 +346,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(documentController.calledMethods, [.noteNewRecentDocumentURLUrlCalled])
         XCTAssertEqual(documentController.assignedParameters, [.url])
         XCTAssertEqual(documentController.url, url)
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     // MARK: - SourceFileSelectorInterfaceDelegate methods -
@@ -330,6 +366,7 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [])
         XCTAssertEqual(documentController.calledMethods, [])
+        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     // MARK: - SourceFileSelectorInterfaceDelegate methods -
@@ -349,7 +386,8 @@ class GodfatherInteractorTests: XCTestCase {
             XCTAssertEqual(mockFileParameters.assignedParameters, [.protocolDeclaration])
             XCTAssertEqual(mockFileParameters.protocolDeclaration, protocolDeclaration)
         }
-    }
+        XCTAssertEqual(pasteboard.calledMethods, [])
+}
 
     // MARK: - MockFileParametersInterfaceDelegate methods -
     

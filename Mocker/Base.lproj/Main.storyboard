@@ -33,6 +33,11 @@
                                                 <action selector="reloadProject:" target="Ady-hI-5gd" id="FnC-hZ-RqU"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Copy Mock to Clipboard" keyEquivalent="C" id="FfI-eQ-zzr">
+                                            <connections>
+                                                <action selector="copyToClipboardPressed:" target="Ady-hI-5gd" id="mkv-lT-UHN"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -406,36 +411,62 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Es3-Dx-XdM">
-                                                <rect key="frame" x="8" y="26" width="301" height="154"/>
+                                                <rect key="frame" x="8" y="33" width="301" height="147"/>
                                             </customView>
-                                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PDT-sp-KUl">
-                                                <rect key="frame" x="7" y="-1" width="92" height="20"/>
-                                                <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fill" style="roundRect" trackingMode="selectOne" id="pWy-bh-p5P">
-                                                    <font key="font" metaFont="smallSystem"/>
-                                                    <segments>
-                                                        <segment label="Mock" width="45" selected="YES"/>
-                                                        <segment label="Source" width="45" tag="1"/>
-                                                    </segments>
-                                                </segmentedCell>
-                                                <connections>
-                                                    <action selector="displayChoiceSegmentedChanged:" target="XfG-lQ-9wD" id="fMi-yi-5Nb"/>
-                                                </connections>
-                                            </segmentedControl>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="15" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7iC-HP-Yd0">
+                                                <rect key="frame" x="8" y="0.0" width="135" height="25"/>
+                                                <subviews>
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="dw4-Bh-iC5">
+                                                        <rect key="frame" x="0.0" y="-4.5" width="25" height="34"/>
+                                                        <buttonCell key="cell" type="bevel" alternateTitle="Copy Mock to Clipboard" bezelStyle="rounded" image="arrow.right.doc.on.clipboard" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="uff-qS-0K1">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="FbE-Yj-QcI"/>
+                                                            <constraint firstAttribute="width" constant="25" id="WDW-zQ-Ull"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <action selector="copyToClipboardPressed:" target="XfG-lQ-9wD" id="vRH-OX-ap0"/>
+                                                        </connections>
+                                                    </button>
+                                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PDT-sp-KUl">
+                                                        <rect key="frame" x="39" y="3" width="97" height="20"/>
+                                                        <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fill" style="roundRect" trackingMode="selectOne" id="pWy-bh-p5P">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <segments>
+                                                                <segment label="Mock" width="45" selected="YES"/>
+                                                                <segment label="Source" width="45" tag="1"/>
+                                                            </segments>
+                                                        </segmentedCell>
+                                                        <connections>
+                                                            <action selector="displayChoiceSegmentedChanged:" target="XfG-lQ-9wD" id="fMi-yi-5Nb"/>
+                                                        </connections>
+                                                    </segmentedControl>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="IPV-Yd-GRl" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="03B-Iw-Xl4"/>
-                                            <constraint firstItem="PDT-sp-KUl" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="FwX-Pk-4aI"/>
+                                            <constraint firstItem="7iC-HP-Yd0" firstAttribute="top" secondItem="Es3-Dx-XdM" secondAttribute="bottom" constant="8" symbolic="YES" id="FJc-UP-fNd"/>
                                             <constraint firstAttribute="trailing" secondItem="Es3-Dx-XdM" secondAttribute="trailing" id="HUB-6J-dWd"/>
+                                            <constraint firstItem="7iC-HP-Yd0" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="IMz-cf-EKV"/>
                                             <constraint firstItem="IPV-Yd-GRl" firstAttribute="top" secondItem="1tC-3r-OJT" secondAttribute="bottom" constant="8" id="U2a-4x-avn"/>
                                             <constraint firstAttribute="trailing" secondItem="IPV-Yd-GRl" secondAttribute="trailing" id="XnP-y5-T1g"/>
-                                            <constraint firstItem="PDT-sp-KUl" firstAttribute="top" secondItem="Es3-Dx-XdM" secondAttribute="bottom" constant="8" symbolic="YES" id="YqO-8c-YHB"/>
                                             <constraint firstAttribute="trailing" secondItem="1tC-3r-OJT" secondAttribute="trailing" id="eGV-1l-ARS"/>
                                             <constraint firstItem="Es3-Dx-XdM" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="eZ7-Ph-LAY"/>
-                                            <constraint firstAttribute="bottom" secondItem="PDT-sp-KUl" secondAttribute="bottom" id="egN-Hb-fIc"/>
                                             <constraint firstItem="1tC-3r-OJT" firstAttribute="top" secondItem="erS-Cq-Cwx" secondAttribute="top" id="i62-BO-jUB"/>
                                             <constraint firstItem="Es3-Dx-XdM" firstAttribute="top" secondItem="IPV-Yd-GRl" secondAttribute="bottom" constant="8" id="q8J-lf-2Li"/>
+                                            <constraint firstAttribute="bottom" secondItem="7iC-HP-Yd0" secondAttribute="bottom" id="trd-IJ-cF2"/>
                                             <constraint firstItem="1tC-3r-OJT" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="y6U-Aa-xmH"/>
-                                            <constraint firstItem="IPV-Yd-GRl" firstAttribute="leading" secondItem="PDT-sp-KUl" secondAttribute="trailing" constant="-90" id="z8y-VE-kFX"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
@@ -457,6 +488,7 @@
                     </view>
                     <connections>
                         <outlet property="contentPresenterView" destination="Es3-Dx-XdM" id="1Nq-PF-5fi"/>
+                        <outlet property="copyToClipboardButton" destination="dw4-Bh-iC5" id="oOk-t9-1OQ"/>
                         <outlet property="displayChoiceSegmentedControl" destination="PDT-sp-KUl" id="AXC-5n-7Ra"/>
                         <outlet property="mockFileParametersView" destination="IPV-Yd-GRl" id="6Rq-ad-N9q"/>
                         <outlet property="projectFileSelectorView" destination="HhA-C9-KTJ" id="eez-WD-rR0"/>
@@ -468,7 +500,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="249" y="1015"/>
+            <point key="canvasLocation" x="248.5" y="1014.5"/>
         </scene>
         <!--Project File Selector View Controller-->
         <scene sceneID="bh7-ee-HLg">
@@ -1138,5 +1170,6 @@ Gw
     </scenes>
     <resources>
         <image name="NSRefreshTemplate" width="18" height="21"/>
+        <image name="arrow.right.doc.on.clipboard" catalog="system" width="16" height="18"/>
     </resources>
 </document>

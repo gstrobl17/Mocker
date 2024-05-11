@@ -18,6 +18,7 @@ class MockGodfatherPresenter: GodfatherPresenterProtocol {
         static let canReloadProjectCalled = Method(rawValue: 1 << 1)
         static let reloadProjectCalled = Method(rawValue: 1 << 2)
         static let displayChoiceChoiceCalled = Method(rawValue: 1 << 3)
+        static let copyMockToClipboardCalled = Method(rawValue: 1 << 4)
         static let viewHasAppearedCalled = Method(rawValue: 1 << 5)
         static let openRecentProjectFileUrlCalled = Method(rawValue: 1 << 6)
     }
@@ -63,6 +64,10 @@ class MockGodfatherPresenter: GodfatherPresenterProtocol {
         calledMethods.insert(.displayChoiceChoiceCalled)
         self.choice = choice
         assignedParameters.insert(.choice)
+    }
+
+    func copyMockToClipboard() {
+        calledMethods.insert(.copyMockToClipboardCalled)
     }
 
     func viewHasAppeared() {

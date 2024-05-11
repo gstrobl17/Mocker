@@ -13,6 +13,9 @@
 		64049A142072396300136913 /* DestinationGroupSelectorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64049A0F2072396300136913 /* DestinationGroupSelectorProtocols.swift */; };
 		64049A152072396300136913 /* DestinationGroupSelectorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64049A102072396300136913 /* DestinationGroupSelectorRouter.swift */; };
 		64049A162072396300136913 /* DestinationGroupSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64049A112072396300136913 /* DestinationGroupSelectorViewController.swift */; };
+		641465C32BEFD8D2008CEBEA /* Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641465C22BEFD8D2008CEBEA /* Pasteboard.swift */; };
+		641465C52BEFD9CD008CEBEA /* NSPasteboard+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641465C42BEFD9CD008CEBEA /* NSPasteboard+Extensions.swift */; };
+		641465C72BEFDB2C008CEBEA /* MockPasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641465C62BEFDB2C008CEBEA /* MockPasteboard.swift */; };
 		6418CFA521413431008DD695 /* NameTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418CFA421413431008DD695 /* NameTracker.swift */; };
 		6418CFA821428099008DD695 /* NameTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418CFA721428099008DD695 /* NameTrackerTests.swift */; };
 		6424DB372047329E0064DB65 /* String+ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB362047329E0064DB65 /* String+ExtensionsTests.swift */; };
@@ -242,6 +245,9 @@
 		64049A0F2072396300136913 /* DestinationGroupSelectorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorProtocols.swift; sourceTree = "<group>"; };
 		64049A102072396300136913 /* DestinationGroupSelectorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorRouter.swift; sourceTree = "<group>"; };
 		64049A112072396300136913 /* DestinationGroupSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorViewController.swift; sourceTree = "<group>"; };
+		641465C22BEFD8D2008CEBEA /* Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pasteboard.swift; sourceTree = "<group>"; };
+		641465C42BEFD9CD008CEBEA /* NSPasteboard+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPasteboard+Extensions.swift"; sourceTree = "<group>"; };
+		641465C62BEFDB2C008CEBEA /* MockPasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPasteboard.swift; sourceTree = "<group>"; };
 		6418CFA421413431008DD695 /* NameTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTracker.swift; sourceTree = "<group>"; };
 		6418CFA721428099008DD695 /* NameTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTrackerTests.swift; sourceTree = "<group>"; };
 		6424DB362047329E0064DB65 /* String+ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ExtensionsTests.swift"; sourceTree = "<group>"; };
@@ -715,6 +721,7 @@
 				64C6090F20457865005D6869 /* MockMockGeneratorFactory.swift */,
 				64C607DE203F847F005D6869 /* MockOpenPanel.swift */,
 				64C607E0203F852C005D6869 /* MockOpenPanelFactory.swift */,
+				641465C62BEFDB2C008CEBEA /* MockPasteboard.swift */,
 				64C6080E20403531005D6869 /* MockProject.swift */,
 				64C60812204038A5005D6869 /* MockProjectFactory.swift */,
 				648692002B6E62090021A9F1 /* MockRecentDocumentManaging.swift */,
@@ -765,6 +772,7 @@
 				64C6090920457666005D6869 /* MockGeneratorFactory.swift */,
 				64C607CE203F7B73005D6869 /* OpenPanel.swift */,
 				64C607D3203F7DED005D6869 /* OpenPanelFactory.swift */,
+				641465C22BEFD8D2008CEBEA /* Pasteboard.swift */,
 				64C6080820403174005D6869 /* Project.swift */,
 				648691F62B6D4F9A0021A9F1 /* RecentDocumentManaging.swift */,
 				64C607D0203F7C0A005D6869 /* SavePanel.swift */,
@@ -782,6 +790,7 @@
 				64C608C62042EB3E005D6869 /* KeyValueStoring+Extensions.swift */,
 				648691F42B6D4F210021A9F1 /* NSDocumentController+Extensions.swift */,
 				64C607D5203F7E4A005D6869 /* NSOpenPanel+Extensions.swift */,
+				641465C42BEFD9CD008CEBEA /* NSPasteboard+Extensions.swift */,
 				64C607D7203F7EB8005D6869 /* NSSavePanel+Extensions.swift */,
 				64C607D9203F805D005D6869 /* NSStoryboard+Extensions.swift */,
 				647C069D21725E4F00778040 /* Operation+Extensions.swift */,
@@ -1204,6 +1213,7 @@
 				647C06A9217264A600778040 /* AsyncFilteringHandler.swift in Sources */,
 				C2635F8328623B2000F87C71 /* ModifierListSyntax+Extensions.swift in Sources */,
 				64C60788203EC7BD005D6869 /* GodfatherView.swift in Sources */,
+				641465C32BEFD8D2008CEBEA /* Pasteboard.swift in Sources */,
 				647C06A021725FCB00778040 /* NeverCancelledMonitor.swift in Sources */,
 				64C60790203EC807005D6869 /* ProjectFileSelectorInteractor.swift in Sources */,
 				64C608C32042EACD005D6869 /* KeyValueStoring.swift in Sources */,
@@ -1225,6 +1235,7 @@
 				647C06A7217261C200778040 /* FilteringOperation.swift in Sources */,
 				64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */,
 				64C6091220457982005D6869 /* ASTMockGeneratorFactory.swift in Sources */,
+				641465C52BEFD9CD008CEBEA /* NSPasteboard+Extensions.swift in Sources */,
 				64C607BA203EC92C005D6869 /* ContentPresenterRouter.swift in Sources */,
 				64C607AC203EC906005D6869 /* ProtocolSelectorPresenter.swift in Sources */,
 				C2635F8F28637AA000F87C71 /* TypeSyntax+Extensions.swift in Sources */,
@@ -1286,6 +1297,7 @@
 				6424DB372047329E0064DB65 /* String+ExtensionsTests.swift in Sources */,
 				648691A32B62F8120021A9F1 /* ASTMockGeneratorTests+Misc+AnalyticsRecording.swift in Sources */,
 				648691A72B62FB1C0021A9F1 /* ASTMockGeneratorTests+Misc+FileManagerProtocol.swift in Sources */,
+				641465C72BEFDB2C008CEBEA /* MockPasteboard.swift in Sources */,
 				6424DB5C204AB1080064DB65 /* DestinationGroupSelectorPresenterTests.swift in Sources */,
 				64C609022044054F005D6869 /* MockFileParametersRouterTests.swift in Sources */,
 				6424DB5E204AB71F0064DB65 /* DestinationGroupSelectorInteractorTests.swift in Sources */,
