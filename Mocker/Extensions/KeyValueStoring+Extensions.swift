@@ -16,6 +16,7 @@ enum UserDefaultsKey {
     static let swiftlintAware = "swiftlint Aware"
     static let includeTestableImport = "Include Testable Import"
     static let trackPropertyActivity = "Track Property Activity"
+    static let `public` = "Public"
     static let previousSelectedGroupPath = "Previous Selected Group Path"
     static let addNewFileToProject = "Add New File To Project"
     static let windowFrameAutosaveName = "Window Frame Autosave Name"
@@ -31,6 +32,7 @@ enum DefaultUserDefaultValue {
     static let swiftlintAware = true
     static let includeTestableImport = true
     static let trackPropertyActivity = false
+    static let `public` = false
     static let addNewFileToProject = true
     static let maxRecentDocumentCount = 20
 }
@@ -125,6 +127,18 @@ extension KeyValueStoring {
         }
         set {
             set(newValue, forKey: UserDefaultsKey.trackPropertyActivity)
+        }
+    }
+
+    var `public`: Bool {
+        get {
+            if object(forKey: UserDefaultsKey.public) == nil {
+                return DefaultUserDefaultValue.public
+            }
+            return bool(forKey: UserDefaultsKey.public)
+        }
+        set {
+            set(newValue, forKey: UserDefaultsKey.public)
         }
     }
 

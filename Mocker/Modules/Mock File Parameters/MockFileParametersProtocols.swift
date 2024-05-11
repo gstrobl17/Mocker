@@ -25,7 +25,8 @@ protocol MockFileParametersInterfaceDelegate: AnyObject {
                             includeTestableImport: Bool,
                             swiftlintAware: Bool,
                             testableTargetName: String,
-                            trackPropertyActivity: Bool)
+                            trackPropertyActivity: Bool,
+                            public: Bool)
 }
 
 // MARK: Wireframe -
@@ -47,6 +48,7 @@ protocol MockFileParametersPresenterProtocol: AnyObject {
     func swiftlintAwareFlagUpdated(to flag: Bool)
     func includeTestableImportFlagUpdated(to flag: Bool)
     func trackPropertyActivityFlagUpdated(to flag: Bool)
+    func publicFlagUpdated(to flag: Bool)
 
     // Method required because the view is not setup enough when the initial configure call is made
     //  to do the actual installation. This gets called in viewDidLoad when it is ready to perform
@@ -65,7 +67,8 @@ protocol MockFileParametersInteractorOutputProtocol: AnyObject {    //swiftlint:
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
-                       trackPropertyActivity: Bool)
+                       trackPropertyActivity: Bool,
+                       public: Bool)
     func setName(_ name: String)
 
     /* Interactor -> Presenter */
@@ -82,6 +85,7 @@ protocol MockFileParametersInteractorInputProtocol: AnyObject { //swiftlint:disa
     func swiftlintAwareFlagUpdated(to flag: Bool)
     func includeTestableImportFlagUpdated(to flag: Bool)
     func trackPropertyActivityFlagUpdated(to flag: Bool)
+    func publicFlagUpdated(to flag: Bool)
     func viewHasLoaded()
     /* Presenter -> Interactor */
 }
@@ -97,7 +101,8 @@ protocol MockFileParametersViewProtocol: AnyObject {
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
-                       trackPropertyActivity: Bool)
+                       trackPropertyActivity: Bool,
+                       public: Bool)
     func setName(_ name: String)
     /* Presenter -> ViewController */
 }

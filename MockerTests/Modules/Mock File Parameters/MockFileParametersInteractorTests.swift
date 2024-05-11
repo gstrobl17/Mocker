@@ -1,3 +1,4 @@
+//swiftlint:disable file_length
 //
 //  MockFileParametersInteractorTests.swift
 //  MockerTests
@@ -28,14 +29,15 @@ class MockFileParametersInteractorTests: XCTestCase {
         let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
         interactor.presenter = presenter
         
-        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled])
-        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .name])
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
         XCTAssertEqual(presenter.prefix, DefaultUserDefaultValue.mockPrefix)
         XCTAssertEqual(presenter.includeHeader, DefaultUserDefaultValue.includeHeader)
         XCTAssertEqual(presenter.stripTrailingProtocol, DefaultUserDefaultValue.stripTrailingProtocol)
         XCTAssertEqual(presenter.swiftlintAware, DefaultUserDefaultValue.swiftlintAware)
         XCTAssertEqual(presenter.includeTestableImport, DefaultUserDefaultValue.includeTestableImport)
         XCTAssertEqual(presenter.trackPropertyActivity, DefaultUserDefaultValue.trackPropertyActivity)
+        XCTAssertEqual(presenter.public, DefaultUserDefaultValue.public)
         XCTAssertEqual(presenter.name, "")
     }
     
@@ -46,14 +48,15 @@ class MockFileParametersInteractorTests: XCTestCase {
         let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
         interactor.presenter = presenter
         
-        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled])
-        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .name])
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
         XCTAssertEqual(presenter.prefix, alternativePrefix)
         XCTAssertEqual(presenter.includeHeader, DefaultUserDefaultValue.includeHeader)
         XCTAssertEqual(presenter.stripTrailingProtocol, DefaultUserDefaultValue.stripTrailingProtocol)
         XCTAssertEqual(presenter.swiftlintAware, DefaultUserDefaultValue.swiftlintAware)
         XCTAssertEqual(presenter.includeTestableImport, DefaultUserDefaultValue.includeTestableImport)
         XCTAssertEqual(presenter.trackPropertyActivity, DefaultUserDefaultValue.trackPropertyActivity)
+        XCTAssertEqual(presenter.public, DefaultUserDefaultValue.public)
         XCTAssertEqual(presenter.name, "")
     }
     
@@ -64,14 +67,15 @@ class MockFileParametersInteractorTests: XCTestCase {
         let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
         interactor.presenter = presenter
         
-        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled])
-        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .name])
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
         XCTAssertEqual(presenter.prefix, DefaultUserDefaultValue.mockPrefix)
         XCTAssertEqual(presenter.includeHeader, alternativeIncludeHeader)
         XCTAssertEqual(presenter.stripTrailingProtocol, DefaultUserDefaultValue.stripTrailingProtocol)
         XCTAssertEqual(presenter.swiftlintAware, DefaultUserDefaultValue.swiftlintAware)
         XCTAssertEqual(presenter.includeTestableImport, DefaultUserDefaultValue.includeTestableImport)
         XCTAssertEqual(presenter.trackPropertyActivity, DefaultUserDefaultValue.trackPropertyActivity)
+        XCTAssertEqual(presenter.public, DefaultUserDefaultValue.public)
         XCTAssertEqual(presenter.name, "")
     }
     
@@ -82,14 +86,15 @@ class MockFileParametersInteractorTests: XCTestCase {
         let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
         interactor.presenter = presenter
         
-        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled])
-        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .name])
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
         XCTAssertEqual(presenter.prefix, DefaultUserDefaultValue.mockPrefix)
         XCTAssertEqual(presenter.includeHeader, DefaultUserDefaultValue.includeHeader)
         XCTAssertEqual(presenter.stripTrailingProtocol, alternativeStripTrailingProtocol)
         XCTAssertEqual(presenter.swiftlintAware, DefaultUserDefaultValue.swiftlintAware)
         XCTAssertEqual(presenter.includeTestableImport, DefaultUserDefaultValue.includeTestableImport)
         XCTAssertEqual(presenter.trackPropertyActivity, DefaultUserDefaultValue.trackPropertyActivity)
+        XCTAssertEqual(presenter.public, DefaultUserDefaultValue.public)
         XCTAssertEqual(presenter.name, "")
     }
 
@@ -100,14 +105,15 @@ class MockFileParametersInteractorTests: XCTestCase {
         let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
         interactor.presenter = presenter
         
-        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled])
-        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .name])
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
         XCTAssertEqual(presenter.prefix, DefaultUserDefaultValue.mockPrefix)
         XCTAssertEqual(presenter.includeHeader, DefaultUserDefaultValue.includeHeader)
         XCTAssertEqual(presenter.stripTrailingProtocol, DefaultUserDefaultValue.stripTrailingProtocol)
         XCTAssertEqual(presenter.swiftlintAware, alternativeSwiftlintAware)
         XCTAssertEqual(presenter.includeTestableImport, DefaultUserDefaultValue.includeTestableImport)
         XCTAssertEqual(presenter.trackPropertyActivity, DefaultUserDefaultValue.trackPropertyActivity)
+        XCTAssertEqual(presenter.public, DefaultUserDefaultValue.public)
         XCTAssertEqual(presenter.name, "")
     }
 
@@ -118,14 +124,15 @@ class MockFileParametersInteractorTests: XCTestCase {
         let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
         interactor.presenter = presenter
         
-        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled])
-        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .name])
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
         XCTAssertEqual(presenter.prefix, DefaultUserDefaultValue.mockPrefix)
         XCTAssertEqual(presenter.includeHeader, DefaultUserDefaultValue.includeHeader)
         XCTAssertEqual(presenter.stripTrailingProtocol, DefaultUserDefaultValue.stripTrailingProtocol)
         XCTAssertEqual(presenter.swiftlintAware, DefaultUserDefaultValue.swiftlintAware)
         XCTAssertEqual(presenter.includeTestableImport, alternativeIncludeTestableImport)
         XCTAssertEqual(presenter.trackPropertyActivity, DefaultUserDefaultValue.trackPropertyActivity)
+        XCTAssertEqual(presenter.public, DefaultUserDefaultValue.public)
         XCTAssertEqual(presenter.name, "")
     }
 
@@ -136,14 +143,34 @@ class MockFileParametersInteractorTests: XCTestCase {
         let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
         interactor.presenter = presenter
         
-        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled])
-        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .name])
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
         XCTAssertEqual(presenter.prefix, DefaultUserDefaultValue.mockPrefix)
         XCTAssertEqual(presenter.includeHeader, DefaultUserDefaultValue.includeHeader)
         XCTAssertEqual(presenter.stripTrailingProtocol, DefaultUserDefaultValue.stripTrailingProtocol)
         XCTAssertEqual(presenter.swiftlintAware, DefaultUserDefaultValue.swiftlintAware)
         XCTAssertEqual(presenter.includeTestableImport, DefaultUserDefaultValue.includeTestableImport)
         XCTAssertEqual(presenter.trackPropertyActivity, alternativeTrackPropertyActivity)
+        XCTAssertEqual(presenter.public, DefaultUserDefaultValue.public)
+        XCTAssertEqual(presenter.name, "")
+    }
+
+    func testInit_alternativePublicValue() {
+        let alternativePublic = !DefaultUserDefaultValue.public
+        userDefaults.public = alternativePublic
+        
+        let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
+        interactor.presenter = presenter
+        
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
+        XCTAssertEqual(presenter.prefix, DefaultUserDefaultValue.mockPrefix)
+        XCTAssertEqual(presenter.includeHeader, DefaultUserDefaultValue.includeHeader)
+        XCTAssertEqual(presenter.stripTrailingProtocol, DefaultUserDefaultValue.stripTrailingProtocol)
+        XCTAssertEqual(presenter.swiftlintAware, DefaultUserDefaultValue.swiftlintAware)
+        XCTAssertEqual(presenter.includeTestableImport, DefaultUserDefaultValue.includeTestableImport)
+        XCTAssertEqual(presenter.trackPropertyActivity, DefaultUserDefaultValue.trackPropertyActivity)
+        XCTAssertEqual(presenter.public, alternativePublic)
         XCTAssertEqual(presenter.name, "")
     }
 
@@ -340,6 +367,28 @@ class MockFileParametersInteractorTests: XCTestCase {
         XCTAssertEqual(presenter.calledMethods, [])
         XCTAssertEqual(userDefaults.trackPropertyActivity, true)
     }
+    
+    func test_publicFlagUpdated_false() {
+        let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
+        interactor.presenter = presenter
+        presenter.reset()
+        
+        interactor.publicFlagUpdated(to: false)
+        
+        XCTAssertEqual(presenter.calledMethods, [])
+        XCTAssertEqual(userDefaults.public, false)
+    }
+    
+    func test_publicFlagUpdated_true() {
+        let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
+        interactor.presenter = presenter
+        presenter.reset()
+        
+        interactor.publicFlagUpdated(to: true)
+        
+        XCTAssertEqual(presenter.calledMethods, [])
+        XCTAssertEqual(userDefaults.public, true)
+    }
 
     func test_viewHasLoaded() {
         let interactor = MockFileParametersInteractor(userDefaults: userDefaults)
@@ -348,7 +397,8 @@ class MockFileParametersInteractorTests: XCTestCase {
 
         interactor.viewHasLoaded()
         
-        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled])
-        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .name])
+        XCTAssertEqual(presenter.calledMethods, [.setNameNameCalled, .setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public, .name])
     }
 }
+//swiftlint:enable file_length

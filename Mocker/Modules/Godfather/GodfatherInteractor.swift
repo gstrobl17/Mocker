@@ -262,7 +262,8 @@ extension GodfatherInteractor: MockFileParametersInterfaceDelegate {
                             includeTestableImport: Bool,
                             swiftlintAware: Bool,
                             testableTargetName: String,
-                            trackPropertyActivity: Bool) {
+                            trackPropertyActivity: Bool,
+                            public: Bool) {
         guard let currentProject = currentProject else { return }
         guard let currentSourceFile = currentSourceFile else { return }
         guard let currentProtocolDeclaration = currentProtocolDeclaration else { return }
@@ -280,7 +281,8 @@ extension GodfatherInteractor: MockFileParametersInterfaceDelegate {
                                                  includeHeader: includeHeader,
                                                  includeTestableImport: includeTestableImport,
                                                  testableTargetName: testableTargetName,
-                                                 trackPropertyActivity: trackPropertyActivity)
+                                                 trackPropertyActivity: trackPropertyActivity,
+                                                 public: `public`)
         let generator = mockGeneratorFactory.createMockGenerator(swiftlintAware: swiftlintAware)
         mockCode = generator.generateMockCode(for: parameters)
     }

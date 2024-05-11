@@ -18,7 +18,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
 
     struct Method: OptionSet {
         let rawValue: Int
-        static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled = Method(rawValue: 1)
+        static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled = Method(rawValue: 1)
         static let setNameNameCalled = Method(rawValue: 2)
         static let setupForProtocolDeclarationCalled = Method(rawValue: 4)
         static let setupForProjectCalled = Method(rawValue: 8)
@@ -35,10 +35,11 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         static let swiftlintAware = MethodParameter(rawValue: 1 << 3)
         static let includeTestableImport = MethodParameter(rawValue: 1 << 4)
         static let trackPropertyActivity = MethodParameter(rawValue: 1 << 5)
-        static let name = MethodParameter(rawValue: 1 << 6)
-        static let protocolDeclaration = MethodParameter(rawValue: 1 << 7)
-        static let project = MethodParameter(rawValue: 1 << 8)
-        static let target = MethodParameter(rawValue: 1 << 9)
+        static let `public` = MethodParameter(rawValue: 1 << 6)
+        static let name = MethodParameter(rawValue: 1 << 7)
+        static let protocolDeclaration = MethodParameter(rawValue: 1 << 8)
+        static let project = MethodParameter(rawValue: 1 << 9)
+        static let target = MethodParameter(rawValue: 1 << 10)
     }
     private(set) var assignedParameters = MethodParameter()
 
@@ -48,6 +49,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     private(set) var swiftlintAware: Bool?
     private(set) var includeTestableImport: Bool?
     private(set) var trackPropertyActivity: Bool?
+    private(set) var `public`: Bool?
     private(set) var name: String?
     private(set) var protocolDeclaration: ProtocolDeclSyntax?
     private(set) var project: Project?
@@ -62,6 +64,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         swiftlintAware = nil
         includeTestableImport = nil
         trackPropertyActivity = nil
+        `public` = nil
         name = nil
         protocolDeclaration = nil
         project = nil
@@ -74,8 +77,9 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
-                       trackPropertyActivity: Bool) {
-        calledMethods.insert(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled)
+                       trackPropertyActivity: Bool,
+                       public: Bool) {
+        calledMethods.insert(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled)
         self.prefix = prefix
         assignedParameters.insert(.prefix)
         self.includeHeader = includeHeader
@@ -88,6 +92,8 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         assignedParameters.insert(.includeTestableImport)
         self.trackPropertyActivity = trackPropertyActivity
         assignedParameters.insert(.trackPropertyActivity)
+        self.public = `public`
+        assignedParameters.insert(.public)
     }
 
     func setName(_ name: String) {
@@ -132,9 +138,9 @@ extension MockMockFileParametersView.Method: CustomStringConvertible {
             }
         }
 
-        if self.contains(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled) {
+        if self.contains(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled) {
             handleFirst()
-            value += ".setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled"
+            value += ".setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled"
         }
         if self.contains(.setNameNameCalled) {
             handleFirst()
@@ -193,6 +199,10 @@ extension MockMockFileParametersView.MethodParameter: CustomStringConvertible {
         if self.contains(.trackPropertyActivity) {
             handleFirst()
             value += ".trackPropertyActivity"
+        }
+        if self.contains(.public) {
+            handleFirst()
+            value += ".public"
         }
         if self.contains(.name) {
             handleFirst()

@@ -24,7 +24,8 @@ class MockMockFileParametersInteractorInput: MockFileParametersInteractorInputPr
         static let swiftlintAwareFlagUpdatedToFlagCalled = Method(rawValue: 1 << 4)
         static let includeTestableImportFlagUpdatedToFlagCalled = Method(rawValue: 1 << 5)
         static let trackPropertyActivityFlagUpdatedToFlagCalled = Method(rawValue: 1 << 6)
-        static let viewHasLoadedCalled = Method(rawValue: 1 << 7)
+        static let publicFlagUpdatedToFlagCalled = Method(rawValue: 1 << 7)
+        static let viewHasLoadedCalled = Method(rawValue: 1 << 8)
      }
     private(set) var calledMethods = Method()
 
@@ -90,6 +91,12 @@ class MockMockFileParametersInteractorInput: MockFileParametersInteractorInputPr
         assignedParameters.insert(.flag)
     }
 
+    func publicFlagUpdated(to flag: Bool) {
+        calledMethods.insert(.publicFlagUpdatedToFlagCalled)
+        self.flag = flag
+        assignedParameters.insert(.flag)
+    }
+
     func viewHasLoaded() {
         calledMethods.insert(.viewHasLoadedCalled)
     }
@@ -135,6 +142,10 @@ extension MockMockFileParametersInteractorInput.Method: CustomStringConvertible 
         if self.contains(.trackPropertyActivityFlagUpdatedToFlagCalled) {
             handleFirst()
             value += ".trackPropertyActivityFlagUpdatedToFlagCalled"
+        }
+        if self.contains(.publicFlagUpdatedToFlagCalled) {
+            handleFirst()
+            value += ".publicFlagUpdatedToFlagCalled"
         }
         if self.contains(.viewHasLoadedCalled) {
             handleFirst()

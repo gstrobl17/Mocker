@@ -50,7 +50,8 @@ class MockFileParametersInteractor {
                                  stripTrailingProtocol: userDefaults.stripTrailingProtocol,
                                  swiftlintAware: userDefaults.swiftlintAware,
                                  includeTestableImport: userDefaults.includeTestableImport,
-                                 trackPropertyActivity: userDefaults.trackPropertyActivity)
+                                 trackPropertyActivity: userDefaults.trackPropertyActivity,
+                                 public: userDefaults.public)
         broadcastMockFileName()
     }
     
@@ -89,6 +90,10 @@ extension MockFileParametersInteractor: MockFileParametersInteractorInputProtoco
         userDefaults.trackPropertyActivity = flag
     }
 
+    func publicFlagUpdated(to flag: Bool) {
+        userDefaults.public = flag
+    }
+    
     func viewHasLoaded() {
         sendParameterValues()
     }

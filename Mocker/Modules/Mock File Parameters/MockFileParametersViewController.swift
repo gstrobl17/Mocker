@@ -21,6 +21,7 @@ class MockFileParametersViewController: NSViewController {
     @IBOutlet weak private var swiftlintAwareCheckBox: NSButton!
     @IBOutlet weak private var targetsComboBox: NSComboBox!
     @IBOutlet weak private var trackPropertyActivityCheckbox: NSButton!
+    @IBOutlet weak private var publicCheckbox: NSButton!
     @IBOutlet weak private var nameTextField: NSTextField!
     
     private var targets = [XCTarget]() {
@@ -50,13 +51,15 @@ class MockFileParametersViewController: NSViewController {
         let swiftlintAware = (swiftlintAwareCheckBox.state == .on)
         let testableTargetName = targetsComboBox.stringValue
         let trackPropertyActivity = (trackPropertyActivityCheckbox.state == .on)
+        let `public` = (publicCheckbox.state == .on)
         delegate?.mockFileParameters(self,
                                      mockName: mockName,
                                      includeHeader: includeHeader,
                                      includeTestableImport: includeTestableImport,
                                      swiftlintAware: swiftlintAware,
                                      testableTargetName: testableTargetName,
-                                     trackPropertyActivity: trackPropertyActivity)
+                                     trackPropertyActivity: trackPropertyActivity, 
+                                     public: `public`)
     }
     
     @IBAction private func includeHeaderPressed(_ sender: Any) {
@@ -130,6 +133,20 @@ class MockFileParametersViewController: NSViewController {
         setState()
         broadcastParameters()
     }
+    
+    @IBAction private func publicPressed(_ sender: Any) {
+        guard let checkBox = sender as? NSButton else { return }
+        switch checkBox.state {
+        case .on:
+            presenter?.publicFlagUpdated(to: true)
+        case .off:
+            presenter?.publicFlagUpdated(to: false)
+        default:
+            assertionFailure("Unexpected button state")
+        }
+        setState()
+        broadcastParameters()
+    }
 }
 
 extension MockFileParametersViewController: MockFileParametersViewProtocol {
@@ -140,7 +157,8 @@ extension MockFileParametersViewController: MockFileParametersViewProtocol {
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
-                       trackPropertyActivity: Bool) {
+                       trackPropertyActivity: Bool,
+                       public: Bool) {
         guard prefixTextField != nil else { return }    // Added for unit testing
         prefixTextField.stringValue = prefix
         switch includeHeader {
@@ -172,6 +190,12 @@ extension MockFileParametersViewController: MockFileParametersViewProtocol {
             trackPropertyActivityCheckbox.state = .on
         case false:
             trackPropertyActivityCheckbox.state = .off
+        }
+        switch `public` {
+        case true:
+            publicCheckbox.state = .on
+        case false:
+            publicCheckbox.state = .off
         }
         setState()
     }

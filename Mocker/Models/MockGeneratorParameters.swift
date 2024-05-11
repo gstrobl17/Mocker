@@ -17,7 +17,8 @@ class MockGeneratorParameters: SyntaxVisitor {
     let includeTestableImport: Bool
     let testableTargetName: String
     let trackPropertyActivity: Bool
-    
+    let `public`: Bool
+
     private(set) var variables = [VariableDeclSyntax]()
     private(set) var methods = [FunctionDeclSyntax]()
 
@@ -29,7 +30,8 @@ class MockGeneratorParameters: SyntaxVisitor {
         includeHeader: Bool,
         includeTestableImport: Bool,
         testableTargetName: String,
-        trackPropertyActivity: Bool
+        trackPropertyActivity: Bool,
+        public: Bool
     ) {
         self.project = project
         self.imports = imports
@@ -39,6 +41,7 @@ class MockGeneratorParameters: SyntaxVisitor {
         self.includeTestableImport = includeTestableImport
         self.testableTargetName = testableTargetName
         self.trackPropertyActivity = trackPropertyActivity
+        self.public = `public`
         super.init(viewMode: .sourceAccurate)
 
         // To get an object tree for the selected protocol,

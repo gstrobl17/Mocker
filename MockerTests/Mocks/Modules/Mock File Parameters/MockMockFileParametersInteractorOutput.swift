@@ -15,7 +15,7 @@ class MockMockFileParametersInteractorOutput: MockFileParametersInteractorOutput
 
     struct Method: OptionSet {
         let rawValue: Int
-        static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled = Method(rawValue: 1)
+        static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled = Method(rawValue: 1)
         static let setNameNameCalled = Method(rawValue: 2)
     }
     private(set) var calledMethods = Method()
@@ -28,7 +28,8 @@ class MockMockFileParametersInteractorOutput: MockFileParametersInteractorOutput
         static let swiftlintAware = MethodParameter(rawValue: 1 << 3)
         static let includeTestableImport = MethodParameter(rawValue: 1 << 4)
         static let trackPropertyActivity = MethodParameter(rawValue: 1 << 5)
-        static let name = MethodParameter(rawValue: 1 << 6)
+        static let `public` = MethodParameter(rawValue: 1 << 6)
+        static let name = MethodParameter(rawValue: 1 << 7)
     }
     private(set) var assignedParameters = MethodParameter()
 
@@ -38,6 +39,7 @@ class MockMockFileParametersInteractorOutput: MockFileParametersInteractorOutput
     private(set) var swiftlintAware: Bool?
     private(set) var includeTestableImport: Bool?
     private(set) var trackPropertyActivity: Bool?
+    private(set) var `public`: Bool?
     private(set) var name: String?
 
     func reset() {
@@ -48,6 +50,7 @@ class MockMockFileParametersInteractorOutput: MockFileParametersInteractorOutput
         stripTrailingProtocol = nil
         includeTestableImport = nil
         trackPropertyActivity = nil
+        `public` = nil
         name = nil
     }
 
@@ -57,8 +60,9 @@ class MockMockFileParametersInteractorOutput: MockFileParametersInteractorOutput
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
-                       trackPropertyActivity: Bool) {
-        calledMethods.insert(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled)
+                       trackPropertyActivity: Bool,
+                       public: Bool) {
+        calledMethods.insert(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled)
         self.prefix = prefix
         assignedParameters.insert(.prefix)
         self.includeHeader = includeHeader
@@ -71,6 +75,8 @@ class MockMockFileParametersInteractorOutput: MockFileParametersInteractorOutput
         assignedParameters.insert(.includeTestableImport)
         self.trackPropertyActivity = trackPropertyActivity
         assignedParameters.insert(.trackPropertyActivity)
+        self.public = `public`
+        assignedParameters.insert(.public)
     }
 
     func setName(_ name: String) {
@@ -93,9 +99,9 @@ extension MockMockFileParametersInteractorOutput.Method: CustomStringConvertible
             }
         }
 
-        if self.contains(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled) {
+        if self.contains(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled) {
             handleFirst()
-            value += ".setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled"
+            value += ".setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled"
         }
         if self.contains(.setNameNameCalled) {
             handleFirst()
@@ -142,6 +148,10 @@ extension MockMockFileParametersInteractorOutput.MethodParameter: CustomStringCo
         if self.contains(.trackPropertyActivity) {
             handleFirst()
             value += ".trackPropertyActivity"
+        }
+        if self.contains(.public) {
+            handleFirst()
+            value += ".public"
         }
         if self.contains(.name) {
             handleFirst()

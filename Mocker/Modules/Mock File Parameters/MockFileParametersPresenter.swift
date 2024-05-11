@@ -51,6 +51,10 @@ extension MockFileParametersPresenter: MockFileParametersPresenterProtocol {
         interactor?.trackPropertyActivityFlagUpdated(to: flag)
     }
 
+    func publicFlagUpdated(to flag: Bool) {
+        interactor?.publicFlagUpdated(to: flag)
+    }
+    
     func viewHasLoaded() {
         interactor?.viewHasLoaded()
     }
@@ -65,13 +69,15 @@ extension MockFileParametersPresenter: MockFileParametersInteractorOutputProtoco
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
-                       trackPropertyActivity: Bool) {
+                       trackPropertyActivity: Bool,
+                       public: Bool) {
         view?.setParameters(prefix: prefix,
                             includeHeader: includeHeader,
                             stripTrailingProtocol: stripTrailingProtocol,
                             swiftlintAware: swiftlintAware,
                             includeTestableImport: includeTestableImport,
-                            trackPropertyActivity: trackPropertyActivity)
+                            trackPropertyActivity: trackPropertyActivity,
+                            public: `public`)
     }
     
     func setName(_ name: String) {

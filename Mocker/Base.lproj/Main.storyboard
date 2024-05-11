@@ -871,6 +871,16 @@
                                     <action selector="includeHeaderPressed:" target="ed8-DP-i1A" id="xNT-x9-MqT"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mQe-Kp-ZSl">
+                                <rect key="frame" x="382" y="31" width="63" height="18"/>
+                                <buttonCell key="cell" type="check" title="public" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="E52-pA-Hmg">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="publicPressed:" target="ed8-DP-i1A" id="g0a-ga-s8P"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="top" secondItem="I85-gj-dmO" secondAttribute="bottom" constant="16" id="4Sz-wF-iPF"/>
@@ -885,11 +895,13 @@
                             <constraint firstItem="SfD-Zc-Ybu" firstAttribute="top" secondItem="3dd-4F-zNw" secondAttribute="bottom" constant="11" id="P1e-LI-dq9"/>
                             <constraint firstItem="I85-gj-dmO" firstAttribute="baseline" secondItem="AEF-pH-4LF" secondAttribute="baseline" id="SP4-eq-Vrz"/>
                             <constraint firstItem="oWe-RO-yVx" firstAttribute="firstBaseline" secondItem="I85-gj-dmO" secondAttribute="firstBaseline" id="Ycd-Cs-vnC"/>
+                            <constraint firstItem="mQe-Kp-ZSl" firstAttribute="leading" secondItem="SfD-Zc-Ybu" secondAttribute="trailing" constant="8" symbolic="YES" id="cAd-uj-Vx8"/>
                             <constraint firstItem="gIl-zo-V8o" firstAttribute="leading" secondItem="zlJ-cH-ne1" secondAttribute="leading" id="cS2-zu-WOc"/>
                             <constraint firstItem="Gix-P9-f71" firstAttribute="baseline" secondItem="gIl-zo-V8o" secondAttribute="baseline" id="gfF-w7-GTZ"/>
                             <constraint firstItem="AEF-pH-4LF" firstAttribute="top" secondItem="zlJ-cH-ne1" secondAttribute="top" id="haB-Bm-jtW"/>
                             <constraint firstItem="oWe-RO-yVx" firstAttribute="leading" secondItem="I85-gj-dmO" secondAttribute="trailing" constant="20" id="izg-MJ-ANe"/>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="leading" secondItem="jYf-vV-0xV" secondAttribute="trailing" constant="8" id="m9N-hM-mCm"/>
+                            <constraint firstItem="mQe-Kp-ZSl" firstAttribute="firstBaseline" secondItem="SfD-Zc-Ybu" secondAttribute="firstBaseline" id="mVZ-LN-o1J"/>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="baseline" secondItem="jYf-vV-0xV" secondAttribute="baseline" id="n7f-VZ-cfY"/>
                             <constraint firstItem="Gix-P9-f71" firstAttribute="leading" secondItem="gIl-zo-V8o" secondAttribute="trailing" constant="8" id="reb-TL-VT9"/>
                             <constraint firstItem="ejr-y1-6Mp" firstAttribute="leading" secondItem="zlJ-cH-ne1" secondAttribute="leading" id="uLV-hM-BgM"/>
@@ -904,6 +916,7 @@
                         <outlet property="includeTestableImportCheckBox" destination="jYf-vV-0xV" id="5sP-RZ-it5"/>
                         <outlet property="nameTextField" destination="Gix-P9-f71" id="QaH-8w-kJb"/>
                         <outlet property="prefixTextField" destination="AEF-pH-4LF" id="rmp-bD-MV1"/>
+                        <outlet property="publicCheckbox" destination="mQe-Kp-ZSl" id="ddu-Mj-uAV"/>
                         <outlet property="stripTrailingProtocolCheckBox" destination="I85-gj-dmO" id="ORY-6V-h5h"/>
                         <outlet property="swiftlintAwareCheckBox" destination="oWe-RO-yVx" id="peb-Sf-Uli"/>
                         <outlet property="targetsComboBox" destination="3dd-4F-zNw" id="3nZ-G7-Lx4"/>

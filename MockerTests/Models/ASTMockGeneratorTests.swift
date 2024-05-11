@@ -31,6 +31,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         static let includeTestableImport = true
         static let testableTargetName = "Mocker"
         static let trackPropertyActivity = false
+        static let `public` = false
         static let organizationName = "Acme Corp"
     }
     
@@ -76,7 +77,8 @@ final class ASTMockGeneratorTests: XCTestCase {
         includeHeader: Bool? = nil,
         includeTestableImport: Bool? = nil,
         testableTargetName: String? = nil,
-        trackPropertyActivity: Bool? = nil
+        trackPropertyActivity: Bool? = nil,
+        public: Bool? = nil
     ) -> MockGeneratorParameters {
         MockGeneratorParameters(
             project: project ?? self.project,
@@ -86,7 +88,8 @@ final class ASTMockGeneratorTests: XCTestCase {
             includeHeader: includeHeader ?? Default.includeHeader,
             includeTestableImport: includeTestableImport ?? Default.includeTestableImport,
             testableTargetName: testableTargetName ?? Default.testableTargetName,
-            trackPropertyActivity: trackPropertyActivity ?? Default.trackPropertyActivity
+            trackPropertyActivity: trackPropertyActivity ?? Default.trackPropertyActivity,
+            public: `public` ?? Default.public
         )
     }
     
@@ -142,8 +145,6 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
     
     func testCodeGeneration_emptyProtocol_includeHeaderFALSE_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeHeader: false, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
