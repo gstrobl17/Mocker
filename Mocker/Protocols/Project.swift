@@ -17,10 +17,8 @@ protocol Project: AnyObject {
 
     func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult
     func file(withKey key: String!) -> XCSourceFile!
-    func file(withName name: String!) -> XCSourceFile!
     func filePath() -> String!
     func groupWithPath(fromRoot: String!) -> XCGroup!
-    func save()
     func target(withName name: String!) -> XCTarget!
   
 }

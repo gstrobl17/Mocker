@@ -17,10 +17,8 @@ class MockProject: Project {
         static let objectsCalled = Method(rawValue: 2)
         static let traverseFilteredByFilterMonitoredByCalled = Method(rawValue: 4)
         static let fileWithKeyKeyCalled = Method(rawValue: 8)
-        static let fileWithNameNameCalled = Method(rawValue: 16)
         static let filePathCalled = Method(rawValue: 32)
         static let groupWithPathFromRootCalled = Method(rawValue: 64)
-        static let saveCalled = Method(rawValue: 128)
         static let targetWithNameNameCalled = Method(rawValue: 256)
     }
     private(set) var calledMethods = Method()
@@ -86,13 +84,6 @@ class MockProject: Project {
         return fileWithKeyKeyReturnValue
     }
 
-    func file(withName name: String!) -> XCSourceFile! {
-        calledMethods.insert(.fileWithNameNameCalled)
-        self.name = name
-        assignedParameters.insert(.name)
-        return fileWithNameNameReturnValue
-    }
-
     func filePath() -> String! {
         calledMethods.insert(.filePathCalled)
         return filePathReturnValue
@@ -103,10 +94,6 @@ class MockProject: Project {
         self.fromRoot = fromRoot
         assignedParameters.insert(.fromRoot)
         return groupWithPathFromRootReturnValue
-    }
-
-    func save() {
-        calledMethods.insert(.saveCalled)
     }
 
     func target(withName name: String!) -> XCTarget! {
@@ -146,10 +133,6 @@ extension MockProject.Method: CustomStringConvertible {
             handleFirst()
             value += ".fileWithKeyKeyCalled"
         }
-        if self.contains(.fileWithNameNameCalled) {
-            handleFirst()
-            value += ".fileWithNameNameCalled"
-        }
         if self.contains(.filePathCalled) {
             handleFirst()
             value += ".filePathCalled"
@@ -157,10 +140,6 @@ extension MockProject.Method: CustomStringConvertible {
         if self.contains(.groupWithPathFromRootCalled) {
             handleFirst()
             value += ".groupWithPathFromRootCalled"
-        }
-        if self.contains(.saveCalled) {
-            handleFirst()
-            value += ".saveCalled"
         }
         if self.contains(.targetWithNameNameCalled) {
             handleFirst()
