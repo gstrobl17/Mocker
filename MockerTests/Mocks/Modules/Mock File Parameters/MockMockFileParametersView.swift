@@ -18,7 +18,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
 
     struct Method: OptionSet {
         let rawValue: Int
-        static let setParametersPrefixStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled = Method(rawValue: 1)
+        static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled = Method(rawValue: 1)
         static let setNameNameCalled = Method(rawValue: 2)
         static let setupForProtocolDeclarationCalled = Method(rawValue: 4)
         static let setupForProjectCalled = Method(rawValue: 8)
@@ -30,18 +30,20 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     struct MethodParameter: OptionSet {
         let rawValue: Int
         static let prefix = MethodParameter(rawValue: 1 << 0)
-        static let stripTrailingProtocol = MethodParameter(rawValue: 1 << 1)
-        static let swiftlintAware = MethodParameter(rawValue: 1 << 2)
-        static let includeTestableImport = MethodParameter(rawValue: 1 << 3)
-        static let trackPropertyActivity = MethodParameter(rawValue: 1 << 4)
-        static let name = MethodParameter(rawValue: 1 << 5)
-        static let protocolDeclaration = MethodParameter(rawValue: 1 << 6)
-        static let project = MethodParameter(rawValue: 1 << 7)
-        static let target = MethodParameter(rawValue: 1 << 8)
+        static let includeHeader = MethodParameter(rawValue: 1 << 1)
+        static let stripTrailingProtocol = MethodParameter(rawValue: 1 << 2)
+        static let swiftlintAware = MethodParameter(rawValue: 1 << 3)
+        static let includeTestableImport = MethodParameter(rawValue: 1 << 4)
+        static let trackPropertyActivity = MethodParameter(rawValue: 1 << 5)
+        static let name = MethodParameter(rawValue: 1 << 6)
+        static let protocolDeclaration = MethodParameter(rawValue: 1 << 7)
+        static let project = MethodParameter(rawValue: 1 << 8)
+        static let target = MethodParameter(rawValue: 1 << 9)
     }
     private(set) var assignedParameters = MethodParameter()
 
     private(set) var prefix: String?
+    private(set) var includeHeader: Bool?
     private(set) var stripTrailingProtocol: Bool?
     private(set) var swiftlintAware: Bool?
     private(set) var includeTestableImport: Bool?
@@ -55,6 +57,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         calledMethods = []
         assignedParameters = []
         prefix = nil
+        includeHeader = nil
         stripTrailingProtocol = nil
         swiftlintAware = nil
         includeTestableImport = nil
@@ -65,14 +68,18 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         target = nil
     }
 
+    //swiftlint:disable:next function_parameter_count
     func setParameters(prefix: String,
+                       includeHeader: Bool,
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
                        trackPropertyActivity: Bool) {
-        calledMethods.insert(.setParametersPrefixStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled)
+        calledMethods.insert(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled)
         self.prefix = prefix
         assignedParameters.insert(.prefix)
+        self.includeHeader = includeHeader
+        assignedParameters.insert(.includeHeader)
         self.stripTrailingProtocol = stripTrailingProtocol
         assignedParameters.insert(.stripTrailingProtocol)
         self.swiftlintAware = swiftlintAware
@@ -125,9 +132,9 @@ extension MockMockFileParametersView.Method: CustomStringConvertible {
             }
         }
 
-        if self.contains(.setParametersPrefixStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled) {
+        if self.contains(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled) {
             handleFirst()
-            value += ".setParametersPrefixStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled"
+            value += ".setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityCalled"
         }
         if self.contains(.setNameNameCalled) {
             handleFirst()

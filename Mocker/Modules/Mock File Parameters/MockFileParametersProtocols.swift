@@ -21,6 +21,7 @@ protocol MockFileParametersInterfaceProtocol: AnyObject {
 protocol MockFileParametersInterfaceDelegate: AnyObject {
     func mockFileParameters(_ view: (NSViewController & MockFileParametersInterfaceProtocol),   //swiftlint:disable:this function_parameter_count
                             mockName: String,
+                            includeHeader: Bool,
                             includeTestableImport: Bool,
                             swiftlintAware: Bool,
                             testableTargetName: String,
@@ -41,6 +42,7 @@ protocol MockFileParametersPresenterProtocol: AnyObject {
     
     func setProtocolName(_ protocolName: String)
     func prefixUpdated(to prefix: String)
+    func includeHeaderFlagUpdated(to flag: Bool)
     func stripTrailingProtocolFlagUpdated(to flag: Bool)
     func swiftlintAwareFlagUpdated(to flag: Bool)
     func includeTestableImportFlagUpdated(to flag: Bool)
@@ -57,7 +59,9 @@ protocol MockFileParametersPresenterProtocol: AnyObject {
 // MARK: Interactor -
 protocol MockFileParametersInteractorOutputProtocol: AnyObject {    //swiftlint:disable:this type_name
 
+    //swiftlint:disable:next function_parameter_count
     func setParameters(prefix: String,
+                       includeHeader: Bool,
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
@@ -73,6 +77,7 @@ protocol MockFileParametersInteractorInputProtocol: AnyObject { //swiftlint:disa
 
     func setProtocolName(_ protocolName: String)
     func prefixUpdated(to prefix: String)
+    func includeHeaderFlagUpdated(to flag: Bool)
     func stripTrailingProtocolFlagUpdated(to flag: Bool)
     func swiftlintAwareFlagUpdated(to flag: Bool)
     func includeTestableImportFlagUpdated(to flag: Bool)
@@ -86,7 +91,9 @@ protocol MockFileParametersViewProtocol: AnyObject {
 
     var presenter: MockFileParametersPresenterProtocol? { get set }
 
+    //swiftlint:disable:next function_parameter_count
     func setParameters(prefix: String,
+                       includeHeader: Bool,
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,

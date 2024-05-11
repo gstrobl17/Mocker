@@ -250,6 +250,7 @@ extension GodfatherInteractor: MockFileParametersInterfaceDelegate {
     
     func mockFileParameters(_ view: (NSViewController & MockFileParametersInterfaceProtocol),   //swiftlint:disable:this function_parameter_count
                             mockName: String,
+                            includeHeader: Bool,
                             includeTestableImport: Bool,
                             swiftlintAware: Bool,
                             testableTargetName: String,
@@ -267,7 +268,8 @@ extension GodfatherInteractor: MockFileParametersInterfaceDelegate {
         let parameters = MockGeneratorParameters(project: currentProject,
                                                  imports: currentSourceFile.imports,
                                                  protocolDeclaration: currentProtocolDeclaration,
-                                                 mockName: mockName,
+                                                 mockName: mockName, 
+                                                 includeHeader: includeHeader,
                                                  includeTestableImport: includeTestableImport,
                                                  testableTargetName: testableTargetName,
                                                  trackPropertyActivity: trackPropertyActivity)

@@ -11,6 +11,7 @@ enum UserDefaultsKey {
     static let projectFilePath = "Project File Path"
     static let leftPaneWidth = "Left Pane Width"
     static let mockPrefix = "Mock Prefix"
+    static let includeHeader = "Include Header"
     static let stripTrailingProtocol = "Strip Trailing Protocol"
     static let swiftlintAware = "swiftlint Aware"
     static let includeTestableImport = "Include Testable Import"
@@ -25,6 +26,7 @@ enum UserDefaultsKey {
 
 enum DefaultUserDefaultValue {
     static let mockPrefix = "Mock"
+    static let includeHeader = true
     static let stripTrailingProtocol = true
     static let swiftlintAware = true
     static let includeTestableImport = true
@@ -66,6 +68,18 @@ extension KeyValueStoring {
         }
     }
     
+    var includeHeader: Bool {
+        get {
+            if object(forKey: UserDefaultsKey.includeHeader) == nil {
+                return DefaultUserDefaultValue.includeHeader
+            }
+            return bool(forKey: UserDefaultsKey.includeHeader)
+        }
+        set {
+            set(newValue, forKey: UserDefaultsKey.includeHeader)
+        }
+    }
+
     var stripTrailingProtocol: Bool {
         get {
             if object(forKey: UserDefaultsKey.stripTrailingProtocol) == nil {

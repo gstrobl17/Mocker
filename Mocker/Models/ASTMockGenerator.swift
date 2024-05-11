@@ -166,8 +166,10 @@ class ASTMockGenerator: MockGenerating {
         determineIfAnyMethodsThrow(for: parameters)
 
         // Code generation
-        generateHeader(for: parameters)
-        generateSpacing()
+        if parameters.includeHeader {
+            generateHeader(for: parameters)
+            generateSpacing()
+        }
         generateImports(for: parameters)
         generateSpacing()
         startClass(for: parameters)

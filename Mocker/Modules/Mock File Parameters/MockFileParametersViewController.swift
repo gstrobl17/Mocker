@@ -17,6 +17,7 @@ class MockFileParametersViewController: NSViewController {
     @IBOutlet weak private var prefixTextField: NSTextField!
     @IBOutlet weak private var stripTrailingProtocolCheckBox: NSButton!
     @IBOutlet weak private var includeTestableImportCheckBox: NSButton!
+    @IBOutlet weak private var includeHeaderCheckBox: NSButton!
     @IBOutlet weak private var swiftlintAwareCheckBox: NSButton!
     @IBOutlet weak private var targetsComboBox: NSComboBox!
     @IBOutlet weak private var trackPropertyActivityCheckbox: NSButton!
@@ -44,16 +45,32 @@ class MockFileParametersViewController: NSViewController {
  
     private func broadcastParameters() {
         let mockName = nameTextField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        let includeHeader = (includeHeaderCheckBox.state == .on)
         let includeTestableImport = (includeTestableImportCheckBox.state == .on)
         let swiftlintAware = (swiftlintAwareCheckBox.state == .on)
         let testableTargetName = targetsComboBox.stringValue
         let trackPropertyActivity = (trackPropertyActivityCheckbox.state == .on)
         delegate?.mockFileParameters(self,
                                      mockName: mockName,
+                                     includeHeader: includeHeader,
                                      includeTestableImport: includeTestableImport,
                                      swiftlintAware: swiftlintAware,
                                      testableTargetName: testableTargetName,
                                      trackPropertyActivity: trackPropertyActivity)
+    }
+    
+    @IBAction private func includeHeaderPressed(_ sender: Any) {
+        guard let checkBox = sender as? NSButton else { return }
+        switch checkBox.state {
+        case .on:
+            presenter?.includeHeaderFlagUpdated(to: true)
+        case .off:
+            presenter?.includeHeaderFlagUpdated(to: false)
+        default:
+            assertionFailure("Unexpected button state")
+        }
+        setState()
+        broadcastParameters()
     }
     
     @IBAction private func stripTrailingProtocolPressed(_ sender: Any) {
@@ -117,13 +134,21 @@ class MockFileParametersViewController: NSViewController {
 
 extension MockFileParametersViewController: MockFileParametersViewProtocol {
     
+    //swiftlint:disable:next function_parameter_count cyclomatic_complexity
     func setParameters(prefix: String,
+                       includeHeader: Bool,
                        stripTrailingProtocol: Bool,
                        swiftlintAware: Bool,
                        includeTestableImport: Bool,
                        trackPropertyActivity: Bool) {
         guard prefixTextField != nil else { return }    // Added for unit testing
         prefixTextField.stringValue = prefix
+        switch includeHeader {
+        case true:
+            includeHeaderCheckBox.state = .on
+        case false:
+            includeHeaderCheckBox.state = .off
+        }
         switch stripTrailingProtocol {
         case true:
             stripTrailingProtocolCheckBox.state = .on

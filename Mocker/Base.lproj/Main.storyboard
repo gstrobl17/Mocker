@@ -346,7 +346,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="173" y="531"/>
+            <point key="canvasLocation" x="248" y="492"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -468,7 +468,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201.5" y="1064.5"/>
+            <point key="canvasLocation" x="249" y="1015"/>
         </scene>
         <!--Project File Selector View Controller-->
         <scene sceneID="bh7-ee-HLg">
@@ -730,8 +730,8 @@
         <scene sceneID="Spg-o3-7Vs">
             <objects>
                 <viewController storyboardIdentifier="MockFileParameters" id="ed8-DP-i1A" customClass="MockFileParametersViewController" customModule="Mocker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="zlJ-cH-ne1">
-                        <rect key="frame" x="0.0" y="0.0" width="457" height="117"/>
+                    <view key="view" id="zlJ-cH-ne1">
+                        <rect key="frame" x="0.0" y="0.0" width="613" height="113"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ejr-y1-6Mp">
@@ -755,13 +755,23 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="I85-gj-dmO">
-                                <rect key="frame" x="161" y="94" width="164" height="18"/>
+                                <rect key="frame" x="297" y="94" width="164" height="18"/>
                                 <buttonCell key="cell" type="check" title="Strip Tailing &quot;Protocol&quot;" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="O4c-Pu-o6b">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="stripTrailingProtocolPressed:" target="ed8-DP-i1A" id="eX7-SV-Qn5"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oWe-RO-yVx">
+                                <rect key="frame" x="479" y="94" width="114" height="18"/>
+                                <buttonCell key="cell" type="check" title="swiftlint Aware" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xrW-5H-QMy">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="swiftlintAwarePressed:" target="ed8-DP-i1A" id="G2d-zf-7FP"/>
                                 </connections>
                             </button>
                             <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jYf-vV-0xV">
@@ -771,11 +781,11 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="stripTrailingProtocolPressed:" target="ed8-DP-i1A" id="P10-fX-9ob"/>
+                                    <action selector="includeTestableImportPressed:" target="ed8-DP-i1A" id="lBb-aW-MZm"/>
                                 </connections>
                             </button>
                             <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3dd-4F-zNw">
-                                <rect key="frame" x="199" y="57" width="261" height="23"/>
+                                <rect key="frame" x="199" y="57" width="417" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="IEA-h4-DvC"/>
                                 </constraints>
@@ -802,23 +812,13 @@
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gix-P9-f71">
-                                <rect key="frame" x="44" y="0.0" width="413" height="21"/>
+                                <rect key="frame" x="44" y="0.0" width="569" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="ZzW-dr-AMW">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oWe-RO-yVx">
-                                <rect key="frame" x="343" y="94" width="114" height="18"/>
-                                <buttonCell key="cell" type="check" title="swiftlint Aware" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xrW-5H-QMy">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="swiftlintAwarePressed:" target="ed8-DP-i1A" id="G2d-zf-7FP"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SfD-Zc-Ybu">
                                 <rect key="frame" x="-2" y="31" width="378" height="18"/>
                                 <buttonCell key="cell" type="check" title="Capture Activity from Properties (Track getter/setter calls)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="o5I-6V-ngt">
@@ -829,6 +829,16 @@
                                     <action selector="trackPropertyActivityPressed:" target="ed8-DP-i1A" id="NXw-Yo-jk2"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zeD-1E-pJK">
+                                <rect key="frame" x="161" y="94" width="118" height="18"/>
+                                <buttonCell key="cell" type="check" title="Include Header" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bxs-ct-RW4">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="includeHeaderPressed:" target="ed8-DP-i1A" id="xNT-x9-MqT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="top" secondItem="I85-gj-dmO" secondAttribute="bottom" constant="16" id="4Sz-wF-iPF"/>
@@ -836,6 +846,7 @@
                             <constraint firstItem="AEF-pH-4LF" firstAttribute="baseline" secondItem="ejr-y1-6Mp" secondAttribute="baseline" id="9aV-j2-ROB"/>
                             <constraint firstAttribute="trailing" secondItem="3dd-4F-zNw" secondAttribute="trailing" id="AQp-IH-N3O"/>
                             <constraint firstItem="AEF-pH-4LF" firstAttribute="leading" secondItem="ejr-y1-6Mp" secondAttribute="trailing" constant="8" id="Bjd-2h-d5x"/>
+                            <constraint firstItem="zeD-1E-pJK" firstAttribute="firstBaseline" secondItem="AEF-pH-4LF" secondAttribute="firstBaseline" id="EUf-vT-Xhj"/>
                             <constraint firstItem="Gix-P9-f71" firstAttribute="top" secondItem="SfD-Zc-Ybu" secondAttribute="bottom" constant="11" id="G9f-js-Fyf"/>
                             <constraint firstItem="jYf-vV-0xV" firstAttribute="leading" secondItem="zlJ-cH-ne1" secondAttribute="leading" id="GF1-mc-jpt"/>
                             <constraint firstAttribute="bottom" secondItem="Gix-P9-f71" secondAttribute="bottom" id="OJ0-2H-Qz2"/>
@@ -848,14 +859,16 @@
                             <constraint firstItem="oWe-RO-yVx" firstAttribute="leading" secondItem="I85-gj-dmO" secondAttribute="trailing" constant="20" id="izg-MJ-ANe"/>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="leading" secondItem="jYf-vV-0xV" secondAttribute="trailing" constant="8" id="m9N-hM-mCm"/>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="baseline" secondItem="jYf-vV-0xV" secondAttribute="baseline" id="n7f-VZ-cfY"/>
-                            <constraint firstItem="I85-gj-dmO" firstAttribute="leading" secondItem="AEF-pH-4LF" secondAttribute="trailing" constant="20" id="oxG-lR-hVD"/>
                             <constraint firstItem="Gix-P9-f71" firstAttribute="leading" secondItem="gIl-zo-V8o" secondAttribute="trailing" constant="8" id="reb-TL-VT9"/>
                             <constraint firstItem="ejr-y1-6Mp" firstAttribute="leading" secondItem="zlJ-cH-ne1" secondAttribute="leading" id="uLV-hM-BgM"/>
+                            <constraint firstItem="I85-gj-dmO" firstAttribute="leading" secondItem="zeD-1E-pJK" secondAttribute="trailing" constant="20" id="unx-lv-IYi"/>
                             <constraint firstAttribute="trailing" secondItem="Gix-P9-f71" secondAttribute="trailing" id="uwU-DM-Ojc"/>
                             <constraint firstItem="SfD-Zc-Ybu" firstAttribute="leading" secondItem="zlJ-cH-ne1" secondAttribute="leading" id="x8u-H7-v6n"/>
+                            <constraint firstItem="zeD-1E-pJK" firstAttribute="leading" secondItem="AEF-pH-4LF" secondAttribute="trailing" constant="20" id="xhd-ZW-REb"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="includeHeaderCheckBox" destination="zeD-1E-pJK" id="Fcm-qZ-UKz"/>
                         <outlet property="includeTestableImportCheckBox" destination="jYf-vV-0xV" id="5sP-RZ-it5"/>
                         <outlet property="nameTextField" destination="Gix-P9-f71" id="QaH-8w-kJb"/>
                         <outlet property="prefixTextField" destination="AEF-pH-4LF" id="rmp-bD-MV1"/>
@@ -867,7 +880,7 @@
                 </viewController>
                 <customObject id="d3c-x0-1Ju" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-421.5" y="1353.5"/>
+            <point key="canvasLocation" x="-343.5" y="1353.5"/>
         </scene>
         <!--Destination Group Selector View Controller-->
         <scene sceneID="4Hw-gx-wR3">

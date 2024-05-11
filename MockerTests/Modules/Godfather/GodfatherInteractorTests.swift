@@ -356,6 +356,7 @@ class GodfatherInteractorTests: XCTestCase {
     func test_mockFileParametersMethod_noCurrentProject() {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = "Name"
+        let includeHeader = true
         let includeTestableImport = true
         let swiftlintAware = true
         let testableTargetName = "Fred"
@@ -363,7 +364,7 @@ class GodfatherInteractorTests: XCTestCase {
         let interactor = createInterator()
         interactor.currentProject = nil
         
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
         XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)
@@ -375,6 +376,7 @@ class GodfatherInteractorTests: XCTestCase {
     func test_mockFileParametersMethod_noCurrentSourceFile() {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = "Name"
+        let includeHeader = true
         let includeTestableImport = true
         let swiftlintAware = true
         let testableTargetName = "Fred"
@@ -383,7 +385,7 @@ class GodfatherInteractorTests: XCTestCase {
         interactor.currentProject = MockProject()
         interactor.currentSourceFile = nil
         
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
         XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)
@@ -395,6 +397,7 @@ class GodfatherInteractorTests: XCTestCase {
     func test_mockFileParametersMethod_noCurrentProtocolDeclaration() {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = "Name"
+        let includeHeader = true
         let includeTestableImport = true
         let swiftlintAware = true
         let testableTargetName = "Fred"
@@ -404,7 +407,7 @@ class GodfatherInteractorTests: XCTestCase {
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
         interactor.currentProtocolDeclaration = nil
         
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
         XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)
@@ -416,6 +419,7 @@ class GodfatherInteractorTests: XCTestCase {
     func test_mockFileParametersMethod_mockNameIsEmpty() throws {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = ""
+        let includeHeader = true
         let includeTestableImport = true
         let swiftlintAware = true
         let testableTargetName = "Fred"
@@ -426,7 +430,7 @@ class GodfatherInteractorTests: XCTestCase {
         let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
         interactor.currentProtocolDeclaration = ProtocolDeclSyntax(identifier: identifier, members: MemberDeclBlockSyntax(members: MemberDeclListSyntax([])))
         
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
         
         XCTAssertEqual(interactor.mockName, "")
         XCTAssertEqual(interactor.mockCode, "")
@@ -439,6 +443,7 @@ class GodfatherInteractorTests: XCTestCase {
     func test_mockFileParametersMethod_mockNameIsValid() throws {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = "Name"
+        let includeHeader = true
         let includeTestableImport = true
         let swiftlintAware = true
         let testableTargetName = "Fred"
@@ -449,7 +454,7 @@ class GodfatherInteractorTests: XCTestCase {
         let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
         interactor.currentProtocolDeclaration = ProtocolDeclSyntax(identifier: identifier, members: MemberDeclBlockSyntax(members: MemberDeclListSyntax([])))
 
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity)
         
         XCTAssertEqual(interactor.mockName, mockName)
         XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)

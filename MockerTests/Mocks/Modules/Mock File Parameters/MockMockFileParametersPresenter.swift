@@ -19,11 +19,12 @@ class MockMockFileParametersPresenter: MockFileParametersPresenterProtocol {
         let rawValue: Int
         static let setProtocolNameProtocolNameCalled = Method(rawValue: 1 << 0)
         static let prefixUpdatedToPrefixCalled = Method(rawValue: 1 << 1)
-        static let stripTrailingProtocolFlagUpdatedToFlagCalled = Method(rawValue: 1 << 2)
-        static let swiftlintAwareFlagUpdatedToFlagCalled = Method(rawValue: 1 << 3)
-        static let includeTestableImportFlagUpdatedToFlagCalled = Method(rawValue: 1 << 4)
-        static let trackPropertyActivityFlagUpdatedToFlagCalled = Method(rawValue: 1 << 5)
-        static let viewHasLoadedCalled = Method(rawValue: 1 << 6)
+        static let includeHeaderFlagUpdatedToFlagCalled = Method(rawValue: 1 << 2)
+        static let stripTrailingProtocolFlagUpdatedToFlagCalled = Method(rawValue: 1 << 3)
+        static let swiftlintAwareFlagUpdatedToFlagCalled = Method(rawValue: 1 << 4)
+        static let includeTestableImportFlagUpdatedToFlagCalled = Method(rawValue: 1 << 5)
+        static let trackPropertyActivityFlagUpdatedToFlagCalled = Method(rawValue: 1 << 6)
+        static let viewHasLoadedCalled = Method(rawValue: 1 << 7)
     }
     private(set) var calledMethods = Method()
 
@@ -51,6 +52,12 @@ class MockMockFileParametersPresenter: MockFileParametersPresenterProtocol {
         calledMethods.insert(.setProtocolNameProtocolNameCalled)
         self.protocolName = protocolName
         assignedParameters.insert(.protocolName)
+    }
+
+    func includeHeaderFlagUpdated(to flag: Bool) {
+        calledMethods.insert(.includeHeaderFlagUpdatedToFlagCalled)
+        self.flag = flag
+        assignedParameters.insert(.flag)
     }
 
     func prefixUpdated(to prefix: String) {
@@ -108,6 +115,10 @@ extension MockMockFileParametersPresenter.Method: CustomStringConvertible {
         if self.contains(.prefixUpdatedToPrefixCalled) {
             handleFirst()
             value += ".prefixUpdatedToPrefixCalled"
+        }
+        if self.contains(.includeHeaderFlagUpdatedToFlagCalled) {
+            handleFirst()
+            value += ".includeHeaderFlagUpdatedToFlagCalled"
         }
         if self.contains(.stripTrailingProtocolFlagUpdatedToFlagCalled) {
             handleFirst()

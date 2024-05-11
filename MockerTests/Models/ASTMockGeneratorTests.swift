@@ -27,6 +27,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     
     enum Default {
         static let mockName = "MockTest"
+        static let includeHeader = true
         static let includeTestableImport = true
         static let testableTargetName = "Mocker"
         static let trackPropertyActivity = false
@@ -72,6 +73,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         imports: [ImportDeclSyntax]? = nil,
         protocolDeclaration: ProtocolDeclSyntax,
         mockName: String? = nil,
+        includeHeader: Bool? = nil,
         includeTestableImport: Bool? = nil,
         testableTargetName: String? = nil,
         trackPropertyActivity: Bool? = nil
@@ -81,6 +83,7 @@ final class ASTMockGeneratorTests: XCTestCase {
             imports: imports ?? self.imports,
             protocolDeclaration: protocolDeclaration,
             mockName: mockName ?? Default.mockName,
+            includeHeader: includeHeader ?? Default.includeHeader,
             includeTestableImport: includeTestableImport ?? Default.includeTestableImport,
             testableTargetName: testableTargetName ?? Default.testableTargetName,
             trackPropertyActivity: trackPropertyActivity ?? Default.trackPropertyActivity
@@ -103,7 +106,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         """
     }
     
-    func testCodeGeneration_emptyProtocol_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
@@ -138,7 +141,34 @@ final class ASTMockGeneratorTests: XCTestCase {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_emptyProtocol_organizationSetupInProject_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+    func testCodeGeneration_emptyProtocol_includeHeaderFALSE_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, includeHeader: false, includeTestableImport: false)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           class MockTest: Empty {
+
+
+                               func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_emptyProtocol_organizationSetupInProject_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE() throws {
         project.objectsReturnValue = ["something": ["attributes": ["ORGANIZATIONNAME": Default.organizationName]]]
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
@@ -174,7 +204,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         printFirstDifference(code, expectedCode)
     }
 
-    func testCodeGeneration_emptyProtocol_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
@@ -210,7 +240,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_emptyProtocol_swiftlintAwareTRUE_includeTestableImportTRUE_emptyImportList() throws {
+    func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE_emptyImportList() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
