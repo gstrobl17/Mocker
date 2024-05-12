@@ -278,6 +278,259 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
+    func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: resultCompletionHandersProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ResultCompletionHandersProtocol {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo1CompletionHandlerCalled = Method(rawValue: 1 << 0)
+                                   public static let foo2CompletionHandlerCalled = Method(rawValue: 1 << 1)
+                                   public static let foo3CompletionHandlerCalled = Method(rawValue: 1 << 2)
+                                   public static let foo4CompletionHandlerCalled = Method(rawValue: 1 << 3)
+                                   public static let foo5CompletionHandlerCalled = Method(rawValue: 1 << 4)
+                                   public static let foo6CompletionHandlerCalled = Method(rawValue: 1 << 5)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct MethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let stringCompletionHandler = MethodParameter(rawValue: 1 << 0)
+                                   public static let stringsCompletionHandler = MethodParameter(rawValue: 1 << 1)
+                                   public static let classesCompletionHandler = MethodParameter(rawValue: 1 << 2)
+                                   public static let optionalBoolCompletionHandler = MethodParameter(rawValue: 1 << 3)
+                                   public static let UNDETERMINED TUPLE NAMETupleCompletionHandler = MethodParameter(rawValue: 1 << 4)
+                               }
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var stringCompletionHandler: ((Result<String, Error>) -> Void)?
+                               private(set) public var stringsCompletionHandler: ((Result<[String], Error>) -> Void)?
+                               private(set) public var classesCompletionHandler: ((Result<[Class], Error>) -> Void)?
+                               private(set) public var optionalBoolCompletionHandler: ((Result<Bool?, Error>) -> Void)?
+                               private(set) public var UNDETERMINED TUPLE NAMETupleCompletionHandler: ((Result<(Int, Double, Bool, String), Error>) -> Void)?
+
+                               // MARK: - Variables to Use to Control Completion Handlers
+
+                               public var shouldCallCompletionHandler = false
+                               public var stringCompletionHandlerResult = .failure(MockError)
+                               public var stringsCompletionHandlerResult = .failure(MockError)
+                               public var classesCompletionHandlerResult = .failure(MockError)
+                               public var optionalBoolCompletionHandlerResult = .failure(MockError)
+                               public var UNDETERMINED TUPLE NAMETupleCompletionHandlerResult = .failure(MockError)
+
+                               public var shouldCallFoo1CompletionHandlerCompletionHander = false
+                               public var foo1CompletionHandlerCompletionHanderResult: Result<String, Error> = .failure(MockError)
+                               public var shouldCallFoo2CompletionHandlerCompletionHander = false
+                               public var foo2CompletionHandlerCompletionHanderResult: Result<[String], Error> = .failure(MockError)
+                               public var shouldCallFoo3CompletionHandlerCompletionHander = false
+                               public var foo3CompletionHandlerCompletionHanderResult: Result<[Class], Error> = .failure(MockError)
+                               public var shouldCallFoo4CompletionHandlerCompletionHander = false
+                               public var foo4CompletionHandlerCompletionHanderResult: Result<Bool?, Error> = .failure(MockError)
+                               public var shouldCallFoo5CompletionHandlerCompletionHander = false
+                               public var foo5CompletionHandlerCompletionHanderResult: Result<(Int, Double, Bool, String), Error> = .failure(MockError)
+                               public var shouldCallFoo6CompletionHandlerCompletionHander = false
+                               public var foo6CompletionHandlerCompletionHanderResult: Result<(String, String), Error> = .failure(MockError)
+
+                               public func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   stringCompletionHandler = nil
+                                   stringsCompletionHandler = nil
+                                   classesCompletionHandler = nil
+                                   optionalBoolCompletionHandler = nil
+                                   UNDETERMINED TUPLE NAMETupleCompletionHandler = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public func foo1(completionHandler: @escaping (Result<String, Error>) -> Void) {
+                                   calledMethods.insert(.foo1CompletionHandlerCalled)
+                                   self.stringCompletionHandler = completionHandler
+                                   assignedParameters.insert(.stringCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(stringCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo1CompletionHandlerCompletionHander {
+                                       completionHandler(foo1CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo2(completionHandler: @escaping (Result<[String], Error>) -> Void) {
+                                   calledMethods.insert(.foo2CompletionHandlerCalled)
+                                   self.stringsCompletionHandler = completionHandler
+                                   assignedParameters.insert(.stringsCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(stringsCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo2CompletionHandlerCompletionHander {
+                                       completionHandler(foo2CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo3(completionHandler: @escaping (Result<[Class], Error>) -> Void) {
+                                   calledMethods.insert(.foo3CompletionHandlerCalled)
+                                   self.classesCompletionHandler = completionHandler
+                                   assignedParameters.insert(.classesCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(classesCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo3CompletionHandlerCompletionHander {
+                                       completionHandler(foo3CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo4(completionHandler: @escaping (Result<Bool?, Error>) -> Void) {
+                                   calledMethods.insert(.foo4CompletionHandlerCalled)
+                                   self.optionalBoolCompletionHandler = completionHandler
+                                   assignedParameters.insert(.optionalBoolCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(optionalBoolCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo4CompletionHandlerCompletionHander {
+                                       completionHandler(foo4CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo5(completionHandler: @escaping (Result<(Int, Double, Bool, String), Error>) -> Void) {
+                                   calledMethods.insert(.foo5CompletionHandlerCalled)
+                                   self.UNDETERMINED TUPLE NAMETupleCompletionHandler = completionHandler
+                                   assignedParameters.insert(.UNDETERMINED TUPLE NAMETupleCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(UNDETERMINED TUPLE NAMETupleCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo5CompletionHandlerCompletionHander {
+                                       completionHandler(foo5CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo6(completionHandler: @escaping (Result<(String, String), Error>) -> Void) {
+                                   calledMethods.insert(.foo6CompletionHandlerCalled)
+                                   self.UNDETERMINED TUPLE NAMETupleCompletionHandler = completionHandler
+                                   assignedParameters.insert(.UNDETERMINED TUPLE NAMETupleCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(UNDETERMINED TUPLE NAMETupleCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo6CompletionHandlerCompletionHander {
+                                       completionHandler(foo6CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo1CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo1CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo2CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo2CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo3CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo3CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo4CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo4CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo5CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo5CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo6CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo6CompletionHandlerCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.stringCompletionHandler) {
+                                       handleFirst()
+                                       value += ".stringCompletionHandler"
+                                   }
+                                   if self.contains(.stringsCompletionHandler) {
+                                       handleFirst()
+                                       value += ".stringsCompletionHandler"
+                                   }
+                                   if self.contains(.classesCompletionHandler) {
+                                       handleFirst()
+                                       value += ".classesCompletionHandler"
+                                   }
+                                   if self.contains(.optionalBoolCompletionHandler) {
+                                       handleFirst()
+                                       value += ".optionalBoolCompletionHandler"
+                                   }
+                                   if self.contains(.UNDETERMINED TUPLE NAMETupleCompletionHandler) {
+                                       handleFirst()
+                                       value += ".UNDETERMINED TUPLE NAMETupleCompletionHandler"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
     func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
@@ -679,6 +932,145 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
+    func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: throwingMethodsProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ThrowingMethodsProtocol {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo1Called = Method(rawValue: 1 << 0)
+                                   public static let foo2Called = Method(rawValue: 1 << 1)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct StaticMethod: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo3Called = StaticMethod(rawValue: 1 << 0)
+                                   public static let foo4Called = StaticMethod(rawValue: 1 << 1)
+                               }
+                               private(set) public static var calledStaticMethods = StaticMethod()
+
+                               public static var errorToThrow: Error!
+                               public var errorToThrow: Error!
+                               public var foo1ShouldThrowError = false
+                               public static var foo3ShouldThrowError = false
+
+
+                               public func reset() {
+                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public func foo1() throws {
+                                   calledMethods.insert(.foo1Called)
+                                   if foo1ShouldThrowError && errorToThrow != nil {
+                                       throw errorToThrow
+                                   }
+                               }
+
+                               public func foo2() {
+                                   calledMethods.insert(.foo2Called)
+                               }
+
+                               public static func foo3() throws {
+                                   calledStaticMethods.insert(.foo3Called)
+                                   if foo3ShouldThrowError && errorToThrow != nil {
+                                       throw errorToThrow
+                                   }
+                               }
+
+                               public static func foo4() {
+                                   calledStaticMethods.insert(.foo4Called)
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo1Called) {
+                                       handleFirst()
+                                       value += ".foo1Called"
+                                   }
+                                   if self.contains(.foo2Called) {
+                                       handleFirst()
+                                       value += ".foo2Called"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.StaticMethod: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo3Called) {
+                                       handleFirst()
+                                       value += ".foo3Called"
+                                   }
+                                   if self.contains(.foo4Called) {
+                                       handleFirst()
+                                       value += ".foo4Called"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
     func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
@@ -864,6 +1256,48 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
+    func testCodeGeneration_protocolWithDelegate_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithDelegate {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Protocol Conformance
+
+                               public var delegate: SomeDelegate?
+
+
+                               public func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
     func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityFALSE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
@@ -892,6 +1326,48 @@ extension ASTMockGeneratorTests {
 
 
                                func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithDelegate {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Protocol Conformance
+
+                               public var delegate: SomeDelegate? //swiftlint:disable:this weak_delegate
+
+
+                               public func reset() {
                                }
 
                            }
@@ -1029,7 +1505,137 @@ extension ASTMockGeneratorTests {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
-    
+
+    func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithDelegate {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Properties Used for Protocol Conformance
+                               // Use these properties to get/set/initialize the properties without registering a method call
+
+                               public var _delegate: SomeDelegate? //swiftlint:disable:this weak_delegate
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let delegateGetterCalled = Method(rawValue: 1 << 0)
+                                   public static let delegateSetterCalled = Method(rawValue: 1 << 1)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct MethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let delegateInSetter = MethodParameter(rawValue: 1 << 0)
+                               }
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var delegateInSetter: SomeDelegate?
+
+
+                               public func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   delegateInSetter = nil
+                               }
+
+                               // MARK: - Properties for Protocol Conformance
+
+                               public var delegate: SomeDelegate? {
+                                   get {
+                                       calledMethods.insert(.delegateGetterCalled)
+                                       return _delegate
+                                   }
+                                   set {
+                                       calledMethods.insert(.delegateSetterCalled)
+                                       _delegate = newValue
+                                       self.delegateInSetter = newValue
+                                       assignedParameters.insert(.delegateInSetter)
+                                   }
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.delegateGetterCalled) {
+                                       handleFirst()
+                                       value += ".delegateGetterCalled"
+                                   }
+                                   if self.contains(.delegateSetterCalled) {
+                                       handleFirst()
+                                       value += ".delegateSetterCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.delegateInSetter) {
+                                       handleFirst()
+                                       value += ".delegateInSetter"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
     // MARK: Protocol with Long Static Method Name
     
     var protocolWithLongStaticMethodName: String {
@@ -1121,6 +1727,119 @@ extension ASTMockGeneratorTests {
 
                            extension MockTest.StaticMethodParameter: CustomStringConvertible {
                                var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.flag) {
+                                       handleFirst()
+                                       value += ".flag"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+    
+    func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithLongStaticMethodName))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithLongStaticMethodName {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct StaticMethod: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled = StaticMethod(rawValue: 1 << 0)
+                               }
+                               private(set) public static var calledStaticMethods = StaticMethod()
+
+                               public struct StaticMethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let flag = StaticMethodParameter(rawValue: 1 << 0)
+                               }
+                               private(set) public static var assignedStaticParameters = StaticMethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public static var flag: bool?
+
+
+                               public func reset() {
+                                   MockTest.calledStaticMethods = []
+                                   MockTest.assignedStaticParameters = []
+                                   MockTest.flag = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public static func thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarning(_ flag: bool) {
+                                   calledStaticMethods.insert(.thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled)
+                                   self.flag = flag
+                                   assignedStaticParameters.insert(.flag)
+                               }
+
+                           }
+
+                           extension MockTest.StaticMethod: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled) {
+                                       handleFirst()
+                                       value += ".thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
+                               public var description: String {
                                    var value = "["
                                    var first = true
                                    func handleFirst() {
@@ -1259,7 +1978,122 @@ extension ASTMockGeneratorTests {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
-    
+
+    func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithLongStaticMethodName))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithLongStaticMethodName {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               //swiftlint:disable identifier_name
+                               public struct StaticMethod: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled = StaticMethod(rawValue: 1 << 0)
+                               }
+                               //swiftlint:enable identifier_name
+                               private(set) public static var calledStaticMethods = StaticMethod()
+
+                               public struct StaticMethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let flag = StaticMethodParameter(rawValue: 1 << 0)
+                               }
+                               private(set) public static var assignedStaticParameters = StaticMethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public static var flag: bool?
+
+
+                               public func reset() {
+                                   MockTest.calledStaticMethods = []
+                                   MockTest.assignedStaticParameters = []
+                                   MockTest.flag = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public static func thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarning(_ flag: bool) {
+                                   calledStaticMethods.insert(.thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled)
+                                   self.flag = flag
+                                   assignedStaticParameters.insert(.flag)
+                               }
+
+                           }
+
+                           extension MockTest.StaticMethod: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled) {
+                                       handleFirst()
+                                       value += ".thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.flag) {
+                                       handleFirst()
+                                       value += ".flag"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
     // MARK: Protocol with Function with a Lot of Parameters
     
     var protocolWithFunctionWithManyParameters: String {
@@ -1488,6 +2322,281 @@ extension ASTMockGeneratorTests {
 
                            extension MockTest.StaticMethodParameter: CustomStringConvertible {
                                var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.a) {
+                                       handleFirst()
+                                       value += ".a"
+                                   }
+                                   if self.contains(.b) {
+                                       handleFirst()
+                                       value += ".b"
+                                   }
+                                   if self.contains(.c) {
+                                       handleFirst()
+                                       value += ".c"
+                                   }
+                                   if self.contains(.d) {
+                                       handleFirst()
+                                       value += ".d"
+                                   }
+                                   if self.contains(.e) {
+                                       handleFirst()
+                                       value += ".e"
+                                   }
+                                   if self.contains(.f) {
+                                       handleFirst()
+                                       value += ".f"
+                                   }
+                                   if self.contains(.g) {
+                                       handleFirst()
+                                       value += ".g"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+    
+    func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithManyParameters))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithFunctionWithManyParameters {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo1ABCDEFGCalled = Method(rawValue: 1 << 0)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct StaticMethod: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo2ABCDEFGCalled = StaticMethod(rawValue: 1 << 0)
+                               }
+                               private(set) public static var calledStaticMethods = StaticMethod()
+
+                               public struct MethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let a = MethodParameter(rawValue: 1 << 0)
+                                   public static let b = MethodParameter(rawValue: 1 << 1)
+                                   public static let c = MethodParameter(rawValue: 1 << 2)
+                                   public static let d = MethodParameter(rawValue: 1 << 3)
+                                   public static let e = MethodParameter(rawValue: 1 << 4)
+                                   public static let f = MethodParameter(rawValue: 1 << 5)
+                                   public static let g = MethodParameter(rawValue: 1 << 6)
+                               }
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               public struct StaticMethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let a = StaticMethodParameter(rawValue: 1 << 0)
+                                   public static let b = StaticMethodParameter(rawValue: 1 << 1)
+                                   public static let c = StaticMethodParameter(rawValue: 1 << 2)
+                                   public static let d = StaticMethodParameter(rawValue: 1 << 3)
+                                   public static let e = StaticMethodParameter(rawValue: 1 << 4)
+                                   public static let f = StaticMethodParameter(rawValue: 1 << 5)
+                                   public static let g = StaticMethodParameter(rawValue: 1 << 6)
+                               }
+                               private(set) public static var assignedStaticParameters = StaticMethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var a: Int?
+                               private(set) public var b: Double?
+                               private(set) public var c: Bool?
+                               private(set) public var d: String?
+                               private(set) public var e: [String]?
+                               private(set) public var f: [Int]?
+                               private(set) public var g: [Double]?
+
+
+                               public func reset() {
+                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
+                                   assignedParameters = []
+                                   MockTest.assignedStaticParameters = []
+                                   a = nil
+                                   b = nil
+                                   c = nil
+                                   d = nil
+                                   e = nil
+                                   f = nil
+                                   g = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public func foo1(a: Int, b: Double, c: Bool, d: String, e: [String], f: [Int], g: [Double]) {
+                                   calledMethods.insert(.foo1ABCDEFGCalled)
+                                   self.a = a
+                                   assignedParameters.insert(.a)
+                                   self.b = b
+                                   assignedParameters.insert(.b)
+                                   self.c = c
+                                   assignedParameters.insert(.c)
+                                   self.d = d
+                                   assignedParameters.insert(.d)
+                                   self.e = e
+                                   assignedParameters.insert(.e)
+                                   self.f = f
+                                   assignedParameters.insert(.f)
+                                   self.g = g
+                                   assignedParameters.insert(.g)
+                               }
+
+                               public static func foo2(a: Int, b: Double, c: Bool, d: String, e: [String], f: [Int], g: [Double]) {
+                                   calledStaticMethods.insert(.foo2ABCDEFGCalled)
+                                   self.a = a
+                                   assignedStaticParameters.insert(.a)
+                                   self.b = b
+                                   assignedStaticParameters.insert(.b)
+                                   self.c = c
+                                   assignedStaticParameters.insert(.c)
+                                   self.d = d
+                                   assignedStaticParameters.insert(.d)
+                                   self.e = e
+                                   assignedStaticParameters.insert(.e)
+                                   self.f = f
+                                   assignedStaticParameters.insert(.f)
+                                   self.g = g
+                                   assignedStaticParameters.insert(.g)
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo1ABCDEFGCalled) {
+                                       handleFirst()
+                                       value += ".foo1ABCDEFGCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.StaticMethod: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo2ABCDEFGCalled) {
+                                       handleFirst()
+                                       value += ".foo2ABCDEFGCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.a) {
+                                       handleFirst()
+                                       value += ".a"
+                                   }
+                                   if self.contains(.b) {
+                                       handleFirst()
+                                       value += ".b"
+                                   }
+                                   if self.contains(.c) {
+                                       handleFirst()
+                                       value += ".c"
+                                   }
+                                   if self.contains(.d) {
+                                       handleFirst()
+                                       value += ".d"
+                                   }
+                                   if self.contains(.e) {
+                                       handleFirst()
+                                       value += ".e"
+                                   }
+                                   if self.contains(.f) {
+                                       handleFirst()
+                                       value += ".f"
+                                   }
+                                   if self.contains(.g) {
+                                       handleFirst()
+                                       value += ".g"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
+                               public var description: String {
                                    var value = "["
                                    var first = true
                                    func handleFirst() {
@@ -1814,7 +2923,288 @@ extension ASTMockGeneratorTests {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
-    
+
+    func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithManyParameters))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithFunctionWithManyParameters {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo1ABCDEFGCalled = Method(rawValue: 1 << 0)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct StaticMethod: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo2ABCDEFGCalled = StaticMethod(rawValue: 1 << 0)
+                               }
+                               private(set) public static var calledStaticMethods = StaticMethod()
+
+                               //swiftlint:disable identifier_name
+                               public struct MethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let a = MethodParameter(rawValue: 1 << 0)
+                                   public static let b = MethodParameter(rawValue: 1 << 1)
+                                   public static let c = MethodParameter(rawValue: 1 << 2)
+                                   public static let d = MethodParameter(rawValue: 1 << 3)
+                                   public static let e = MethodParameter(rawValue: 1 << 4)
+                                   public static let f = MethodParameter(rawValue: 1 << 5)
+                                   public static let g = MethodParameter(rawValue: 1 << 6)
+                               }
+                               //swiftlint:enable identifier_name
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               //swiftlint:disable identifier_name
+                               public struct StaticMethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let a = StaticMethodParameter(rawValue: 1 << 0)
+                                   public static let b = StaticMethodParameter(rawValue: 1 << 1)
+                                   public static let c = StaticMethodParameter(rawValue: 1 << 2)
+                                   public static let d = StaticMethodParameter(rawValue: 1 << 3)
+                                   public static let e = StaticMethodParameter(rawValue: 1 << 4)
+                                   public static let f = StaticMethodParameter(rawValue: 1 << 5)
+                                   public static let g = StaticMethodParameter(rawValue: 1 << 6)
+                               }
+                               //swiftlint:enable identifier_name
+                               private(set) public static var assignedStaticParameters = StaticMethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var a: Int?
+                               private(set) public var b: Double?
+                               private(set) public var c: Bool?
+                               private(set) public var d: String?
+                               private(set) public var e: [String]?
+                               private(set) public var f: [Int]?
+                               private(set) public var g: [Double]?
+
+
+                               public func reset() {
+                                   calledMethods = []
+                                   MockTest.calledStaticMethods = []
+                                   assignedParameters = []
+                                   MockTest.assignedStaticParameters = []
+                                   a = nil
+                                   b = nil
+                                   c = nil
+                                   d = nil
+                                   e = nil
+                                   f = nil
+                                   g = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               //swiftlint:disable:next function_parameter_count
+                               public func foo1(a: Int, b: Double, c: Bool, d: String, e: [String], f: [Int], g: [Double]) {
+                                   calledMethods.insert(.foo1ABCDEFGCalled)
+                                   self.a = a
+                                   assignedParameters.insert(.a)
+                                   self.b = b
+                                   assignedParameters.insert(.b)
+                                   self.c = c
+                                   assignedParameters.insert(.c)
+                                   self.d = d
+                                   assignedParameters.insert(.d)
+                                   self.e = e
+                                   assignedParameters.insert(.e)
+                                   self.f = f
+                                   assignedParameters.insert(.f)
+                                   self.g = g
+                                   assignedParameters.insert(.g)
+                               }
+
+                               //swiftlint:disable:next function_parameter_count
+                               public static func foo2(a: Int, b: Double, c: Bool, d: String, e: [String], f: [Int], g: [Double]) {
+                                   calledStaticMethods.insert(.foo2ABCDEFGCalled)
+                                   self.a = a
+                                   assignedStaticParameters.insert(.a)
+                                   self.b = b
+                                   assignedStaticParameters.insert(.b)
+                                   self.c = c
+                                   assignedStaticParameters.insert(.c)
+                                   self.d = d
+                                   assignedStaticParameters.insert(.d)
+                                   self.e = e
+                                   assignedStaticParameters.insert(.e)
+                                   self.f = f
+                                   assignedStaticParameters.insert(.f)
+                                   self.g = g
+                                   assignedStaticParameters.insert(.g)
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo1ABCDEFGCalled) {
+                                       handleFirst()
+                                       value += ".foo1ABCDEFGCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.StaticMethod: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo2ABCDEFGCalled) {
+                                       handleFirst()
+                                       value += ".foo2ABCDEFGCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.a) {
+                                       handleFirst()
+                                       value += ".a"
+                                   }
+                                   if self.contains(.b) {
+                                       handleFirst()
+                                       value += ".b"
+                                   }
+                                   if self.contains(.c) {
+                                       handleFirst()
+                                       value += ".c"
+                                   }
+                                   if self.contains(.d) {
+                                       handleFirst()
+                                       value += ".d"
+                                   }
+                                   if self.contains(.e) {
+                                       handleFirst()
+                                       value += ".e"
+                                   }
+                                   if self.contains(.f) {
+                                       handleFirst()
+                                       value += ".f"
+                                   }
+                                   if self.contains(.g) {
+                                       handleFirst()
+                                       value += ".g"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.StaticMethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.a) {
+                                       handleFirst()
+                                       value += ".a"
+                                   }
+                                   if self.contains(.b) {
+                                       handleFirst()
+                                       value += ".b"
+                                   }
+                                   if self.contains(.c) {
+                                       handleFirst()
+                                       value += ".c"
+                                   }
+                                   if self.contains(.d) {
+                                       handleFirst()
+                                       value += ".d"
+                                   }
+                                   if self.contains(.e) {
+                                       handleFirst()
+                                       value += ".e"
+                                   }
+                                   if self.contains(.f) {
+                                       handleFirst()
+                                       value += ".f"
+                                   }
+                                   if self.contains(.g) {
+                                       handleFirst()
+                                       value += ".g"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
     // MARK: Protocol with Function with a Long Completion Handler Name
     
     var protocolWithFunctionWithLongCompletionHandlerName: String {
@@ -1946,6 +3336,132 @@ extension ASTMockGeneratorTests {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
+    
+    func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithLongCompletionHandlerName))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithFunctionWithManyParameters {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo1CompletionHandlerToBeCalledWhenDoneCalled = Method(rawValue: 1 << 0)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct MethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let stringCompletionHandlerToBeCalledWhenDone = MethodParameter(rawValue: 1 << 0)
+                               }
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var stringCompletionHandlerToBeCalledWhenDone: ((Result<String, Error>) -> Void)?
+
+                               // MARK: - Variables to Use to Control Completion Handlers
+
+                               public var shouldCallCompletionHandlerToBeCalledWhenDone = false
+                               public var stringCompletionHandlerToBeCalledWhenDoneResult = .failure(MockError)
+
+                               public var shouldCallFoo1CompletionHandlerToBeCalledWhenDoneCompletionHander = false
+                               public var foo1CompletionHandlerToBeCalledWhenDoneCompletionHanderResult: Result<String, Error> = .failure(MockError)
+
+                               public func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   stringCompletionHandlerToBeCalledWhenDone = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public func foo1(completionHandlerToBeCalledWhenDone: @escaping (Result<String, Error>) -> Void) {
+                                   calledMethods.insert(.foo1CompletionHandlerToBeCalledWhenDoneCalled)
+                                   self.stringCompletionHandlerToBeCalledWhenDone = completionHandlerToBeCalledWhenDone
+                                   assignedParameters.insert(.stringCompletionHandlerToBeCalledWhenDone)
+                                   if shouldCallCompletionHandlerToBeCalledWhenDone {
+                                       completionHandlerToBeCalledWhenDone(stringCompletionHandlerToBeCalledWhenDoneResult)
+                                   }
+                                   if shouldCallFoo1CompletionHandlerToBeCalledWhenDoneCompletionHander {
+                                       completionHandlerToBeCalledWhenDone(foo1CompletionHandlerToBeCalledWhenDoneCompletionHanderResult)
+                                   }
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo1CompletionHandlerToBeCalledWhenDoneCalled) {
+                                       handleFirst()
+                                       value += ".foo1CompletionHandlerToBeCalledWhenDoneCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.stringCompletionHandlerToBeCalledWhenDone) {
+                                       handleFirst()
+                                       value += ".stringCompletionHandlerToBeCalledWhenDone"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
 
     func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
@@ -2047,6 +3563,138 @@ extension ASTMockGeneratorTests {
 
                            extension MockTest.MethodParameter: CustomStringConvertible {
                                var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.stringCompletionHandlerToBeCalledWhenDone) {
+                                       handleFirst()
+                                       value += ".stringCompletionHandlerToBeCalledWhenDone"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithLongCompletionHandlerName))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: ProtocolWithFunctionWithManyParameters {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               //swiftlint:disable identifier_name
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let foo1CompletionHandlerToBeCalledWhenDoneCalled = Method(rawValue: 1 << 0)
+                               }
+                               //swiftlint:enable identifier_name
+                               private(set) public var calledMethods = Method()
+
+                               //swiftlint:disable identifier_name
+                               public struct MethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let stringCompletionHandlerToBeCalledWhenDone = MethodParameter(rawValue: 1 << 0)
+                               }
+                               //swiftlint:enable identifier_name
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var stringCompletionHandlerToBeCalledWhenDone: ((Result<String, Error>) -> Void)?
+
+                               // MARK: - Variables to Use to Control Completion Handlers
+
+                               //swiftlint:disable identifier_name
+                               public var shouldCallCompletionHandlerToBeCalledWhenDone = false
+                               public var stringCompletionHandlerToBeCalledWhenDoneResult = .failure(MockError)
+
+                               public var shouldCallFoo1CompletionHandlerToBeCalledWhenDoneCompletionHander = false
+                               public var foo1CompletionHandlerToBeCalledWhenDoneCompletionHanderResult: Result<String, Error> = .failure(MockError)
+                               //swiftlint:enable identifier_name
+
+                               public func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   stringCompletionHandlerToBeCalledWhenDone = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public func foo1(completionHandlerToBeCalledWhenDone: @escaping (Result<String, Error>) -> Void) {
+                                   calledMethods.insert(.foo1CompletionHandlerToBeCalledWhenDoneCalled)
+                                   self.stringCompletionHandlerToBeCalledWhenDone = completionHandlerToBeCalledWhenDone
+                                   assignedParameters.insert(.stringCompletionHandlerToBeCalledWhenDone)
+                                   if shouldCallCompletionHandlerToBeCalledWhenDone {
+                                       completionHandlerToBeCalledWhenDone(stringCompletionHandlerToBeCalledWhenDoneResult)
+                                   }
+                                   if shouldCallFoo1CompletionHandlerToBeCalledWhenDoneCompletionHander {
+                                       completionHandlerToBeCalledWhenDone(foo1CompletionHandlerToBeCalledWhenDoneCompletionHanderResult)
+                                   }
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.foo1CompletionHandlerToBeCalledWhenDoneCalled) {
+                                       handleFirst()
+                                       value += ".foo1CompletionHandlerToBeCalledWhenDoneCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
                                    var value = "["
                                    var first = true
                                    func handleFirst() {
