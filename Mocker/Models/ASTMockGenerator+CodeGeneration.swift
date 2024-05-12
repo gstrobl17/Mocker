@@ -100,7 +100,7 @@ extension ASTMockGenerator {
                     swiftlintCommand = " \(SwiftlintSupport.WeakDelegate.disableThisComment)"
                 }
                 let prefix = variable.isStatic ? "static " : ""
-                code += "\(indentation)\(prefix)var \(variable.internalNameForCode)\(variable.typeForCode)\(swiftlintCommand)\n"
+                code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.internalNameForCode)\(variable.typeForCode)\(swiftlintCommand)\n"
             } else {
                 if first {
                     first = false
@@ -111,7 +111,7 @@ extension ASTMockGenerator {
                     swiftlintCommand = " \(SwiftlintSupport.WeakDelegate.disableThisComment)"
                 }
                 let prefix = variable.isStatic ? "static " : ""
-                code += "\(indentation)\(prefix)var \(variable.nameForCode)\(variable.typeForCode)\(swiftlintCommand)\n"
+                code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.nameForCode)\(variable.typeForCode)\(swiftlintCommand)\n"
             }
         }
 
@@ -557,7 +557,7 @@ extension ASTMockGenerator {
             }
 
             let prefix = variable.isStatic ? "static " : ""
-            code += "\(indentation)\(prefix)var \(variable.nameForCode)\(variable.typeForCode) {\n"
+            code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.nameForCode)\(variable.typeForCode) {\n"
             if variable.hasGetter && !variable.hasSetter {
                 generateGetter(with: "\(indentation)\(indentation)", for: variable)
                 
