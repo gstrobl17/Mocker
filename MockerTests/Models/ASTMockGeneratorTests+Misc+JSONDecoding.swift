@@ -1,4 +1,4 @@
-//swiftlint:disable function_body_length
+//swiftlint:disable function_body_length file_length
 //
 //  ASTMockGeneratorTests+Misc+JSONDecoding.swift
 //  MockerTests
@@ -153,6 +153,139 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
+    func testCodeGeneration_jsonDecodingProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: jsonDecodingProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: JSONDecoding {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let decodeTypeFromDataCalled = Method(rawValue: 1 << 0)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct MethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let type = MethodParameter(rawValue: 1 << 0)
+                                   public static let data = MethodParameter(rawValue: 1 << 1)
+                               }
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var type: T.Type?
+                               private(set) public var data: Data?
+
+                               // MARK: - Variables to Use as Method Return Values
+
+                               public var decodeTypeFromDataReturnValue: T!
+
+                               public var errorToThrow: Error!
+                               public var decodeTypeFromDataShouldThrowError = false
+
+
+                               public func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   type = nil
+                                   data = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable {
+                                   calledMethods.insert(.decodeTypeFromDataCalled)
+                                   self.type = type
+                                   assignedParameters.insert(.type)
+                                   self.data = data
+                                   assignedParameters.insert(.data)
+                                   if decodeTypeFromDataShouldThrowError && errorToThrow != nil {
+                                       throw errorToThrow
+                                   }
+                                   return decodeTypeFromDataReturnValue
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.decodeTypeFromDataCalled) {
+                                       handleFirst()
+                                       value += ".decodeTypeFromDataCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.type) {
+                                       handleFirst()
+                                       value += ".type"
+                                   }
+                                   if self.contains(.data) {
+                                       handleFirst()
+                                       value += ".data"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
     func testCodeGeneration_jsonDecodingProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
@@ -283,5 +416,140 @@ extension ASTMockGeneratorTests {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
+
+    func testCodeGeneration_jsonDecodingProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
+        let expectedDate = try XCTUnwrap(self.expectedDate)
+        let expectedYear = try XCTUnwrap(self.expectedYear)
+        let decl = try XCTUnwrap(protocolDeclaration(for: jsonDecodingProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           //
+                           //  MockTest.swift
+                           //  file
+                           //
+                           // Created by Chris X. Programmer on \(expectedDate).
+                           // Copyright © \(expectedYear). All rights reserved.
+                           //
+                           
+                           @testable import Mocker
+                           import Foundation
+                           import UIKit
+                           import Core
+
+                           public class MockTest: JSONDecoding {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let decodeTypeFromDataCalled = Method(rawValue: 1 << 0)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct MethodParameter: OptionSet {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let type = MethodParameter(rawValue: 1 << 0)
+                                   public static let data = MethodParameter(rawValue: 1 << 1)
+                               }
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var type: T.Type?
+                               private(set) public var data: Data?
+
+                               // MARK: - Variables to Use as Method Return Values
+
+                               //swiftlint:disable implicitly_unwrapped_optional
+                               public var decodeTypeFromDataReturnValue: T!
+                               //swiftlint:enable implicitly_unwrapped_optional
+
+                               public var errorToThrow: Error!
+                               public var decodeTypeFromDataShouldThrowError = false
+
+
+                               public func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   type = nil
+                                   data = nil
+                               }
+
+                               // MARK: - Methods for Protocol Conformance
+
+                               public func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable {
+                                   calledMethods.insert(.decodeTypeFromDataCalled)
+                                   self.type = type
+                                   assignedParameters.insert(.type)
+                                   self.data = data
+                                   assignedParameters.insert(.data)
+                                   if decodeTypeFromDataShouldThrowError && errorToThrow != nil {
+                                       throw errorToThrow
+                                   }
+                                   return decodeTypeFromDataReturnValue
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.decodeTypeFromDataCalled) {
+                                       handleFirst()
+                                       value += ".decodeTypeFromDataCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.type) {
+                                       handleFirst()
+                                       value += ".type"
+                                   }
+                                   if self.contains(.data) {
+                                       handleFirst()
+                                       value += ".data"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
 }
-//swiftlint:enable function_body_length
+//swiftlint:enable function_body_length file_length
