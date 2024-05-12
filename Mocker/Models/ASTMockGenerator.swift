@@ -175,6 +175,10 @@ class ASTMockGenerator: MockGenerating {
         generateImports(for: parameters)
         generateSpacing()
         startClass(for: parameters)
+        if parameters.public {
+            generateSpacing()
+            generateEmptyPublicInitializer(for: parameters)
+        }
         generateSpacing()
         generateProtocolAttributes(for: parameters)
         generateSpacing()

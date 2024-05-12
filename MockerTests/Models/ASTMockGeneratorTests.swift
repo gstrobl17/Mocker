@@ -166,6 +166,8 @@ final class ASTMockGeneratorTests: XCTestCase {
 
                            public class MockTest: Empty {
 
+                               public init() { }
+
 
                                public func reset() {
                                }
@@ -215,6 +217,8 @@ final class ASTMockGeneratorTests: XCTestCase {
                            import Core
 
                            public class MockTest: Empty {
+
+                               public init() { }
 
 
                                public func reset() {
@@ -288,6 +292,8 @@ final class ASTMockGeneratorTests: XCTestCase {
 
                            public class MockTest: Empty {
 
+                               public init() { }
+
 
                                public func reset() {
                                }
@@ -360,6 +366,8 @@ final class ASTMockGeneratorTests: XCTestCase {
 
                            public class MockTest: Empty {
 
+                               public init() { }
+
 
                                public func reset() {
                                }
@@ -426,6 +434,8 @@ final class ASTMockGeneratorTests: XCTestCase {
 
                            public class MockTest: Empty {
 
+                               public init() { }
+                           
 
                                public func reset() {
                                }

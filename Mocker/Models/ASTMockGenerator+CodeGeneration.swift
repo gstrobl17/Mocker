@@ -78,6 +78,11 @@ extension ASTMockGenerator {
         code += "\(publicAccessQualifier)class \(parameters.mockName): \(parameters.protocolDeclaration.identifier.text) {\n"
     }
 
+    func generateEmptyPublicInitializer(for parameters: MockGeneratorParameters) {
+        contentGenerated = true
+        code += "\(indentation)\(publicAccessQualifier)init() { }\n"
+    }
+
     func generateProtocolAttributes(for parameters: MockGeneratorParameters) {
 
         var first = true
@@ -144,10 +149,13 @@ extension ASTMockGenerator {
         }
     }
     
-    func startOptionSetDeclaration(name: String, count: Int) {
-        code += "\(indentation)struct \(name): OptionSet {\n"
+    func startOptionSetDeclaration(name: String, count: Int, with parameters: MockGeneratorParameters) {
+        code += "\(indentation)\(publicAccessQualifier)struct \(name): OptionSet {\n"
         let optionalTodo = (count > UInt.bitWidth) ? "  // TODO: Increase the size of OptionSet storage. There are more options (\(count)) than bits (\(UInt.bitWidth))." : ""
-        code += "\(indentation)\(indentation)let rawValue: UInt" + optionalTodo + "\n"
+        code += "\(indentation)\(indentation)\(publicAccessQualifier)let rawValue: UInt" + optionalTodo + "\n"
+        if parameters.public {
+            code += "\(indentation)\(indentation)\(publicAccessQualifier)init(rawValue: UInt) { self.rawValue = rawValue }\n"
+        }
     }
 
     func generateNonStaticMethodCalledOptionSet(for parameters: MockGeneratorParameters) {
@@ -167,28 +175,28 @@ extension ASTMockGenerator {
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where !variable.isStatic {
                 if variable.hasGetter, let calledAttributeName = getterCalledAttributeName(for: variable) {
-                    options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
                 if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
             }
         }
         for method in parameters.methods where !method.isStatic {
             guard let calledAttributeName = calledAttributeName(for: method) else { continue }
-            options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+            options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
             valueNumber += 1
         }
 
-        startOptionSetDeclaration(name: TypeName.Method, count: valueNumber)
+        startOptionSetDeclaration(name: TypeName.Method, count: valueNumber, with: parameters)
         code += options
         code += "\(indentation)}\n"
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
         }
-        code += "\(indentation)private(set) var \(VariableName.calledMethods) = \(TypeName.Method)()\n"
+        code += "\(indentation)private(set) \(publicAccessQualifier)var \(VariableName.calledMethods) = \(TypeName.Method)()\n"
     }
 
     func generateStaticMethodCalledOptionSet(for parameters: MockGeneratorParameters) {
@@ -208,28 +216,28 @@ extension ASTMockGenerator {
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.isStatic {
                 if variable.hasGetter, let calledAttributeName = getterCalledAttributeName(for: variable) {
-                    options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
                 if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
             }
         }
         for method in parameters.methods where method.isStatic {
             guard let calledAttributeName = calledAttributeName(for: method) else { continue }
-            options += "\(indentation)\(indentation)static let \(calledAttributeName) = \(TypeName.StaticMethod)(rawValue: 1 << \(valueNumber))\n"
+            options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.StaticMethod)(rawValue: 1 << \(valueNumber))\n"
             valueNumber += 1
         }
 
-        startOptionSetDeclaration(name: TypeName.StaticMethod, count: valueNumber)
+        startOptionSetDeclaration(name: TypeName.StaticMethod, count: valueNumber, with: parameters)
         code += options
         code += "\(indentation)}\n"
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
         }
-        code += "\(indentation)private(set) static var \(VariableName.calledStaticMethods) = \(TypeName.StaticMethod)()\n"
+        code += "\(indentation)private(set) \(publicAccessQualifier)static var \(VariableName.calledStaticMethods) = \(TypeName.StaticMethod)()\n"
     }
 
     func generateNonStaticMethodParamterAssignedOptionSet(for parameters: MockGeneratorParameters) {
@@ -249,7 +257,7 @@ extension ASTMockGenerator {
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.hasSetter && !variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
-                options += "\(indentation)\(indentation)static let \(variable.setterCaptureValueVariableName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
+                options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(variable.setterCaptureValueVariableName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
                 valueNumber += 1
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
@@ -258,20 +266,20 @@ extension ASTMockGenerator {
             for parameter in method.signature.input.parameterList {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
-                    options += "\(indentation)\(indentation)static let \(parameterName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(parameterName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                     usedNames.insert(parameterName)
                 }
             }
         }
 
-        startOptionSetDeclaration(name: TypeName.MethodParameter, count: valueNumber)
+        startOptionSetDeclaration(name: TypeName.MethodParameter, count: valueNumber, with: parameters)
         code += options
         code += "\(indentation)}\n"
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
         }
-        code += "\(indentation)private(set) var \(VariableName.assignedParameters) = \(TypeName.MethodParameter)()\n"
+        code += "\(indentation)private(set) \(publicAccessQualifier)var \(VariableName.assignedParameters) = \(TypeName.MethodParameter)()\n"
     }
 
     func generateStaticMethodParamterAssignedOptionSet(for parameters: MockGeneratorParameters) {
@@ -291,7 +299,7 @@ extension ASTMockGenerator {
         var valueNumber = 0
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.hasSetter && variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
-                options += "\(indentation)\(indentation)static let \(variable.setterCaptureValueVariableName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
+                options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(variable.setterCaptureValueVariableName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
                 valueNumber += 1
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
@@ -300,20 +308,20 @@ extension ASTMockGenerator {
             for parameter in method.signature.input.parameterList {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
-                    options += "\(indentation)\(indentation)static let \(parameterName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(parameterName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                     usedNames.insert(parameterName)
                 }
             }
         }
 
-        startOptionSetDeclaration(name: TypeName.StaticMethodParameter, count: valueNumber)
+        startOptionSetDeclaration(name: TypeName.StaticMethodParameter, count: valueNumber, with: parameters)
         code += options
         code += "\(indentation)}\n"
         if addIdentifierNameComments {
             code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
         }
-        code += "\(indentation)private(set) static var \(VariableName.assignedStaticParameters) = \(TypeName.StaticMethodParameter)()\n"
+        code += "\(indentation)private(set) \(publicAccessQualifier)static var \(VariableName.assignedStaticParameters) = \(TypeName.StaticMethodParameter)()\n"
     }
 
     func generateParameterAttributes(for parameters: MockGeneratorParameters) {
@@ -333,7 +341,7 @@ extension ASTMockGenerator {
                 generateHeader()
                 let modifier = variable.isStatic ? "static " : ""
                 let optionalModifier = variable.isOptional ? "" : "?"
-                code += "\(indentation)private(set) \(modifier)var \(variable.setterCaptureValueVariableName)\(variable.typeForCode)\(optionalModifier)\n"
+                code += "\(indentation)private(set) \(publicAccessQualifier)\(modifier)var \(variable.setterCaptureValueVariableName)\(variable.typeForCode)\(optionalModifier)\n"
                 
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
@@ -350,7 +358,7 @@ extension ASTMockGenerator {
                     let optionalModifier = parameter.isOptional ? "" : "?"
                     let typeWrapperStart = parameter.isFunction ? "(" : ""
                     let typeWrapperEnd = parameter.isFunction ? ")" : ""
-                    code += "\(indentation)private(set) \(modifier)var \(parameterName): \(typeWrapperStart)\(parameter.nonEscapingTypeNameForParameter)\(typeWrapperEnd)\(optionalModifier)\n"
+                    code += "\(indentation)private(set) \(publicAccessQualifier)\(modifier)var \(parameterName): \(typeWrapperStart)\(parameter.nonEscapingTypeNameForParameter)\(typeWrapperEnd)\(optionalModifier)\n"
                     
                     usedNames.insert(parameterName)
                 }
@@ -389,7 +397,7 @@ extension ASTMockGenerator {
             if swiftlintAware && !isNameValid(method.returnValueVariableName) {
                 swiftlintCommand = " \(SwiftlintSupport.IdentifierName.disableThisComment)"
             }
-            code += "\(indentation)\(modifier)var \(method.returnValueVariableName): \(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(implicitlyUnwrappedOptionalModifier)\(swiftlintCommand)\n"
+            code += "\(indentation)\(publicAccessQualifier)\(modifier)var \(method.returnValueVariableName): \(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(implicitlyUnwrappedOptionalModifier)\(swiftlintCommand)\n"
         }
 
         if !first && swiftlintAware && hasImplicitlyUnwrappedOptionals {
@@ -403,15 +411,15 @@ extension ASTMockGenerator {
         contentGenerated = true
 
         if generateClassErrorToThrowVariable {
-            code += "\(indentation)static var \(VariableName.staticErrorToThrow): Error!\n"
+            code += "\(indentation)\(publicAccessQualifier)static var \(VariableName.staticErrorToThrow): Error!\n"
         }
         if generateInstanceErrorToThrowVariable {
-            code += "\(indentation)var \(VariableName.instanceErrorToThrow): Error!\n"
+            code += "\(indentation)\(publicAccessQualifier)var \(VariableName.instanceErrorToThrow): Error!\n"
         }
 
         for method in parameters.methods where method.signature.throwsOrRethrows {
             let modifier = method.isStatic ? "static " : ""
-            code += "\(indentation)\(modifier)var \(method.shouldThrowErrorVariableName) = false\n"
+            code += "\(indentation)\(publicAccessQualifier)\(modifier)var \(method.shouldThrowErrorVariableName) = false\n"
         }
     }
 
@@ -437,7 +445,7 @@ extension ASTMockGenerator {
                     if addVariableNameComments {
                         code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
                     }
-                    code += "\(indentation)var \(shouldCallVariableName) = false\n"
+                    code += "\(indentation)\(publicAccessQualifier)var \(shouldCallVariableName) = false\n"
                     usedNames.insert(shouldCallVariableName)
                 }
 
@@ -445,7 +453,7 @@ extension ASTMockGenerator {
                     let resultVariableName = completionHandlerResultVariableName(for: details)
 
                     if !usedNames.contains(resultVariableName) {
-                        code += "\(indentation)var \(resultVariableName) = .failure(MockError)\n"
+                        code += "\(indentation)\(publicAccessQualifier)var \(resultVariableName) = .failure(MockError)\n"
                         usedNames.insert(resultVariableName)
                     }
                 }
@@ -466,14 +474,14 @@ extension ASTMockGenerator {
                             code += "\n"
                         }
                         
-                        code += "\(indentation)var \(shouldCallVariableName) = false\n"
+                        code += "\(indentation)\(publicAccessQualifier)var \(shouldCallVariableName) = false\n"
                         usedNames.insert(shouldCallVariableName)
                     }
 
                     let resultVariableName = method.completionHandlerResultVariableName
 
                     if !usedNames.contains(resultVariableName) {
-                        code += "\(indentation)var \(resultVariableName): \(parameter.typeNameForDetail(detail)) = .failure(MockError)\n"
+                        code += "\(indentation)\(publicAccessQualifier)var \(resultVariableName): \(parameter.typeNameForDetail(detail)) = .failure(MockError)\n"
                         usedNames.insert(resultVariableName)
                     }
                 }
@@ -596,7 +604,7 @@ extension ASTMockGenerator {
             if swiftlintAware && method.signature.input.parameterList.count > SwiftlintSupport.FunctionParamterCount.max {
                 code += "\(indentation)\(SwiftlintSupport.FunctionParamterCount.disableNextComment)\n"
             }
-            code += "\(indentation)\(method.signatureString) {\n"
+            code += "\(indentation)\(publicAccessQualifier)\(method.signatureString) {\n"
 
             // Method called recording
             guard let calledAttributeName = calledAttributeName(for: method) else { continue }
@@ -657,7 +665,7 @@ extension ASTMockGenerator {
 
     func generateBeginningOfOptionSetExtension(with name: String) {
         code += "extension \(name): CustomStringConvertible {\n"
-        code += "\(indentation)var description: String {\n"
+        code += "\(indentation)\(publicAccessQualifier)var description: String {\n"
         code += "\(indentation)\(indentation)var value = \"[\"\n"
         code += "\(indentation)\(indentation)var first = true\n"
         code += "\(indentation)\(indentation)func handleFirst() {\n"
