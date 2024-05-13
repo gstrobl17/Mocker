@@ -39,7 +39,6 @@ protocol GodfatherWireframeProtocol: AnyObject {
         protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
         mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
         contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-        destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type,
         filteringHandler: AsyncFilteringHandler,
         recentDocumentManager: RecentDocumentManaging,
         documentController: DocumentControlling

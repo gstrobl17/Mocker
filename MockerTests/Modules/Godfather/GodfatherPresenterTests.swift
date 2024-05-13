@@ -27,8 +27,7 @@ class GodfatherPresenterTests: XCTestCase {
         presenter = GodfatherPresenter(interface: view,
                                        interactor: interactor,
                                        router: router,
-                                       userDefaults: userDefaults,
-                                       destinationGroupSelectorRouterType: MockDestinationGroupSelectorRouter.self)
+                                       userDefaults: userDefaults)
     }
 
     // MARK: - GodfatherPresenterProtocol methods -

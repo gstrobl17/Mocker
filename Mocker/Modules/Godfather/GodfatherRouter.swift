@@ -25,7 +25,6 @@ class GodfatherRouter: GodfatherWireframeProtocol {
         protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
         mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
         contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-        destinationGroupSelectorRouterType: DestinationGroupSelectorWireframeProtocol.Type,
         filteringHandler: AsyncFilteringHandler,
         recentDocumentManager: RecentDocumentManaging,
         documentController: DocumentControlling
@@ -52,8 +51,7 @@ class GodfatherRouter: GodfatherWireframeProtocol {
         let presenter = GodfatherPresenter(interface: view,
                                            interactor: interactor,
                                            router: router,
-                                           userDefaults: userDefaults,
-                                           destinationGroupSelectorRouterType: destinationGroupSelectorRouterType)
+                                           userDefaults: userDefaults)
 
         view.presenter = presenter
         interactor.presenter = presenter

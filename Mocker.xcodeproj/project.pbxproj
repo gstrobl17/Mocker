@@ -8,25 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		3AC970091D2878BD93D86FD6 /* MockFilterWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECE2BD4635E29FDEA1AD28D /* MockFilterWireframe.swift */; };
-		64049A122072396300136913 /* DestinationGroupSelectorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64049A0D2072396300136913 /* DestinationGroupSelectorInteractor.swift */; };
-		64049A132072396300136913 /* DestinationGroupSelectorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64049A0E2072396300136913 /* DestinationGroupSelectorPresenter.swift */; };
-		64049A142072396300136913 /* DestinationGroupSelectorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64049A0F2072396300136913 /* DestinationGroupSelectorProtocols.swift */; };
-		64049A152072396300136913 /* DestinationGroupSelectorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64049A102072396300136913 /* DestinationGroupSelectorRouter.swift */; };
-		64049A162072396300136913 /* DestinationGroupSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64049A112072396300136913 /* DestinationGroupSelectorViewController.swift */; };
 		641465C32BEFD8D2008CEBEA /* Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641465C22BEFD8D2008CEBEA /* Pasteboard.swift */; };
 		641465C52BEFD9CD008CEBEA /* NSPasteboard+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641465C42BEFD9CD008CEBEA /* NSPasteboard+Extensions.swift */; };
 		641465C72BEFDB2C008CEBEA /* MockPasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641465C62BEFDB2C008CEBEA /* MockPasteboard.swift */; };
 		6418CFA521413431008DD695 /* NameTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418CFA421413431008DD695 /* NameTracker.swift */; };
 		6418CFA821428099008DD695 /* NameTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418CFA721428099008DD695 /* NameTrackerTests.swift */; };
 		6424DB372047329E0064DB65 /* String+ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB362047329E0064DB65 /* String+ExtensionsTests.swift */; };
-		6424DB50204AA77B0064DB65 /* MockDestinationGroupSelectorInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB4F204AA77B0064DB65 /* MockDestinationGroupSelectorInteractorInput.swift */; };
-		6424DB52204AABA00064DB65 /* MockDestinationGroupSelectorInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB51204AABA00064DB65 /* MockDestinationGroupSelectorInteractorOutput.swift */; };
-		6424DB54204AAC5D0064DB65 /* MockDestinationGroupSelectorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB53204AAC5D0064DB65 /* MockDestinationGroupSelectorPresenter.swift */; };
-		6424DB56204AACD80064DB65 /* MockDestinationGroupSelectorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB55204AACD80064DB65 /* MockDestinationGroupSelectorRouter.swift */; };
-		6424DB58204AAD4B0064DB65 /* MockDestinationGroupSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB57204AAD4B0064DB65 /* MockDestinationGroupSelectorView.swift */; };
-		6424DB5A204AAEDA0064DB65 /* DestinationGroupSelectorRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB59204AAEDA0064DB65 /* DestinationGroupSelectorRouterTests.swift */; };
-		6424DB5C204AB1080064DB65 /* DestinationGroupSelectorPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB5B204AB1080064DB65 /* DestinationGroupSelectorPresenterTests.swift */; };
-		6424DB5E204AB71F0064DB65 /* DestinationGroupSelectorInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB5D204AB71F0064DB65 /* DestinationGroupSelectorInteractorTests.swift */; };
 		6424DB6C204D59EF0064DB65 /* TreeNodeContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB6B204D59EF0064DB65 /* TreeNodeContaining.swift */; };
 		6424DB722051575F0064DB65 /* XCTarget+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB712051575F0064DB65 /* XCTarget+Extensions.swift */; };
 		6427B9EE2033954800BCA2E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427B9ED2033954800BCA2E9 /* AppDelegate.swift */; };
@@ -192,7 +179,6 @@
 		64C6091220457982005D6869 /* ASTMockGeneratorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6091120457982005D6869 /* ASTMockGeneratorFactory.swift */; };
 		64C6091420457991005D6869 /* ASTMockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6091320457991005D6869 /* ASTMockGenerator.swift */; };
 		64C609182046ABBB005D6869 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C609172046ABBB005D6869 /* String+Extensions.swift */; };
-		64E8F6FA207370980039F509 /* MockDestinationGroupSelectorInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8F6F9207370980039F509 /* MockDestinationGroupSelectorInterface.swift */; };
 		64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FE8203A4B9B00AAB355 /* TreeNode.swift */; };
 		64F92FEB203C371C00AAB355 /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEA203C371C00AAB355 /* TreeNodeView.swift */; };
 		64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */; };
@@ -240,25 +226,12 @@
 		199FFA2C931820F46200E6C9 /* MockFilterPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFilterPresenter.swift; sourceTree = "<group>"; };
 		1F58B3036F55BCAD8213218B /* MockAsyncFilteringHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAsyncFilteringHandler.swift; sourceTree = "<group>"; };
 		2ECE2BD4635E29FDEA1AD28D /* MockFilterWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFilterWireframe.swift; sourceTree = "<group>"; };
-		64049A0D2072396300136913 /* DestinationGroupSelectorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorInteractor.swift; sourceTree = "<group>"; };
-		64049A0E2072396300136913 /* DestinationGroupSelectorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorPresenter.swift; sourceTree = "<group>"; };
-		64049A0F2072396300136913 /* DestinationGroupSelectorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorProtocols.swift; sourceTree = "<group>"; };
-		64049A102072396300136913 /* DestinationGroupSelectorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorRouter.swift; sourceTree = "<group>"; };
-		64049A112072396300136913 /* DestinationGroupSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorViewController.swift; sourceTree = "<group>"; };
 		641465C22BEFD8D2008CEBEA /* Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pasteboard.swift; sourceTree = "<group>"; };
 		641465C42BEFD9CD008CEBEA /* NSPasteboard+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPasteboard+Extensions.swift"; sourceTree = "<group>"; };
 		641465C62BEFDB2C008CEBEA /* MockPasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPasteboard.swift; sourceTree = "<group>"; };
 		6418CFA421413431008DD695 /* NameTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTracker.swift; sourceTree = "<group>"; };
 		6418CFA721428099008DD695 /* NameTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTrackerTests.swift; sourceTree = "<group>"; };
 		6424DB362047329E0064DB65 /* String+ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ExtensionsTests.swift"; sourceTree = "<group>"; };
-		6424DB4F204AA77B0064DB65 /* MockDestinationGroupSelectorInteractorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDestinationGroupSelectorInteractorInput.swift; sourceTree = "<group>"; };
-		6424DB51204AABA00064DB65 /* MockDestinationGroupSelectorInteractorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDestinationGroupSelectorInteractorOutput.swift; sourceTree = "<group>"; };
-		6424DB53204AAC5D0064DB65 /* MockDestinationGroupSelectorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDestinationGroupSelectorPresenter.swift; sourceTree = "<group>"; };
-		6424DB55204AACD80064DB65 /* MockDestinationGroupSelectorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDestinationGroupSelectorRouter.swift; sourceTree = "<group>"; };
-		6424DB57204AAD4B0064DB65 /* MockDestinationGroupSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDestinationGroupSelectorView.swift; sourceTree = "<group>"; };
-		6424DB59204AAEDA0064DB65 /* DestinationGroupSelectorRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorRouterTests.swift; sourceTree = "<group>"; };
-		6424DB5B204AB1080064DB65 /* DestinationGroupSelectorPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorPresenterTests.swift; sourceTree = "<group>"; };
-		6424DB5D204AB71F0064DB65 /* DestinationGroupSelectorInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationGroupSelectorInteractorTests.swift; sourceTree = "<group>"; };
 		6424DB6B204D59EF0064DB65 /* TreeNodeContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNodeContaining.swift; sourceTree = "<group>"; };
 		6424DB712051575F0064DB65 /* XCTarget+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTarget+Extensions.swift"; sourceTree = "<group>"; };
 		6427B9EA2033954800BCA2E9 /* Mocker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mocker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -425,7 +398,6 @@
 		64C6091120457982005D6869 /* ASTMockGeneratorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMockGeneratorFactory.swift; sourceTree = "<group>"; };
 		64C6091320457991005D6869 /* ASTMockGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMockGenerator.swift; sourceTree = "<group>"; };
 		64C609172046ABBB005D6869 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		64E8F6F9207370980039F509 /* MockDestinationGroupSelectorInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDestinationGroupSelectorInterface.swift; sourceTree = "<group>"; };
 		64F92FE8203A4B9B00AAB355 /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
 		64F92FEA203C371C00AAB355 /* TreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNodeView.swift; sourceTree = "<group>"; };
 		64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCProject+Extensions.swift"; sourceTree = "<group>"; };
@@ -501,29 +473,6 @@
 				6488BA4A2B62978A004A1812 /* XCTTest+Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		6424DB4C20494CF00064DB65 /* Destination Group Selector */ = {
-			isa = PBXGroup;
-			children = (
-				64E8F6F9207370980039F509 /* MockDestinationGroupSelectorInterface.swift */,
-				6424DB4F204AA77B0064DB65 /* MockDestinationGroupSelectorInteractorInput.swift */,
-				6424DB51204AABA00064DB65 /* MockDestinationGroupSelectorInteractorOutput.swift */,
-				6424DB53204AAC5D0064DB65 /* MockDestinationGroupSelectorPresenter.swift */,
-				6424DB55204AACD80064DB65 /* MockDestinationGroupSelectorRouter.swift */,
-				6424DB57204AAD4B0064DB65 /* MockDestinationGroupSelectorView.swift */,
-			);
-			path = "Destination Group Selector";
-			sourceTree = "<group>";
-		};
-		6424DB4E20494D2C0064DB65 /* Desintation Group Selector */ = {
-			isa = PBXGroup;
-			children = (
-				6424DB5D204AB71F0064DB65 /* DestinationGroupSelectorInteractorTests.swift */,
-				6424DB5B204AB1080064DB65 /* DestinationGroupSelectorPresenterTests.swift */,
-				6424DB59204AAEDA0064DB65 /* DestinationGroupSelectorRouterTests.swift */,
-			);
-			path = "Desintation Group Selector";
 			sourceTree = "<group>";
 		};
 		6427B9E12033954800BCA2E9 = {
@@ -640,7 +589,6 @@
 				64C607A2203EC851005D6869 /* Protocol Selector */,
 				64C608E820434494005D6869 /* Mock File Parameters */,
 				64C608242041D0DD005D6869 /* Content Presenter */,
-				64C607A3203EC861005D6869 /* Destination Group Selector */,
 				647C06882172014F00778040 /* Filter */,
 			);
 			path = Modules;
@@ -696,18 +644,6 @@
 			path = "Protocol Selector";
 			sourceTree = "<group>";
 		};
-		64C607A3203EC861005D6869 /* Destination Group Selector */ = {
-			isa = PBXGroup;
-			children = (
-				64049A0D2072396300136913 /* DestinationGroupSelectorInteractor.swift */,
-				64049A0E2072396300136913 /* DestinationGroupSelectorPresenter.swift */,
-				64049A0F2072396300136913 /* DestinationGroupSelectorProtocols.swift */,
-				64049A102072396300136913 /* DestinationGroupSelectorRouter.swift */,
-				64049A112072396300136913 /* DestinationGroupSelectorViewController.swift */,
-			);
-			path = "Destination Group Selector";
-			sourceTree = "<group>";
-		};
 		64C607CA203F792B005D6869 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -742,7 +678,6 @@
 				64C608E12043370F005D6869 /* Protocol Selector */,
 				64C608F620434517005D6869 /* Mock File Parameters */,
 				64C608262041DAEC005D6869 /* Content Presenter */,
-				6424DB4E20494D2C0064DB65 /* Desintation Group Selector */,
 				647C06932172392400778040 /* Filter */,
 			);
 			path = Modules;
@@ -809,7 +744,6 @@
 				64C608D62043354F005D6869 /* Protocol Selector */,
 				64C608F520434504005D6869 /* Mock File Parameters */,
 				64C608252041DAC7005D6869 /* Content Presenter */,
-				6424DB4C20494CF00064DB65 /* Destination Group Selector */,
 				647C06942172393F00778040 /* Filter */,
 			);
 			path = Modules;
@@ -1172,7 +1106,6 @@
 				64C607D6203F7E4A005D6869 /* NSOpenPanel+Extensions.swift in Sources */,
 				64C608F1204344D6005D6869 /* MockFileParametersProtocols.swift in Sources */,
 				64C608D520431832005D6869 /* SourceFileInformation.swift in Sources */,
-				64049A142072396300136913 /* DestinationGroupSelectorProtocols.swift in Sources */,
 				64C608D32043044B005D6869 /* ActivityIndicatorViewController.swift in Sources */,
 				64C608F2204344D6005D6869 /* MockFileParametersRouter.swift in Sources */,
 				64C6079C203EC830005D6869 /* SourceFileSelectorInteractor.swift in Sources */,
@@ -1180,9 +1113,7 @@
 				6427B9F02033954800BCA2E9 /* ViewController.swift in Sources */,
 				64C607D8203F7EB8005D6869 /* NSSavePanel+Extensions.swift in Sources */,
 				C2AEE70B28649F940018FB2B /* TupleTypeSyntax+Extensions.swift in Sources */,
-				64049A162072396300136913 /* DestinationGroupSelectorViewController.swift in Sources */,
 				648691F72B6D4F9A0021A9F1 /* RecentDocumentManaging.swift in Sources */,
-				64049A122072396300136913 /* DestinationGroupSelectorInteractor.swift in Sources */,
 				64C60794203EC807005D6869 /* ProjectFileSelectorViewController.swift in Sources */,
 				64C6090C20457778005D6869 /* MockGeneratorParameters.swift in Sources */,
 				64C608CD2042F250005D6869 /* FileManager+Extensions.swift in Sources */,
@@ -1208,7 +1139,6 @@
 				647C06902172036900778040 /* FilterProtocols.swift in Sources */,
 				6488BA382B6179F6004A1812 /* FullNameProvider.swift in Sources */,
 				6427B9EE2033954800BCA2E9 /* AppDelegate.swift in Sources */,
-				64049A152072396300136913 /* DestinationGroupSelectorRouter.swift in Sources */,
 				64C608F0204344D6005D6869 /* MockFileParametersPresenter.swift in Sources */,
 				647C06A9217264A600778040 /* AsyncFilteringHandler.swift in Sources */,
 				C2635F8328623B2000F87C71 /* ModifierListSyntax+Extensions.swift in Sources */,
@@ -1227,7 +1157,6 @@
 				647C06AB2172653F00778040 /* ProjectFilteringHandler.swift in Sources */,
 				64C607D4203F7DED005D6869 /* OpenPanelFactory.swift in Sources */,
 				64C607CF203F7B73005D6869 /* OpenPanel.swift in Sources */,
-				64049A132072396300136913 /* DestinationGroupSelectorPresenter.swift in Sources */,
 				64F92FEB203C371C00AAB355 /* TreeNodeView.swift in Sources */,
 				648691F32B6D4EA90021A9F1 /* DocumentControlling.swift in Sources */,
 				64C607A0203EC830005D6869 /* SourceFileSelectorViewController.swift in Sources */,
@@ -1265,16 +1194,13 @@
 				647C069821723FC600778040 /* FilterInteractorTests.swift in Sources */,
 				64C608DA204335BB005D6869 /* MockProtocolSelectorInteractorOutput.swift in Sources */,
 				64C607DF203F847F005D6869 /* MockOpenPanel.swift in Sources */,
-				64E8F6FA207370980039F509 /* MockDestinationGroupSelectorInterface.swift in Sources */,
 				64C607E7203F894C005D6869 /* MockProjectFileSelectorRouter.swift in Sources */,
 				648691B72B63D6650021A9F1 /* ASTMockGeneratorTests+EdgeCases+Part2.swift in Sources */,
 				64C6090620440F0D005D6869 /* MockFileParametersInteractorTests.swift in Sources */,
 				64C607F1203F8D1C005D6869 /* ProjectFileSelectorPresenterTests.swift in Sources */,
 				64C607F3203F8EA2005D6869 /* ProjectFileSelectorInteractorTests.swift in Sources */,
-				6424DB54204AAC5D0064DB65 /* MockDestinationGroupSelectorPresenter.swift in Sources */,
 				64C6082E2041DCB8005D6869 /* MockContentPresenterView.swift in Sources */,
 				64C607DC203F8168005D6869 /* MockSavePanel.swift in Sources */,
-				6424DB58204AAD4B0064DB65 /* MockDestinationGroupSelectorView.swift in Sources */,
 				648691FD2B6E55070021A9F1 /* RecentDocumentManagerTests.swift in Sources */,
 				64C6090420440AEF005D6869 /* MockFileParametersPresenterTests.swift in Sources */,
 				64C607E5203F8892005D6869 /* MockProjectFileSelectorView.swift in Sources */,
@@ -1285,7 +1211,6 @@
 				64C6090E2045780C005D6869 /* MockMockGenerator.swift in Sources */,
 				64C608FC20435839005D6869 /* MockMockFileParametersPresenter.swift in Sources */,
 				64C6081C20416F04005D6869 /* MockGodfatherView.swift in Sources */,
-				6424DB52204AABA00064DB65 /* MockDestinationGroupSelectorInteractorOutput.swift in Sources */,
 				64C607EB203F8AAD005D6869 /* MockProjectFileSelectorInteractorOutput.swift in Sources */,
 				64C6081820416EC9005D6869 /* MockGodfatherInteractorOutput.swift in Sources */,
 				648691B52B63B1DC0021A9F1 /* ASTMockGeneratorTests+EdgeCases+Part1.swift in Sources */,
@@ -1298,14 +1223,11 @@
 				648691A32B62F8120021A9F1 /* ASTMockGeneratorTests+Misc+AnalyticsRecording.swift in Sources */,
 				648691A72B62FB1C0021A9F1 /* ASTMockGeneratorTests+Misc+FileManagerProtocol.swift in Sources */,
 				641465C72BEFDB2C008CEBEA /* MockPasteboard.swift in Sources */,
-				6424DB5C204AB1080064DB65 /* DestinationGroupSelectorPresenterTests.swift in Sources */,
 				64C609022044054F005D6869 /* MockFileParametersRouterTests.swift in Sources */,
-				6424DB5E204AB71F0064DB65 /* DestinationGroupSelectorInteractorTests.swift in Sources */,
 				6418CFA821428099008DD695 /* NameTrackerTests.swift in Sources */,
 				64C60813204038A5005D6869 /* MockProjectFactory.swift in Sources */,
 				64C6080320400CE0005D6869 /* SourceFileSelectorPresenterTests.swift in Sources */,
 				64C608212041740A005D6869 /* GodfatherPresenterTests.swift in Sources */,
-				6424DB5A204AAEDA0064DB65 /* DestinationGroupSelectorRouterTests.swift in Sources */,
 				6488BA3C2B618290004A1812 /* MockFullNameProviding.swift in Sources */,
 				647C069921723FC600778040 /* FilterPresenterTests.swift in Sources */,
 				64C607EF203F8C24005D6869 /* ProjectFileSelectorRouterTests.swift in Sources */,
@@ -1320,7 +1242,6 @@
 				648691B12B636E680021A9F1 /* ASTMockGeneratorTests+Misc+JSONDecoding.swift in Sources */,
 				64C608C92042ECDB005D6869 /* MockUserDefaults.swift in Sources */,
 				64C607F8203F9E36005D6869 /* MockSourceFileSelectorInteractorOutput.swift in Sources */,
-				6424DB56204AACD80064DB65 /* MockDestinationGroupSelectorRouter.swift in Sources */,
 				64C6080120400C6C005D6869 /* SourceFileSelectorRouterTests.swift in Sources */,
 				64C608DE2043363E005D6869 /* MockProtocolSelectorRouter.swift in Sources */,
 				64C607ED203F8B3E005D6869 /* MockProjectFileSelectorInteractorInput.swift in Sources */,
@@ -1333,7 +1254,6 @@
 				64C6090020435906005D6869 /* MockMockFileParametersView.swift in Sources */,
 				6488BA4B2B62978A004A1812 /* XCTTest+Extensions.swift in Sources */,
 				64C607F6203F9D87005D6869 /* MockSourceFileSelectorInteractorInput.swift in Sources */,
-				6424DB50204AA77B0064DB65 /* MockDestinationGroupSelectorInteractorInput.swift in Sources */,
 				64C6081F204170C5005D6869 /* GodfatherInteractorTests.swift in Sources */,
 				64C608D820433575005D6869 /* MockProtocolSelectorInteractorInput.swift in Sources */,
 				64C6082320418F31005D6869 /* GodfatherRouterTests.swift in Sources */,
@@ -1497,7 +1417,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.1.4;
+				CURRENT_PROJECT_VERSION = 1.1.5;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1525,7 +1445,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.1.4;
+				CURRENT_PROJECT_VERSION = 1.1.5;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
