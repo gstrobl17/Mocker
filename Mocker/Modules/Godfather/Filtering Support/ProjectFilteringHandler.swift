@@ -17,10 +17,10 @@ class ProjectFilteringHandler: AsyncFilteringHandler {
         queue.maxConcurrentOperationCount = 1
     }
     
-    func performFiltering(on project: Project, with filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
+    func performFiltering(on dataSource: SourceFileDataSource, with filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
         
         queue.cancelAllOperations()
-        let operation = FilteringOperation(project: project, filter: filter, completionHandler: completionHandler)
+        let operation = FilteringOperation(dataSource: dataSource, filter: filter, completionHandler: completionHandler)
         queue.addOperation(operation)
     }
     

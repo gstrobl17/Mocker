@@ -13,7 +13,7 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
     var presenter: GodfatherInteractorOutputProtocol?
     var userDefaults: KeyValueStoring = MockUserDefaults()
     var fileManager: FileManaging = MockFileManager()
-    var currentProject: Project?
+    var currentDataSource: SourceFileDataSource?
     var mockName: String = ""
     var mockCode: String = ""
 

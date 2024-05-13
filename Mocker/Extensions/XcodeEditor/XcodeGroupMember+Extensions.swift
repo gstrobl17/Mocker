@@ -9,24 +9,24 @@ import XcodeEditor
 
 extension XcodeGroupMember {
     
-    func url(in project: Project) -> URL? {
+    func url(in dataSource: SourceFileDataSource) -> URL? {
         var url: URL?
         
-        if let projectDirectoryURL = project.projectDirectoryURL {
+        if let projectDirectoryURL = dataSource.projectDirectoryURL {
             url = projectDirectoryURL.appendingPathComponent(pathRelativeToProjectRoot())
         }
         
         return url
     }
     
-    func target(in project: Project) -> XCTarget! {
+    func target(in dataSource: SourceFileDataSource) -> XCTarget! {
         var target: XCTarget!
         
         if let path = pathRelativeToProjectRoot() {
             let components = path.split(separator: "/")
             if let first = components.first {
                 let name = String(first)
-                target = project.target(withName: name)
+                target = dataSource.target(withName: name)
             }
         }
         

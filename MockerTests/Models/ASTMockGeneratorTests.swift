@@ -14,7 +14,7 @@ import SwiftSyntaxParser
 
 final class ASTMockGeneratorTests: XCTestCase {
 
-    var project: MockProject!
+    var dataSource: MockSourceFileDataSource!
     var path1: AccessPathSyntax!
     var path2: AccessPathSyntax!
     var path3: AccessPathSyntax!
@@ -39,8 +39,9 @@ final class ASTMockGeneratorTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
 
-        project = MockProject()
-        project.filePathReturnValue = "/usr/local/project/file.swift"
+        dataSource = MockSourceFileDataSource()
+        dataSource.filePathReturnValue = "/usr/local/dataSource/file.swift"
+        dataSource._projectName = "file"
         path1 = AccessPathSyntax([AccessPathComponentSyntax(name: TokenSyntax(.identifier("Foundation"), presence: .present))])
         path2 = AccessPathSyntax([AccessPathComponentSyntax(name: TokenSyntax(.identifier("UIKit"), presence: .present))])
         path3 = AccessPathSyntax([AccessPathComponentSyntax(name: TokenSyntax(.identifier("Core"), presence: .present))])
@@ -71,7 +72,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
 
     func createParameters(
-        project: Project? = nil,
+        dataSource: SourceFileDataSource? = nil,
         imports: [ImportDeclSyntax]? = nil,
         protocolDeclaration: ProtocolDeclSyntax,
         mockName: String? = nil,
@@ -82,7 +83,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         public: Bool? = nil
     ) -> MockGeneratorParameters {
         MockGeneratorParameters(
-            project: project ?? self.project,
+            dataSource: dataSource ?? self.dataSource,
             imports: imports ?? self.imports,
             protocolDeclaration: protocolDeclaration,
             mockName: mockName ?? Default.mockName,
@@ -235,7 +236,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
 
     func testCodeGeneration_emptyProtocol_organizationSetupInProject_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
-        project.objectsReturnValue = ["something": ["attributes": ["ORGANIZATIONNAME": Default.organizationName]]]
+        dataSource._organizationName = Default.organizationName
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
@@ -271,7 +272,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
 
     func testCodeGeneration_emptyProtocol_organizationSetupInProject_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
-        project.objectsReturnValue = ["something": ["attributes": ["ORGANIZATIONNAME": Default.organizationName]]]
+        dataSource._organizationName = Default.organizationName
         let expectedDate = try XCTUnwrap(self.expectedDate)
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))

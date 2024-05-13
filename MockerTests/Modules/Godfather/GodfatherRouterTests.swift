@@ -13,7 +13,7 @@ class GodfatherRouterTests: XCTestCase {
 
     let userDefaults = MockUserDefaults()
     let fileManager = MockFileManager()
-    let projectFactory = MockProjectFactory()
+    let dataSourceFactory = MockSourceFileDataSourceCreating()
     let mockGeneratorFactory = MockMockGeneratorFactory()
     let openPanelFactory = MockOpenPanelFactory()
     let filteringHandler = MockAsyncFilteringHandler()
@@ -27,7 +27,7 @@ class GodfatherRouterTests: XCTestCase {
             viewController: viewController,
             userDefaults: userDefaults,
             fileManager: fileManager,
-            projectFactory: projectFactory,
+            dataSourceFactory: dataSourceFactory,
             mockGeneratorFactory: mockGeneratorFactory,
             openPanelFactory: openPanelFactory,
             projectFileSelectorRouterType: MockProjectFileSelectorRouter.self,

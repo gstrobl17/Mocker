@@ -9,20 +9,20 @@ import Foundation
 
 class FilteringOperation: Operation {
     
-    weak var project: Project?
+    weak var dataSource: SourceFileDataSource?
     let filter: String
     let completionHandler: (ProjectTraversalResult) -> Void
     
-    init(project: Project, filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
-        self.project = project
+    init(dataSource: SourceFileDataSource, filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
+        self.dataSource = dataSource
         self.filter = filter
         self.completionHandler = completionHandler
         super.init()
     }
     
     override func main() {
-        guard let project = project else { return }
-        let result = project.traverse(filteredBy: filter, monitoredBy: self)
+        guard let dataSource = dataSource else { return }
+        let result = dataSource.traverse(filteredBy: filter, monitoredBy: self)
         if !isCancelled {
             completionHandler(result)
         }

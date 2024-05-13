@@ -30,7 +30,7 @@ protocol GodfatherWireframeProtocol: AnyObject {
         viewController: ViewController,
         userDefaults: KeyValueStoring,
         fileManager: FileManaging,
-        projectFactory: ProjectFactory,
+        dataSourceFactory: SourceFileDataSourceCreating,
         mockGeneratorFactory: MockGeneratorFactory,
         openPanelFactory: OpenPanelFactory,
         projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
@@ -86,7 +86,7 @@ protocol GodfatherInteractorInputProtocol: AnyObject {
     
     var userDefaults: KeyValueStoring { get }
     var fileManager: FileManaging { get }
-    var currentProject: Project? { get }
+    var currentDataSource: SourceFileDataSource? { get }
     var mockName: String { get }
     var mockCode: String { get }
 

@@ -27,7 +27,7 @@ class GodfatherInteractor {
     private var theViewHasAppeared = false
     private(set) var userDefaults: KeyValueStoring
     let fileManager: FileManaging
-    let projectFactory: ProjectFactory
+    let dataSourceFactory: SourceFileDataSourceCreating
     let mockGeneratorFactory: MockGeneratorFactory
     let projectFileSelector: NSViewController & ProjectFileSelectorInterfaceProtocol
     let sourceFileSelector: NSViewController & SourceFileSelectorInterfaceProtocol
@@ -39,7 +39,7 @@ class GodfatherInteractor {
     let recentDocumentManager: RecentDocumentManaging
     let documentController: DocumentControlling
     let pasteboard: Pasteboard
-    internal var currentProject: Project?
+    internal var currentDataSource: SourceFileDataSource?
     private(set) var targetOfCurrentSourceFile: XCTarget? {
         didSet {
             if let target = targetOfCurrentSourceFile {
@@ -67,7 +67,7 @@ class GodfatherInteractor {
     init(
         userDefaults: KeyValueStoring,
         fileManager: FileManaging,
-        projectFactory: ProjectFactory,
+        dataSourceFactory: SourceFileDataSourceCreating,
         mockGeneratorFactory: MockGeneratorFactory,
         openPanelFactory: OpenPanelFactory,
         projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
@@ -84,7 +84,7 @@ class GodfatherInteractor {
         
         self.userDefaults = userDefaults
         self.fileManager = fileManager
-        self.projectFactory = projectFactory
+        self.dataSourceFactory = dataSourceFactory
         self.mockGeneratorFactory = mockGeneratorFactory
         projectFileSelector = projectFileSelectorRouterType.createModule(openPanelFactory: openPanelFactory)
         sourceFileSelector = sourceFileSelectorRouterType.createModule()
@@ -113,11 +113,11 @@ class GodfatherInteractor {
             presenter?.clearBusyMessage()
         }
         
-        if let project = projectFactory.createProject(for: url.path) {
-            currentProject = project
+        if let dataSource = dataSourceFactory.createDataSource(for: url) {
+            currentDataSource = dataSource
             userDefaults.projectFilePath = url.path
             renderFilteredSourceFileTree()
-            mockFileParameters.setup(for: project)
+            mockFileParameters.setup(for: dataSource)
             mockFileParameters.clearProtocol()
             
             recentDocumentManager.add(url)
@@ -129,12 +129,12 @@ class GodfatherInteractor {
     }
     
     private func renderFilteredSourceFileTree() {
-        guard let currentProject = currentProject else { return }
+        guard let currentDataSource else { return }
         let filter = userDefaults.sourceFileFilterValue ?? ""
-        filteringHandler.performFiltering(on: currentProject, with: filter) { [weak self] result in
+        filteringHandler.performFiltering(on: currentDataSource, with: filter) { [weak self] result in
             DispatchQueue.main.async {
-                guard let strongSelf = self, let project = strongSelf.currentProject else { return }
-                strongSelf.sourceFileSelector.present(tree: result.fileTree, for: project)
+                guard let strongSelf = self, let dataSource = strongSelf.currentDataSource else { return }
+                strongSelf.sourceFileSelector.present(tree: result.fileTree, for: dataSource)
             }
         }
     }
@@ -153,7 +153,7 @@ class GodfatherInteractor {
     private func evaluateIfDisplayChoiceIsAvailable() {
         var canChooseDisplay = false
         
-        if currentProject != nil && currentSourceFile != nil && currentProtocolDeclaration != nil && !mockCode.isEmpty {
+        if currentDataSource != nil && currentSourceFile != nil && currentProtocolDeclaration != nil && !mockCode.isEmpty {
             canChooseDisplay = true
         }
 
@@ -222,10 +222,10 @@ extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
         mockFileParameters.clearProtocol()
         mockCode = ""
 
-        if let currentProject = currentProject, let fileURL = treeNode.groupMember.url(in: currentProject) {
+        if let currentDataSource, let fileURL = treeNode.groupMember.url(in: currentDataSource) {
             
             // Try to find the target of the selected file
-            if let target = treeNode.groupMember.target(in: currentProject) {
+            if let target = treeNode.groupMember.target(in: currentDataSource) {
                 targetOfCurrentSourceFile = target
             }
   
@@ -264,9 +264,9 @@ extension GodfatherInteractor: MockFileParametersInterfaceDelegate {
                             testableTargetName: String,
                             trackPropertyActivity: Bool,
                             public: Bool) {
-        guard let currentProject = currentProject else { return }
-        guard let currentSourceFile = currentSourceFile else { return }
-        guard let currentProtocolDeclaration = currentProtocolDeclaration else { return }
+        guard let currentDataSource else { return }
+        guard let currentSourceFile else { return }
+        guard let currentProtocolDeclaration else { return }
         guard !mockName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             self.mockName = ""
             mockCode = ""
@@ -274,7 +274,7 @@ extension GodfatherInteractor: MockFileParametersInterfaceDelegate {
         }
         
         self.mockName = mockName
-        let parameters = MockGeneratorParameters(project: currentProject,
+        let parameters = MockGeneratorParameters(dataSource: currentDataSource,
                                                  imports: currentSourceFile.imports,
                                                  protocolDeclaration: currentProtocolDeclaration,
                                                  mockName: mockName, 

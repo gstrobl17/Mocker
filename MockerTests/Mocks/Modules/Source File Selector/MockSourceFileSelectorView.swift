@@ -16,33 +16,33 @@ class MockSourceFileSelectorView: NSViewController, SourceFileSelectorViewProtoc
 
     struct Method: OptionSet {
         let rawValue: Int
-        static let presentTreeRootTreeNodeForProjectCalled = Method(rawValue: 1)
+        static let presentTreeRootTreeNodeForDataSourceCalled = Method(rawValue: 1)
     }
     private(set) var calledMethods = Method()
     
     struct MethodParameter: OptionSet {
         let rawValue: Int
         static let rootTreeNode = MethodParameter(rawValue: 1)
-        static let project = MethodParameter(rawValue: 2)
+        static let dataSource = MethodParameter(rawValue: 2)
     }
     private(set) var assignedParameters = MethodParameter()
     
     private(set) var rootTreeNode: TreeNode?
-    private(set) var project: Project?
+    private(set) var dataSource: SourceFileDataSource?
     
     func reset() {
         calledMethods = []
         assignedParameters = []
         rootTreeNode = nil
-        project = nil
+        dataSource = nil
     }
     
-    func present(tree rootTreeNode: TreeNode, for project: Project) {
-        calledMethods.insert(.presentTreeRootTreeNodeForProjectCalled)
+    func present(tree rootTreeNode: TreeNode, for dataSource: SourceFileDataSource) {
+        calledMethods.insert(.presentTreeRootTreeNodeForDataSourceCalled)
         self.rootTreeNode = rootTreeNode
         assignedParameters.insert(.rootTreeNode)
-        self.project = project
-        assignedParameters.insert(.project)
+        self.dataSource = dataSource
+        assignedParameters.insert(.dataSource)
     }
 
 }
@@ -59,9 +59,9 @@ extension MockSourceFileSelectorView.Method: CustomStringConvertible {
             }
         }
         
-        if self.contains(.presentTreeRootTreeNodeForProjectCalled) {
+        if self.contains(.presentTreeRootTreeNodeForDataSourceCalled) {
             handleFirst()
-            value += ".presentTreeRootTreeNodeForProjectCalled"
+            value += ".presentTreeRootTreeNodeForDataSourceCalled"
         }
         
         value += "]"
@@ -85,9 +85,9 @@ extension MockSourceFileSelectorView.MethodParameter: CustomStringConvertible {
             handleFirst()
             value += ".rootTreeNode"
         }
-        if self.contains(.project) {
+        if self.contains(.dataSource) {
             handleFirst()
-            value += ".project"
+            value += ".dataSource"
         }
         
         value += "]"

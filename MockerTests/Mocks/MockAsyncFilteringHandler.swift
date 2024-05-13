@@ -12,34 +12,34 @@ class MockAsyncFilteringHandler: AsyncFilteringHandler {
 
     struct Method: OptionSet {
         let rawValue: Int
-        static let performFilteringOnProjectWithFilterCompletionHandlerCalled = Method(rawValue: 1)
+        static let performFilteringOnDataSourceWithFilterCompletionHandlerCalled = Method(rawValue: 1)
     }
     private(set) var calledMethods = Method()
 
     struct MethodParameter: OptionSet {
         let rawValue: Int
-        static let project = MethodParameter(rawValue: 1)
+        static let dataSource = MethodParameter(rawValue: 1)
         static let filter = MethodParameter(rawValue: 2)
         static let completionHandler = MethodParameter(rawValue: 4)
     }
     private(set) var assignedParameters = MethodParameter()
 
-    private(set) var project: Project?
+    private(set) var dataSource: SourceFileDataSource?
     private(set) var filter: String?
     private(set) var completionHandler: ((ProjectTraversalResult) -> Void)?
 
     func reset() {
         calledMethods = []
         assignedParameters = []
-        project = nil
+        dataSource = nil
         filter = nil
         completionHandler = nil
     }
 
-    func performFiltering(on project: Project, with filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
-        calledMethods.insert(.performFilteringOnProjectWithFilterCompletionHandlerCalled)
-        self.project = project
-        assignedParameters.insert(.project)
+    func performFiltering(on dataSource: SourceFileDataSource, with filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
+        calledMethods.insert(.performFilteringOnDataSourceWithFilterCompletionHandlerCalled)
+        self.dataSource = dataSource
+        assignedParameters.insert(.dataSource)
         self.filter = filter
         assignedParameters.insert(.filter)
         self.completionHandler = completionHandler
@@ -60,9 +60,9 @@ extension MockAsyncFilteringHandler.Method: CustomStringConvertible {
             }
         }
 
-        if self.contains(.performFilteringOnProjectWithFilterCompletionHandlerCalled) {
+        if self.contains(.performFilteringOnDataSourceWithFilterCompletionHandlerCalled) {
             handleFirst()
-            value += ".performFilteringOnProjectWithFilterCompletionHandlerCalled"
+            value += ".performFilteringOnDataSourceWithFilterCompletionHandlerCalled"
         }
 
         value += "]"
@@ -82,9 +82,9 @@ extension MockAsyncFilteringHandler.MethodParameter: CustomStringConvertible {
             }
         }
 
-        if self.contains(.project) {
+        if self.contains(.dataSource) {
             handleFirst()
-            value += ".project"
+            value += ".dataSource"
         }
         if self.contains(.filter) {
             handleFirst()

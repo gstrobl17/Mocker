@@ -40,7 +40,7 @@ class ViewController: NSViewController {
             viewController: self,
             userDefaults: userDefaults,
             fileManager: FileManager.default,
-            projectFactory: XCProjectFactory(),
+            dataSourceFactory: SourceFileDataSourceFactory(),
             mockGeneratorFactory: ASTMockGeneratorFactory(),
             openPanelFactory: AppKitOpenPanelFactory(),
             projectFileSelectorRouterType: ProjectFileSelectorRouter.self,

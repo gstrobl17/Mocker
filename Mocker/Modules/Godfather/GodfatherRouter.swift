@@ -16,7 +16,7 @@ class GodfatherRouter: GodfatherWireframeProtocol {
         viewController: ViewController,
         userDefaults: KeyValueStoring,
         fileManager: FileManaging,
-        projectFactory: ProjectFactory,
+        dataSourceFactory: SourceFileDataSourceCreating,
         mockGeneratorFactory: MockGeneratorFactory,
         openPanelFactory: OpenPanelFactory,
         projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
@@ -33,8 +33,8 @@ class GodfatherRouter: GodfatherWireframeProtocol {
         let view = GodfatherView(viewController: viewController)
         let interactor = GodfatherInteractor(
             userDefaults: userDefaults,
-            fileManager: fileManager,
-            projectFactory: projectFactory,
+            fileManager: fileManager, 
+            dataSourceFactory: dataSourceFactory,
             mockGeneratorFactory: mockGeneratorFactory,
             openPanelFactory: openPanelFactory,
             projectFileSelectorRouterType: projectFileSelectorRouterType,

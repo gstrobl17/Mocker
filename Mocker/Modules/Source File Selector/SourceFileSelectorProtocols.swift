@@ -11,7 +11,7 @@ import XcodeEditor
 protocol SourceFileSelectorInterfaceProtocol: AnyObject {
     var delegate: SourceFileSelectorInterfaceDelegate? { get set }
     
-    func present(tree rootTreeNode: TreeNode, for project: Project)
+    func present(tree rootTreeNode: TreeNode, for dataSource: SourceFileDataSource)
 }
 
 protocol SourceFileSelectorInterfaceDelegate: AnyObject {

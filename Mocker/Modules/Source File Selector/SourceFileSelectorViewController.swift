@@ -16,7 +16,7 @@ class SourceFileSelectorViewController: NSViewController {
     weak var delegate: SourceFileSelectorInterfaceDelegate?
 
     private var rootTreeNode: TreeNode?
-    private var project: Project?
+    private var dataSource: SourceFileDataSource?
 
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +33,9 @@ extension SourceFileSelectorViewController: SourceFileSelectorViewProtocol {
 
 extension SourceFileSelectorViewController: SourceFileSelectorInterfaceProtocol {
     
-    func present(tree rootTreeNode: TreeNode, for project: Project) {
+    func present(tree rootTreeNode: TreeNode, for dataSource: SourceFileDataSource) {
         self.rootTreeNode = rootTreeNode
-        self.project = project
+        self.dataSource = dataSource
         outlineView.reloadData()
         outlineView.expandItem(nil, expandChildren: true)
     }
@@ -77,9 +77,9 @@ extension SourceFileSelectorViewController: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         guard let item = item as? TreeNode,
-            let project = project,
+            let dataSource,
             item.groupMember.displayName() != nil else { return nil }
-        let view = TreeNodeView(treeNode: item, project: project)
+        let view = TreeNodeView(treeNode: item, dataSource: dataSource)
         return view
     }
     

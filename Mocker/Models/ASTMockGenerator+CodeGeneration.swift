@@ -46,13 +46,13 @@ extension ASTMockGenerator {
 
         code += "//\n"
         code += "//  \(parameters.mockName).swift\n"
-        if let projectName = parameters.project.projectFileURL?.deletingPathExtension().lastPathComponent {
+        if let projectName = parameters.dataSource.projectName {
             code += "//  \(projectName)\n"
         }
         code += "//\n"
         code += "// Created by \(fullNameProvider.name) on \(formatter.string(from: dateFactory.now)).\n"
         var organizationName = ""
-        if let projectOrganizationName = parameters.project.organizationName {
+        if let projectOrganizationName = parameters.dataSource.organizationName {
             organizationName = " \(projectOrganizationName)"
         }
 

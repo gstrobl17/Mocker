@@ -15,12 +15,12 @@ extension NSImage.Name {
 
 class TreeNodeView: NSView {
     
-    init(treeNode: TreeNode, project: Project) {
+    init(treeNode: TreeNode, dataSource: SourceFileDataSource) {
         super.init(frame: NSRect.zero)
         
         let possibleImage: NSImage?
         if treeNode.groupMember.groupMemberType() == PBXFileReferenceType,
-            let sourceFile = project.file(withKey: treeNode.groupMember.key()),
+            let sourceFile = dataSource.file(withKey: treeNode.groupMember.key()),
             sourceFile.type == XcodeSourceFileType.SourceCodeSwift {
 
             possibleImage = Bundle.main.image(forResource: .swiftSource)

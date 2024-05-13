@@ -21,7 +21,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled = Method(rawValue: 1)
         static let setNameNameCalled = Method(rawValue: 2)
         static let setupForProtocolDeclarationCalled = Method(rawValue: 4)
-        static let setupForProjectCalled = Method(rawValue: 8)
+        static let setupForDataSourceCalled = Method(rawValue: 8)
         static let setupForTargetCalled = Method(rawValue: 16)
         static let clearProtocolCalled = Method(rawValue: 32)
     }
@@ -38,7 +38,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         static let `public` = MethodParameter(rawValue: 1 << 6)
         static let name = MethodParameter(rawValue: 1 << 7)
         static let protocolDeclaration = MethodParameter(rawValue: 1 << 8)
-        static let project = MethodParameter(rawValue: 1 << 9)
+        static let dataSource = MethodParameter(rawValue: 1 << 9)
         static let target = MethodParameter(rawValue: 1 << 10)
     }
     private(set) var assignedParameters = MethodParameter()
@@ -52,7 +52,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     private(set) var `public`: Bool?
     private(set) var name: String?
     private(set) var protocolDeclaration: ProtocolDeclSyntax?
-    private(set) var project: Project?
+    private(set) var dataSource: SourceFileDataSource?
     private(set) var target: XCTarget?
 
     func reset() {
@@ -67,7 +67,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         `public` = nil
         name = nil
         protocolDeclaration = nil
-        project = nil
+        dataSource = nil
         target = nil
     }
 
@@ -108,10 +108,10 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         assignedParameters.insert(.protocolDeclaration)
     }
     
-    func setup(for project: Project) {
-        calledMethods.insert(.setupForProjectCalled)
-        self.project = project
-        assignedParameters.insert(.project)
+    func setup(for dataSource: SourceFileDataSource) {
+        calledMethods.insert(.setupForDataSourceCalled)
+        self.dataSource = dataSource
+        assignedParameters.insert(.dataSource)
     }
     
     func setup(for target: XCTarget) {
@@ -150,9 +150,9 @@ extension MockMockFileParametersView.Method: CustomStringConvertible {
             handleFirst()
             value += ".setupForProtocolDeclarationCalled"
         }
-        if self.contains(.setupForProjectCalled) {
+        if self.contains(.setupForDataSourceCalled) {
             handleFirst()
-            value += ".setupForProjectCalled"
+            value += ".setupForDataSourceCalled"
         }
         if self.contains(.setupForTargetCalled) {
             handleFirst()
@@ -212,9 +212,9 @@ extension MockMockFileParametersView.MethodParameter: CustomStringConvertible {
             handleFirst()
             value += ".protocolDeclaration"
         }
-        if self.contains(.project) {
+        if self.contains(.dataSource) {
             handleFirst()
-            value += ".project"
+            value += ".dataSource"
         }
         if self.contains(.target) {
             handleFirst()

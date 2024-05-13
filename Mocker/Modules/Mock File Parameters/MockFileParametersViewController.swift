@@ -214,9 +214,9 @@ extension MockFileParametersViewController: MockFileParametersInterfaceProtocol 
         presenter?.setProtocolName(protocolDeclaration.identifier.text)
     }
     
-    func setup(for project: Project) {
+    func setup(for dataSource: SourceFileDataSource) {
         var newTargets = [XCTarget]()
-        if let targets = project.targets() {
+        if let targets = dataSource.targets() {
             newTargets = targets.filter { $0.nameForCode != nil }
         }
         self.targets = newTargets

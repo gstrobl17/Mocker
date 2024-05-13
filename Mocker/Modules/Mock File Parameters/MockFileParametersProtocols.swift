@@ -13,7 +13,7 @@ protocol MockFileParametersInterfaceProtocol: AnyObject {
     var delegate: MockFileParametersInterfaceDelegate? { get set }
 
     func setup(for protocolDeclaration: ProtocolDeclSyntax)
-    func setup(for project: Project)
+    func setup(for dataSource: SourceFileDataSource)
     func setup(for target: XCTarget)
     func clearProtocol()
 }

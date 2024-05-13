@@ -75,6 +75,12 @@
 		6488BA492B628C01004A1812 /* StringProtocol+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA482B628C01004A1812 /* StringProtocol+Extensions.swift */; };
 		6488BA4B2B62978A004A1812 /* XCTTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA4A2B62978A004A1812 /* XCTTest+Extensions.swift */; };
 		64A3567E205449CE009CD966 /* SwiftSyntaxHighligher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A3567D205449CE009CD966 /* SwiftSyntaxHighligher.swift */; };
+		64BB97132BF28FC9007250D1 /* SourceFileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97122BF28FC9007250D1 /* SourceFileDataSource.swift */; };
+		64BB97152BF290C7007250D1 /* SourceFileDataSourceCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97142BF290C7007250D1 /* SourceFileDataSourceCreating.swift */; };
+		64BB97172BF291E8007250D1 /* SourceFileDataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97162BF291E8007250D1 /* SourceFileDataSourceFactory.swift */; };
+		64BB97192BF29299007250D1 /* XCProjectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97182BF29299007250D1 /* XCProjectDataSource.swift */; };
+		64BB971B2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */; };
+		64BB971D2BF2C58C007250D1 /* MockSourceFileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */; };
 		64C60784203EC7BD005D6869 /* GodfatherInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6077E203EC7BD005D6869 /* GodfatherInteractor.swift */; };
 		64C60785203EC7BD005D6869 /* GodfatherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6077F203EC7BD005D6869 /* GodfatherPresenter.swift */; };
 		64C60786203EC7BD005D6869 /* GodfatherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C60780203EC7BD005D6869 /* GodfatherProtocols.swift */; };
@@ -294,6 +300,12 @@
 		6488BA4A2B62978A004A1812 /* XCTTest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTTest+Extensions.swift"; sourceTree = "<group>"; };
 		648B51CE205432C300DB01E0 /* butterfly-clip-art-butterfly-clipart-printable.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "butterfly-clip-art-butterfly-clipart-printable.svg"; sourceTree = "<group>"; };
 		64A3567D205449CE009CD966 /* SwiftSyntaxHighligher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSyntaxHighligher.swift; sourceTree = "<group>"; };
+		64BB97122BF28FC9007250D1 /* SourceFileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileDataSource.swift; sourceTree = "<group>"; };
+		64BB97142BF290C7007250D1 /* SourceFileDataSourceCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileDataSourceCreating.swift; sourceTree = "<group>"; };
+		64BB97162BF291E8007250D1 /* SourceFileDataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileDataSourceFactory.swift; sourceTree = "<group>"; };
+		64BB97182BF29299007250D1 /* XCProjectDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCProjectDataSource.swift; sourceTree = "<group>"; };
+		64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSourceFileDataSourceCreating.swift; sourceTree = "<group>"; };
+		64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSourceFileDataSource.swift; sourceTree = "<group>"; };
 		64C6077E203EC7BD005D6869 /* GodfatherInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherInteractor.swift; sourceTree = "<group>"; };
 		64C6077F203EC7BD005D6869 /* GodfatherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherPresenter.swift; sourceTree = "<group>"; };
 		64C60780203EC7BD005D6869 /* GodfatherProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherProtocols.swift; sourceTree = "<group>"; };
@@ -662,6 +674,8 @@
 				64C60812204038A5005D6869 /* MockProjectFactory.swift */,
 				648692002B6E62090021A9F1 /* MockRecentDocumentManaging.swift */,
 				64C607DB203F8168005D6869 /* MockSavePanel.swift */,
+				64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */,
+				64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */,
 				64C608C82042ECDB005D6869 /* MockUserDefaults.swift */,
 				64C6081020403739005D6869 /* MockXcodeGroupMember.swift */,
 				64C607E2203F8599005D6869 /* Modules */,
@@ -711,6 +725,8 @@
 				64C6080820403174005D6869 /* Project.swift */,
 				648691F62B6D4F9A0021A9F1 /* RecentDocumentManaging.swift */,
 				64C607D0203F7C0A005D6869 /* SavePanel.swift */,
+				64BB97122BF28FC9007250D1 /* SourceFileDataSource.swift */,
+				64BB97142BF290C7007250D1 /* SourceFileDataSourceCreating.swift */,
 				6424DB6B204D59EF0064DB65 /* TreeNodeContaining.swift */,
 			);
 			path = Protocols;
@@ -796,10 +812,12 @@
 				647C069F21725FCB00778040 /* NeverCancelledMonitor.swift */,
 				64C6080A20403198005D6869 /* ProjectFactory.swift */,
 				648691F82B6D582D0021A9F1 /* RecentDocumentManager.swift */,
+				64BB97162BF291E8007250D1 /* SourceFileDataSourceFactory.swift */,
 				64C608D420431832005D6869 /* SourceFileInformation.swift */,
 				C2273B532211A99400582263 /* SwiftlintSupport.swift */,
 				64F92FE8203A4B9B00AAB355 /* TreeNode.swift */,
 				64F92FEA203C371C00AAB355 /* TreeNodeView.swift */,
+				64BB97182BF29299007250D1 /* XCProjectDataSource.swift */,
 				64C6080C204032E4005D6869 /* XCProjectFactory.swift */,
 			);
 			path = Models;
@@ -1110,10 +1128,12 @@
 				64C608F2204344D6005D6869 /* MockFileParametersRouter.swift in Sources */,
 				64C6079C203EC830005D6869 /* SourceFileSelectorInteractor.swift in Sources */,
 				64C6091420457991005D6869 /* ASTMockGenerator.swift in Sources */,
+				64BB97152BF290C7007250D1 /* SourceFileDataSourceCreating.swift in Sources */,
 				6427B9F02033954800BCA2E9 /* ViewController.swift in Sources */,
 				64C607D8203F7EB8005D6869 /* NSSavePanel+Extensions.swift in Sources */,
 				C2AEE70B28649F940018FB2B /* TupleTypeSyntax+Extensions.swift in Sources */,
 				648691F72B6D4F9A0021A9F1 /* RecentDocumentManaging.swift in Sources */,
+				64BB97192BF29299007250D1 /* XCProjectDataSource.swift in Sources */,
 				64C60794203EC807005D6869 /* ProjectFileSelectorViewController.swift in Sources */,
 				64C6090C20457778005D6869 /* MockGeneratorParameters.swift in Sources */,
 				64C608CD2042F250005D6869 /* FileManager+Extensions.swift in Sources */,
@@ -1137,6 +1157,7 @@
 				64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */,
 				64C60786203EC7BD005D6869 /* GodfatherProtocols.swift in Sources */,
 				647C06902172036900778040 /* FilterProtocols.swift in Sources */,
+				64BB97132BF28FC9007250D1 /* SourceFileDataSource.swift in Sources */,
 				6488BA382B6179F6004A1812 /* FullNameProvider.swift in Sources */,
 				6427B9EE2033954800BCA2E9 /* AppDelegate.swift in Sources */,
 				64C608F0204344D6005D6869 /* MockFileParametersPresenter.swift in Sources */,
@@ -1160,6 +1181,7 @@
 				64F92FEB203C371C00AAB355 /* TreeNodeView.swift in Sources */,
 				648691F32B6D4EA90021A9F1 /* DocumentControlling.swift in Sources */,
 				64C607A0203EC830005D6869 /* SourceFileSelectorViewController.swift in Sources */,
+				64BB97172BF291E8007250D1 /* SourceFileDataSourceFactory.swift in Sources */,
 				64C608EF204344D6005D6869 /* MockFileParametersInteractor.swift in Sources */,
 				647C06A7217261C200778040 /* FilteringOperation.swift in Sources */,
 				64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */,
@@ -1185,6 +1207,7 @@
 				64C6081120403739005D6869 /* MockXcodeGroupMember.swift in Sources */,
 				648692032B6E62670021A9F1 /* MockDocumentControlling.swift in Sources */,
 				64C6080520400D93005D6869 /* SourceFileSelectorInteractorTests.swift in Sources */,
+				64BB971D2BF2C58C007250D1 /* MockSourceFileDataSource.swift in Sources */,
 				64C608342041E261005D6869 /* ContentPresenterRouterTests.swift in Sources */,
 				64C607FC203F9ECF005D6869 /* MockSourceFileSelectorRouter.swift in Sources */,
 				64C608E32043374A005D6869 /* ProtocolSelectorInteractorTests.swift in Sources */,
@@ -1193,6 +1216,7 @@
 				64C6081A20416EE6005D6869 /* MockGodfatherPresenter.swift in Sources */,
 				647C069821723FC600778040 /* FilterInteractorTests.swift in Sources */,
 				64C608DA204335BB005D6869 /* MockProtocolSelectorInteractorOutput.swift in Sources */,
+				64BB971B2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift in Sources */,
 				64C607DF203F847F005D6869 /* MockOpenPanel.swift in Sources */,
 				64C607E7203F894C005D6869 /* MockProjectFileSelectorRouter.swift in Sources */,
 				648691B72B63D6650021A9F1 /* ASTMockGeneratorTests+EdgeCases+Part2.swift in Sources */,
