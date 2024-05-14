@@ -23,5 +23,4 @@ protocol SourceFileDataSource: AnyObject {
     func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult
     func file(withKey key: String!) -> XCSourceFile!
     func filePath() -> String!
-    func groupWithPath(fromRoot: String!) -> XCGroup!
 }

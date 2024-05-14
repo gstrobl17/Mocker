@@ -45,8 +45,4 @@ class XCProjectDataSource: SourceFileDataSource {
         project.filePath()
     }
     
-    func groupWithPath(fromRoot root: String!) -> XCGroup! {
-        project.groupWithPath(fromRoot: root)
-    }
-    
 }

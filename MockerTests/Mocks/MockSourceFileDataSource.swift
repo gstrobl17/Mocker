@@ -31,7 +31,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         static let traverseFilteredByFilterMonitoredByCalled = Method(rawValue: 1 << 4)
         static let fileWithKeyKeyCalled = Method(rawValue: 1 << 5)
         static let filePathCalled = Method(rawValue: 1 << 6)
-        static let groupWithPathFromRootCalled = Method(rawValue: 1 << 7)
     }
     private(set) var calledMethods = Method()
 
@@ -40,7 +39,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         static let filter = MethodParameter(rawValue: 1 << 0)
         static let monitoredBy = MethodParameter(rawValue: 1 << 1)
         static let key = MethodParameter(rawValue: 1 << 2)
-        static let fromRoot = MethodParameter(rawValue: 1 << 3)
     }
     private(set) var assignedParameters = MethodParameter()
 
@@ -49,14 +47,12 @@ class MockSourceFileDataSource: SourceFileDataSource {
     private(set) var filter: String?
     private(set) var monitoredBy: CancelMonitoring?
     private(set) var key: String?
-    private(set) var fromRoot: String?
 
     // MARK: - Variables to Use as Method Return Values
 
     var traverseFilteredByFilterMonitoredByReturnValue: ProjectTraversalResult!
     var fileWithKeyKeyReturnValue: XCSourceFile!
     var filePathReturnValue: String!
-    var groupWithPathFromRootReturnValue: XCGroup!
 
     func reset() {
         calledMethods = []
@@ -64,7 +60,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         filter = nil
         monitoredBy = nil
         key = nil
-        fromRoot = nil
     }
 
     // MARK: - Properties for Protocol Conformance
@@ -112,13 +107,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         return filePathReturnValue
     }
 
-    func groupWithPath(fromRoot: String!) -> XCGroup! {
-        calledMethods.insert(.groupWithPathFromRootCalled)
-        self.fromRoot = fromRoot
-        assignedParameters.insert(.fromRoot)
-        return groupWithPathFromRootReturnValue
-    }
-
 }
 
 extension MockSourceFileDataSource.Method: CustomStringConvertible {
@@ -161,10 +149,6 @@ extension MockSourceFileDataSource.Method: CustomStringConvertible {
             handleFirst()
             value += ".filePathCalled"
         }
-        if self.contains(.groupWithPathFromRootCalled) {
-            handleFirst()
-            value += ".groupWithPathFromRootCalled"
-        }
 
         value += "]"
         return value
@@ -194,10 +178,6 @@ extension MockSourceFileDataSource.MethodParameter: CustomStringConvertible {
         if self.contains(.key) {
             handleFirst()
             value += ".key"
-        }
-        if self.contains(.fromRoot) {
-            handleFirst()
-            value += ".fromRoot"
         }
 
         value += "]"
