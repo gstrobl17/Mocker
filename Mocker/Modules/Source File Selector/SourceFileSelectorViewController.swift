@@ -6,7 +6,6 @@
 //
 
 import AppKit
-import XcodeEditor
 
 class SourceFileSelectorViewController: NSViewController {
 
@@ -78,7 +77,7 @@ extension SourceFileSelectorViewController: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         guard let item = item as? TreeNode,
             let dataSource,
-            item.groupMember.displayName() != nil else { return nil }
+              !item.name.isEmpty else { return nil }
         let view = TreeNodeView(treeNode: item, dataSource: dataSource)
         return view
     }

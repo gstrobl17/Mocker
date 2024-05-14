@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import XcodeEditor
 
 extension NSImage.Name {
     static let swiftSource = "Swift Source"
@@ -18,13 +17,13 @@ class TreeNodeView: NSView {
     init(treeNode: TreeNode, dataSource: SourceFileDataSource) {
         super.init(frame: NSRect.zero)
         
-        let possibleImage: NSImage?
-        if treeNode.groupMember.groupMemberType() == PBXFileReferenceType,
-            let sourceFile = dataSource.file(withKey: treeNode.groupMember.key()),
-            sourceFile.type == XcodeSourceFileType.SourceCodeSwift {
-
-            possibleImage = Bundle.main.image(forResource: .swiftSource)
-        } else {
+        var possibleImage: NSImage?
+        switch treeNode.type {
+        case .file:
+            if treeNode.isSwiftFile {
+                possibleImage = Bundle.main.image(forResource: .swiftSource)
+            }
+        case .group:
             possibleImage = Bundle.main.image(forResource: .folder)
         }
         
@@ -35,7 +34,7 @@ class TreeNodeView: NSView {
 
         let imageView = NSImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        let textField = NSTextField(labelWithString: treeNode.groupMember.displayName() ?? "")
+        let textField = NSTextField(labelWithString: treeNode.name)
         textField.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(imageView)

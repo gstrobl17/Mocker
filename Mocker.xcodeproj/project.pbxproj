@@ -14,7 +14,6 @@
 		6418CFA521413431008DD695 /* NameTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418CFA421413431008DD695 /* NameTracker.swift */; };
 		6418CFA821428099008DD695 /* NameTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418CFA721428099008DD695 /* NameTrackerTests.swift */; };
 		6424DB372047329E0064DB65 /* String+ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB362047329E0064DB65 /* String+ExtensionsTests.swift */; };
-		6424DB6C204D59EF0064DB65 /* TreeNodeContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB6B204D59EF0064DB65 /* TreeNodeContaining.swift */; };
 		6424DB722051575F0064DB65 /* XCTarget+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424DB712051575F0064DB65 /* XCTarget+Extensions.swift */; };
 		6427B9EE2033954800BCA2E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427B9ED2033954800BCA2E9 /* AppDelegate.swift */; };
 		6427B9F02033954800BCA2E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427B9EF2033954800BCA2E9 /* ViewController.swift */; };
@@ -133,7 +132,6 @@
 		64C6080B20403198005D6869 /* ProjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6080A20403198005D6869 /* ProjectFactory.swift */; };
 		64C6080D204032E4005D6869 /* XCProjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6080C204032E4005D6869 /* XCProjectFactory.swift */; };
 		64C6080F20403531005D6869 /* MockProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6080E20403531005D6869 /* MockProject.swift */; };
-		64C6081120403739005D6869 /* MockXcodeGroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6081020403739005D6869 /* MockXcodeGroupMember.swift */; };
 		64C60813204038A5005D6869 /* MockProjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C60812204038A5005D6869 /* MockProjectFactory.swift */; };
 		64C6081620416EA8005D6869 /* MockGodfatherInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6081520416EA8005D6869 /* MockGodfatherInteractorInput.swift */; };
 		64C6081820416EC9005D6869 /* MockGodfatherInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6081720416EC9005D6869 /* MockGodfatherInteractorOutput.swift */; };
@@ -238,7 +236,6 @@
 		6418CFA421413431008DD695 /* NameTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTracker.swift; sourceTree = "<group>"; };
 		6418CFA721428099008DD695 /* NameTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTrackerTests.swift; sourceTree = "<group>"; };
 		6424DB362047329E0064DB65 /* String+ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ExtensionsTests.swift"; sourceTree = "<group>"; };
-		6424DB6B204D59EF0064DB65 /* TreeNodeContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNodeContaining.swift; sourceTree = "<group>"; };
 		6424DB712051575F0064DB65 /* XCTarget+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTarget+Extensions.swift"; sourceTree = "<group>"; };
 		6427B9EA2033954800BCA2E9 /* Mocker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mocker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6427B9ED2033954800BCA2E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -358,7 +355,6 @@
 		64C6080A20403198005D6869 /* ProjectFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFactory.swift; sourceTree = "<group>"; };
 		64C6080C204032E4005D6869 /* XCProjectFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCProjectFactory.swift; sourceTree = "<group>"; };
 		64C6080E20403531005D6869 /* MockProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProject.swift; sourceTree = "<group>"; };
-		64C6081020403739005D6869 /* MockXcodeGroupMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockXcodeGroupMember.swift; sourceTree = "<group>"; };
 		64C60812204038A5005D6869 /* MockProjectFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProjectFactory.swift; sourceTree = "<group>"; };
 		64C6081520416EA8005D6869 /* MockGodfatherInteractorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGodfatherInteractorInput.swift; sourceTree = "<group>"; };
 		64C6081720416EC9005D6869 /* MockGodfatherInteractorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGodfatherInteractorOutput.swift; sourceTree = "<group>"; };
@@ -677,7 +673,6 @@
 				64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */,
 				64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */,
 				64C608C82042ECDB005D6869 /* MockUserDefaults.swift */,
-				64C6081020403739005D6869 /* MockXcodeGroupMember.swift */,
 				64C607E2203F8599005D6869 /* Modules */,
 			);
 			path = Mocks;
@@ -727,7 +722,6 @@
 				64C607D0203F7C0A005D6869 /* SavePanel.swift */,
 				64BB97122BF28FC9007250D1 /* SourceFileDataSource.swift */,
 				64BB97142BF290C7007250D1 /* SourceFileDataSourceCreating.swift */,
-				6424DB6B204D59EF0064DB65 /* TreeNodeContaining.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1108,7 +1102,6 @@
 				647C069C21725E0200778040 /* CancelMonitoring.swift in Sources */,
 				C2273B542211A99400582263 /* SwiftlintSupport.swift in Sources */,
 				648691FB2B6DF3E90021A9F1 /* MockerDocumentController.swift in Sources */,
-				6424DB6C204D59EF0064DB65 /* TreeNodeContaining.swift in Sources */,
 				64A3567E205449CE009CD966 /* SwiftSyntaxHighligher.swift in Sources */,
 				64C6079E203EC830005D6869 /* SourceFileSelectorProtocols.swift in Sources */,
 				64C609182046ABBB005D6869 /* String+Extensions.swift in Sources */,
@@ -1204,7 +1197,6 @@
 				648691A52B62F9FB0021A9F1 /* ASTMockGeneratorTests+Misc+CloudStorage.swift in Sources */,
 				64C6080F20403531005D6869 /* MockProject.swift in Sources */,
 				64C607E1203F852C005D6869 /* MockOpenPanelFactory.swift in Sources */,
-				64C6081120403739005D6869 /* MockXcodeGroupMember.swift in Sources */,
 				648692032B6E62670021A9F1 /* MockDocumentControlling.swift in Sources */,
 				64C6080520400D93005D6869 /* SourceFileSelectorInteractorTests.swift in Sources */,
 				64BB971D2BF2C58C007250D1 /* MockSourceFileDataSource.swift in Sources */,

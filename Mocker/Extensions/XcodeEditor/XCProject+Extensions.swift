@@ -16,7 +16,7 @@ extension XCProject {
     
     func traverse(filteredBy filter: String, monitoredBy monitor: CancelMonitoring) -> (fileTree: TreeNode, groupTree: TreeNode) {
         
-        let rootTreeNode = TreeNode(groupMember: self.rootGroup(), type: .group)
+        let rootTreeNode = TreeNode(groupName: "Root")
         traverse(self.rootGroup(), at: 0, treeNode: rootTreeNode, filteredby: filter.lowercased(), monitoredBy: monitor)
         
         if monitor.isCancelled {
@@ -64,7 +64,7 @@ extension XCProject {
                 let indentation = generateIndentation(for: depth + 1)
                 
                 if let child = child as? XCGroup {
-                    let treeNode = TreeNode(groupMember: child, type: .group)
+                    let treeNode = TreeNode(groupName: child.displayName() ?? "")
                     parent.children.append(treeNode)
                     traverse(child, at: depth + 1, treeNode: treeNode, filteredby: filter, monitoredBy: monitor)
                 } else {
@@ -80,8 +80,13 @@ extension XCProject {
                         if sourceFile.type == XcodeSourceFileType.SourceCodeSwift {
                             let passesFilter = filter.isEmpty || name.lowercased().contains(filter)
                             if passesFilter {
-                                let treeNode = TreeNode(groupMember: child, type: .file)
-                                parent.children.append(treeNode)
+                                if let fileURL = child.url(in: self) {
+                                    let treeNode = TreeNode(
+                                        fileURL: fileURL,
+                                        target: child.target(in: self)?.nameForCode
+                                    )
+                                    parent.children.append(treeNode)
+                                }
                             }
                         }
                     }
@@ -92,7 +97,7 @@ extension XCProject {
 
     private func filterIntoFileTree(_ rootTreeNode: TreeNode) -> TreeNode {
         assert(rootTreeNode.type == .group)
-        let rootFileTreeNode = TreeNode(groupMember: rootTreeNode.groupMember, type: rootTreeNode.type)
+        let rootFileTreeNode = TreeNode(groupName: rootTreeNode.name)
         for child in rootTreeNode.children {
             filter(fileTreeCandidate: child, parent: rootFileTreeNode)
         }
@@ -101,15 +106,15 @@ extension XCProject {
 
     private func filter(fileTreeCandidate treeNode: TreeNode, parent: TreeNode) {
         if treeNode.type == .group {
-            let newTreeNode = TreeNode(groupMember: treeNode.groupMember, type: treeNode.type)
+            let newTreeNode = TreeNode(groupName: treeNode.name)
             for child in treeNode.children {
                 filter(fileTreeCandidate: child, parent: newTreeNode)
             }
             if !newTreeNode.children.isEmpty {
                 parent.children.append(newTreeNode)
             }
-        } else if treeNode.type == .file {
-            let newTreeNode = TreeNode(groupMember: treeNode.groupMember, type: treeNode.type)
+        } else if treeNode.type == .file, let fileURL = treeNode.fileURL {
+            let newTreeNode = TreeNode(fileURL: fileURL, target: treeNode.target)
             assert(treeNode.children.isEmpty)
             parent.children.append(newTreeNode)
         }
@@ -117,7 +122,7 @@ extension XCProject {
 
     private func filterIntoGroupTree(_ rootTreeNode: TreeNode) -> TreeNode {
         assert(rootTreeNode.type == .group)
-        let rootGroupTreeNode = TreeNode(groupMember: rootTreeNode.groupMember, type: rootTreeNode.type)
+        let rootGroupTreeNode = TreeNode(groupName: rootTreeNode.name)
         for child in rootTreeNode.children {
             filter(groupTreeCandidate: child, parent: rootGroupTreeNode)
         }
@@ -125,8 +130,8 @@ extension XCProject {
     }
     
     private func filter(groupTreeCandidate treeNode: TreeNode, parent: TreeNode) {
-        if treeNode.type == .group && treeNode.groupMember.groupMemberType() == PBXGroupType {
-            let newTreeNode = TreeNode(groupMember: treeNode.groupMember, type: treeNode.type)
+        if treeNode.type == .group {
+            let newTreeNode = TreeNode(groupName: treeNode.name)
             parent.children.append(newTreeNode)
             for child in treeNode.children {
                 filter(groupTreeCandidate: child, parent: newTreeNode)

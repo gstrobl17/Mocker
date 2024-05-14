@@ -8,8 +8,6 @@
 import Foundation
 import XcodeEditor
 
-typealias ProjectTraversalResult = (fileTree: TreeNode, groupTree: TreeNode)
-
 protocol Project: AnyObject {
 
     func targets() -> [XCTarget]!

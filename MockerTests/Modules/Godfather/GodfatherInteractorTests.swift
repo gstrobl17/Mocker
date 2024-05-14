@@ -376,7 +376,7 @@ class GodfatherInteractorTests: XCTestCase {
     
     func test_sourceFileSelectorFileSelected_projectFileCreationSucceeds() {
         let sourceFileSelector = MockSourceFileSelectorView()
-        let treeNode = TreeNode(groupMember: MockXcodeGroupMember(), type: .file)
+        let treeNode = TreeNode(fileURL: URL(fileURLWithPath: #file), target: nil)
         let interactor = createInterator()
             
         interactor.sourceFileSelector(sourceFileSelector, fileSelected: treeNode)

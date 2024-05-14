@@ -6,7 +6,6 @@
 //
 
 import AppKit
-import XcodeEditor
 import SwiftSyntax
 import SwiftSyntaxParser
 
@@ -222,12 +221,8 @@ extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
         mockFileParameters.clearProtocol()
         mockCode = ""
 
-        if let currentDataSource, let fileURL = treeNode.groupMember.url(in: currentDataSource) {
-            
-            // Try to find the target of the selected file
-            if let target = treeNode.groupMember.target(in: currentDataSource) {
-                targetOfCurrentSourceFile = target
-            }
+        if let fileURL = treeNode.fileURL {
+            targetOfCurrentSourceFile = treeNode.target
   
             // Parse the source file
             do {

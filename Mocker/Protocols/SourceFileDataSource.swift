@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import XcodeEditor  //TODO: remove import when abstraction completed
+
+typealias ProjectTraversalResult = (fileTree: TreeNode, groupTree: TreeNode)
 
 /// Protocol to abstract the interface required by Mocker to connect with either an Xcode project file or a Swift Package.
 ///
@@ -18,8 +19,5 @@ protocol SourceFileDataSource: AnyObject {
     var projectDirectoryURL: URL? { get }
     var organizationName: String? { get }
     var targets: [String] { get }
-
-    // TODO: deal with the following legacy methods (eliminate or refactor)
     func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult
-    func file(withKey key: String!) -> XCSourceFile!
 }

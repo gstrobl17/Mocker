@@ -1,6 +1,6 @@
 # Project Abstraction
 
-**NEXT STEP:** Convert `func targets() -> [XCTarget]!` to `var targets: [String]`
+**NEXT STEP:** Rework `TreeNode`
 
 ## Use of Current Project (and Relations)
 

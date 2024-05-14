@@ -8,7 +8,6 @@
 
 @testable import Mocker
 import Foundation
-import XcodeEditor  //TODO: remove import when abstraction completed
 
 class MockSourceFileDataSource: SourceFileDataSource {
 
@@ -29,7 +28,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         static let organizationNameGetterCalled = Method(rawValue: 1 << 2)
         static let targetsGetterCalled = Method(rawValue: 1 << 3)
         static let traverseFilteredByFilterMonitoredByCalled = Method(rawValue: 1 << 4)
-        static let fileWithKeyKeyCalled = Method(rawValue: 1 << 5)
     }
     private(set) var calledMethods = Method()
 
@@ -37,7 +35,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         let rawValue: UInt
         static let filter = MethodParameter(rawValue: 1 << 0)
         static let monitoredBy = MethodParameter(rawValue: 1 << 1)
-        static let key = MethodParameter(rawValue: 1 << 2)
     }
     private(set) var assignedParameters = MethodParameter()
 
@@ -45,12 +42,10 @@ class MockSourceFileDataSource: SourceFileDataSource {
 
     private(set) var filter: String?
     private(set) var monitoredBy: CancelMonitoring?
-    private(set) var key: String?
 
     // MARK: - Variables to Use as Method Return Values
 
     var traverseFilteredByFilterMonitoredByReturnValue: ProjectTraversalResult!
-    var fileWithKeyKeyReturnValue: XCSourceFile!
     var filePathReturnValue: String!
 
     func reset() {
@@ -58,7 +53,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         assignedParameters = []
         filter = nil
         monitoredBy = nil
-        key = nil
     }
 
     // MARK: - Properties for Protocol Conformance
@@ -92,13 +86,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         self.monitoredBy = monitoredBy
         assignedParameters.insert(.monitoredBy)
         return traverseFilteredByFilterMonitoredByReturnValue
-    }
-
-    func file(withKey key: String!) -> XCSourceFile! {
-        calledMethods.insert(.fileWithKeyKeyCalled)
-        self.key = key
-        assignedParameters.insert(.key)
-        return fileWithKeyKeyReturnValue
     }
 
 }
@@ -135,10 +122,6 @@ extension MockSourceFileDataSource.Method: CustomStringConvertible {
             handleFirst()
             value += ".traverseFilteredByFilterMonitoredByCalled"
         }
-        if self.contains(.fileWithKeyKeyCalled) {
-            handleFirst()
-            value += ".fileWithKeyKeyCalled"
-        }
 
         value += "]"
         return value
@@ -164,10 +147,6 @@ extension MockSourceFileDataSource.MethodParameter: CustomStringConvertible {
         if self.contains(.monitoredBy) {
             handleFirst()
             value += ".monitoredBy"
-        }
-        if self.contains(.key) {
-            handleFirst()
-            value += ".key"
         }
 
         value += "]"
