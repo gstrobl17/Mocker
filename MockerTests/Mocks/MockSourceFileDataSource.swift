@@ -30,7 +30,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         static let targetsGetterCalled = Method(rawValue: 1 << 3)
         static let traverseFilteredByFilterMonitoredByCalled = Method(rawValue: 1 << 4)
         static let fileWithKeyKeyCalled = Method(rawValue: 1 << 5)
-        static let filePathCalled = Method(rawValue: 1 << 6)
     }
     private(set) var calledMethods = Method()
 
@@ -102,11 +101,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         return fileWithKeyKeyReturnValue
     }
 
-    func filePath() -> String! {
-        calledMethods.insert(.filePathCalled)
-        return filePathReturnValue
-    }
-
 }
 
 extension MockSourceFileDataSource.Method: CustomStringConvertible {
@@ -144,10 +138,6 @@ extension MockSourceFileDataSource.Method: CustomStringConvertible {
         if self.contains(.fileWithKeyKeyCalled) {
             handleFirst()
             value += ".fileWithKeyKeyCalled"
-        }
-        if self.contains(.filePathCalled) {
-            handleFirst()
-            value += ".filePathCalled"
         }
 
         value += "]"

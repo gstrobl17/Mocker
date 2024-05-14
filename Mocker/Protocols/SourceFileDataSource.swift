@@ -22,5 +22,4 @@ protocol SourceFileDataSource: AnyObject {
     // TODO: deal with the following legacy methods (eliminate or refactor)
     func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult
     func file(withKey key: String!) -> XCSourceFile!
-    func filePath() -> String!
 }

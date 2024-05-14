@@ -41,8 +41,4 @@ class XCProjectDataSource: SourceFileDataSource {
         project.file(withKey: key)
     }
     
-    func filePath() -> String! {
-        project.filePath()
-    }
-    
 }
