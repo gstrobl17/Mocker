@@ -40,7 +40,7 @@ class GodfatherInteractor {
     let documentController: DocumentControlling
     let pasteboard: Pasteboard
     internal var currentDataSource: SourceFileDataSource?
-    private(set) var targetOfCurrentSourceFile: XCTarget? {
+    private(set) var targetOfCurrentSourceFile: String? {
         didSet {
             if let target = targetOfCurrentSourceFile {
                 mockFileParameters.setup(for: target)

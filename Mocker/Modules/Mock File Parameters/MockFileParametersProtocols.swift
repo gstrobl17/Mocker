@@ -14,7 +14,7 @@ protocol MockFileParametersInterfaceProtocol: AnyObject {
 
     func setup(for protocolDeclaration: ProtocolDeclSyntax)
     func setup(for dataSource: SourceFileDataSource)
-    func setup(for target: XCTarget)
+    func setup(for target: String)
     func clearProtocol()
 }
 

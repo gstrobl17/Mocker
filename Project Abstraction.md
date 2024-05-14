@@ -1,5 +1,7 @@
 # Project Abstraction
 
+**NEXT STEP:** Convert `func targets() -> [XCTarget]!` to `var targets: [String]`
+
 ## Use of Current Project (and Relations)
 
 - `AsyncFilteringHandler`, `ProjectFilteringHandler`, `FilteringOperation`

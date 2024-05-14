@@ -53,7 +53,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     private(set) var name: String?
     private(set) var protocolDeclaration: ProtocolDeclSyntax?
     private(set) var dataSource: SourceFileDataSource?
-    private(set) var target: XCTarget?
+    private(set) var target: String?
 
     func reset() {
         calledMethods = []
@@ -114,7 +114,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         assignedParameters.insert(.dataSource)
     }
     
-    func setup(for target: XCTarget) {
+    func setup(for target: String) {
         calledMethods.insert(.setupForTargetCalled)
         self.target = target
         assignedParameters.insert(.target)

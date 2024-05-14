@@ -24,7 +24,7 @@ class MockFileParametersViewController: NSViewController {
     @IBOutlet weak private var publicCheckbox: NSButton!
     @IBOutlet weak private var nameTextField: NSTextField!
     
-    private var targets = [XCTarget]() {
+    private var targets = [String]() {
         didSet {
             targetsComboBox.reloadData()
         }
@@ -215,11 +215,7 @@ extension MockFileParametersViewController: MockFileParametersInterfaceProtocol 
     }
     
     func setup(for dataSource: SourceFileDataSource) {
-        var newTargets = [XCTarget]()
-        if let targets = dataSource.targets() {
-            newTargets = targets.filter { $0.nameForCode != nil }
-        }
-        self.targets = newTargets
+        self.targets = dataSource.targets
     
         if self.targets.isEmpty {
             targetsComboBox.stringValue = ""
@@ -229,8 +225,8 @@ extension MockFileParametersViewController: MockFileParametersInterfaceProtocol 
         setState()
     }
     
-    func setup(for specificTarget: XCTarget) {
-        for (index, target) in targets.enumerated() where specificTarget.nameForCode == target.nameForCode {
+    func setup(for specificTarget: String) {
+        for (index, target) in targets.enumerated() where specificTarget == target {
             targetsComboBox.selectItem(at: index)
             setState()
             break
@@ -272,6 +268,6 @@ extension MockFileParametersViewController: NSComboBoxDataSource {
     }
     
     func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? {
-        targets[index].nameForCode
+        targets[index]
     }
 }

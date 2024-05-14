@@ -29,8 +29,8 @@ class XCProjectDataSource: SourceFileDataSource {
         project.organizationName
     }
 
-    func targets() -> [XCTarget]! {
-        project.targets()
+    var targets: [String] {
+        project.targets().compactMap { $0.nameForCode }
     }
     
     func traverse(filteredBy filter: String, monitoredBy monitor: CancelMonitoring) -> ProjectTraversalResult {
@@ -49,8 +49,4 @@ class XCProjectDataSource: SourceFileDataSource {
         project.groupWithPath(fromRoot: root)
     }
     
-    func target(withName name: String!) -> XCTarget! {
-        project.target(withName: name)
-    }
-
 }

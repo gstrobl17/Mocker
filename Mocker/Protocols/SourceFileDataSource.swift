@@ -17,12 +17,11 @@ protocol SourceFileDataSource: AnyObject {
     var projectName: String? { get }
     var projectDirectoryURL: URL? { get }
     var organizationName: String? { get }
+    var targets: [String] { get }
 
     // TODO: deal with the following legacy methods (eliminate or refactor)
-    func targets() -> [XCTarget]!
     func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult
     func file(withKey key: String!) -> XCSourceFile!
     func filePath() -> String!
     func groupWithPath(fromRoot: String!) -> XCGroup!
-    func target(withName name: String!) -> XCTarget!
 }

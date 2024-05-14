@@ -18,6 +18,7 @@ class MockSourceFileDataSource: SourceFileDataSource {
     var _projectName: String?
     var _projectDirectoryURL: URL?
     var _organizationName: String?
+    var _targets: [String] = []
 
     // MARK: - Variables for Trackings Method Invocation
 
@@ -26,12 +27,11 @@ class MockSourceFileDataSource: SourceFileDataSource {
         static let projectNameGetterCalled = Method(rawValue: 1 << 0)
         static let projectDirectoryURLGetterCalled = Method(rawValue: 1 << 1)
         static let organizationNameGetterCalled = Method(rawValue: 1 << 2)
-        static let targetsCalled = Method(rawValue: 1 << 3)
+        static let targetsGetterCalled = Method(rawValue: 1 << 3)
         static let traverseFilteredByFilterMonitoredByCalled = Method(rawValue: 1 << 4)
         static let fileWithKeyKeyCalled = Method(rawValue: 1 << 5)
         static let filePathCalled = Method(rawValue: 1 << 6)
         static let groupWithPathFromRootCalled = Method(rawValue: 1 << 7)
-        static let targetWithNameNameCalled = Method(rawValue: 1 << 8)
     }
     private(set) var calledMethods = Method()
 
@@ -41,7 +41,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         static let monitoredBy = MethodParameter(rawValue: 1 << 1)
         static let key = MethodParameter(rawValue: 1 << 2)
         static let fromRoot = MethodParameter(rawValue: 1 << 3)
-        static let name = MethodParameter(rawValue: 1 << 4)
     }
     private(set) var assignedParameters = MethodParameter()
 
@@ -51,16 +50,13 @@ class MockSourceFileDataSource: SourceFileDataSource {
     private(set) var monitoredBy: CancelMonitoring?
     private(set) var key: String?
     private(set) var fromRoot: String?
-    private(set) var name: String?
 
     // MARK: - Variables to Use as Method Return Values
 
-    var targetsReturnValue: [XCTarget]!
     var traverseFilteredByFilterMonitoredByReturnValue: ProjectTraversalResult!
     var fileWithKeyKeyReturnValue: XCSourceFile!
     var filePathReturnValue: String!
     var groupWithPathFromRootReturnValue: XCGroup!
-    var targetWithNameNameReturnValue: XCTarget!
 
     func reset() {
         calledMethods = []
@@ -69,7 +65,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         monitoredBy = nil
         key = nil
         fromRoot = nil
-        name = nil
     }
 
     // MARK: - Properties for Protocol Conformance
@@ -89,12 +84,12 @@ class MockSourceFileDataSource: SourceFileDataSource {
         return _organizationName
     }
 
-    // MARK: - Methods for Protocol Conformance
-
-    func targets() -> [XCTarget]! {
-        calledMethods.insert(.targetsCalled)
-        return targetsReturnValue
+    var targets: [String] {
+        calledMethods.insert(.targetsGetterCalled)
+        return _targets
     }
+
+    // MARK: - Methods for Protocol Conformance
 
     func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult {
         calledMethods.insert(.traverseFilteredByFilterMonitoredByCalled)
@@ -124,13 +119,6 @@ class MockSourceFileDataSource: SourceFileDataSource {
         return groupWithPathFromRootReturnValue
     }
 
-    func target(withName name: String!) -> XCTarget! {
-        calledMethods.insert(.targetWithNameNameCalled)
-        self.name = name
-        assignedParameters.insert(.name)
-        return targetWithNameNameReturnValue
-    }
-
 }
 
 extension MockSourceFileDataSource.Method: CustomStringConvertible {
@@ -157,9 +145,9 @@ extension MockSourceFileDataSource.Method: CustomStringConvertible {
             handleFirst()
             value += ".organizationNameGetterCalled"
         }
-        if self.contains(.targetsCalled) {
+        if self.contains(.targetsGetterCalled) {
             handleFirst()
-            value += ".targetsCalled"
+            value += ".targetsGetterCalled"
         }
         if self.contains(.traverseFilteredByFilterMonitoredByCalled) {
             handleFirst()
@@ -176,10 +164,6 @@ extension MockSourceFileDataSource.Method: CustomStringConvertible {
         if self.contains(.groupWithPathFromRootCalled) {
             handleFirst()
             value += ".groupWithPathFromRootCalled"
-        }
-        if self.contains(.targetWithNameNameCalled) {
-            handleFirst()
-            value += ".targetWithNameNameCalled"
         }
 
         value += "]"
@@ -214,10 +198,6 @@ extension MockSourceFileDataSource.MethodParameter: CustomStringConvertible {
         if self.contains(.fromRoot) {
             handleFirst()
             value += ".fromRoot"
-        }
-        if self.contains(.name) {
-            handleFirst()
-            value += ".name"
         }
 
         value += "]"

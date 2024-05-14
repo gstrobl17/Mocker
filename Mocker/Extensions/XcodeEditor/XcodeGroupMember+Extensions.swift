@@ -19,14 +19,17 @@ extension XcodeGroupMember {
         return url
     }
     
-    func target(in dataSource: SourceFileDataSource) -> XCTarget! {
-        var target: XCTarget!
+    func target(in dataSource: SourceFileDataSource) -> String? {
+        guard let dataSource = dataSource as? XCProjectDataSource,
+              let project = dataSource.project as? XCProject else { return nil }
+        var target: String?
         
         if let path = pathRelativeToProjectRoot() {
             let components = path.split(separator: "/")
             if let first = components.first {
                 let name = String(first)
-                target = dataSource.target(withName: name)
+                let xcodeTarget = project.target(withName: name)
+                target = xcodeTarget?.nameForCode
             }
         }
         
