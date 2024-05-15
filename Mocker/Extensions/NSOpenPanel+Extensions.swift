@@ -9,8 +9,10 @@ import AppKit
 
 struct AppKitOpenPanelFactory: OpenPanelFactory {
     
-    func create() -> OpenPanel {
-        NSOpenPanel()
+    func create(delegate: NSOpenSavePanelDelegate) -> OpenPanel {
+        let panel = NSOpenPanel()
+        panel.delegate = delegate
+        return panel
     }
     
 }

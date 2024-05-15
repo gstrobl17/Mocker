@@ -5,10 +5,10 @@
 //  Created by Greg on 2/22/18.
 //
 
-import Foundation
+import AppKit
 
 protocol OpenPanelFactory {
     
-    func create() -> OpenPanel
+    func create(delegate: NSOpenSavePanelDelegate) -> OpenPanel
     
 }

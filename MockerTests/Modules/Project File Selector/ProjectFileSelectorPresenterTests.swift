@@ -136,4 +136,38 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         XCTAssertEqual(view.assignedParameters, [.url])
     }
 
+    // MARK: - NSOpenSavePanelDelegate methods -
+
+    func testPanelShouldEnableURL_xcassetsURL() throws {
+        let url = try XCTUnwrap(URL(fileURLWithPath: "file:///Users/joe/App/Assets.xcassets/"))
+
+        let result = presenter.panel(self, shouldEnable: url)
+        
+        XCTAssertEqual(result, false)
+    }
+
+    func testPanelShouldEnableURL_xcodeProjectFileURL() throws {
+        let url = try XCTUnwrap(URL(fileURLWithPath: "file:///Users/joe/App/App.xcodeproj/"))
+
+        let result = presenter.panel(self, shouldEnable: url)
+        
+        XCTAssertEqual(result, true)
+    }
+
+    func testPanelShouldEnableURL_swiftPackageManifestFileURL() throws {
+        let url = try XCTUnwrap(URL(fileURLWithPath: "file:///Users/joe/App/Package.swift/"))
+
+        let result = presenter.panel(self, shouldEnable: url)
+        
+        XCTAssertEqual(result, true)
+    }
+
+    func testPanelShouldEnableURL_directoryFileURL() throws {
+        let url = try XCTUnwrap(URL(fileURLWithPath: #function).deletingLastPathComponent())
+
+        let result = presenter.panel(self, shouldEnable: url)
+        
+        XCTAssertEqual(result, true)
+    }
+
 }

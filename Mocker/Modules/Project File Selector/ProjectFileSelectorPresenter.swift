@@ -7,7 +7,7 @@
 
 import AppKit
 
-class ProjectFileSelectorPresenter {
+class ProjectFileSelectorPresenter: NSObject {
 
     weak private var view: ProjectFileSelectorViewProtocol?
     var interactor: ProjectFileSelectorInteractorInputProtocol?
@@ -37,12 +37,11 @@ extension ProjectFileSelectorPresenter: ProjectFileSelectorPresenterProtocol {
     }
     
     func selectPressed() {
-        var openPanel = openPanelFactory.create()
+        var openPanel = openPanelFactory.create(delegate: self)
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = false
         openPanel.canChooseFiles = true
-        openPanel.allowedFileTypes = ["xcodeproj"]
         self.openPanel = openPanel
         view?.openModalSheet(with: openPanel, completionHandler: handleOpenPanelResponse)
     }
@@ -68,4 +67,10 @@ extension ProjectFileSelectorPresenter: ProjectFileSelectorInteractorOutputProto
         view?.showSelectedFile(url)
     }
     
+}
+
+extension ProjectFileSelectorPresenter: NSOpenSavePanelDelegate {
+    func panel(_ sender: Any, shouldEnable url: URL) -> Bool {
+        url.isXcodeProjectFile || url.isSwiftPackageManifestFile || url.isDirectory
+    }
 }

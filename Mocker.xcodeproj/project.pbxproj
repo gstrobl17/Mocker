@@ -80,6 +80,7 @@
 		64BB97192BF29299007250D1 /* XCProjectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97182BF29299007250D1 /* XCProjectDataSource.swift */; };
 		64BB971B2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */; };
 		64BB971D2BF2C58C007250D1 /* MockSourceFileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */; };
+		64BB971F2BF4E4BB007250D1 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB971E2BF4E4BB007250D1 /* URL+Extensions.swift */; };
 		64C60784203EC7BD005D6869 /* GodfatherInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6077E203EC7BD005D6869 /* GodfatherInteractor.swift */; };
 		64C60785203EC7BD005D6869 /* GodfatherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6077F203EC7BD005D6869 /* GodfatherPresenter.swift */; };
 		64C60786203EC7BD005D6869 /* GodfatherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C60780203EC7BD005D6869 /* GodfatherProtocols.swift */; };
@@ -303,6 +304,7 @@
 		64BB97182BF29299007250D1 /* XCProjectDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCProjectDataSource.swift; sourceTree = "<group>"; };
 		64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSourceFileDataSourceCreating.swift; sourceTree = "<group>"; };
 		64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSourceFileDataSource.swift; sourceTree = "<group>"; };
+		64BB971E2BF4E4BB007250D1 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		64C6077E203EC7BD005D6869 /* GodfatherInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherInteractor.swift; sourceTree = "<group>"; };
 		64C6077F203EC7BD005D6869 /* GodfatherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherPresenter.swift; sourceTree = "<group>"; };
 		64C60780203EC7BD005D6869 /* GodfatherProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherProtocols.swift; sourceTree = "<group>"; };
@@ -741,6 +743,7 @@
 				647C069D21725E4F00778040 /* Operation+Extensions.swift */,
 				64C609172046ABBB005D6869 /* String+Extensions.swift */,
 				64C608C42042EB06005D6869 /* UserDefaults+Extensions.swift */,
+				64BB971E2BF4E4BB007250D1 /* URL+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1104,6 +1107,7 @@
 				648691FB2B6DF3E90021A9F1 /* MockerDocumentController.swift in Sources */,
 				64A3567E205449CE009CD966 /* SwiftSyntaxHighligher.swift in Sources */,
 				64C6079E203EC830005D6869 /* SourceFileSelectorProtocols.swift in Sources */,
+				64BB971F2BF4E4BB007250D1 /* URL+Extensions.swift in Sources */,
 				64C609182046ABBB005D6869 /* String+Extensions.swift in Sources */,
 				64C60791203EC807005D6869 /* ProjectFileSelectorPresenter.swift in Sources */,
 				64C6079D203EC830005D6869 /* SourceFileSelectorPresenter.swift in Sources */,
