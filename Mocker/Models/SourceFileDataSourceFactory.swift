@@ -10,12 +10,18 @@ import Foundation
 
 struct SourceFileDataSourceFactory: SourceFileDataSourceCreating {
     
-    func createDataSource(for fileURL: URL) -> SourceFileDataSource? {
+    func createDataSource(for fileURL: URL) throws -> SourceFileDataSource? {
         
-        //TODO: added code to inspect the url and determine whether to create a data source
-        //      for an Xcode project file or a Swift Package
+        if fileURL.isXcodeProjectFile {
+            return XCProjectDataSource(filePath: fileURL.path)
+        }
         
-        XCProjectDataSource(filePath: fileURL.path)
+        if fileURL.isSwiftPackageManifestFile {
+            return try SwiftPackageDataSource(fileURL: fileURL)
+        }
+
+        print("Unable to create Source File Data Source for \(fileURL)")
+        return nil
     }
     
 }

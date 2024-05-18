@@ -15,7 +15,7 @@ extension URL {
     }
 
     var isSwiftPackageManifestFile: Bool {
-        lastPathComponent == "Package.swift"
+        lastPathComponent == SwiftPackageConstant.File.manifestFileName
     }
 
     var isDirectory: Bool {

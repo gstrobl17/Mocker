@@ -81,6 +81,11 @@
 		64BB971B2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */; };
 		64BB971D2BF2C58C007250D1 /* MockSourceFileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */; };
 		64BB971F2BF4E4BB007250D1 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB971E2BF4E4BB007250D1 /* URL+Extensions.swift */; };
+		64BB97212BF512F9007250D1 /* SwiftPackageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97202BF512F9007250D1 /* SwiftPackageDataSource.swift */; };
+		64BB97232BF6252C007250D1 /* SwiftPackageManifestInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97222BF6252C007250D1 /* SwiftPackageManifestInformation.swift */; };
+		64BB97262BF646CE007250D1 /* PackageInitializerInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97252BF646CE007250D1 /* PackageInitializerInformation.swift */; };
+		64BB97282BF64C8C007250D1 /* SwiftPackageConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97272BF64C8C007250D1 /* SwiftPackageConstant.swift */; };
+		64BB972A2BF748D2007250D1 /* TupleExprElementListSyntax+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97292BF748D2007250D1 /* TupleExprElementListSyntax+Extensions.swift */; };
 		64C60784203EC7BD005D6869 /* GodfatherInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6077E203EC7BD005D6869 /* GodfatherInteractor.swift */; };
 		64C60785203EC7BD005D6869 /* GodfatherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6077F203EC7BD005D6869 /* GodfatherPresenter.swift */; };
 		64C60786203EC7BD005D6869 /* GodfatherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C60780203EC7BD005D6869 /* GodfatherProtocols.swift */; };
@@ -305,6 +310,11 @@
 		64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSourceFileDataSourceCreating.swift; sourceTree = "<group>"; };
 		64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSourceFileDataSource.swift; sourceTree = "<group>"; };
 		64BB971E2BF4E4BB007250D1 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		64BB97202BF512F9007250D1 /* SwiftPackageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageDataSource.swift; sourceTree = "<group>"; };
+		64BB97222BF6252C007250D1 /* SwiftPackageManifestInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageManifestInformation.swift; sourceTree = "<group>"; };
+		64BB97252BF646CE007250D1 /* PackageInitializerInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInitializerInformation.swift; sourceTree = "<group>"; };
+		64BB97272BF64C8C007250D1 /* SwiftPackageConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageConstant.swift; sourceTree = "<group>"; };
+		64BB97292BF748D2007250D1 /* TupleExprElementListSyntax+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TupleExprElementListSyntax+Extensions.swift"; sourceTree = "<group>"; };
 		64C6077E203EC7BD005D6869 /* GodfatherInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherInteractor.swift; sourceTree = "<group>"; };
 		64C6077F203EC7BD005D6869 /* GodfatherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherPresenter.swift; sourceTree = "<group>"; };
 		64C60780203EC7BD005D6869 /* GodfatherProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodfatherProtocols.swift; sourceTree = "<group>"; };
@@ -590,6 +600,17 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		64BB97242BF64644007250D1 /* Syntax Visitors */ = {
+			isa = PBXGroup;
+			children = (
+				64C6090B20457778005D6869 /* MockGeneratorParameters.swift */,
+				64BB97252BF646CE007250D1 /* PackageInitializerInformation.swift */,
+				64C608D420431832005D6869 /* SourceFileInformation.swift */,
+				64BB97222BF6252C007250D1 /* SwiftPackageManifestInformation.swift */,
+			);
+			path = "Syntax Visitors";
+			sourceTree = "<group>";
+		};
 		64C6076E203EC4DC005D6869 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -804,14 +825,15 @@
 				64C6091120457982005D6869 /* ASTMockGeneratorFactory.swift */,
 				6488BA332B61793A004A1812 /* DateFactory.swift */,
 				6488BA372B6179F6004A1812 /* FullNameProvider.swift */,
-				64C6090B20457778005D6869 /* MockGeneratorParameters.swift */,
 				6418CFA421413431008DD695 /* NameTracker.swift */,
 				647C069F21725FCB00778040 /* NeverCancelledMonitor.swift */,
 				64C6080A20403198005D6869 /* ProjectFactory.swift */,
 				648691F82B6D582D0021A9F1 /* RecentDocumentManager.swift */,
 				64BB97162BF291E8007250D1 /* SourceFileDataSourceFactory.swift */,
-				64C608D420431832005D6869 /* SourceFileInformation.swift */,
 				C2273B532211A99400582263 /* SwiftlintSupport.swift */,
+				64BB97272BF64C8C007250D1 /* SwiftPackageConstant.swift */,
+				64BB97202BF512F9007250D1 /* SwiftPackageDataSource.swift */,
+				64BB97242BF64644007250D1 /* Syntax Visitors */,
 				64F92FE8203A4B9B00AAB355 /* TreeNode.swift */,
 				64F92FEA203C371C00AAB355 /* TreeNodeView.swift */,
 				64BB97182BF29299007250D1 /* XCProjectDataSource.swift */,
@@ -932,6 +954,7 @@
 				C2635F8A2863333400F87C71 /* FunctionParameterSyntax+Extensions.swift */,
 				C2635F86286332B800F87C71 /* FunctionSignatureSyntax+Extensions.swift */,
 				C2635F8228623B2000F87C71 /* ModifierListSyntax+Extensions.swift */,
+				64BB97292BF748D2007250D1 /* TupleExprElementListSyntax+Extensions.swift */,
 				C2AEE70A28649F940018FB2B /* TupleTypeSyntax+Extensions.swift */,
 				C2635F8E28637AA000F87C71 /* TypeSyntax+Extensions.swift */,
 				C2635F8028621EE100F87C71 /* VariableDeclSyntax+Extensions.swift */,
@@ -1115,6 +1138,7 @@
 				64C608362042B7C1005D6869 /* XcodeGroupMember+Extensions.swift in Sources */,
 				64C607DA203F805D005D6869 /* NSStoryboard+Extensions.swift in Sources */,
 				64C6080920403174005D6869 /* Project.swift in Sources */,
+				64BB97232BF6252C007250D1 /* SwiftPackageManifestInformation.swift in Sources */,
 				C2635F87286332B800F87C71 /* FunctionSignatureSyntax+Extensions.swift in Sources */,
 				64C6079F203EC830005D6869 /* SourceFileSelectorRouter.swift in Sources */,
 				64C608C52042EB06005D6869 /* UserDefaults+Extensions.swift in Sources */,
@@ -1129,6 +1153,8 @@
 				6427B9F02033954800BCA2E9 /* ViewController.swift in Sources */,
 				64C607D8203F7EB8005D6869 /* NSSavePanel+Extensions.swift in Sources */,
 				C2AEE70B28649F940018FB2B /* TupleTypeSyntax+Extensions.swift in Sources */,
+				64BB972A2BF748D2007250D1 /* TupleExprElementListSyntax+Extensions.swift in Sources */,
+				64BB97282BF64C8C007250D1 /* SwiftPackageConstant.swift in Sources */,
 				648691F72B6D4F9A0021A9F1 /* RecentDocumentManaging.swift in Sources */,
 				64BB97192BF29299007250D1 /* XCProjectDataSource.swift in Sources */,
 				64C60794203EC807005D6869 /* ProjectFileSelectorViewController.swift in Sources */,
@@ -1154,6 +1180,7 @@
 				64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */,
 				64C60786203EC7BD005D6869 /* GodfatherProtocols.swift in Sources */,
 				647C06902172036900778040 /* FilterProtocols.swift in Sources */,
+				64BB97212BF512F9007250D1 /* SwiftPackageDataSource.swift in Sources */,
 				64BB97132BF28FC9007250D1 /* SourceFileDataSource.swift in Sources */,
 				6488BA382B6179F6004A1812 /* FullNameProvider.swift in Sources */,
 				6427B9EE2033954800BCA2E9 /* AppDelegate.swift in Sources */,
@@ -1165,6 +1192,7 @@
 				647C06A021725FCB00778040 /* NeverCancelledMonitor.swift in Sources */,
 				64C60790203EC807005D6869 /* ProjectFileSelectorInteractor.swift in Sources */,
 				64C608C32042EACD005D6869 /* KeyValueStoring.swift in Sources */,
+				64BB97262BF646CE007250D1 /* PackageInitializerInformation.swift in Sources */,
 				64C608F3204344D6005D6869 /* MockFileParametersViewController.swift in Sources */,
 				64C60793203EC807005D6869 /* ProjectFileSelectorRouter.swift in Sources */,
 				64C607BB203EC92C005D6869 /* ContentPresenterViewController.swift in Sources */,
@@ -1437,7 +1465,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.1.5;
+				CURRENT_PROJECT_VERSION = 1.2.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1451,7 +1479,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.5;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devtool.Mocker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1465,7 +1493,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.1.5;
+				CURRENT_PROJECT_VERSION = 1.2.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1479,7 +1507,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.5;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devtool.Mocker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

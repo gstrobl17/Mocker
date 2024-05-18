@@ -11,6 +11,6 @@ import Foundation
 /// Protocol used to describe a factory of ``SourceFileDataSource`` instances
 protocol SourceFileDataSourceCreating {
     
-    func createDataSource(for fileURL: URL) -> SourceFileDataSource?
+    func createDataSource(for fileURL: URL) throws -> SourceFileDataSource?
 
 }

@@ -112,17 +112,21 @@ class GodfatherInteractor {
             presenter?.clearBusyMessage()
         }
         
-        if let dataSource = dataSourceFactory.createDataSource(for: url) {
-            currentDataSource = dataSource
-            userDefaults.projectFilePath = url.path
-            renderFilteredSourceFileTree()
-            mockFileParameters.setup(for: dataSource)
-            mockFileParameters.clearProtocol()
-            
-            recentDocumentManager.add(url)
-            documentController.noteNewRecentDocumentURL(url)
-        } else {
-            reportProjectLoadFailure()
+        do {
+            if let dataSource = try dataSourceFactory.createDataSource(for: url) {
+                currentDataSource = dataSource
+                userDefaults.projectFilePath = url.path
+                renderFilteredSourceFileTree()
+                mockFileParameters.setup(for: dataSource)
+                mockFileParameters.clearProtocol()
+                
+                recentDocumentManager.add(url)
+                documentController.noteNewRecentDocumentURL(url)
+            } else {
+                reportProjectLoadFailure()
+            }
+        } catch {
+            presenter?.reportError(error)
         }
 
     }

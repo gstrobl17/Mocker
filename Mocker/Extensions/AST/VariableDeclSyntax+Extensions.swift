@@ -92,5 +92,15 @@ extension VariableDeclSyntax {
         string += "setter:\(nameForCode)"
         return string
     }
+    
+    var typeFromInitializerClause: String {
+        assert(bindings.count == 1)
+        guard let binding = bindings.first else { return "Unexpected Binding Count(\(bindings.count)" }
+        guard let initializer = binding.initializer else { return "Type not found for variable" }
+        guard let functionCall = initializer.value.as(FunctionCallExprSyntax.self) else { return "Initializer value not FunctionCallExprSyntax" }
+        guard let identifier = functionCall.calledExpression.as(IdentifierExprSyntax.self) else { return "Function Call calledExpression is not IdentifierExprSyntax" }
+        
+        return identifier.identifier.text
+    }
 
 }
