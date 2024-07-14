@@ -795,4 +795,32 @@ extension ASTMockGenerator {
         }
         generateEndingOfOptionSetExtension()
     }
+    
+    func generateCustomReflectationExtension(for parameters: MockGeneratorParameters) {
+        guard calledAttributeTracker.nonStaticNameCount > 0 || calledAttributeTracker.staticNameCount > 0 || parameterTracker.nonStaticNameCount > 0 || parameterTracker.staticNameCount > 0 else { return }
+        
+        code += "\n"
+        code += "extension \(parameters.mockName): CustomReflectable {\n"
+        code += "\(indentation)\(publicAccessQualifier)var customMirror: Mirror {\n"
+        code += "\(indentation)\(indentation)Mirror(self,\n"
+        code += "\(indentation)\(indentation)       children: [\n"
+        if calledAttributeTracker.nonStaticNameCount > 0 {
+            code += "\(indentation)\(indentation)        \"calledMethods\": calledMethods,\n"
+        }
+        if calledAttributeTracker.staticNameCount > 0 {
+            code += "\(indentation)\(indentation)        \"calledStaticMethods\": \(parameters.mockName).calledStaticMethods,\n"
+        }
+        if parameterTracker.nonStaticNameCount > 0 {
+            code += "\(indentation)\(indentation)        \"assignedParameters\": assignedParameters,\n"
+        }
+        if parameterTracker.staticNameCount > 0 {
+            code += "\(indentation)\(indentation)        \"assignedStaticParameters\": \(parameters.mockName).assignedStaticParameters,\n"
+        }
+        code += "\(indentation)\(indentation)       ],\n"
+        code += "\(indentation)\(indentation)       displayStyle: .none\n"
+        code += "\(indentation)\(indentation))\n"
+        code += "\(indentation)}\n"
+        code += "}\n"
+    }
+
 }

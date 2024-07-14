@@ -202,7 +202,7 @@ class ASTMockGenerator: MockGenerating {
         generateSpacing()
         endClass()
         generateOptionSetsExtensions(for: parameters)
-
+        generateCustomReflectationExtension(for: parameters)
         return code
     }
 

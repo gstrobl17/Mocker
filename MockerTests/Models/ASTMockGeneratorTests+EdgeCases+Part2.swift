@@ -1456,7 +1456,19 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-                           
+
+                           extension MockTest: CustomReflectable {
+                               var customMirror: Mirror {
+                                   Mirror(self,
+                                          children: [
+                                           "calledMethods": calledMethods,
+                                           "assignedParameters": assignedParameters,
+                                          ],
+                                          displayStyle: .none
+                                   )
+                               }
+                           }
+
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -2822,7 +2834,19 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-                           
+
+                           extension MockTest: CustomReflectable {
+                               public var customMirror: Mirror {
+                                   Mirror(self,
+                                          children: [
+                                           "calledMethods": calledMethods,
+                                           "assignedParameters": assignedParameters,
+                                          ],
+                                          displayStyle: .none
+                                   )
+                               }
+                           }
+
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -4407,7 +4431,19 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-                           
+
+                           extension MockTest: CustomReflectable {
+                               var customMirror: Mirror {
+                                   Mirror(self,
+                                          children: [
+                                           "calledMethods": calledMethods,
+                                           "assignedParameters": assignedParameters,
+                                          ],
+                                          displayStyle: .none
+                                   )
+                               }
+                           }
+
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -5996,7 +6032,19 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-                           
+
+                           extension MockTest: CustomReflectable {
+                               public var customMirror: Mirror {
+                                   Mirror(self,
+                                          children: [
+                                           "calledMethods": calledMethods,
+                                           "assignedParameters": assignedParameters,
+                                          ],
+                                          displayStyle: .none
+                                   )
+                               }
+                           }
+
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -7420,7 +7468,19 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-                           
+
+                           extension MockTest: CustomReflectable {
+                               var customMirror: Mirror {
+                                   Mirror(self,
+                                          children: [
+                                           "calledStaticMethods": MockTest.calledStaticMethods,
+                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
+                                          ],
+                                          displayStyle: .none
+                                   )
+                               }
+                           }
+
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -8978,7 +9038,19 @@ extension ASTMockGeneratorTests {
                                    return value
                                }
                            }
-                           
+
+                           extension MockTest: CustomReflectable {
+                               var customMirror: Mirror {
+                                   Mirror(self,
+                                          children: [
+                                           "calledStaticMethods": MockTest.calledStaticMethods,
+                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
+                                          ],
+                                          displayStyle: .none
+                                   )
+                               }
+                           }
+
                            """
         
         let code = generator.generateMockCode(for: parameters)
