@@ -119,7 +119,8 @@ class SwiftPackageDataSource: SourceFileDataSource {
         }
 
         if let children = try? fileManager.contentsOfDirectory(at: item, includingPropertiesForKeys: [.isDirectoryKey], options: .skipsHiddenFiles) {
-            children.forEach { child in
+            let sortedChildren = children.sorted { $0.lastPathComponent < $1.lastPathComponent }
+            sortedChildren.forEach { child in
         
                 if child.isDirectory {
                     
