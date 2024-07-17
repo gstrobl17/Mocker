@@ -10,8 +10,7 @@ import SwiftSyntax
 extension FunctionDeclSyntax {
     
     var isStatic: Bool {
-        guard let modifiers = modifiers else { return false }
-        return modifiers.containsStaticModifier
+        modifiers.containsStaticModifier
     }
 
     var calledVariableName: String {
@@ -27,15 +26,15 @@ extension FunctionDeclSyntax {
     }
 
     private var concatenatedVariableName: String {
-        var concatenatedVariableName = identifier.text
-        for parameter in signature.input.parameterList {
+        var concatenatedVariableName = name.text
+        for parameter in signature.parameterClause.parameters {
             concatenatedVariableName += parameter.nameForConcatenatedVariableName.firstUppercased
         }
         return concatenatedVariableName
     }
     
     var signatureString: String {
-        self.withoutTrivia().description
+        self.trimmedDescription
     }
 
     var shouldCallCompletionHandlerVariableName: String {

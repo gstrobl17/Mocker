@@ -37,15 +37,15 @@ class PackageInitializerInformation {
         }
         guard let initializer = binding.initializer else { throw PackageInitializerInformationError.unexpectedSituation("Type not found for variable") }
         guard let functionCall = initializer.value.as(FunctionCallExprSyntax.self) else { throw PackageInitializerInformationError.unexpectedSituation("Initializer value not an instance of FunctionCallExprSyntax") }
-        guard let identifier = functionCall.calledExpression.as(IdentifierExprSyntax.self) else { throw PackageInitializerInformationError.unexpectedSituation("Function Call calledExpression is not IdentifierExprSyntax") }
-        guard identifier.identifier.text == SwiftPackageConstant.Manifest.requiredTypeOfVariableName else {
-            throw PackageInitializerInformationError.unexpectedSituation("Unexpected type for variable \"\(SwiftPackageConstant.Manifest.requiredVariableName)\": (\(identifier.identifier.text) (expecting \(SwiftPackageConstant.Manifest.requiredTypeOfVariableName))")
+        guard let identifier = functionCall.calledExpression.as(DeclReferenceExprSyntax.self) else { throw PackageInitializerInformationError.unexpectedSituation("Function Call calledExpression is not IdentifierExprSyntax") }
+        guard identifier.baseName.text == SwiftPackageConstant.Manifest.requiredTypeOfVariableName else {
+            throw PackageInitializerInformationError.unexpectedSituation("Unexpected type for variable \"\(SwiftPackageConstant.Manifest.requiredVariableName)\": (\(identifier.baseName.text) (expecting \(SwiftPackageConstant.Manifest.requiredTypeOfVariableName))")
         }
      
         // Iterate through the argument list. We are looking for "name" and "targets",
         var parsedName: String?
         var parsedNTargets = [TargetDetail]()
-        functionCall.argumentList.forEach { argument in
+        functionCall.arguments.forEach { argument in
             guard let argumentName = argument.label?.text else { return }
             switch argumentName {
             case SwiftPackageConstant.Manifest.ArgumentName.name:

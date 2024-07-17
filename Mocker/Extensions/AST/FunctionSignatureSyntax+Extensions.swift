@@ -10,7 +10,7 @@ import SwiftSyntax
 extension FunctionSignatureSyntax {
     
     var throwsOrRethrows: Bool {
-        throwsOrRethrowsKeyword != nil
+        effectSpecifiers?.throwsSpecifier != nil
     }
     
 }

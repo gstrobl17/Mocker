@@ -66,6 +66,6 @@ extension ProtocolSelectorViewController: NSComboBoxDataSource {
     }
     
     func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? {
-        protocols[index].identifier.text
+        protocols[index].name.text
     }
 }

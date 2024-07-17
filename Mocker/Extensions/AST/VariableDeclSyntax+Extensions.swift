@@ -10,8 +10,7 @@ import SwiftSyntax
 extension VariableDeclSyntax {
     
     var isStatic: Bool {
-        guard let modifiers = modifiers else { return false }
-        return modifiers.containsStaticModifier
+        modifiers.containsStaticModifier
     }
     
     var isOptional: Bool {
@@ -48,7 +47,7 @@ extension VariableDeclSyntax {
     var hasGetter: Bool {
         assert(bindings.count == 1)
         guard let binding = bindings.first else { return false }
-        guard let accessor = binding.accessor else { return false }
+        guard let accessor = binding.accessorBlock else { return false }
         let description = accessor.description
         let parts = description.split(separator: " ")
         return parts.contains("get")
@@ -57,7 +56,7 @@ extension VariableDeclSyntax {
     var hasSetter: Bool {
         assert(bindings.count == 1)
         guard let binding = bindings.first else { return false }
-        guard let accessor = binding.accessor else { return false }
+        guard let accessor = binding.accessorBlock else { return false }
         let description = accessor.description
         let parts = description.split(separator: " ")
         return parts.contains("set")
@@ -98,9 +97,9 @@ extension VariableDeclSyntax {
         guard let binding = bindings.first else { return "Unexpected Binding Count(\(bindings.count)" }
         guard let initializer = binding.initializer else { return "Type not found for variable" }
         guard let functionCall = initializer.value.as(FunctionCallExprSyntax.self) else { return "Initializer value not FunctionCallExprSyntax" }
-        guard let identifier = functionCall.calledExpression.as(IdentifierExprSyntax.self) else { return "Function Call calledExpression is not IdentifierExprSyntax" }
+        guard let identifier = functionCall.calledExpression.as(DeclReferenceExprSyntax.self) else { return "Function Call calledExpression is not IdentifierExprSyntax" }
         
-        return identifier.identifier.text
+        return identifier.baseName.text
     }
 
 }

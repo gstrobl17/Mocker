@@ -106,7 +106,7 @@ class NameTracker {
         }
 
         for method in parameters.methods {
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 if method.isStatic {
                     staticNameCount += 1
                 } else {

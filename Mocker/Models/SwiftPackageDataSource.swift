@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftSyntax
-import SwiftSyntaxParser
+import SwiftParser
 
 private let logTraversalInformation = false
 
@@ -45,7 +45,8 @@ class SwiftPackageDataSource: SourceFileDataSource {
         let packageInitializerInformation: PackageInitializerInformation
 
         // Parse the manifest file
-        let sourceFileSyntax = try SyntaxParser.parse(fileURL)
+        let sourceCode = try String(contentsOf: fileURL)
+        let sourceFileSyntax = Parser.parse(source: sourceCode)
         let manifestInformation = SwiftPackageManifestInformation(viewMode: .sourceAccurate)
         manifestInformation.walk(sourceFileSyntax)
         

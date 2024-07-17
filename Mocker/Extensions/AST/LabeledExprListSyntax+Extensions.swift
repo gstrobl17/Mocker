@@ -1,5 +1,5 @@
 //
-//  TupleExprElementListSyntax+Extensions.swift
+//  LabeledExprListSyntax+Extensions.swift
 //  Mocker
 //
 //  Created by Greg Strobl on 5/17/24.
@@ -13,7 +13,7 @@ struct TargetDetail: Equatable {
     let name: String
 }
 
-extension TupleExprElementListSyntax.Element {
+extension LabeledExprListSyntax.Element {
     
     /// Used to extract a string value from a code like the following:
     /// ```
@@ -53,14 +53,14 @@ extension TupleExprElementListSyntax.Element {
                 // Look for the target type (.target or .testTarget)
                 if let functionCall = element.expression.as(FunctionCallExprSyntax.self),
                    let memberAccess = functionCall.calledExpression.as(MemberAccessExprSyntax.self),
-                   memberAccess.dot.tokenKind == .prefixPeriod,
-                   memberAccess.name.text == SwiftPackageConstant.Manifest.TargetType.target || memberAccess.name.text == SwiftPackageConstant.Manifest.TargetType.testTarget {
+                   memberAccess.period.tokenKind == .period,
+                   memberAccess.declName.baseName.text == SwiftPackageConstant.Manifest.TargetType.target || memberAccess.declName.baseName.text == SwiftPackageConstant.Manifest.TargetType.testTarget {
                     
-                    let targetDetailType = memberAccess.name.text
+                    let targetDetailType = memberAccess.declName.baseName.text
                     var targetDetailName: String?
                     
                     // Walk the argument list looking for the "name"
-                    functionCall.argumentList.forEach { argument in
+                    functionCall.arguments.forEach { argument in
                         if argument.label?.text == SwiftPackageConstant.Manifest.ArgumentName.name {
                             targetDetailName = argument.stringLiteral
                         }

@@ -1,5 +1,5 @@
 //
-//  ModifierListSyntax+Extensions.swift
+//  DeclModifierListSyntax+Extensions.swift
 //  Mocker
 //
 //  Created by Greg Strobl on 6/21/22.
@@ -7,7 +7,7 @@
 
 import SwiftSyntax
 
-extension ModifierListSyntax {
+extension DeclModifierListSyntax {
     
     var containsStaticModifier: Bool {
         guard !isEmpty else { return false }

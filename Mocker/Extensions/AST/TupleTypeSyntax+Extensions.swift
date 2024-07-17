@@ -12,9 +12,9 @@ extension TupleTypeSyntax {
     var concatenatedVariableName: String {
         var concatenatedVariableName = "UNDETERMINED TUPLE NAME"
         for (index, element) in elements.enumerated() {
-            if index == 0, let name = element.name {
+            if index == 0, let name = element.firstName {
                 concatenatedVariableName = name.text.firstLowercased
-            } else if let name = element.name {
+            } else if let name = element.firstName {
                 concatenatedVariableName += name.text.firstUppercased
             }
         }

@@ -11,17 +11,17 @@ import SwiftSyntax
 extension FunctionParameterSyntax {
     
     var isOptional: Bool {
-        type?.isOptional ?? false
+        type.isOptional
     }
     
     var isFunction: Bool {
-        type?.isFunction ?? false
+        type.isFunction
     }
 
     var nameForConcatenatedVariableName: String {
         var name = ""
         
-        if let firstName = firstName, firstName.text != "_" {
+        if firstName.text != "_" {
             name += firstName.text.firstUppercased
         }
 
@@ -41,11 +41,11 @@ extension FunctionParameterSyntax {
             return secondName.text
         }
 
-        return firstName?.text ?? "UNDETERMINED PARAMETER NAME"
+        return firstName.text
     }
 
     var typeNameForParameter: String {
-        guard let type = type?.as(TypeSyntax.self) else {
+        guard let type = type.as(TypeSyntax.self) else {
             // Haven't see this before. Set a break point and do a `po self` here and try to work out the data types.
             return "NO TYPE SUPPLIED"
         }
@@ -53,7 +53,7 @@ extension FunctionParameterSyntax {
     }
     
     var nonEscapingTypeNameForParameter: String {
-        guard let type = type?.as(TypeSyntax.self) else {
+        guard let type = type.as(TypeSyntax.self) else {
             // Haven't see this before. Set a break point and do a `po self` here and try to work out the data types.
             return "NO TYPE SUPPLIED"
         }
@@ -61,7 +61,7 @@ extension FunctionParameterSyntax {
     }
 
     var baseTypeNameForParameter: String {
-        guard let type = type?.as(TypeSyntax.self) else {
+        guard let type = type.as(TypeSyntax.self) else {
             // Haven't see this before. Set a break point and do a `po self` here and try to work out the data types.
             return "NO TYPE SUPPLIED"
         }
@@ -81,13 +81,13 @@ extension FunctionParameterSyntax {
     var isResultCompletionHandler: ResultCompletionHandlerAnswer {
         guard
             // Is the parameter a function? (of the type with result type)
-            let typeSyntax = type?.as(AttributedTypeSyntax.self),
+            let typeSyntax = type.as(AttributedTypeSyntax.self),
             let baseType = typeSyntax.baseType.as(FunctionTypeSyntax.self),
 
             // Does the parameter have one argument named "Result"?
-            baseType.arguments.count == 1,
-            let firstArgument = baseType.arguments.first,
-            let firstArgumentType = firstArgument.type.as(SimpleTypeIdentifierSyntax.self),
+            baseType.parameters.count == 1,
+            let firstArgument = baseType.parameters.first,
+            let firstArgumentType = firstArgument.type.as(IdentifierTypeSyntax.self),
             firstArgumentType.name.text == "Result",
             
             // Does the first argument have a generic argument clause with two parameters?
@@ -100,8 +100,8 @@ extension FunctionParameterSyntax {
             return .no
         }
         
-        let successType = firstGenericArgument.argumentType
-        let failureType = secondGenericArgument.argumentType
+        let successType = firstGenericArgument.argument
+        let failureType = secondGenericArgument.argument
         let detail = (name: nameForParameter, successType: successType, failureType: failureType)
         return .yes(detail)
     }

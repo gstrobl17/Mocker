@@ -75,7 +75,7 @@ extension ASTMockGenerator {
 
     func startClass(for parameters: MockGeneratorParameters) {
         contentGenerated = true
-        code += "\(publicAccessQualifier)class \(parameters.mockName): \(parameters.protocolDeclaration.identifier.text) {\n"
+        code += "\(publicAccessQualifier)class \(parameters.mockName): \(parameters.protocolDeclaration.name.text) {\n"
     }
 
     func generateEmptyPublicInitializer(for parameters: MockGeneratorParameters) {
@@ -263,7 +263,7 @@ extension ASTMockGenerator {
             }
         }
         for method in parameters.methods where !method.isStatic {
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
                     options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(parameterName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
@@ -305,7 +305,7 @@ extension ASTMockGenerator {
             }
         }
         for method in parameters.methods where method.isStatic {
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
                     options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(parameterName) = \(TypeName.StaticMethodParameter)(rawValue: 1 << \(valueNumber))\n"
@@ -348,7 +348,7 @@ extension ASTMockGenerator {
         }
 
         for method in parameters.methods {
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 
                 if !usedNames.contains(parameterName) {
@@ -372,7 +372,7 @@ extension ASTMockGenerator {
         // Determine if any of return values will be implicitly unwrapped optional
         var hasImplicitlyUnwrappedOptionals = false
         for method in parameters.methods {
-            guard let returnType = method.signature.output?.returnType else { continue }
+            guard let returnType = method.signature.returnClause?.type else { continue }
             if !returnType.isOptional {
                 // This return value will be a "!"
                 hasImplicitlyUnwrappedOptionals = true
@@ -381,7 +381,7 @@ extension ASTMockGenerator {
         }
         
         for method in parameters.methods {
-            guard let returnType = method.signature.output?.returnType else { continue }
+            guard let returnType = method.signature.returnClause?.type else { continue }
             
             contentGenerated = true
             if first {
@@ -436,7 +436,7 @@ extension ASTMockGenerator {
 
         // "General" completion handler result variables
         for method in parameters.methods {
-            for parameter in method.signature.input.parameterList where parameter.isFunction {
+            for parameter in method.signature.parameterClause.parameters where parameter.isFunction {
                 contentGenerated = true
                 let shouldCallVariableName = parameter.shouldCallVariableName
 
@@ -462,7 +462,7 @@ extension ASTMockGenerator {
         
         // Specific completion handler result variables
         for method in parameters.methods {
-            for parameter in method.signature.input.parameterList where parameter.isFunction {
+            for parameter in method.signature.parameterClause.parameters where parameter.isFunction {
                 if case let FunctionParameterSyntax.ResultCompletionHandlerAnswer.yes(detail) = parameter.isResultCompletionHandler {
                     
                     contentGenerated = true
@@ -521,7 +521,7 @@ extension ASTMockGenerator {
         }
 
         for method in parameters.methods {
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
 
                 if !usedNames.contains(parameterName) {
@@ -601,7 +601,7 @@ extension ASTMockGenerator {
             }
 
             // Method declaration
-            if swiftlintAware && method.signature.input.parameterList.count > SwiftlintSupport.FunctionParamterCount.max {
+            if swiftlintAware && method.signature.parameterClause.parameters.count > SwiftlintSupport.FunctionParamterCount.max {
                 code += "\(indentation)\(SwiftlintSupport.FunctionParamterCount.disableNextComment)\n"
             }
             code += "\(indentation)\(publicAccessQualifier)\(method.signatureString) {\n"
@@ -612,7 +612,7 @@ extension ASTMockGenerator {
             code += "\(indentation)\(indentation)\(optionSetVariableName).insert(.\(calledAttributeName))\n"
 
             // Parameter value capture
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 let parameterName = self.parameterName(for: parameter, in: method) ?? parameter.nameForParameter
                 code += "\(indentation)\(indentation)self.\(parameterName) = \(parameter.nameForParameter)\n"
                 let optionSetVariableName = (method.isStatic) ? VariableName.assignedStaticParameters : VariableName.assignedParameters
@@ -628,7 +628,7 @@ extension ASTMockGenerator {
             }
 
             // Block invocation handling
-            for parameter in method.signature.input.parameterList where parameter.isFunction {
+            for parameter in method.signature.parameterClause.parameters where parameter.isFunction {
                 code += "\(indentation)\(indentation)if \(parameter.shouldCallVariableName) {\n"
                 code += "\(indentation)\(indentation)\(indentation)\(parameter.nameForParameter)("
                 if case let FunctionParameterSyntax.ResultCompletionHandlerAnswer.yes(details) = parameter.isResultCompletionHandler {
@@ -650,7 +650,7 @@ extension ASTMockGenerator {
             }
 
             // Return value handling
-            if method.signature.output?.returnType != nil {
+            if method.signature.returnClause?.type != nil {
                 code += "\(indentation)\(indentation)return \(method.returnValueVariableName)\n"
             }
             code += "\(indentation)}\n"
@@ -763,7 +763,7 @@ extension ASTMockGenerator {
             }
         }
         for method in parameters.methods where !method.isStatic {
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
                     generateOptionSetContainsBlock(for: parameterName)
@@ -785,7 +785,7 @@ extension ASTMockGenerator {
             }
         }
         for method in parameters.methods where method.isStatic {
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !usedNames.contains(parameterName) {
                     generateOptionSetContainsBlock(for: parameterName)

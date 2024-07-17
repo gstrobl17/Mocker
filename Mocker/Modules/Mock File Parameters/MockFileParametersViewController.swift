@@ -211,7 +211,7 @@ extension MockFileParametersViewController: MockFileParametersViewProtocol {
 extension MockFileParametersViewController: MockFileParametersInterfaceProtocol {
     
     func setup(for protocolDeclaration: ProtocolDeclSyntax) {
-        presenter?.setProtocolName(protocolDeclaration.identifier.text)
+        presenter?.setProtocolName(protocolDeclaration.name.text)
     }
     
     func setup(for dataSource: SourceFileDataSource) {

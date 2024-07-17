@@ -124,7 +124,7 @@ class ASTMockGenerator: MockGenerating {
         var name = "UNDETERMINED"
 
         // Prefix the name of the variable with the type
-        if let arrayType = detail.successType.as(ArrayTypeSyntax.self), let type = arrayType.elementType.as(SimpleTypeIdentifierSyntax.self) {
+        if let arrayType = detail.successType.as(ArrayTypeSyntax.self), let type = arrayType.element.as(IdentifierTypeSyntax.self) {
             let lastCharacter = type.name.text.last
             
             if lastCharacter == "s" {
@@ -134,11 +134,11 @@ class ASTMockGenerator: MockGenerating {
             }
         }
 
-        if let type = detail.successType.as(SimpleTypeIdentifierSyntax.self) {
+        if let type = detail.successType.as(IdentifierTypeSyntax.self) {
             name = type.name.text.firstLowercased
         }
 
-        if let optional = detail.successType.as(OptionalTypeSyntax.self), let type = optional.wrappedType.as(SimpleTypeIdentifierSyntax.self) {
+        if let optional = detail.successType.as(OptionalTypeSyntax.self), let type = optional.wrappedType.as(IdentifierTypeSyntax.self) {
             name = "optional" + type.name.text.firstUppercased
         }
 
@@ -231,7 +231,7 @@ class ASTMockGenerator: MockGenerating {
     private func areParameterNamesValid(for methods: [FunctionDeclSyntax], isMethodStatic: Bool) -> Bool {
         var valid = true
         for method in methods {
-            for parameter in method.signature.input.parameterList {
+            for parameter in method.signature.parameterClause.parameters {
                 guard let parameterName = parameterName(for: parameter, in: method) else { continue }
                 if !isNameValid(parameterName) {
                     valid = false
@@ -253,7 +253,7 @@ class ASTMockGenerator: MockGenerating {
     func areShouldCallAndResultVariableNamesValid(for parameters: MockGeneratorParameters) -> Bool {
         var valid = true
         for method in parameters.methods {
-            for parameter in method.signature.input.parameterList where parameter.isFunction {
+            for parameter in method.signature.parameterClause.parameters where parameter.isFunction {
                 let shouldCallVariableName = parameter.shouldCallVariableName
                 if !isNameValid(shouldCallVariableName) {
                     valid = false

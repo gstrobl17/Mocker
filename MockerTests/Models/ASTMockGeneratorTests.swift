@@ -10,14 +10,14 @@
 @testable import Mocker
 import XCTest
 import SwiftSyntax
-import SwiftSyntaxParser
+import SwiftParser
 
 final class ASTMockGeneratorTests: XCTestCase {
 
     var dataSource: MockSourceFileDataSource!
-    var path1: AccessPathSyntax!
-    var path2: AccessPathSyntax!
-    var path3: AccessPathSyntax!
+    var path1: ImportPathComponentListSyntax!
+    var path2: ImportPathComponentListSyntax!
+    var path3: ImportPathComponentListSyntax!
     var imports: [ImportDeclSyntax]!
     var dateFactory: MockDateCreating!
     var fullNameProvider: MockFullNameProviding!
@@ -42,9 +42,9 @@ final class ASTMockGeneratorTests: XCTestCase {
         dataSource = MockSourceFileDataSource()
         dataSource.filePathReturnValue = "/usr/local/dataSource/file.swift"
         dataSource._projectName = "file"
-        path1 = AccessPathSyntax([AccessPathComponentSyntax(name: TokenSyntax(.identifier("Foundation"), presence: .present))])
-        path2 = AccessPathSyntax([AccessPathComponentSyntax(name: TokenSyntax(.identifier("UIKit"), presence: .present))])
-        path3 = AccessPathSyntax([AccessPathComponentSyntax(name: TokenSyntax(.identifier("Core"), presence: .present))])
+        path1 = ImportPathComponentListSyntax([ImportPathComponentSyntax(name: TokenSyntax(.identifier("Foundation"), presence: .present))])
+        path2 = ImportPathComponentListSyntax([ImportPathComponentSyntax(name: TokenSyntax(.identifier("UIKit"), presence: .present))])
+        path3 = ImportPathComponentListSyntax([ImportPathComponentSyntax(name: TokenSyntax(.identifier("Core"), presence: .present))])
         imports = [ImportDeclSyntax(path: path1), ImportDeclSyntax(path: path2), ImportDeclSyntax(path: path3)]
         
         dateFactory = MockDateCreating()
@@ -95,8 +95,8 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
     
-    func protocolDeclaration(for input: String) throws -> ProtocolDeclSyntax? {
-        let sourceFileSyntax = try SyntaxParser.parse(source: input)
+    func protocolDeclaration(for input: String) -> ProtocolDeclSyntax? {
+        let sourceFileSyntax = Parser.parse(source: input)
         let sourceFileInformation = SourceFileInformation(viewMode: .sourceAccurate)
         sourceFileInformation.walk(sourceFileSyntax)
         return sourceFileInformation.protocols.first

@@ -10,7 +10,7 @@ import SwiftSyntax
 extension TypeSyntax {
     
     func processedTypeName(removeOptional: Bool = false, removeExclamationMark: Bool = false, removeEscaping: Bool = false) -> String {
-        var typeName = self.withoutTrivia().description
+        var typeName = self.trimmedDescription
 
         if removeOptional, typeName.hasSuffix("?") {
             typeName = String(typeName.dropLast())

@@ -10,7 +10,6 @@
 @testable import Mocker
 import XCTest
 import SwiftSyntax
-import SwiftSyntaxParser
 
 extension ASTMockGeneratorTests {
     

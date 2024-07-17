@@ -7,7 +7,7 @@
 
 import AppKit
 import SwiftSyntax
-import SwiftSyntaxParser
+import SwiftParser
 
 class GodfatherInteractor {
 
@@ -231,7 +231,7 @@ extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
             // Parse the source file
             do {
                 currentSourceFileCode = try String(contentsOf: fileURL)
-                let sourceFileSyntax = try SyntaxParser.parse(fileURL)
+                let sourceFileSyntax = Parser.parse(source: currentSourceFileCode)
                 let sourceFileInformation = SourceFileInformation(viewMode: .sourceAccurate)
                 sourceFileInformation.walk(sourceFileSyntax)
                 currentSourceFile = sourceFileInformation
