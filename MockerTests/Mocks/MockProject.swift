@@ -188,3 +188,15 @@ extension MockProject.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockProject: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

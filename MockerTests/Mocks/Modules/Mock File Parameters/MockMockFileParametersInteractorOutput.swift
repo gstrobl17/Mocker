@@ -163,4 +163,16 @@ extension MockMockFileParametersInteractorOutput.MethodParameter: CustomStringCo
     }
 }
 
+extension MockMockFileParametersInteractorOutput: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}
+
 //swiftlint:enable identifier_name

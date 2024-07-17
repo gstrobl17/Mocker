@@ -154,4 +154,16 @@ extension MockProjectFileSelectorView.MethodParameter: CustomStringConvertible {
     }
 }
 
+extension MockProjectFileSelectorView: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}
+
 //swiftlint:enable weak_delegate identifier_name

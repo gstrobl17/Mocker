@@ -81,3 +81,15 @@ extension MockFilterInteractorOutput.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockFilterInteractorOutput: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

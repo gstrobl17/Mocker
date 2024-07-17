@@ -50,3 +50,14 @@ extension MockSourceFileSelectorInteractorInput.Method: CustomStringConvertible 
         return value
     }
 }
+
+extension MockSourceFileSelectorInteractorInput: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods
+               ],
+               displayStyle: .none
+        )
+    }
+}

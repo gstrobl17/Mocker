@@ -153,3 +153,15 @@ extension MockSourceFileDataSource.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockSourceFileDataSource: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

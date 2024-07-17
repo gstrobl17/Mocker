@@ -93,3 +93,15 @@ extension MockSourceFileDataSourceCreating.MethodParameter: CustomStringConverti
         return value
     }
 }
+
+extension MockSourceFileDataSourceCreating: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

@@ -125,3 +125,15 @@ extension MockRecentDocumentManaging.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockRecentDocumentManaging: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

@@ -84,3 +84,15 @@ extension MockMockGenerator.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockMockGenerator: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

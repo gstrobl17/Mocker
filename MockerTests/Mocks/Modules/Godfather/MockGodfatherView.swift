@@ -245,3 +245,15 @@ extension MockGodfatherView.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockGodfatherView: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

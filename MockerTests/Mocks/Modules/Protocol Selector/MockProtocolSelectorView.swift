@@ -85,3 +85,15 @@ extension MockProtocolSelectorView.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockProtocolSelectorView: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

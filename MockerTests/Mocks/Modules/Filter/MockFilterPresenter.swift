@@ -92,3 +92,15 @@ extension MockFilterPresenter.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockFilterPresenter: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

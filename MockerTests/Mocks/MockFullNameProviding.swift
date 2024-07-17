@@ -58,3 +58,14 @@ extension MockFullNameProviding.Method: CustomStringConvertible {
         return value
     }
 }
+
+extension MockFullNameProviding: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods
+               ],
+               displayStyle: .none
+        )
+    }
+}

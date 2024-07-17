@@ -102,3 +102,15 @@ extension MockProjectFileSelectorInteractorInput.MethodParameter: CustomStringCo
         return value
     }
 }
+
+extension MockProjectFileSelectorInteractorInput: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

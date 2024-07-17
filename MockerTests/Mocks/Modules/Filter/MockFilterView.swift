@@ -83,3 +83,15 @@ extension MockFilterView.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockFilterView: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

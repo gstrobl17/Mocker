@@ -122,3 +122,15 @@ extension MockProjectFileSelectorPresenter.MethodParameter: CustomStringConverti
         return value
     }
 }
+
+extension MockProjectFileSelectorPresenter: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

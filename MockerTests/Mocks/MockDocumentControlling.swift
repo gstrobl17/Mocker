@@ -88,3 +88,15 @@ extension MockDocumentControlling.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockDocumentControlling: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

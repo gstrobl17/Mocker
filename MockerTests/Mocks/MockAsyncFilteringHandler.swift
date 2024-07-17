@@ -99,3 +99,15 @@ extension MockAsyncFilteringHandler.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockAsyncFilteringHandler: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

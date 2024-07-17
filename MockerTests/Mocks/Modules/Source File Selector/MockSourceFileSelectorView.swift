@@ -94,3 +94,15 @@ extension MockSourceFileSelectorView.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockSourceFileSelectorView: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

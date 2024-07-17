@@ -226,4 +226,16 @@ extension MockMockFileParametersView.MethodParameter: CustomStringConvertible {
     }
 }
 
+extension MockMockFileParametersView: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}
+
 //swiftlint:enable identifier_name

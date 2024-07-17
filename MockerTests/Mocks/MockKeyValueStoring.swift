@@ -383,3 +383,15 @@ extension MockKeyValueStoring.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockKeyValueStoring: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

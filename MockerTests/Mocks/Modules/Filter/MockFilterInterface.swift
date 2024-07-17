@@ -49,3 +49,14 @@ extension MockFilterInterface.Method: CustomStringConvertible {
         return value
     }
 }
+
+extension MockFilterInterface: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods
+               ],
+               displayStyle: .none
+        )
+    }
+}

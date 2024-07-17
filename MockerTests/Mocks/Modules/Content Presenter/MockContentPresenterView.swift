@@ -81,3 +81,15 @@ extension MockContentPresenterView.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockContentPresenterView: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}

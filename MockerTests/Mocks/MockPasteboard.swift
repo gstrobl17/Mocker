@@ -133,3 +133,15 @@ extension MockPasteboard.MethodParameter: CustomStringConvertible {
         return value
     }
 }
+
+extension MockPasteboard: CustomReflectable {
+    var customMirror: Mirror {
+        Mirror(self,
+               children: [
+                "calledMethods": calledMethods,
+                "assignedParameters": assignedParameters
+               ],
+               displayStyle: .none
+        )
+    }
+}
