@@ -7,11 +7,13 @@
 
 import XCTest
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class ProjectFileSelectorPresenterTests: XCTestCase {
     
-    var view: MockProjectFileSelectorView!
-    var interactor: MockProjectFileSelectorInteractorInput!
+    @StroblMock var view: MockProjectFileSelectorView!
+    @StroblMock var interactor: MockProjectFileSelectorInteractorInput!
     var router: ProjectFileSelectorWireframeProtocol!
     var presenter: ProjectFileSelectorPresenter!
     let openPanelFactory = MockOpenPanelFactory()
@@ -32,8 +34,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         
         presenter.handleOpenPanelResponse(.cancel)
 
-        XCTAssertEqual(interactor.calledMethods, [])
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused()
     }
     
     func test_handleOpenPanelResponse_fileSelected() {
@@ -46,10 +47,10 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
 
         presenter.handleOpenPanelResponse(.OK)
 
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.projectFileSelectedUrlCalled])
         XCTAssertEqual(interactor.assignedParameters, [.url])
         XCTAssertEqual(interactor.url, url)
-        XCTAssertEqual(view.calledMethods, [])
     }
     
     // MARK: - ProjectFileSelectorPresenterProtocol methods -
@@ -59,17 +60,17 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
 
         presenter.setURL(url)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.setURLUrlCalled])
         XCTAssertEqual(interactor.assignedParameters, [.url])
         XCTAssertEqual(interactor.url, url)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_selectPressed() {
         
         presenter.selectPressed()
         
-        XCTAssertEqual(interactor.calledMethods, [])
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.openModalSheetWithOpenPanelCompletionHandlerHandlerCalled])
         XCTAssertEqual(view.assignedParameters, [.openPanel, .handler])
         XCTAssertNotNil(view.openPanel)
@@ -80,8 +81,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         
         presenter.reloadPressed()
         
-        XCTAssertEqual(interactor.calledMethods, [])
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused()
     }
     
     func test_reloadPressed_urlSet() {
@@ -90,7 +90,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
 
         presenter.reloadPressed()
         
-        XCTAssertEqual(interactor.calledMethods, [])
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.showSelectedFileUrlCalled])
         XCTAssertEqual(view.assignedParameters, [.url])
     }
@@ -100,8 +100,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         let flag = presenter.canReloadProject()
         
         XCTAssertEqual(flag, false)
-        XCTAssertEqual(interactor.calledMethods, [])
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused()
     }
     
     func test_canReloadProject_urlSet() {
@@ -111,17 +110,16 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         let flag = presenter.canReloadProject()
         
         XCTAssertEqual(flag, true)
-        XCTAssertEqual(interactor.calledMethods, [])
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused()
     }
 
     func test_viewHasLoaded() {
         
         presenter.viewHasLoaded()
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.viewHasLoadedCalled])
         XCTAssertEqual(interactor.assignedParameters, [])
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     // MARK: - ProjectFileSelectorInteractorOutputProtocol methods -
@@ -131,7 +129,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         
         presenter.showSelectedFile(url)
         
-        XCTAssertEqual(interactor.calledMethods, [])
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.showSelectedFileUrlCalled])
         XCTAssertEqual(view.assignedParameters, [.url])
     }
@@ -144,6 +142,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         let result = presenter.panel(self, shouldEnable: url)
         
         XCTAssertEqual(result, false)
+        verifyStroblMocksUnused()
     }
 
     func testPanelShouldEnableURL_xcodeProjectFileURL() throws {
@@ -152,6 +151,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         let result = presenter.panel(self, shouldEnable: url)
         
         XCTAssertEqual(result, true)
+        verifyStroblMocksUnused()
     }
 
     func testPanelShouldEnableURL_swiftPackageManifestFileURL() throws {
@@ -160,6 +160,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         let result = presenter.panel(self, shouldEnable: url)
         
         XCTAssertEqual(result, true)
+        verifyStroblMocksUnused()
     }
 
     func testPanelShouldEnableURL_directoryFileURL() throws {
@@ -168,6 +169,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
         let result = presenter.panel(self, shouldEnable: url)
         
         XCTAssertEqual(result, true)
+        verifyStroblMocksUnused()
     }
 
 }

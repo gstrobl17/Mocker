@@ -7,15 +7,21 @@
 
 import XCTest
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class MockFileParametersRouterTests: XCTestCase {
 
-    let userDefaults = MockUserDefaults()
+    @StroblMock let userDefaults = MockUserDefaults()
     
     func testCreateModule() {
         
         let viewController = MockFileParametersRouter.createModule(userDefaults: userDefaults)
         
+        verifyStroblMocksUnused(except: [.userDefaults])
+        XCTAssertEqual(userDefaults.calledMethods, [.objectForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.mockPrefix, UserDefaultsKey.includeHeader, UserDefaultsKey.stripTrailingProtocol, UserDefaultsKey.swiftlintAware, UserDefaultsKey.includeTestableImport, UserDefaultsKey.trackPropertyActivity, UserDefaultsKey.public])
         XCTAssertTrue(viewController is MockFileParametersViewProtocol)
         if let viewController = viewController as? MockFileParametersViewProtocol {
             XCTAssertNotNil(viewController.presenter)

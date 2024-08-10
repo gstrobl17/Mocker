@@ -7,15 +7,20 @@
 
 import XCTest
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class ProjectFileSelectorInteractorTests: XCTestCase {
 
-    var presenter: MockProjectFileSelectorInteractorOutput!
+    @StroblMock var presenter: MockProjectFileSelectorInteractorOutput!
+    var interactor: ProjectFileSelectorInteractor!
 
     override func setUp() {
         super.setUp()
         
         presenter = MockProjectFileSelectorInteractorOutput()
+        interactor = ProjectFileSelectorInteractor()
+        interactor.presenter = presenter
     }
 
     // MARK: - init -
@@ -25,55 +30,45 @@ class ProjectFileSelectorInteractorTests: XCTestCase {
         let interactor = ProjectFileSelectorInteractor()
         interactor.presenter = presenter
         
-        XCTAssertEqual(presenter.calledMethods, [])
+        verifyStroblMocksUnused()
     }
 
     // MARK: - ProjectFileSelectorInteractorInputProtocol methods -
     
     func test_setURL() {
-        let interactor = ProjectFileSelectorInteractor()
-        interactor.presenter = presenter
-        presenter.reset()
         let url = URL(fileURLWithPath: "file")
         
         interactor.setURL(url)
         
-        XCTAssertEqual(presenter.calledMethods, [])
+        verifyStroblMocksUnused()
     }
 
     func test_projectFileSelected() {
         let url = URL(fileURLWithPath: "file")
-        let interactor = ProjectFileSelectorInteractor()
-        interactor.presenter = presenter
         interactor.url = url
-        presenter.reset()
         
         interactor.projectFileSelected(url)
 
+        verifyStroblMocksUnused(except: [.presenter])
         XCTAssertEqual(presenter.calledMethods, [.showSelectedFileUrlCalled])
         XCTAssertEqual(presenter.assignedParameters, [.url])
         XCTAssertEqual(presenter.url, url)
     }
 
     func test_viewHasLoaded_noUrl() {
-        let interactor = ProjectFileSelectorInteractor()
-        interactor.presenter = presenter
-        presenter.reset()
         
         interactor.viewHasLoaded()
         
-        XCTAssertEqual(presenter.calledMethods, [])
+        verifyStroblMocksUnused()
     }
     
     func test_viewHasLoaded_withUrl() {
-        let interactor = ProjectFileSelectorInteractor()
-        interactor.presenter = presenter
-        presenter.reset()
         let url = URL(fileURLWithPath: "file")
         interactor.url = url
         
         interactor.viewHasLoaded()
         
+        verifyStroblMocksUnused(except: [.presenter])
         XCTAssertEqual(presenter.calledMethods, [.showSelectedFileUrlCalled])
         XCTAssertEqual(presenter.assignedParameters, [.url])
         XCTAssertEqual(presenter.url, url)

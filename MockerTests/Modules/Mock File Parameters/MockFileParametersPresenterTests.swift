@@ -7,11 +7,13 @@
 
 import XCTest
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class MockFileParametersPresenterTests: XCTestCase {
     
-    var view: MockMockFileParametersView!
-    var interactor: MockMockFileParametersInteractorInput!
+    @StroblMock var view: MockMockFileParametersView!
+    @StroblMock var interactor: MockMockFileParametersInteractorInput!
     var router: MockFileParametersWireframeProtocol!
     var presenter: MockFileParametersPresenter!
     
@@ -31,10 +33,10 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.setProtocolName(name)
 
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.setProtocolNameProtocolNameCalled])
         XCTAssertEqual(interactor.assignedParameters, [.protocolName])
         XCTAssertEqual(interactor.protocolName, name)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_prefixUpdated() {
@@ -42,10 +44,10 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.prefixUpdated(to: prefix)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.prefixUpdatedToPrefixCalled])
         XCTAssertEqual(interactor.assignedParameters, [.prefix])
         XCTAssertEqual(interactor.prefix, prefix)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_includeHeaderFlagUpdated() {
@@ -53,10 +55,10 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.includeHeaderFlagUpdated(to: includeHeader)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.includeHeaderFlagUpdatedToFlagCalled])
         XCTAssertEqual(interactor.assignedParameters, [.flag])
         XCTAssertEqual(interactor.flag, includeHeader)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_stripTrailingProtocolFlagUpdated() {
@@ -64,10 +66,10 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.stripTrailingProtocolFlagUpdated(to: stripTrailingProtocol)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.stripTrailingProtocolFlagUpdatedToFlagCalled])
         XCTAssertEqual(interactor.assignedParameters, [.flag])
         XCTAssertEqual(interactor.flag, stripTrailingProtocol)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_swiftlintAwareFlagUpdated() {
@@ -75,10 +77,10 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.swiftlintAwareFlagUpdated(to: swiftlintAware)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.swiftlintAwareFlagUpdatedToFlagCalled])
         XCTAssertEqual(interactor.assignedParameters, [.flag])
         XCTAssertEqual(interactor.flag, swiftlintAware)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_includeTestableImportFlagUpdated() {
@@ -86,10 +88,10 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.includeTestableImportFlagUpdated(to: includeTestableImport)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.includeTestableImportFlagUpdatedToFlagCalled])
         XCTAssertEqual(interactor.assignedParameters, [.flag])
         XCTAssertEqual(interactor.flag, includeTestableImport)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_trackPropertyActivityFlagUpdated() {
@@ -97,10 +99,10 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.trackPropertyActivityFlagUpdated(to: trackPropertyActivity)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.trackPropertyActivityFlagUpdatedToFlagCalled])
         XCTAssertEqual(interactor.assignedParameters, [.flag])
         XCTAssertEqual(interactor.flag, trackPropertyActivity)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_publicFlagUpdated() {
@@ -108,19 +110,19 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.publicFlagUpdated(to: `public`)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.publicFlagUpdatedToFlagCalled])
         XCTAssertEqual(interactor.assignedParameters, [.flag])
         XCTAssertEqual(interactor.flag, `public`)
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     func test_viewHasLoaded() {
         
         presenter.viewHasLoaded()
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.viewHasLoadedCalled])
         XCTAssertEqual(interactor.assignedParameters, [])
-        XCTAssertEqual(view.calledMethods, [])
     }
 
     // MARK: - MockFileParametersInteractorOutputProtocol methods -
@@ -142,7 +144,7 @@ class MockFileParametersPresenterTests: XCTestCase {
                                 trackPropertyActivity: trackPropertyActivity,
                                 public: `public`)
 
-        XCTAssertEqual(interactor.calledMethods, [])
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
         XCTAssertEqual(view.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public])
         XCTAssertEqual(view.prefix, prefix)
@@ -159,7 +161,7 @@ class MockFileParametersPresenterTests: XCTestCase {
         
         presenter.setName(name)
         
-        XCTAssertEqual(interactor.calledMethods, [])
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.setNameNameCalled])
         XCTAssertEqual(view.assignedParameters, [.name])
         XCTAssertEqual(view.name, name)

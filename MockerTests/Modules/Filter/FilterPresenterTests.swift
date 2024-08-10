@@ -8,11 +8,13 @@
 import AppKit
 import XCTest
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class FilterPresenterTests: XCTestCase {
 
-    var view: MockFilterView!
-    var interactor: MockFilterInteractorInput!
+    @StroblMock var view: MockFilterView!
+    @StroblMock var interactor: MockFilterInteractorInput!
     var router: FilterWireframeProtocol!
     var presenter: FilterPresenter!
 
@@ -31,6 +33,7 @@ class FilterPresenterTests: XCTestCase {
         
         presenter.viewHasLoaded()
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.viewHasLoadedCalled])
         XCTAssertEqual(interactor.assignedParameters, [])
         XCTAssertEqual(view.calledMethods, [])
@@ -41,6 +44,7 @@ class FilterPresenterTests: XCTestCase {
         
         presenter.filterValueChanged(to: value)
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.filterValueChangedToValueCalled])
         XCTAssertEqual(interactor.assignedParameters, [.value])
         XCTAssertEqual(interactor.value, value)
@@ -54,6 +58,7 @@ class FilterPresenterTests: XCTestCase {
         
         presenter.setValue( value)
         
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(interactor.calledMethods, [])
         XCTAssertEqual(view.calledMethods, [.setValueValueCalled])
         XCTAssertEqual(view.assignedParameters, [.value])

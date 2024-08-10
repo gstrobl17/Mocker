@@ -8,17 +8,19 @@
 import XCTest
 import AppKit
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class GodfatherRouterTests: XCTestCase {
 
-    let userDefaults = MockUserDefaults()
-    let fileManager = MockFileManager()
-    let dataSourceFactory = MockSourceFileDataSourceCreating()
+    @StroblMock let userDefaults = MockUserDefaults()
+    @StroblMock let fileManager = MockFileManager()
+    @StroblMock let dataSourceFactory = MockSourceFileDataSourceCreating()
     let mockGeneratorFactory = MockMockGeneratorFactory()
     let openPanelFactory = MockOpenPanelFactory()
-    let filteringHandler = MockAsyncFilteringHandler()
-    let recentDocumentManager = MockRecentDocumentManaging()
-    let documentController = MockDocumentControlling()
+    @StroblMock let filteringHandler = MockAsyncFilteringHandler()
+    @StroblMock let recentDocumentManager = MockRecentDocumentManaging()
+    @StroblMock let documentController = MockDocumentControlling()
 
     func testCreateModule() {
         let viewController = ViewController()
@@ -40,6 +42,8 @@ class GodfatherRouterTests: XCTestCase {
             recentDocumentManager: recentDocumentManager,
             documentController: documentController
         )
+        
+        verifyStroblMocksUnused()
         XCTAssertNotNil(view.presenter)
         if let presenter = view.presenter {
             XCTAssertTrue(presenter is GodfatherPresenter)

@@ -8,14 +8,16 @@
 import XCTest
 import AppKit
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class GodfatherPresenterTests: XCTestCase {
     
-    var view: MockGodfatherView!
-    var interactor: MockGodfatherInteractorInput!
+    @StroblMock var view: MockGodfatherView!
+    @StroblMock var interactor: MockGodfatherInteractorInput!
     var router: GodfatherWireframeProtocol!
     var presenter: GodfatherPresenter!
-    var userDefaults: MockUserDefaults!
+    @StroblMock var userDefaults: MockUserDefaults!
 
     override func setUp() {
         super.setUp()
@@ -36,16 +38,18 @@ class GodfatherPresenterTests: XCTestCase {
         
         presenter.viewHasAppeared()
         
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.viewHasAppearedCalled])
+        XCTAssertEqual(interactor.assignedParameters, [])
     }
     
     func test_selectProject() {
         
         presenter.selectProject()
         
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.selectProjectCalled])
+        XCTAssertEqual(interactor.assignedParameters, [])
     }
     
     func test_canReloadProject_noInteractorReturnsFalse() {
@@ -54,8 +58,7 @@ class GodfatherPresenterTests: XCTestCase {
         let flag = presenter.canReloadProject()
         
         XCTAssertEqual(flag, false)
-        XCTAssertEqual(view.calledMethods, [])
-        XCTAssertEqual(interactor.calledMethods, [])
+        verifyStroblMocksUnused()
     }
 
     func test_canReloadProject_returnsFalse() {
@@ -64,8 +67,9 @@ class GodfatherPresenterTests: XCTestCase {
         let flag = presenter.canReloadProject()
         
         XCTAssertEqual(flag, false)
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.canReloadProjectCalled])
+        XCTAssertEqual(interactor.assignedParameters, [])
     }
     
     func test_canReloadProject_returnsTrue() {
@@ -74,23 +78,25 @@ class GodfatherPresenterTests: XCTestCase {
         let flag = presenter.canReloadProject()
         
         XCTAssertEqual(flag, true)
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.canReloadProjectCalled])
+        XCTAssertEqual(interactor.assignedParameters, [])
     }
     
     func test_reloadProject() {
         
         presenter.reloadProject()
         
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.reloadProjectCalled])
+        XCTAssertEqual(interactor.assignedParameters, [])
     }
     
     func test_displayChoice() {
         
         presenter.displayChoice(.mock)
         
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.displayChoiceChoiceCalled])
         XCTAssertEqual(interactor.assignedParameters, [.choice])
         XCTAssertEqual(interactor.choice, .mock)
@@ -100,7 +106,7 @@ class GodfatherPresenterTests: XCTestCase {
         
         presenter.copyMockToClipboard()
         
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.copyMockToClipboardCalled])
         XCTAssertEqual(interactor.assignedParameters, [])
     }
@@ -110,7 +116,7 @@ class GodfatherPresenterTests: XCTestCase {
         
         presenter.openRecentProjectFile(url)
         
-        XCTAssertEqual(view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.openRecentProjectFileUrlCalled])
         XCTAssertEqual(interactor.assignedParameters, [.url])
         XCTAssertEqual(interactor.url, url)
@@ -133,6 +139,7 @@ class GodfatherPresenterTests: XCTestCase {
                           mockFileParameters: mockFileParameters,
                           contentPresenter: contentPresenter)
 
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled])
         XCTAssertEqual(view.assignedParameters, [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter])
         XCTAssertTrue(view.projectFileSelector === projectFileSelector)
@@ -141,7 +148,6 @@ class GodfatherPresenterTests: XCTestCase {
         XCTAssertTrue(view.protocolSelector === protocolSelector)
         XCTAssertTrue(view.mockFileParameters === mockFileParameters)
         XCTAssertTrue(view.contentPresenter === contentPresenter)
-        XCTAssertEqual(interactor.calledMethods, [])
     }
 
     func test_reportError() {
@@ -149,10 +155,10 @@ class GodfatherPresenterTests: XCTestCase {
         
         presenter.reportError(error)
         
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.displayAlertCalled])
         XCTAssertEqual(view.assignedParameters, [.alert])
         XCTAssertNotNil(view.alert)
-        XCTAssertEqual(interactor.calledMethods, [])
     }
 
     func test_reportErrorCondition() {
@@ -161,10 +167,10 @@ class GodfatherPresenterTests: XCTestCase {
 
         presenter.reportErrorCondition(with: message, and: information)
         
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.displayAlertCalled])
         XCTAssertEqual(view.assignedParameters, [.alert])
         XCTAssertNotNil(view.alert)
-        XCTAssertEqual(interactor.calledMethods, [])
     }
     
     func test_showAsBusy() {
@@ -172,38 +178,38 @@ class GodfatherPresenterTests: XCTestCase {
         
         presenter.showAsBusy(with: message)
         
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.displayActivityIndicatorMessageCalled])
         XCTAssertEqual(view.assignedParameters, [.message])
         XCTAssertEqual(view.message, message)
-        XCTAssertEqual(interactor.calledMethods, [])
     }
     
     func test_clearBusyMessage() {
         
         presenter.clearBusyMessage()
         
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.closeActivityIndicatorCalled])
         XCTAssertEqual(view.assignedParameters, [])
-        XCTAssertEqual(interactor.calledMethods, [])
     }
     
     func test_canChooseDisplay() {
         
         presenter.canChooseDisplay(true)
         
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.enableDisplayChoiceFlagCalled])
         XCTAssertEqual(view.assignedParameters, [.flag])
         XCTAssertEqual(view.flag, true)
-        XCTAssertEqual(interactor.calledMethods, [])
     }
     
     func test_setDisplayChoice() {
         
         presenter.setDisplayChoice(.source)
         
+        verifyStroblMocksUnused(except: [.view])
         XCTAssertEqual(view.calledMethods, [.setDisplayChoiceChoiceCalled])
         XCTAssertEqual(view.assignedParameters, [.choice])
         XCTAssertEqual(view.choice, .source)
-        XCTAssertEqual(interactor.calledMethods, [])
     }
 }

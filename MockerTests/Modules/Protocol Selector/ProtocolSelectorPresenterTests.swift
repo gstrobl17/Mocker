@@ -7,10 +7,12 @@
 
 import XCTest
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class ProtocolSelectorPresenterTests: XCTestCase {
     
-    var view: MockProtocolSelectorView!
+    @StroblMock var view: MockProtocolSelectorView!
     var interactor: MockProtocolSelectorInteractorInput!
     var router: ProtocolSelectorWireframeProtocol!
     var presenter: ProtocolSelectorPresenter!
@@ -26,5 +28,6 @@ class ProtocolSelectorPresenterTests: XCTestCase {
 
     func testNothing() {
         
+        verifyStroblMocksUnused()
     }
 }

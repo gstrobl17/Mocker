@@ -9,26 +9,32 @@
 import XCTest
 @testable import Mocker
 import SwiftSyntax
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class GodfatherInteractorTests: XCTestCase {
 
-    var userDefaults: MockUserDefaults!
-    var fileManager: MockFileManager!
-    var presenter: MockGodfatherInteractorOutput!
-    var dataSourceFactory: MockSourceFileDataSourceCreating!
-    var dataSource: MockSourceFileDataSource!
+    @StroblMock var userDefaults: MockUserDefaults!
+    @StroblMock var fileManager: MockFileManager!
+    @StroblMock var presenter: MockGodfatherInteractorOutput!
+    @StroblMock var dataSourceFactory: MockSourceFileDataSourceCreating!
+    @StroblMock var dataSource: MockSourceFileDataSource!
     var mockGeneratorFactory: MockMockGeneratorFactory!
+    @StroblMock var mockGenerator: MockMockGenerator!
     var openPanelFactory: OpenPanelFactory!
     var projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type!
+    @StroblMock var projectFileSelectorView: MockProjectFileSelectorView!
     var sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type!
+    @StroblMock var sourceFileSelectorView: MockSourceFileSelectorView!
     var sourceFileFilterRouterType: FilterWireframeProtocol.Type!
     var protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type!
     var mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type!
+    @StroblMock var mockFileParametersView: MockMockFileParametersView!
     var contentPresenterRouterType: ContentPresenterWireframeProtocol.Type!
-    var filteringHandler: MockAsyncFilteringHandler!
-    var recentDocumentManager: MockRecentDocumentManaging!
-    var documentController: MockDocumentControlling!
-    var pasteboard: MockPasteboard!
+    @StroblMock var filteringHandler: MockAsyncFilteringHandler!
+    @StroblMock var recentDocumentManager: MockRecentDocumentManaging!
+    @StroblMock var documentController: MockDocumentControlling!
+    @StroblMock var pasteboard: MockPasteboard!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -39,12 +45,17 @@ class GodfatherInteractorTests: XCTestCase {
         dataSourceFactory = MockSourceFileDataSourceCreating()
         dataSource = try XCTUnwrap(dataSourceFactory.createDataSourceForFileURLReturnValue as? MockSourceFileDataSource)
         mockGeneratorFactory = MockMockGeneratorFactory()
+        mockGenerator = mockGeneratorFactory.mockGenerator
         openPanelFactory = MockOpenPanelFactory()
         projectFileSelectorRouterType = MockProjectFileSelectorRouter.self
+        projectFileSelectorView = MockProjectFileSelectorRouter.view
+        projectFileSelectorView.reset()
         sourceFileSelectorRouterType = MockSourceFileSelectorRouter.self
+        sourceFileSelectorView = MockSourceFileSelectorView()
         sourceFileFilterRouterType = MockFilterWireframe.self
         protocolSelectorRouterType = MockProtocolSelectorRouter.self
         mockFileParametersRouterType = MockMockFileParametersRouter.self
+        mockFileParametersView = MockMockFileParametersView()
         contentPresenterRouterType = MockContentPresenterRouter.self
         filteringHandler = MockAsyncFilteringHandler()
         recentDocumentManager = MockRecentDocumentManaging()
@@ -52,7 +63,10 @@ class GodfatherInteractorTests: XCTestCase {
         pasteboard = MockPasteboard()
     }
 
-    private func createInterator() -> GodfatherInteractor {
+    private func createInterator(
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) throws -> GodfatherInteractor {
         let interactor = GodfatherInteractor(
             userDefaults: userDefaults,
             fileManager: fileManager,
@@ -73,6 +87,8 @@ class GodfatherInteractorTests: XCTestCase {
         interactor.presenter = presenter
         interactor.currentSourceFileCode = "SOURCE"
         presenter.reset()
+        sourceFileSelectorView = try XCTUnwrap(interactor.sourceFileSelector as? MockSourceFileSelectorView, file: file, line: line)
+        mockFileParametersView = try XCTUnwrap(interactor.mockFileParameters as? MockMockFileParametersView, file: file, line: line)
         return interactor
     }
     
@@ -98,193 +114,137 @@ class GodfatherInteractorTests: XCTestCase {
         )
         interactor.presenter = presenter
 
+        verifyStroblMocksUnused(except: [.presenter])
         XCTAssertEqual(presenter.calledMethods, [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled, .canChooseDisplayFlagCalled])
         XCTAssertEqual(presenter.assignedParameters, [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter, .flag])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
     // MARK: - GodfatherInteractorInputProtocol methods -
 
-    func test_selectProject() {
-        let interactor = createInterator()
+    func test_selectProject() throws {
+        let interactor = try createInterator()
         
         interactor.selectProject()
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [.selectProjectCalled])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.assignedParameters, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        verifyStroblMocksUnused(except: [.projectFileSelectorView])
+        XCTAssertEqual(projectFileSelectorView.calledMethods, [.selectProjectCalled])
+        XCTAssertEqual(projectFileSelectorView.assignedParameters, [])
     }
 
-    func test_canReloadProject_returnsFalse() {
+    func test_canReloadProject_returnsFalse() throws {
         MockProjectFileSelectorRouter.view.canReloadProjectReturnValue = false
-        let interactor = createInterator()
+        let interactor = try createInterator()
         
         let flag = interactor.canReloadProject()
         
         XCTAssertEqual(flag, false)
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [.canReloadProjectCalled])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.assignedParameters, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        verifyStroblMocksUnused(except: [.projectFileSelectorView])
+        XCTAssertEqual(projectFileSelectorView.calledMethods, [.canReloadProjectCalled])
+        XCTAssertEqual(projectFileSelectorView.assignedParameters, [])
     }
 
-    func test_canReloadProject_returnsTrue() {
+    func test_canReloadProject_returnsTrue() throws {
         MockProjectFileSelectorRouter.view.canReloadProjectReturnValue = true
-        let interactor = createInterator()
+        let interactor = try createInterator()
         
         let flag = interactor.canReloadProject()
         
         XCTAssertEqual(flag, true)
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
+        verifyStroblMocksUnused(except: [.projectFileSelectorView])
         XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [.canReloadProjectCalled])
         XCTAssertEqual(MockProjectFileSelectorRouter.view.assignedParameters, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
     }
 
-    func test_reloadProject() {
-        let interactor = createInterator()
+    func test_reloadProject() throws {
+        let interactor = try createInterator()
         
         interactor.reloadProject()
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [.reloadProjectCalled])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.assignedParameters, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        verifyStroblMocksUnused(except: [.projectFileSelectorView])
+        XCTAssertEqual(projectFileSelectorView.calledMethods, [.reloadProjectCalled])
+        XCTAssertEqual(projectFileSelectorView.assignedParameters, [])
     }
 
-    func test_viewHasAppeared_noUserDefaultValue() {
-        let interactor = createInterator()
+    func test_viewHasAppeared_noUserDefaultValue() throws {
+        let interactor = try createInterator()
 
         interactor.viewHasAppeared()
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        verifyStroblMocksUnused(except: [.userDefaults])
+        XCTAssertEqual(userDefaults.calledMethods, [.stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.projectFilePath])
     }
 
-    func test_viewHasAppeared_userDefaultValueExists_fileDoesNotExist() {
+    func test_viewHasAppeared_userDefaultValueExists_fileDoesNotExist() throws {
         userDefaults.store = [UserDefaultsKey.projectFilePath: "file"]
         fileManager.fileExistsAtPathPathReturnValue = false
-        let interactor = createInterator()
+        let interactor = try createInterator()
         
         interactor.viewHasAppeared()
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.fileManager, .userDefaults])
         XCTAssertEqual(fileManager.calledMethods, [.fileExistsAtPathPathCalled])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        XCTAssertEqual(fileManager.assignedParameters, [.path])
+        XCTAssertEqual(fileManager.path, "file")
+        XCTAssertEqual(userDefaults.calledMethods, [.stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.projectFilePath])
     }
 
-    func test_viewHasAppeared_userDefaultValueExists_fileDoesExist() {
+    func test_viewHasAppeared_userDefaultValueExists_fileDoesExist() throws {
         userDefaults.store = [UserDefaultsKey.projectFilePath: "file"]
         fileManager.fileExistsAtPathPathReturnValue = true
-        let interactor = createInterator()
+        let interactor = try createInterator()
         
         // First time
         interactor.viewHasAppeared()
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [.showSelectedFileUrlCalled])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.assignedParameters, [.url])
+        verifyStroblMocksUnused(except: [.projectFileSelectorView, .fileManager, .userDefaults])
+        XCTAssertEqual(projectFileSelectorView.calledMethods, [.showSelectedFileUrlCalled])
+        XCTAssertEqual(projectFileSelectorView.assignedParameters, [.url])
         XCTAssertEqual(fileManager.calledMethods, [.fileExistsAtPathPathCalled])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        XCTAssertEqual(fileManager.assignedParameters, [.path])
+        XCTAssertEqual(fileManager.path, "file")
+        XCTAssertEqual(userDefaults.calledMethods, [.stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.projectFilePath])
 
         // First time
-        MockProjectFileSelectorRouter.view.reset()
+        projectFileSelectorView.reset()
         interactor.viewHasAppeared()
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
+        verifyStroblMocksUnused(except: [.fileManager, .userDefaults])
         XCTAssertEqual(fileManager.calledMethods, [.fileExistsAtPathPathCalled])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
-}
+        XCTAssertEqual(fileManager.assignedParameters, [.path])
+        XCTAssertEqual(fileManager.path, "file")
+        XCTAssertEqual(userDefaults.calledMethods, [.stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.projectFilePath])
+    }
     
-    func test_displayChoice_mock() {
-        let interactor = createInterator()
+    func test_displayChoice_mock() throws {
+        let interactor = try createInterator()
 
         interactor.displayChoice(.mock)
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        verifyStroblMocksUnused()
     }
     
-    func test_displayChoice_source() {
-        let interactor = createInterator()
+    func test_displayChoice_source() throws {
+        let interactor = try createInterator()
 
         interactor.displayChoice(.source)
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        verifyStroblMocksUnused()
     }
     
-    func test_copyMockToClipboard() {
-        let interactor = createInterator()
+    func test_copyMockToClipboard() throws {
+        let interactor = try createInterator()
 
         interactor.copyMockToClipboard()
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
+        verifyStroblMocksUnused(except: [.pasteboard])
         XCTAssertEqual(pasteboard.calledMethods, [.declareTypesNewTypesOwnerNewOwnerCalled, .setStringStringForTypeDataTypeCalled])
         XCTAssertEqual(pasteboard.assignedParameters, [.newTypes, .newOwner, .string, .dataType])
         XCTAssertEqual(pasteboard.newTypes, [.string])
@@ -295,10 +255,11 @@ class GodfatherInteractorTests: XCTestCase {
 
     func test_openRecentProjectFile() throws {
         let url = try XCTUnwrap(URL(string: "a.txt"))
-        let interactor = createInterator()
+        let interactor = try createInterator()
 
         interactor.openRecentProjectFile(url)
         
+        verifyStroblMocksUnused(except: [.presenter, .dataSourceFactory, .projectFileSelectorView, .recentDocumentManager, .documentController, .mockFileParametersView, .filteringHandler, .userDefaults])
         XCTAssertEqual(presenter.calledMethods, [.showAsBusyWithMessageCalled, .clearBusyMessageCalled])
         XCTAssertEqual(presenter.assignedParameters, [.message])
         XCTAssertEqual(presenter.message, "Loading a.txt")
@@ -306,91 +267,110 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(dataSourceFactory.assignedParameters, [.fileURL])
         XCTAssertEqual(dataSourceFactory.fileURL, url)
         XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.calledMethods, [.renderURLOfSelectedFileUrlCalled])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.assignedParameters, [.url])
-        XCTAssertEqual(MockProjectFileSelectorRouter.view.url, url)
-        XCTAssertEqual(fileManager.calledMethods, [])
+        XCTAssertEqual(projectFileSelectorView.calledMethods, [.renderURLOfSelectedFileUrlCalled])
+        XCTAssertEqual(projectFileSelectorView.assignedParameters, [.url])
+        XCTAssertEqual(projectFileSelectorView.url, url)
         XCTAssertEqual(recentDocumentManager.calledMethods, [.addUrlCalled])
         XCTAssertEqual(recentDocumentManager.assignedParameters, [.url])
         XCTAssertEqual(recentDocumentManager.url, url)
         XCTAssertEqual(documentController.calledMethods, [.noteNewRecentDocumentURLUrlCalled])
         XCTAssertEqual(documentController.assignedParameters, [.url])
         XCTAssertEqual(documentController.url, url)
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        XCTAssertEqual(mockFileParametersView.calledMethods, [.setupForDataSourceCalled, .clearProtocolCalled])
+        XCTAssertEqual(mockFileParametersView.assignedParameters, [.dataSource])
+        XCTAssertTrue(mockFileParametersView.dataSource === dataSourceFactory.createDataSourceForFileURLReturnValue)
+        XCTAssertEqual(filteringHandler.calledMethods, [.performFilteringOnDataSourceWithFilterCompletionHandlerCalled])
+        XCTAssertEqual(filteringHandler.assignedParameters, [.dataSource, .filter, .completionHandler])
+        XCTAssertEqual(userDefaults.calledMethods, [.setValueForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName, .value])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.projectFilePath, UserDefaultsKey.projectFilePath, UserDefaultsKey.sourceFileFilterValue])
+        XCTAssertEqual(userDefaults.values.count, 2)
+        if userDefaults.values.count == 2 {
+            XCTAssertTrue(userDefaults.values[0] is NSNull)
+            
+            XCTAssertTrue(userDefaults.values[1] is String)
+            if let value = userDefaults.values[1] as? String {
+                XCTAssertEqual(value, "a.txt")
+            }
+        }
     }
 
     // MARK: - ProjectFileSelectorInterfaceDelegate methods -
     
-    func test_projectFileSelectorFileSelected_projectFileCreationFails() {
+    func test_projectFileSelectorFileSelected_projectFileCreationFails() throws {
         let projectFileSelector = MockProjectFileSelectorView()
         let url = URL(fileURLWithPath: "file")
         dataSourceFactory.createDataSourceForFileURLReturnValue = nil
-        let interactor = createInterator()
+        let interactor = try createInterator()
         
         interactor.projectFileSelector(projectFileSelector, fileSelected: url)
         
+        verifyStroblMocksUnused(except: [.presenter, .dataSourceFactory, .userDefaults])
         XCTAssertEqual(presenter.calledMethods, [.reportErrorConditionWithMessageTextAndInformativeTextCalled, .showAsBusyWithMessageCalled, .clearBusyMessageCalled])
         XCTAssertEqual(presenter.assignedParameters, [.messageText, .informativeText, .message])
         XCTAssertEqual(dataSourceFactory.calledMethods, [.createDataSourceForFileURLCalled])
         XCTAssertEqual(dataSourceFactory.assignedParameters, [.fileURL])
         XCTAssertEqual(dataSourceFactory.fileURL, url)
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertTrue(interactor.sourceFileSelector is MockSourceFileSelectorView)
-        if let sourceFileSelector = interactor.sourceFileSelector as? MockSourceFileSelectorView {
-            XCTAssertEqual(sourceFileSelector.calledMethods, [])
-        }
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        XCTAssertEqual(userDefaults.calledMethods, [.setValueForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName, .value])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.projectFilePath])
+        XCTAssertEqual(userDefaults.values.count, 1)
+        XCTAssertTrue(userDefaults.values is [NSNull])
     }
     
-    func test_projectFileSelectorFileSelected_projectFileCreationSucceeds() {
+    func test_projectFileSelectorFileSelected_projectFileCreationSucceeds() throws {
         let projectFileSelector = MockProjectFileSelectorView()
         let url = URL(fileURLWithPath: "file")
-        let interactor = createInterator()
+        let interactor = try createInterator()
         
         interactor.projectFileSelector(projectFileSelector, fileSelected: url)
 
+        verifyStroblMocksUnused(except: [.presenter, .dataSourceFactory, .recentDocumentManager, .documentController, .mockFileParametersView, .filteringHandler, .userDefaults])
         XCTAssertEqual(presenter.calledMethods, [.showAsBusyWithMessageCalled, .clearBusyMessageCalled])
         XCTAssertEqual(presenter.assignedParameters, [.message])
         XCTAssertEqual(dataSourceFactory.calledMethods, [.createDataSourceForFileURLCalled])
         XCTAssertEqual(dataSourceFactory.assignedParameters, [.fileURL])
         XCTAssertEqual(dataSourceFactory.fileURL, url)
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertTrue(interactor.sourceFileSelector is MockSourceFileSelectorView)
-        if let sourceFileSelector = interactor.sourceFileSelector as? MockSourceFileSelectorView {
-            XCTAssertEqual(sourceFileSelector.calledMethods, [])
-        }
-        XCTAssertEqual(fileManager.calledMethods, [])
         XCTAssertEqual(recentDocumentManager.calledMethods, [.addUrlCalled])
         XCTAssertEqual(recentDocumentManager.assignedParameters, [.url])
         XCTAssertEqual(recentDocumentManager.url, url)
         XCTAssertEqual(documentController.calledMethods, [.noteNewRecentDocumentURLUrlCalled])
         XCTAssertEqual(documentController.assignedParameters, [.url])
         XCTAssertEqual(documentController.url, url)
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        XCTAssertEqual(mockFileParametersView.calledMethods, [.setupForDataSourceCalled, .clearProtocolCalled])
+        XCTAssertEqual(mockFileParametersView.assignedParameters, [.dataSource])
+        XCTAssertTrue(mockFileParametersView.dataSource === dataSourceFactory.createDataSourceForFileURLReturnValue)
+        XCTAssertEqual(filteringHandler.calledMethods, [.performFilteringOnDataSourceWithFilterCompletionHandlerCalled])
+        XCTAssertEqual(filteringHandler.assignedParameters, [.dataSource, .filter, .completionHandler])
+        XCTAssertEqual(userDefaults.calledMethods, [.setValueForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName, .value])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.projectFilePath, UserDefaultsKey.projectFilePath, UserDefaultsKey.sourceFileFilterValue])
+        XCTAssertEqual(userDefaults.values.count, 2)
+        if userDefaults.values.count == 2 {
+            XCTAssertTrue(userDefaults.values[0] is NSNull)
+            
+            XCTAssertTrue(userDefaults.values[1] is String)
+            if let value = userDefaults.values[1] as? String {
+                XCTAssertEqual(value, "/file")
+            }
+        }
     }
 
     // MARK: - SourceFileSelectorInterfaceDelegate methods -
     
-    func test_sourceFileSelectorFileSelected_projectFileCreationSucceeds() {
-        let sourceFileSelector = MockSourceFileSelectorView()
+    func test_sourceFileSelectorFileSelected_projectFileCreationSucceeds() throws {
         let treeNode = TreeNode(fileURL: URL(fileURLWithPath: #file), target: nil)
-        let interactor = createInterator()
+        let interactor = try createInterator()
             
-        interactor.sourceFileSelector(sourceFileSelector, fileSelected: treeNode)
+        interactor.sourceFileSelector(sourceFileSelectorView, fileSelected: treeNode)
     
+        verifyStroblMocksUnused(except: [.presenter, .mockFileParametersView])
         XCTAssertEqual(presenter.calledMethods, [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
         XCTAssertEqual(presenter.assignedParameters, [.flag, .choice])
         XCTAssertEqual(presenter.flag, false)
         XCTAssertEqual(presenter.choice, .mock)
-        XCTAssertEqual(dataSourceFactory.calledMethods, [])
-        XCTAssertEqual(dataSource.calledMethods, [])
-        XCTAssertEqual(fileManager.calledMethods, [])
-        XCTAssertEqual(recentDocumentManager.calledMethods, [])
-        XCTAssertEqual(documentController.calledMethods, [])
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        XCTAssertEqual(mockFileParametersView.calledMethods, [.clearProtocolCalled])
+        XCTAssertEqual(mockFileParametersView.assignedParameters, [])
     }
 
     // MARK: - SourceFileSelectorInterfaceDelegate methods -
@@ -399,23 +379,19 @@ class GodfatherInteractorTests: XCTestCase {
         let protocolSelector = MockProtocolSelectorView()
         let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
         let protocolDeclaration = ProtocolDeclSyntax(name: identifier, memberBlock: MemberBlockSyntax(members: MemberBlockItemListSyntax([])))
-        let interactor = createInterator()
+        let interactor = try createInterator()
 
         interactor.protocolSelector(protocolSelector, protocolSelected: protocolDeclaration)
         
-        XCTAssertEqual(presenter.calledMethods, [])
-        XCTAssertTrue(interactor.mockFileParameters is MockMockFileParametersView)
-        if let mockFileParameters = interactor.mockFileParameters as? MockMockFileParametersView {
-            XCTAssertEqual(mockFileParameters.calledMethods, [.setupForProtocolDeclarationCalled])
-            XCTAssertEqual(mockFileParameters.assignedParameters, [.protocolDeclaration])
-            XCTAssertEqual(mockFileParameters.protocolDeclaration, protocolDeclaration)
-        }
-        XCTAssertEqual(pasteboard.calledMethods, [])
+        verifyStroblMocksUnused(except: [.mockFileParametersView])
+        XCTAssertEqual(mockFileParametersView.calledMethods, [.setupForProtocolDeclarationCalled])
+        XCTAssertEqual(mockFileParametersView.assignedParameters, [.protocolDeclaration])
+        XCTAssertEqual(mockFileParametersView.protocolDeclaration, protocolDeclaration)
 }
 
     // MARK: - MockFileParametersInterfaceDelegate methods -
     
-    func test_mockFileParametersMethod_noCurrentProject() {
+    func test_mockFileParametersMethod_noCurrentProject() throws {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = "Name"
         let includeHeader = true
@@ -424,19 +400,16 @@ class GodfatherInteractorTests: XCTestCase {
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
-        let interactor = createInterator()
+        let interactor = try createInterator()
         interactor.currentDataSource = nil
         
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
-        XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)
-        if let mockGeneratorFactory = interactor.mockGeneratorFactory as? MockMockGeneratorFactory {
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.calledMethods, [])
-        }
+        verifyStroblMocksUnused()
     }
     
-    func test_mockFileParametersMethod_noCurrentSourceFile() {
+    func test_mockFileParametersMethod_noCurrentSourceFile() throws {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = "Name"
         let includeHeader = true
@@ -445,20 +418,17 @@ class GodfatherInteractorTests: XCTestCase {
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
-        let interactor = createInterator()
+        let interactor = try createInterator()
         interactor.currentDataSource = MockSourceFileDataSource()
         interactor.currentSourceFile = nil
         
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
-        XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)
-        if let mockGeneratorFactory = interactor.mockGeneratorFactory as? MockMockGeneratorFactory {
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.calledMethods, [])
-        }
+        verifyStroblMocksUnused()
     }
     
-    func test_mockFileParametersMethod_noCurrentProtocolDeclaration() {
+    func test_mockFileParametersMethod_noCurrentProtocolDeclaration() throws {
         let mockFileParameters = MockMockFileParametersView()
         let mockName = "Name"
         let includeHeader = true
@@ -467,7 +437,7 @@ class GodfatherInteractorTests: XCTestCase {
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
-        let interactor = createInterator()
+        let interactor = try createInterator()
         interactor.currentDataSource = MockSourceFileDataSource()
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
         interactor.currentProtocolDeclaration = nil
@@ -475,10 +445,7 @@ class GodfatherInteractorTests: XCTestCase {
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
-        XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)
-        if let mockGeneratorFactory = interactor.mockGeneratorFactory as? MockMockGeneratorFactory {
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.calledMethods, [])
-        }
+        verifyStroblMocksUnused()
     }
     
     func test_mockFileParametersMethod_mockNameIsEmpty() throws {
@@ -490,7 +457,7 @@ class GodfatherInteractorTests: XCTestCase {
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
-        let interactor = createInterator()
+        let interactor = try createInterator()
         interactor.currentDataSource = MockSourceFileDataSource()
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
         let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
@@ -500,10 +467,11 @@ class GodfatherInteractorTests: XCTestCase {
         
         XCTAssertEqual(interactor.mockName, "")
         XCTAssertEqual(interactor.mockCode, "")
-        XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)
-        if let mockGeneratorFactory = interactor.mockGeneratorFactory as? MockMockGeneratorFactory {
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.calledMethods, [])
-        }
+        verifyStroblMocksUnused(except: [.presenter])
+        XCTAssertEqual(presenter.calledMethods, [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.flag, .choice])
+        XCTAssertEqual(presenter.flag, false)
+        XCTAssertEqual(presenter.choice, .mock)
     }
 
     func test_mockFileParametersMethod_mockNameIsValid() throws {
@@ -515,7 +483,7 @@ class GodfatherInteractorTests: XCTestCase {
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
-        let interactor = createInterator()
+        let interactor = try createInterator()
         interactor.currentDataSource = MockSourceFileDataSource()
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
         let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
@@ -524,33 +492,41 @@ class GodfatherInteractorTests: XCTestCase {
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertEqual(interactor.mockName, mockName)
-        XCTAssertTrue(interactor.mockGeneratorFactory is MockMockGeneratorFactory)
-        if let mockGeneratorFactory = interactor.mockGeneratorFactory as? MockMockGeneratorFactory {
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.calledMethods, [.generateMockCodeForParametersCalled])
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.assignedParameters, [.parameters])
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.parameters?.mockName, mockName)
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.parameters?.includeTestableImport, includeTestableImport)
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.parameters?.testableTargetName, testableTargetName)
-            XCTAssertEqual(mockGeneratorFactory.mockGenerator.parameters?.trackPropertyActivity, trackPropertyActivity)
-        }
+        verifyStroblMocksUnused(except: [.presenter, .mockGenerator])
+        XCTAssertEqual(presenter.calledMethods, [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
+        XCTAssertEqual(presenter.assignedParameters, [.flag, .choice])
+        XCTAssertEqual(presenter.flag, false)
+        XCTAssertEqual(presenter.choice, .mock)
+        XCTAssertEqual(mockGenerator.calledMethods, [.generateMockCodeForParametersCalled])
+        XCTAssertEqual(mockGenerator.assignedParameters, [.parameters])
+        XCTAssertEqual(mockGenerator.parameters?.mockName, mockName)
+        XCTAssertEqual(mockGenerator.parameters?.includeTestableImport, includeTestableImport)
+        XCTAssertEqual(mockGenerator.parameters?.testableTargetName, testableTargetName)
+        XCTAssertEqual(mockGenerator.parameters?.trackPropertyActivity, trackPropertyActivity)
     }
 
     // MARK: - FilterInterfaceDelegate methods -
     
-    func test_filterNewValue() {
+    func test_filterNewValue() throws {
         let filterInterface = MockFilterInterface()
         let newValue = "ABCD"
         userDefaults.sourceFileFilterValue = newValue
-        let interactor = createInterator()
+        let interactor = try createInterator()
         interactor.currentDataSource = MockSourceFileDataSource()
 
         interactor.filter(filterInterface, newValue: newValue)
         
-        XCTAssertTrue(interactor.filteringHandler is MockAsyncFilteringHandler)
-        if let filteringHandler = interactor.filteringHandler as? MockAsyncFilteringHandler {
-            XCTAssertEqual(filteringHandler.calledMethods, [.performFilteringOnDataSourceWithFilterCompletionHandlerCalled])
-            XCTAssertEqual(filteringHandler.assignedParameters, [.dataSource, .filter, .completionHandler])
-            XCTAssertEqual(filteringHandler.filter, newValue)
+        verifyStroblMocksUnused(except: [.filteringHandler, .userDefaults])
+        XCTAssertEqual(filteringHandler.calledMethods, [.performFilteringOnDataSourceWithFilterCompletionHandlerCalled])
+        XCTAssertEqual(filteringHandler.assignedParameters, [.dataSource, .filter, .completionHandler])
+        XCTAssertEqual(filteringHandler.filter, newValue)
+        XCTAssertEqual(userDefaults.calledMethods, [.setValueForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName, .value])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.sourceFileFilterValue, UserDefaultsKey.sourceFileFilterValue])
+        XCTAssertEqual(userDefaults.values.count, 1)
+        XCTAssertTrue(userDefaults.values is [String])
+        if let values = userDefaults.values as? [String] {
+            XCTAssertEqual(values, [newValue])
         }
     }
 }

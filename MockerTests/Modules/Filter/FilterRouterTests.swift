@@ -8,10 +8,12 @@
 import AppKit
 import XCTest
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class FilterRouterTests: XCTestCase {
 
-    var userDefaults: MockUserDefaults!
+    @StroblMock var userDefaults: MockUserDefaults!
     
     override func setUp() {
         super.setUp()
@@ -23,6 +25,10 @@ class FilterRouterTests: XCTestCase {
 
         let module = FilterRouter.createModule(userDefaults: userDefaults)
 
+        verifyStroblMocksUnused(except: [.userDefaults])
+        XCTAssertEqual(userDefaults.calledMethods, [.stringForKeyDefaultNameCalled])
+        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
+        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.sourceFileFilterValue])
         XCTAssertTrue(module.view is FilterViewProtocol)
         if let viewController = module.view as? FilterViewProtocol {
             XCTAssertNotNil(viewController.presenter)

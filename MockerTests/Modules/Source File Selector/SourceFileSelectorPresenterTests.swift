@@ -7,11 +7,13 @@
 
 import XCTest
 @testable import Mocker
+import MacrosForStroblMocks
 
+@UsesStroblMocks
 class SourceFileSelectorPresenterTests: XCTestCase {
     
-    var view: MockSourceFileSelectorView!
-    var interactor: MockSourceFileSelectorInteractorInput!
+    @StroblMock var view: MockSourceFileSelectorView!
+    @StroblMock var interactor: MockSourceFileSelectorInteractorInput!
     var router: SourceFileSelectorWireframeProtocol!
     var presenter: SourceFileSelectorPresenter!
 
@@ -30,6 +32,7 @@ class SourceFileSelectorPresenterTests: XCTestCase {
         
         presenter.viewHasLoaded()
         
+        verifyStroblMocksUnused(except: [.interactor])
         XCTAssertEqual(interactor.calledMethods, [.viewHasLoadedCalled])
     }
 
