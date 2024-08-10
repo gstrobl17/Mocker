@@ -9,7 +9,7 @@ import AppKit
 
 class FilterViewController: NSViewController {
 
-	var presenter: FilterPresenterProtocol?
+	var presenter: (any FilterPresenterProtocol)?
 
     @IBOutlet private weak var textField: NSSearchField!
     

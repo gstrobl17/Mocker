@@ -9,11 +9,11 @@ import AppKit
 
 class MockFileParametersPresenter {
 
-    weak private var view: MockFileParametersViewProtocol?
-    var interactor: MockFileParametersInteractorInputProtocol?
-    let router: MockFileParametersWireframeProtocol
+    weak private var view: (any MockFileParametersViewProtocol)?
+    var interactor: (any MockFileParametersInteractorInputProtocol)?
+    let router: any MockFileParametersWireframeProtocol
 
-    init(interface: MockFileParametersViewProtocol, interactor: MockFileParametersInteractorInputProtocol?, router: MockFileParametersWireframeProtocol) {
+    init(interface: any MockFileParametersViewProtocol, interactor: (any MockFileParametersInteractorInputProtocol)?, router: any MockFileParametersWireframeProtocol) {
         self.view = interface
         self.interactor = interactor
         self.router = router

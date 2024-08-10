@@ -10,16 +10,16 @@ import SwiftSyntax
 import XcodeEditor
 
 protocol MockFileParametersInterfaceProtocol: AnyObject {
-    var delegate: MockFileParametersInterfaceDelegate? { get set }
+    var delegate: (any MockFileParametersInterfaceDelegate)? { get set }
 
     func setup(for protocolDeclaration: ProtocolDeclSyntax)
-    func setup(for dataSource: SourceFileDataSource)
+    func setup(for dataSource: any SourceFileDataSource)
     func setup(for target: String)
     func clearProtocol()
 }
 
 protocol MockFileParametersInterfaceDelegate: AnyObject {
-    func mockFileParameters(_ view: (NSViewController & MockFileParametersInterfaceProtocol),   //swiftlint:disable:this function_parameter_count
+    func mockFileParameters(_ view: (any NSViewController & MockFileParametersInterfaceProtocol),   //swiftlint:disable:this function_parameter_count
                             mockName: String,
                             includeHeader: Bool,
                             includeTestableImport: Bool,
@@ -31,15 +31,15 @@ protocol MockFileParametersInterfaceDelegate: AnyObject {
 
 // MARK: Wireframe -
 protocol MockFileParametersWireframeProtocol: AnyObject {
-    var viewController: (NSViewController & MockFileParametersInterfaceProtocol)? { get }
+    var viewController: (any NSViewController & MockFileParametersInterfaceProtocol)? { get }
     
-    static func createModule(userDefaults: KeyValueStoring) -> (NSViewController & MockFileParametersInterfaceProtocol)
+    static func createModule(userDefaults: any KeyValueStoring) -> (any NSViewController & MockFileParametersInterfaceProtocol)
 }
 
 // MARK: Presenter -
 protocol MockFileParametersPresenterProtocol: AnyObject {
 
-    var interactor: MockFileParametersInteractorInputProtocol? { get set }
+    var interactor: (any MockFileParametersInteractorInputProtocol)? { get set }
     
     func setProtocolName(_ protocolName: String)
     func prefixUpdated(to prefix: String)
@@ -76,7 +76,7 @@ protocol MockFileParametersInteractorOutputProtocol: AnyObject {    //swiftlint:
 
 protocol MockFileParametersInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
 
-    var presenter: MockFileParametersInteractorOutputProtocol? { get set }
+    var presenter: (any MockFileParametersInteractorOutputProtocol)? { get set }
 
     func setProtocolName(_ protocolName: String)
     func prefixUpdated(to prefix: String)
@@ -93,7 +93,7 @@ protocol MockFileParametersInteractorInputProtocol: AnyObject { //swiftlint:disa
 // MARK: View -
 protocol MockFileParametersViewProtocol: AnyObject {
 
-    var presenter: MockFileParametersPresenterProtocol? { get set }
+    var presenter: (any MockFileParametersPresenterProtocol)? { get set }
 
     //swiftlint:disable:next function_parameter_count
     func setParameters(prefix: String,

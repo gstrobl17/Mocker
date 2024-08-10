@@ -9,9 +9,9 @@ import AppKit
 
 class ContentPresenterRouter: ContentPresenterWireframeProtocol {
     
-    weak var viewController: (NSViewController & ContentPresenterInterfaceProtocol)?
+    weak var viewController: (any NSViewController & ContentPresenterInterfaceProtocol)?
 
-    static func createModule() -> (NSViewController & ContentPresenterInterfaceProtocol) {
+    static func createModule() -> any (NSViewController & ContentPresenterInterfaceProtocol) {
         
         let storyboard = NSStoryboard(name: .main, bundle: nil)
         // swiftlint:disable force_cast

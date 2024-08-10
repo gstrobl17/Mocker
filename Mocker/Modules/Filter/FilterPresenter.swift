@@ -9,11 +9,11 @@ import AppKit
 
 class FilterPresenter {
 
-    weak internal var view: FilterViewProtocol?
-    var interactor: FilterInteractorInputProtocol?
-    let router: FilterWireframeProtocol
+    weak internal var view: (any FilterViewProtocol)?
+    var interactor: (any FilterInteractorInputProtocol)?
+    let router: any FilterWireframeProtocol
 
-    init(interface: FilterViewProtocol, interactor: FilterInteractorInputProtocol?, router: FilterWireframeProtocol) {
+    init(interface: any FilterViewProtocol, interactor: (any FilterInteractorInputProtocol)?, router: any FilterWireframeProtocol) {
         self.view = interface
         self.interactor = interactor
         self.router = router

@@ -8,7 +8,7 @@
 import AppKit
 
 class ProtocolSelectorInteractor {
-    weak var presenter: ProtocolSelectorInteractorOutputProtocol?
+    weak var presenter: (any ProtocolSelectorInteractorOutputProtocol)?
 }
 
 extension ProtocolSelectorInteractor: ProtocolSelectorInteractorInputProtocol {

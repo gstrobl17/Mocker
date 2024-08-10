@@ -14,8 +14,8 @@ class ProjectFileSelectorViewController: NSViewController, ProjectFileSelectorIn
     @IBOutlet weak private var selectButton: NSButton!
     @IBOutlet weak private var reloadButton: NSButton!
     
-    var presenter: ProjectFileSelectorPresenterProtocol?
-    weak var delegate: ProjectFileSelectorInterfaceDelegate?
+    var presenter: (any ProjectFileSelectorPresenterProtocol)?
+    weak var delegate: (any ProjectFileSelectorInterfaceDelegate)?
 
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,7 @@ extension ProjectFileSelectorViewController: ProjectFileSelectorViewProtocol {
         presenter?.setURL(url)
     }
     
-    func openModalSheet(with openPanel: OpenPanel, completionHandler handler: @escaping (NSApplication.ModalResponse) -> Swift.Void) {
+    func openModalSheet(with openPanel: any OpenPanel, completionHandler handler: @escaping (NSApplication.ModalResponse) -> Swift.Void) {
         guard let window = view.window else { return }
         openPanel.beginSheetModal(for: window) { response in
             // Let the openPanel close so that the handler can open another sheet.

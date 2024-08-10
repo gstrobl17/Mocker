@@ -9,9 +9,9 @@ import AppKit
 
 class ProjectFileSelectorRouter: ProjectFileSelectorWireframeProtocol {
 
-    weak var viewController: (NSViewController & ProjectFileSelectorInterfaceProtocol)?
+    weak var viewController: (any NSViewController & ProjectFileSelectorInterfaceProtocol)?
 
-    static func createModule(openPanelFactory: OpenPanelFactory) -> (NSViewController & ProjectFileSelectorInterfaceProtocol) {
+    static func createModule(openPanelFactory: any OpenPanelFactory) -> (any NSViewController & ProjectFileSelectorInterfaceProtocol) {
         
         let storyboard = NSStoryboard(name: .main, bundle: nil)
         // swiftlint:disable force_cast

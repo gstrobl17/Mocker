@@ -13,7 +13,7 @@ protocol Project: AnyObject {
     func targets() -> [XCTarget]!
     func objects() -> NSMutableDictionary!
 
-    func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult
+    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> ProjectTraversalResult
     func file(withKey key: String!) -> XCSourceFile!
     func filePath() -> String!
     func groupWithPath(fromRoot: String!) -> XCGroup!

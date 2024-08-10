@@ -11,8 +11,8 @@ import SwiftSyntax
 class ASTMockGenerator: MockGenerating {
 
     let swiftlintAware: Bool
-    let dateFactory: DateCreating
-    let fullNameProvider: FullNameProviding
+    let dateFactory: any DateCreating
+    let fullNameProvider: any FullNameProviding
     internal var code = ""
     internal var contentGenerated = false
     internal let indentation = "    "
@@ -44,8 +44,8 @@ class ASTMockGenerator: MockGenerating {
 
     init(
         swiftlintAware: Bool,
-        dateFactory: DateCreating = DateFactory(),
-        fullNameProvider: FullNameProviding = FullNameProvider()
+        dateFactory: any DateCreating = DateFactory(),
+        fullNameProvider: any FullNameProviding = FullNameProvider()
     ) {
         self.swiftlintAware = swiftlintAware
         self.dateFactory = dateFactory

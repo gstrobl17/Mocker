@@ -8,7 +8,7 @@
 import AppKit
 
 class SourceFileSelectorInteractor {
-    weak var presenter: SourceFileSelectorInteractorOutputProtocol?
+    weak var presenter: (any SourceFileSelectorInteractorOutputProtocol)?
 }
 
 extension SourceFileSelectorInteractor: SourceFileSelectorInteractorInputProtocol {

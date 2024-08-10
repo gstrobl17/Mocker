@@ -9,13 +9,13 @@ import AppKit
 
 // MARK: Interface -
 protocol FilterInterfaceProtocol: AnyObject {
-    var delegate: FilterInterfaceDelegate? { get set }
+    var delegate: (any FilterInterfaceDelegate)? { get set }
 
     func clear()
 }
 
 protocol FilterInterfaceDelegate: AnyObject {
-    func filter(_ filterInterface: FilterInterfaceProtocol, newValue: String)
+    func filter(_ filterInterface: any FilterInterfaceProtocol, newValue: String)
 }
 
 // MARK: Wireframe -
@@ -23,7 +23,7 @@ protocol FilterWireframeProtocol: AnyObject {
 
     var viewController: NSViewController? { get set }
 
-    static func createModule(userDefaults: KeyValueStoring) -> (view: NSViewController, interface: FilterInterfaceProtocol)
+    static func createModule(userDefaults: any KeyValueStoring) -> (view: NSViewController, interface: any FilterInterfaceProtocol)
 
 }
 
@@ -36,7 +36,7 @@ protocol FilterInteractorOutputProtocol: AnyObject {
 
 protocol FilterInteractorInputProtocol: AnyObject {
 
-    var presenter: FilterInteractorOutputProtocol? { get set }
+    var presenter: (any FilterInteractorOutputProtocol)? { get set }
 
     /* Presenter -> Interactor */
     func viewHasLoaded()
@@ -46,7 +46,7 @@ protocol FilterInteractorInputProtocol: AnyObject {
 // MARK: Presenter -
 protocol FilterPresenterProtocol: AnyObject {
 
-    var interactor: FilterInteractorInputProtocol? { get set }
+    var interactor: (any FilterInteractorInputProtocol)? { get set }
 
     /* ViewController -> Presenter */
     func viewHasLoaded()
@@ -56,7 +56,7 @@ protocol FilterPresenterProtocol: AnyObject {
 // MARK: View -
 protocol FilterViewProtocol: AnyObject {
 
-    var presenter: FilterPresenterProtocol? { get set }
+    var presenter: (any FilterPresenterProtocol)? { get set }
 
     /* Presenter -> ViewController */
     func setValue(_ value: String)

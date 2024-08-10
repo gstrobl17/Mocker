@@ -9,11 +9,11 @@ import AppKit
 
 class SourceFileSelectorPresenter {
 
-    weak private var view: SourceFileSelectorViewProtocol?
-    var interactor: SourceFileSelectorInteractorInputProtocol?
-    let router: SourceFileSelectorWireframeProtocol
+    weak private var view: (any SourceFileSelectorViewProtocol)?
+    var interactor: (any SourceFileSelectorInteractorInputProtocol)?
+    let router: any SourceFileSelectorWireframeProtocol
 
-    init(interface: SourceFileSelectorViewProtocol, interactor: SourceFileSelectorInteractorInputProtocol?, router: SourceFileSelectorWireframeProtocol) {
+    init(interface: any SourceFileSelectorViewProtocol, interactor: (any SourceFileSelectorInteractorInputProtocol)?, router: any SourceFileSelectorWireframeProtocol) {
         self.view = interface
         self.interactor = interactor
         self.router = router

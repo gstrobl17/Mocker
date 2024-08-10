@@ -9,16 +9,16 @@ import AppKit
 
 class MockFileParametersInteractor {
 
-    weak var presenter: MockFileParametersInteractorOutputProtocol? {
+    weak var presenter: (any MockFileParametersInteractorOutputProtocol)? {
         didSet {
             sendParameterValues()
         }
     }
     
-    private var userDefaults: KeyValueStoring
+    private var userDefaults: any KeyValueStoring
     private var protocolName: String = ""
 
-    init(userDefaults: KeyValueStoring) {
+    init(userDefaults: any KeyValueStoring) {
         self.userDefaults = userDefaults
     }
 

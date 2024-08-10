@@ -10,12 +10,12 @@ import AppKit
 
 class MockerDocumentController: NSDocumentController {
     
-    let recentDocumentManager: RecentDocumentManaging
-    let userDefaults: KeyValueStoring
+    let recentDocumentManager: any RecentDocumentManaging
+    let userDefaults: any KeyValueStoring
 
     init(
-        recentDocumentManager: RecentDocumentManaging,
-        userDefaults: KeyValueStoring
+        recentDocumentManager: any RecentDocumentManaging,
+        userDefaults: any KeyValueStoring
     ) {
         self.recentDocumentManager = recentDocumentManager
         self.userDefaults = userDefaults

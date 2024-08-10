@@ -9,6 +9,6 @@ import AppKit
 
 protocol OpenPanelFactory {
     
-    func create(delegate: NSOpenSavePanelDelegate) -> OpenPanel
+    func create(delegate: any NSOpenSavePanelDelegate) -> any OpenPanel
     
 }

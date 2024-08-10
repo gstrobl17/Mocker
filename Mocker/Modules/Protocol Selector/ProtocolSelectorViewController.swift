@@ -10,8 +10,8 @@ import SwiftSyntax
 
 class ProtocolSelectorViewController: NSViewController {
 
-	var presenter: ProtocolSelectorPresenterProtocol?
-    weak var delegate: ProtocolSelectorInterfaceDelegate?
+	var presenter: (any ProtocolSelectorPresenterProtocol)?
+    weak var delegate: (any ProtocolSelectorInterfaceDelegate)?
     
     private var protocols = [ProtocolDeclSyntax]() {
         didSet {

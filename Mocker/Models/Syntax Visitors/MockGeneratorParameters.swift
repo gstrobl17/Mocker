@@ -9,7 +9,7 @@ import Foundation
 import SwiftSyntax
 
 class MockGeneratorParameters: SyntaxVisitor {
-    let dataSource: SourceFileDataSource
+    let dataSource: any SourceFileDataSource
     let imports: [ImportDeclSyntax]
     let protocolDeclaration: ProtocolDeclSyntax
     let mockName: String
@@ -23,7 +23,7 @@ class MockGeneratorParameters: SyntaxVisitor {
     private(set) var methods = [FunctionDeclSyntax]()
 
     init(
-        dataSource: SourceFileDataSource,
+        dataSource: any SourceFileDataSource,
         imports: [ImportDeclSyntax],
         protocolDeclaration: ProtocolDeclSyntax,
         mockName: String,

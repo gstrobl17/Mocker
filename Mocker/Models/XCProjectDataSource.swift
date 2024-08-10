@@ -10,7 +10,7 @@ import Foundation
 import XcodeEditor
 
 class XCProjectDataSource: SourceFileDataSource {
-    let project: Project
+    let project: any Project
     
     init?(filePath: String) {
         guard let project = XCProject(filePath: filePath) else { return nil}
@@ -33,7 +33,7 @@ class XCProjectDataSource: SourceFileDataSource {
         project.targets().compactMap { $0.nameForCode }
     }
     
-    func traverse(filteredBy filter: String, monitoredBy monitor: CancelMonitoring) -> ProjectTraversalResult {
+    func traverse(filteredBy filter: String, monitoredBy monitor: any CancelMonitoring) -> ProjectTraversalResult {
         project.traverse(filteredBy: filter, monitoredBy: monitor)
     }
     

@@ -9,7 +9,7 @@ import AppKit
 
 class GodfatherView {
 
-	var presenter: GodfatherPresenterProtocol?
+	var presenter: (any GodfatherPresenterProtocol)?
     let viewController: ViewController
     var activityIndicatorViewController: ActivityIndicatorViewController?
 

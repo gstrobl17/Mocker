@@ -10,7 +10,7 @@ import Foundation
 
 struct SourceFileDataSourceFactory: SourceFileDataSourceCreating {
     
-    func createDataSource(for fileURL: URL) throws -> SourceFileDataSource? {
+    func createDataSource(for fileURL: URL) throws -> (any SourceFileDataSource)? {
         
         if fileURL.isXcodeProjectFile {
             return XCProjectDataSource(filePath: fileURL.path)

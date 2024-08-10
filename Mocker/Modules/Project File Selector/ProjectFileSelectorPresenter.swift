@@ -9,13 +9,13 @@ import AppKit
 
 class ProjectFileSelectorPresenter: NSObject {
 
-    weak private var view: ProjectFileSelectorViewProtocol?
-    var interactor: ProjectFileSelectorInteractorInputProtocol?
-    let router: ProjectFileSelectorWireframeProtocol
-    private let openPanelFactory: OpenPanelFactory
-    internal var openPanel: OpenPanel?
+    weak private var view: (any ProjectFileSelectorViewProtocol)?
+    var interactor: (any ProjectFileSelectorInteractorInputProtocol)?
+    let router: any ProjectFileSelectorWireframeProtocol
+    private let openPanelFactory: any OpenPanelFactory
+    internal var openPanel: (any OpenPanel)?
 
-    init(interface: ProjectFileSelectorViewProtocol, interactor: ProjectFileSelectorInteractorInputProtocol?, router: ProjectFileSelectorWireframeProtocol, openPanelFactory: OpenPanelFactory) {
+    init(interface: any ProjectFileSelectorViewProtocol, interactor: (any ProjectFileSelectorInteractorInputProtocol)?, router: any ProjectFileSelectorWireframeProtocol, openPanelFactory: any OpenPanelFactory) {
         self.view = interface
         self.interactor = interactor
         self.router = router

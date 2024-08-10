@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ProjectFactory {
-    func createProject(for filePath: String) -> Project?
+    func createProject(for filePath: String) -> (any Project)?
 }

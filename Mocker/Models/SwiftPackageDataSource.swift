@@ -31,7 +31,7 @@ enum SwiftPackageDataSourceError: Error, LocalizedError {
 
 class SwiftPackageDataSource: SourceFileDataSource {
     
-    let fileManager: FileManaging
+    let fileManager: any FileManaging
 
     let projectName: String?
     let projectDirectoryURL: URL?
@@ -40,7 +40,7 @@ class SwiftPackageDataSource: SourceFileDataSource {
 
     init?(
         fileURL: URL,
-        fileManager: FileManaging = FileManager.default
+        fileManager: any FileManaging = FileManager.default
     ) throws {
         let packageInitializerInformation: PackageInitializerInformation
 
@@ -86,7 +86,7 @@ class SwiftPackageDataSource: SourceFileDataSource {
         self.targets = packageInitializerInformation.targets
     }
     
-    func traverse(filteredBy filter: String, monitoredBy monitor: CancelMonitoring) -> ProjectTraversalResult {
+    func traverse(filteredBy filter: String, monitoredBy monitor: any CancelMonitoring) -> ProjectTraversalResult {
         let node = TreeNode(groupName: "root")
         if let projectDirectoryURL {
             traverse(projectDirectoryURL, at: 1, treeNode: node, filteredby: filter, monitoredBy: monitor, currentTarget: nil)
@@ -108,7 +108,7 @@ class SwiftPackageDataSource: SourceFileDataSource {
         at depth: Int,
         treeNode parent: TreeNode,
         filteredby filter: String,
-        monitoredBy monitor: CancelMonitoring,
+        monitoredBy monitor: any CancelMonitoring,
         currentTarget: String?
     ) {
         guard !monitor.isCancelled else { return }

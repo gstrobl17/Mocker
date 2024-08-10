@@ -14,7 +14,7 @@ extension XCProject: Project { }
 
 extension XCProject {
     
-    func traverse(filteredBy filter: String, monitoredBy monitor: CancelMonitoring) -> (fileTree: TreeNode, groupTree: TreeNode) {
+    func traverse(filteredBy filter: String, monitoredBy monitor: any CancelMonitoring) -> (fileTree: TreeNode, groupTree: TreeNode) {
         
         let rootTreeNode = TreeNode(groupName: "Root")
         traverse(self.rootGroup(), at: 0, treeNode: rootTreeNode, filteredby: filter.lowercased(), monitoredBy: monitor)
@@ -41,7 +41,7 @@ extension XCProject {
     }
     
     //swiftlint:disable:next cyclomatic_complexity
-    private func traverse(_ group: XCGroup, at depth: Int, treeNode parent: TreeNode, filteredby filter: String, monitoredBy monitor: CancelMonitoring) {
+    private func traverse(_ group: XCGroup, at depth: Int, treeNode parent: TreeNode, filteredby filter: String, monitoredBy monitor: any CancelMonitoring) {
         guard !monitor.isCancelled else { return }
 
         if logTraversalInformation {

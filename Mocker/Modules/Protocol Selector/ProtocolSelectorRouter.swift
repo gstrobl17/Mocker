@@ -9,9 +9,9 @@ import AppKit
 
 class ProtocolSelectorRouter: ProtocolSelectorWireframeProtocol {
 
-    weak var viewController: (NSViewController & ProtocolSelectorInterfaceProtocol)?
+    weak var viewController: (any NSViewController & ProtocolSelectorInterfaceProtocol)?
 
-    static func createModule() -> (NSViewController & ProtocolSelectorInterfaceProtocol) {
+    static func createModule() -> (any NSViewController & ProtocolSelectorInterfaceProtocol) {
         
         let storyboard = NSStoryboard(name: .main, bundle: nil)
         // swiftlint:disable force_cast

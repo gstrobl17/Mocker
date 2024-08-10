@@ -15,16 +15,16 @@ import AppKit
 
 class FilterInteractor {
 
-    weak var presenter: FilterInteractorOutputProtocol? {
+    weak var presenter: (any FilterInteractorOutputProtocol)? {
         didSet {
             sendValue()
         }
     }
-    weak var delegate: FilterInterfaceDelegate?
+    weak var delegate: (any FilterInterfaceDelegate)?
     
-    private var userDefaults: KeyValueStoring
+    private var userDefaults: any KeyValueStoring
 
-    init(userDefaults: KeyValueStoring) {
+    init(userDefaults: any KeyValueStoring) {
         self.userDefaults = userDefaults
     }
 

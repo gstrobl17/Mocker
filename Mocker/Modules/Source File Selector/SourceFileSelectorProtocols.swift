@@ -9,26 +9,26 @@ import AppKit
 import XcodeEditor
 
 protocol SourceFileSelectorInterfaceProtocol: AnyObject {
-    var delegate: SourceFileSelectorInterfaceDelegate? { get set }
+    var delegate: (any SourceFileSelectorInterfaceDelegate)? { get set }
     
-    func present(tree rootTreeNode: TreeNode, for dataSource: SourceFileDataSource)
+    func present(tree rootTreeNode: TreeNode, for dataSource: any SourceFileDataSource)
 }
 
 protocol SourceFileSelectorInterfaceDelegate: AnyObject {
-    func sourceFileSelector(_ view: (NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: TreeNode)
+    func sourceFileSelector(_ view: (any NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: TreeNode)
 }
 
 // MARK: Wireframe -
 protocol SourceFileSelectorWireframeProtocol: AnyObject {
-    var viewController: (NSViewController & SourceFileSelectorInterfaceProtocol)? { get }
+    var viewController: (any NSViewController & SourceFileSelectorInterfaceProtocol)? { get }
     
-    static func createModule() -> (NSViewController & SourceFileSelectorInterfaceProtocol)
+    static func createModule() -> (any NSViewController & SourceFileSelectorInterfaceProtocol)
 }
 
 // MARK: Presenter -
 protocol SourceFileSelectorPresenterProtocol: AnyObject {
 
-    var interactor: SourceFileSelectorInteractorInputProtocol? { get set }
+    var interactor: (any SourceFileSelectorInteractorInputProtocol)? { get set }
 
     func viewHasLoaded()
 }
@@ -41,7 +41,7 @@ protocol SourceFileSelectorInteractorOutputProtocol: AnyObject {    //swiftlint:
 
 protocol SourceFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
     
-    var presenter: SourceFileSelectorInteractorOutputProtocol? { get set }
+    var presenter: (any SourceFileSelectorInteractorOutputProtocol)? { get set }
     
     func viewHasLoaded()
     /* Presenter -> Interactor */
@@ -50,6 +50,6 @@ protocol SourceFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:disa
 // MARK: View -
 protocol SourceFileSelectorViewProtocol: AnyObject {
 
-    var presenter: SourceFileSelectorPresenterProtocol? { get set }
-    var delegate: SourceFileSelectorInterfaceDelegate? { get set }
+    var presenter: (any SourceFileSelectorPresenterProtocol)? { get set }
+    var delegate: (any SourceFileSelectorInterfaceDelegate)? { get set }
 }

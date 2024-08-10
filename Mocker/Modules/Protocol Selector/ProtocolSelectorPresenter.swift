@@ -9,11 +9,11 @@ import AppKit
 
 class ProtocolSelectorPresenter {
 
-    weak private var view: ProtocolSelectorViewProtocol?
-    var interactor: ProtocolSelectorInteractorInputProtocol?
-    let router: ProtocolSelectorWireframeProtocol
+    weak private var view: (any ProtocolSelectorViewProtocol)?
+    var interactor: (any ProtocolSelectorInteractorInputProtocol)?
+    let router: any ProtocolSelectorWireframeProtocol
 
-    init(interface: ProtocolSelectorViewProtocol, interactor: ProtocolSelectorInteractorInputProtocol?, router: ProtocolSelectorWireframeProtocol) {
+    init(interface: any ProtocolSelectorViewProtocol, interactor: (any ProtocolSelectorInteractorInputProtocol)?, router: any ProtocolSelectorWireframeProtocol) {
         self.view = interface
         self.interactor = interactor
         self.router = router

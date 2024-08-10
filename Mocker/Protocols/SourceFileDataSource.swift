@@ -19,5 +19,5 @@ protocol SourceFileDataSource: AnyObject {
     var projectDirectoryURL: URL? { get }
     var organizationName: String? { get }
     var targets: [String] { get }
-    func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult
+    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> ProjectTraversalResult
 }

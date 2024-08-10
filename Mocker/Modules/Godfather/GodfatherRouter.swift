@@ -9,26 +9,26 @@ import AppKit
 
 class GodfatherRouter: GodfatherWireframeProtocol {
 
-    weak var view: (GodfatherViewProtocol & GodfatherInterfaceProtocol)?
+    weak var view: (any GodfatherViewProtocol & GodfatherInterfaceProtocol)?
 
     // swiftlint:disable:next function_parameter_count
     static func createModule(
         viewController: ViewController,
-        userDefaults: KeyValueStoring,
-        fileManager: FileManaging,
-        dataSourceFactory: SourceFileDataSourceCreating,
-        mockGeneratorFactory: MockGeneratorFactory,
-        openPanelFactory: OpenPanelFactory,
-        projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
-        sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
-        sourceFileFilterRouterType: FilterWireframeProtocol.Type,
-        protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
-        mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
-        contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-        filteringHandler: AsyncFilteringHandler,
-        recentDocumentManager: RecentDocumentManaging,
-        documentController: DocumentControlling
-    ) -> (GodfatherViewProtocol & GodfatherInterfaceProtocol) {
+        userDefaults: any KeyValueStoring,
+        fileManager: any FileManaging,
+        dataSourceFactory: any SourceFileDataSourceCreating,
+        mockGeneratorFactory: any MockGeneratorFactory,
+        openPanelFactory: any OpenPanelFactory,
+        projectFileSelectorRouterType: any ProjectFileSelectorWireframeProtocol.Type,
+        sourceFileSelectorRouterType: any SourceFileSelectorWireframeProtocol.Type,
+        sourceFileFilterRouterType: any FilterWireframeProtocol.Type,
+        protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
+        mockFileParametersRouterType: any MockFileParametersWireframeProtocol.Type,
+        contentPresenterRouterType: any ContentPresenterWireframeProtocol.Type,
+        filteringHandler: any AsyncFilteringHandler,
+        recentDocumentManager: any RecentDocumentManaging,
+        documentController: any DocumentControlling
+    ) -> (any GodfatherViewProtocol & GodfatherInterfaceProtocol) {
 
         let view = GodfatherView(viewController: viewController)
         let interactor = GodfatherInteractor(

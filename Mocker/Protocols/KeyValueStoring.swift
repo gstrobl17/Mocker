@@ -5,7 +5,7 @@
 //  Created by Greg on 2/25/18.
 //
 
-import Foundation
+public import Foundation
 
 /// Protocol to define what UserDefaults should look like for the application.
 /// This protocol exists so that a Mock/Fake implementation can be created for unit/integration testing.

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MockGeneratorFactory {
-    func createMockGenerator(swiftlintAware: Bool) -> MockGenerating
+    func createMockGenerator(swiftlintAware: Bool) -> any MockGenerating
 }

@@ -9,9 +9,9 @@ import AppKit
 
 class MockFileParametersRouter: MockFileParametersWireframeProtocol {
 
-    weak var viewController: (NSViewController & MockFileParametersInterfaceProtocol)?
+    weak var viewController: (any NSViewController & MockFileParametersInterfaceProtocol)?
 
-    static func createModule(userDefaults: KeyValueStoring) -> (NSViewController & MockFileParametersInterfaceProtocol) {
+    static func createModule(userDefaults: any KeyValueStoring) -> (any NSViewController & MockFileParametersInterfaceProtocol) {
         
         let storyboard = NSStoryboard(name: .main, bundle: nil)
         // swiftlint:disable force_cast

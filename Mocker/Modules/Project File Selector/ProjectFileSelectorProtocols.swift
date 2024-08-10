@@ -8,7 +8,7 @@
 import AppKit
 
 protocol ProjectFileSelectorInterfaceProtocol: AnyObject {
-    var delegate: ProjectFileSelectorInterfaceDelegate? { get set }
+    var delegate: (any ProjectFileSelectorInterfaceDelegate)? { get set }
 
     func selectProject()
     func canReloadProject() -> Bool
@@ -18,21 +18,21 @@ protocol ProjectFileSelectorInterfaceProtocol: AnyObject {
 }
 
 protocol ProjectFileSelectorInterfaceDelegate: AnyObject {
-    func projectFileSelector(_ view: NSViewController & ProjectFileSelectorInterfaceProtocol, fileSelected: URL)
+    func projectFileSelector(_ view: any NSViewController & ProjectFileSelectorInterfaceProtocol, fileSelected: URL)
 }
 
 // MARK: Wireframe -
 protocol ProjectFileSelectorWireframeProtocol: AnyObject {
 
-    var viewController: (NSViewController & ProjectFileSelectorInterfaceProtocol)? { get }
+    var viewController: (any NSViewController & ProjectFileSelectorInterfaceProtocol)? { get }
     
-    static func createModule(openPanelFactory: OpenPanelFactory) -> (NSViewController & ProjectFileSelectorInterfaceProtocol)
+    static func createModule(openPanelFactory: any OpenPanelFactory) -> (any NSViewController & ProjectFileSelectorInterfaceProtocol)
 }
 
 // MARK: Presenter -
 protocol ProjectFileSelectorPresenterProtocol: AnyObject {
 
-    var interactor: ProjectFileSelectorInteractorInputProtocol? { get set }
+    var interactor: (any ProjectFileSelectorInteractorInputProtocol)? { get set }
     
     func setURL(_ url: URL)
     func selectPressed()
@@ -51,7 +51,7 @@ protocol ProjectFileSelectorInteractorOutputProtocol: AnyObject { //swiftlint:di
 
 protocol ProjectFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
 
-    var presenter: ProjectFileSelectorInteractorOutputProtocol? { get set }
+    var presenter: (any ProjectFileSelectorInteractorOutputProtocol)? { get set }
     var url: URL? { get }
     
     func setURL(_ url: URL)
@@ -63,10 +63,10 @@ protocol ProjectFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:dis
 // MARK: View -
 protocol ProjectFileSelectorViewProtocol: AnyObject {
 
-    var presenter: ProjectFileSelectorPresenterProtocol? { get set }
-    var delegate: ProjectFileSelectorInterfaceDelegate? { get set }
+    var presenter: (any ProjectFileSelectorPresenterProtocol)? { get set }
+    var delegate: (any ProjectFileSelectorInterfaceDelegate)? { get set }
 
     func showSelectedFile(_ url: URL)
-    func openModalSheet(with openPanel: OpenPanel, completionHandler handler: @escaping (NSApplication.ModalResponse) -> Swift.Void)
+    func openModalSheet(with openPanel: any OpenPanel, completionHandler handler: @escaping (NSApplication.ModalResponse) -> Swift.Void)
     /* Presenter -> ViewController */
 }

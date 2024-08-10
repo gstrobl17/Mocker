@@ -14,7 +14,7 @@ extension NSImage.Name {
 
 class TreeNodeView: NSView {
     
-    init(treeNode: TreeNode, dataSource: SourceFileDataSource) {
+    init(treeNode: TreeNode, dataSource: any SourceFileDataSource) {
         super.init(frame: NSRect.zero)
         
         var possibleImage: NSImage?

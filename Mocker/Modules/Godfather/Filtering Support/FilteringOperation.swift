@@ -7,13 +7,13 @@
 
 import Foundation
 
-class FilteringOperation: Operation {
+class FilteringOperation: Operation, @unchecked Sendable {
     
-    weak var dataSource: SourceFileDataSource?
+    weak var dataSource: (any SourceFileDataSource)?
     let filter: String
     let completionHandler: (ProjectTraversalResult) -> Void
     
-    init(dataSource: SourceFileDataSource, filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
+    init(dataSource: any SourceFileDataSource, filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
         self.dataSource = dataSource
         self.filter = filter
         self.completionHandler = completionHandler

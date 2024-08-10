@@ -9,16 +9,16 @@ import AppKit
 
 class GodfatherPresenter {
 
-    weak private var view: GodfatherViewProtocol?
-    var interactor: GodfatherInteractorInputProtocol?
-    let router: GodfatherWireframeProtocol
+    weak private var view: (any GodfatherViewProtocol)?
+    var interactor: (any GodfatherInteractorInputProtocol)?
+    let router: any GodfatherWireframeProtocol
     
-    let userDefaults: KeyValueStoring
+    let userDefaults: any KeyValueStoring
 
-    init(interface: GodfatherViewProtocol,
-         interactor: GodfatherInteractorInputProtocol?,
-         router: GodfatherWireframeProtocol,
-         userDefaults: KeyValueStoring) {
+    init(interface: any GodfatherViewProtocol,
+         interactor: (any GodfatherInteractorInputProtocol)?,
+         router: any GodfatherWireframeProtocol,
+         userDefaults: any KeyValueStoring) {
         self.view = interface
         self.interactor = interactor
         self.router = router
@@ -76,7 +76,7 @@ extension GodfatherPresenter: GodfatherInteractorOutputProtocol {
                       contentPresenter: contentPresenter)
     }
 
-    func reportError(_ error: Error) {
+    func reportError(_ error: any Error) {
         let alert = NSAlert(error: error)
         view?.display(alert)
     }

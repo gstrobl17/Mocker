@@ -9,7 +9,7 @@ import XcodeEditor
 
 extension XcodeGroupMember {
     
-    func url(in project: Project) -> URL? {
+    func url(in project: any Project) -> URL? {
         var url: URL?
         
         if let projectDirectoryURL = project.projectDirectoryURL {
@@ -19,7 +19,7 @@ extension XcodeGroupMember {
         return url
     }
     
-    func target(in project: Project) -> XCTarget! {
+    func target(in project: any Project) -> XCTarget! {
         var target: XCTarget!
         
         if let path = pathRelativeToProjectRoot() {

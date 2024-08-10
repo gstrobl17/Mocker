@@ -9,9 +9,9 @@ import AppKit
 
 class SourceFileSelectorRouter: SourceFileSelectorWireframeProtocol {
     
-    weak var viewController: (NSViewController & SourceFileSelectorInterfaceProtocol)?
+    weak var viewController: (any NSViewController & SourceFileSelectorInterfaceProtocol)?
     
-    static func createModule() -> (NSViewController & SourceFileSelectorInterfaceProtocol) {
+    static func createModule() -> (any NSViewController & SourceFileSelectorInterfaceProtocol) {
         
         let storyboard = NSStoryboard(name: .main, bundle: nil)
         // swiftlint:disable force_cast

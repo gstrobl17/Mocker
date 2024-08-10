@@ -14,8 +14,8 @@ protocol ContentPresenterInterfaceProtocol: AnyObject {
 // MARK: Wireframe -
 protocol ContentPresenterWireframeProtocol: AnyObject {
 
-    var viewController: (NSViewController & ContentPresenterInterfaceProtocol)? { get }
+    var viewController: (any NSViewController & ContentPresenterInterfaceProtocol)? { get }
     
-    static func createModule() -> (NSViewController & ContentPresenterInterfaceProtocol)
+    static func createModule() -> (any NSViewController & ContentPresenterInterfaceProtocol)
 }
 

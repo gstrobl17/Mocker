@@ -23,33 +23,33 @@ protocol GodfatherInterfaceProtocol: AnyObject {
 
 // MARK: Wireframe -
 protocol GodfatherWireframeProtocol: AnyObject {
-    var view: (GodfatherViewProtocol & GodfatherInterfaceProtocol)? { get }
+    var view: (any GodfatherViewProtocol & GodfatherInterfaceProtocol)? { get }
     
     // swiftlint:disable function_parameter_count
     static func createModule(
         viewController: ViewController,
-        userDefaults: KeyValueStoring,
-        fileManager: FileManaging,
-        dataSourceFactory: SourceFileDataSourceCreating,
-        mockGeneratorFactory: MockGeneratorFactory,
-        openPanelFactory: OpenPanelFactory,
-        projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
-        sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
-        sourceFileFilterRouterType: FilterWireframeProtocol.Type,
-        protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
-        mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
-        contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-        filteringHandler: AsyncFilteringHandler,
-        recentDocumentManager: RecentDocumentManaging,
-        documentController: DocumentControlling
-    ) -> (GodfatherViewProtocol & GodfatherInterfaceProtocol)
+        userDefaults: any KeyValueStoring,
+        fileManager: any FileManaging,
+        dataSourceFactory: any SourceFileDataSourceCreating,
+        mockGeneratorFactory: any MockGeneratorFactory,
+        openPanelFactory: any OpenPanelFactory,
+        projectFileSelectorRouterType: any ProjectFileSelectorWireframeProtocol.Type,
+        sourceFileSelectorRouterType: any SourceFileSelectorWireframeProtocol.Type,
+        sourceFileFilterRouterType: any FilterWireframeProtocol.Type,
+        protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
+        mockFileParametersRouterType: any MockFileParametersWireframeProtocol.Type,
+        contentPresenterRouterType: any ContentPresenterWireframeProtocol.Type,
+        filteringHandler: any AsyncFilteringHandler,
+        recentDocumentManager: any RecentDocumentManaging,
+        documentController: any DocumentControlling
+    ) -> (any GodfatherViewProtocol & GodfatherInterfaceProtocol)
     // swiftlint:enable function_parameter_count
 }
 
 // MARK: Presenter -
 protocol GodfatherPresenterProtocol: AnyObject {
 
-    var interactor: GodfatherInteractorInputProtocol? { get set }
+    var interactor: (any GodfatherInteractorInputProtocol)? { get set }
 
     func selectProject()
     func canReloadProject() -> Bool
@@ -71,7 +71,7 @@ protocol GodfatherInteractorOutputProtocol: AnyObject {
                  mockFileParameters: NSViewController,
                  contentPresenter: NSViewController)
 
-    func reportError(_ error: Error)
+    func reportError(_ error: any Error)
     func reportErrorCondition(with messageText: String, and informativeText: String)
     func showAsBusy(with message: String)
     func clearBusyMessage()
@@ -82,11 +82,11 @@ protocol GodfatherInteractorOutputProtocol: AnyObject {
 
 protocol GodfatherInteractorInputProtocol: AnyObject {
 
-    var presenter: GodfatherInteractorOutputProtocol? { get set }
+    var presenter: (any GodfatherInteractorOutputProtocol)? { get set }
     
-    var userDefaults: KeyValueStoring { get }
-    var fileManager: FileManaging { get }
-    var currentDataSource: SourceFileDataSource? { get }
+    var userDefaults: any KeyValueStoring { get }
+    var fileManager: any FileManaging { get }
+    var currentDataSource: (any SourceFileDataSource)? { get }
     var mockName: String { get }
     var mockCode: String { get }
 
@@ -103,7 +103,7 @@ protocol GodfatherInteractorInputProtocol: AnyObject {
 // MARK: View -
 protocol GodfatherViewProtocol: AnyObject {
 
-    var presenter: GodfatherPresenterProtocol? { get set }
+    var presenter: (any GodfatherPresenterProtocol)? { get set }
 
     //swiftlint:disable:next function_parameter_count
     func install(projectFileSelector: NSViewController,

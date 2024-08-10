@@ -10,7 +10,7 @@ import XcodeEditor
 
 struct XCProjectFactory: ProjectFactory {
     
-    func createProject(for filePath: String) -> Project? {
+    func createProject(for filePath: String) -> (any Project)? {
         XCProject(filePath: filePath)
     }
     

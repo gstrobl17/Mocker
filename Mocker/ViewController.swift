@@ -29,7 +29,7 @@ class ViewController: NSViewController {
 
     private var windowSetup = false
     private var userDefaults = UserDefaults.standard
-    var godfatherView: (GodfatherViewProtocol & GodfatherInterfaceProtocol)!
+    var godfatherView: (any GodfatherViewProtocol & GodfatherInterfaceProtocol)!
     
     override func viewDidLoad() {
         super.viewDidLoad()

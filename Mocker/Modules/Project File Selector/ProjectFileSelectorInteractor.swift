@@ -9,7 +9,7 @@ import AppKit
 
 class ProjectFileSelectorInteractor {
 
-    weak var presenter: ProjectFileSelectorInteractorOutputProtocol? {
+    weak var presenter: (any ProjectFileSelectorInteractorOutputProtocol)? {
         didSet {
             presentSelectedFile()
         }

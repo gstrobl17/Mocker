@@ -16,7 +16,7 @@ protocol SavePanel {
     var allowedFileTypes: [String]? { get set }
     var allowsOtherFileTypes: Bool { get set }
     var accessoryView: NSView? { get set }
-    var delegate: NSOpenSavePanelDelegate? { get set }
+    var delegate: (any NSOpenSavePanelDelegate)? { get set }
     var isExpanded: Bool { get }
     var canCreateDirectories: Bool { get set }
     var canSelectHiddenExtension: Bool { get set }

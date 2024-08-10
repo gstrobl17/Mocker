@@ -11,7 +11,7 @@ import SwiftParser
 
 class GodfatherInteractor {
 
-    weak var presenter: GodfatherInteractorOutputProtocol? {
+    weak var presenter: (any GodfatherInteractorOutputProtocol)? {
         didSet {
             presenter?.install(projectFileSelector: projectFileSelector,
                                sourceFileSelector: sourceFileSelector,
@@ -24,21 +24,21 @@ class GodfatherInteractor {
     }
     
     private var theViewHasAppeared = false
-    private(set) var userDefaults: KeyValueStoring
-    let fileManager: FileManaging
-    let dataSourceFactory: SourceFileDataSourceCreating
-    let mockGeneratorFactory: MockGeneratorFactory
-    let projectFileSelector: NSViewController & ProjectFileSelectorInterfaceProtocol
-    let sourceFileSelector: NSViewController & SourceFileSelectorInterfaceProtocol
-    let sourceFileFilterModule: (view: NSViewController, interface: FilterInterfaceProtocol)
-    let protocolSelector: NSViewController & ProtocolSelectorInterfaceProtocol
-    let mockFileParameters: NSViewController & MockFileParametersInterfaceProtocol
-    let contentPresenter: NSViewController & ContentPresenterInterfaceProtocol
-    let filteringHandler: AsyncFilteringHandler
-    let recentDocumentManager: RecentDocumentManaging
-    let documentController: DocumentControlling
-    let pasteboard: Pasteboard
-    internal var currentDataSource: SourceFileDataSource?
+    private(set) var userDefaults: any  KeyValueStoring
+    let fileManager: any FileManaging
+    let dataSourceFactory: any SourceFileDataSourceCreating
+    let mockGeneratorFactory: any MockGeneratorFactory
+    let projectFileSelector: any NSViewController & ProjectFileSelectorInterfaceProtocol
+    let sourceFileSelector: any NSViewController & SourceFileSelectorInterfaceProtocol
+    let sourceFileFilterModule: (view: NSViewController, interface: any FilterInterfaceProtocol)
+    let protocolSelector: any NSViewController & ProtocolSelectorInterfaceProtocol
+    let mockFileParameters: any NSViewController & MockFileParametersInterfaceProtocol
+    let contentPresenter: any NSViewController & ContentPresenterInterfaceProtocol
+    let filteringHandler: any AsyncFilteringHandler
+    let recentDocumentManager: any RecentDocumentManaging
+    let documentController: any DocumentControlling
+    let pasteboard: any Pasteboard
+    internal var currentDataSource: (any SourceFileDataSource)?
     private(set) var targetOfCurrentSourceFile: String? {
         didSet {
             if let target = targetOfCurrentSourceFile {
@@ -64,21 +64,21 @@ class GodfatherInteractor {
     }
 
     init(
-        userDefaults: KeyValueStoring,
-        fileManager: FileManaging,
-        dataSourceFactory: SourceFileDataSourceCreating,
-        mockGeneratorFactory: MockGeneratorFactory,
-        openPanelFactory: OpenPanelFactory,
-        projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type,
-        sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type,
-        sourceFileFilterRouterType: FilterWireframeProtocol.Type,
-        protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type,
-        mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type,
-        contentPresenterRouterType: ContentPresenterWireframeProtocol.Type,
-        filteringHandler: AsyncFilteringHandler,
-        recentDocumentManager: RecentDocumentManaging,
-        documentController: DocumentControlling,
-        pasteboard: Pasteboard = NSPasteboard.general
+        userDefaults: any KeyValueStoring,
+        fileManager: any FileManaging,
+        dataSourceFactory: any SourceFileDataSourceCreating,
+        mockGeneratorFactory: any MockGeneratorFactory,
+        openPanelFactory: any OpenPanelFactory,
+        projectFileSelectorRouterType: any ProjectFileSelectorWireframeProtocol.Type,
+        sourceFileSelectorRouterType: any SourceFileSelectorWireframeProtocol.Type,
+        sourceFileFilterRouterType: any FilterWireframeProtocol.Type,
+        protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
+        mockFileParametersRouterType: any MockFileParametersWireframeProtocol.Type,
+        contentPresenterRouterType: any ContentPresenterWireframeProtocol.Type,
+        filteringHandler: any AsyncFilteringHandler,
+        recentDocumentManager: any RecentDocumentManaging,
+        documentController: any DocumentControlling,
+        pasteboard: any Pasteboard = NSPasteboard.general
     ) {
         
         self.userDefaults = userDefaults
@@ -209,7 +209,7 @@ extension GodfatherInteractor: GodfatherInteractorInputProtocol {
 
 extension GodfatherInteractor: ProjectFileSelectorInterfaceDelegate {
     
-    func projectFileSelector(_ view: NSViewController & ProjectFileSelectorInterfaceProtocol, fileSelected url: URL) {
+    func projectFileSelector(_ view: any NSViewController & ProjectFileSelectorInterfaceProtocol, fileSelected url: URL) {
         openProjectFile(url)
     }
     
@@ -217,7 +217,7 @@ extension GodfatherInteractor: ProjectFileSelectorInterfaceDelegate {
 
 extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
     
-    func sourceFileSelector(_ view: (NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: TreeNode) {
+    func sourceFileSelector(_ view: any (NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: TreeNode) {
 
         targetOfCurrentSourceFile = nil
         currentSourceFileCode = ""
@@ -246,7 +246,7 @@ extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
 
 extension GodfatherInteractor: ProtocolSelectorInterfaceDelegate {
     
-    func protocolSelector(_ view: (NSViewController & ProtocolSelectorInterfaceProtocol), protocolSelected protocolDeclaration: ProtocolDeclSyntax) {
+    func protocolSelector(_ view: any (NSViewController & ProtocolSelectorInterfaceProtocol), protocolSelected protocolDeclaration: ProtocolDeclSyntax) {
         currentProtocolDeclaration = protocolDeclaration
         mockFileParameters.setup(for: protocolDeclaration)
     }
@@ -255,7 +255,7 @@ extension GodfatherInteractor: ProtocolSelectorInterfaceDelegate {
 
 extension GodfatherInteractor: MockFileParametersInterfaceDelegate {
     
-    func mockFileParameters(_ view: (NSViewController & MockFileParametersInterfaceProtocol),   //swiftlint:disable:this function_parameter_count
+    func mockFileParameters(_ view: any (NSViewController & MockFileParametersInterfaceProtocol),   //swiftlint:disable:this function_parameter_count
                             mockName: String,
                             includeHeader: Bool,
                             includeTestableImport: Bool,
@@ -290,7 +290,7 @@ extension GodfatherInteractor: MockFileParametersInterfaceDelegate {
 
 extension GodfatherInteractor: FilterInterfaceDelegate {
     
-    func filter(_ filterInterface: FilterInterfaceProtocol, newValue: String) {
+    func filter(_ filterInterface: any FilterInterfaceProtocol, newValue: String) {
         renderFilteredSourceFileTree()
     }
     

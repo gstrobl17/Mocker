@@ -11,8 +11,8 @@ import XcodeEditor
 
 class MockFileParametersViewController: NSViewController {
 
-	var presenter: MockFileParametersPresenterProtocol?
-    weak var delegate: MockFileParametersInterfaceDelegate?
+	var presenter: (any MockFileParametersPresenterProtocol)?
+    weak var delegate: (any MockFileParametersInterfaceDelegate)?
 
     @IBOutlet weak private var prefixTextField: NSTextField!
     @IBOutlet weak private var stripTrailingProtocolCheckBox: NSButton!
@@ -214,7 +214,7 @@ extension MockFileParametersViewController: MockFileParametersInterfaceProtocol 
         presenter?.setProtocolName(protocolDeclaration.name.text)
     }
     
-    func setup(for dataSource: SourceFileDataSource) {
+    func setup(for dataSource: any SourceFileDataSource) {
         self.targets = dataSource.targets
     
         if self.targets.isEmpty {

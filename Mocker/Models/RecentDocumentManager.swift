@@ -10,9 +10,9 @@ import Foundation
 
 class RecentDocumentManager: RecentDocumentManaging {
     
-    private(set) var userDefaults: KeyValueStoring
+    private(set) var userDefaults: any KeyValueStoring
     
-    init(userDefaults: KeyValueStoring) {
+    init(userDefaults: any KeyValueStoring) {
         self.userDefaults = userDefaults
     }
 

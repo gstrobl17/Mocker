@@ -17,7 +17,7 @@ class ProjectFilteringHandler: AsyncFilteringHandler {
         queue.maxConcurrentOperationCount = 1
     }
     
-    func performFiltering(on dataSource: SourceFileDataSource, with filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
+    func performFiltering(on dataSource: any SourceFileDataSource, with filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
         
         queue.cancelAllOperations()
         let operation = FilteringOperation(dataSource: dataSource, filter: filter, completionHandler: completionHandler)
