@@ -1,4 +1,3 @@
-//TODO: evaluate any change and rework to use constants
 //swiftlint:disable function_body_length file_length
 //
 //  ASTMockGeneratorTests+EdgeCases+Part2.swift
@@ -104,24 +103,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_veryLargeProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: VeryLargeProtocol {
 
@@ -1457,18 +1443,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1478,24 +1453,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_veryLargeProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: VeryLargeProtocol {
                            
@@ -2835,18 +2797,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -2856,24 +2807,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_veryLargeProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: VeryLargeProtocol {
 
@@ -4432,18 +4370,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -4453,24 +4380,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_veryLargeProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: VeryLargeProtocol {
                            
@@ -6033,18 +5947,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -6143,24 +6046,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_veryLargeStaticProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeStaticProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: VeryLargeStaticProtocol {
 
@@ -7469,18 +7359,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -7490,24 +7369,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_veryLargeStaticProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: veryLargeStaticProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: VeryLargeStaticProtocol {
 
@@ -9039,18 +8905,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
