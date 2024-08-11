@@ -189,6 +189,7 @@
 		64C6091420457991005D6869 /* ASTMockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6091320457991005D6869 /* ASTMockGenerator.swift */; };
 		64C609182046ABBB005D6869 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C609172046ABBB005D6869 /* String+Extensions.swift */; };
 		64CA1DD82C4762FB0074F15E /* MacrosForStroblMocks in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA1DD72C4762FB0074F15E /* MacrosForStroblMocks */; };
+		64DA2B322C68ED5500F97E18 /* SourceFileDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA2B312C68ED5500F97E18 /* SourceFileDataSourceTests.swift */; };
 		64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FE8203A4B9B00AAB355 /* TreeNode.swift */; };
 		64F92FEB203C371C00AAB355 /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEA203C371C00AAB355 /* TreeNodeView.swift */; };
 		64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */; };
@@ -418,6 +419,7 @@
 		64C6091120457982005D6869 /* ASTMockGeneratorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMockGeneratorFactory.swift; sourceTree = "<group>"; };
 		64C6091320457991005D6869 /* ASTMockGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMockGenerator.swift; sourceTree = "<group>"; };
 		64C609172046ABBB005D6869 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		64DA2B312C68ED5500F97E18 /* SourceFileDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileDataSourceTests.swift; sourceTree = "<group>"; };
 		64F92FE8203A4B9B00AAB355 /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
 		64F92FEA203C371C00AAB355 /* TreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNodeView.swift; sourceTree = "<group>"; };
 		64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCProject+Extensions.swift"; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 			isa = PBXGroup;
 			children = (
 				64C608D020430271005D6869 /* Common.swift */,
+				64DA2B302C68ECF500F97E18 /* Protocols */,
 				6424DB35204732690064DB65 /* Extensions */,
 				6488BA462B628A3E004A1812 /* firstDifferenceBetweenStrings.swift */,
 				6427BA022033954800BCA2E9 /* Info.plist */,
@@ -972,6 +975,14 @@
 			path = XcodeEditor;
 			sourceTree = "<group>";
 		};
+		64DA2B302C68ECF500F97E18 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				64DA2B312C68ED5500F97E18 /* SourceFileDataSourceTests.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1233,6 +1244,7 @@
 				64C6080F20403531005D6869 /* MockProject.swift in Sources */,
 				64C607E1203F852C005D6869 /* MockOpenPanelFactory.swift in Sources */,
 				648692032B6E62670021A9F1 /* MockDocumentControlling.swift in Sources */,
+				64DA2B322C68ED5500F97E18 /* SourceFileDataSourceTests.swift in Sources */,
 				64C6080520400D93005D6869 /* SourceFileSelectorInteractorTests.swift in Sources */,
 				64BB971D2BF2C58C007250D1 /* MockSourceFileDataSource.swift in Sources */,
 				64C608342041E261005D6869 /* ContentPresenterRouterTests.swift in Sources */,
@@ -1497,7 +1509,7 @@
 				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
 				SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT = YES;
 				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
-				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = NO;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1538,7 +1550,7 @@
 				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
 				SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT = YES;
 				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
-				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = NO;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

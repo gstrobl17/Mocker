@@ -278,7 +278,10 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(documentController.url, url)
         XCTAssertEqual(mockFileParametersView.calledMethods, [.setupForDataSourceCalled, .clearProtocolCalled])
         XCTAssertEqual(mockFileParametersView.assignedParameters, [.dataSource])
-        XCTAssertTrue(mockFileParametersView.dataSource === dataSourceFactory.createDataSourceForFileURLReturnValue)
+        XCTAssertNotNil(mockFileParametersView.dataSource)
+        if let dataSource = mockFileParametersView.dataSource {
+            XCTAssertTrue(dataSource.isEqual(dataSourceFactory.createDataSourceForFileURLReturnValue))
+        }
         XCTAssertEqual(filteringHandler.calledMethods, [.performFilteringOnDataSourceWithFilterCompletionHandlerCalled])
         XCTAssertEqual(filteringHandler.assignedParameters, [.dataSource, .filter, .completionHandler])
         XCTAssertEqual(userDefaults.calledMethods, [.setValueForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])
@@ -339,7 +342,10 @@ class GodfatherInteractorTests: XCTestCase {
         XCTAssertEqual(documentController.url, url)
         XCTAssertEqual(mockFileParametersView.calledMethods, [.setupForDataSourceCalled, .clearProtocolCalled])
         XCTAssertEqual(mockFileParametersView.assignedParameters, [.dataSource])
-        XCTAssertTrue(mockFileParametersView.dataSource === dataSourceFactory.createDataSourceForFileURLReturnValue)
+        XCTAssertNotNil(mockFileParametersView.dataSource)
+        if let dataSource = mockFileParametersView.dataSource {
+            XCTAssertTrue(dataSource.isEqual(dataSourceFactory.createDataSourceForFileURLReturnValue))
+        }
         XCTAssertEqual(filteringHandler.calledMethods, [.performFilteringOnDataSourceWithFilterCompletionHandlerCalled])
         XCTAssertEqual(filteringHandler.assignedParameters, [.dataSource, .filter, .completionHandler])
         XCTAssertEqual(userDefaults.calledMethods, [.setValueForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])

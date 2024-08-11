@@ -29,9 +29,7 @@ enum SwiftPackageDataSourceError: Error, LocalizedError {
     }
 }
 
-class SwiftPackageDataSource: SourceFileDataSource {
-    
-    let fileManager: any FileManaging
+struct SwiftPackageDataSource: SourceFileDataSource {
 
     let projectName: String?
     let projectDirectoryURL: URL?
@@ -39,8 +37,7 @@ class SwiftPackageDataSource: SourceFileDataSource {
     let targets: [String]
 
     init?(
-        fileURL: URL,
-        fileManager: any FileManaging = FileManager.default
+        fileURL: URL
     ) throws {
         let packageInitializerInformation: PackageInitializerInformation
 
@@ -79,19 +76,22 @@ class SwiftPackageDataSource: SourceFileDataSource {
         // Parse the package declaration to get the relevant information for the data source
         packageInitializerInformation = try PackageInitializerInformation(decl: packageVariableDecl)
 
-        self.fileManager = fileManager
         self.projectName = packageInitializerInformation.name
         self.projectDirectoryURL = fileURL.deletingLastPathComponent()
         self.organizationName = nil //I haven't found a source for this in SwiftPackages
         self.targets = packageInitializerInformation.targets
     }
     
-    func traverse(filteredBy filter: String, monitoredBy monitor: any CancelMonitoring) -> ProjectTraversalResult {
+    func traverse(
+        filteredBy filter: String,
+        monitoredBy monitor: any CancelMonitoring,
+        fileManager: any FileManaging
+    ) -> SendableTreeNode {
         let node = TreeNode(groupName: "root")
         if let projectDirectoryURL {
-            traverse(projectDirectoryURL, at: 1, treeNode: node, filteredby: filter, monitoredBy: monitor, currentTarget: nil)
+            traverse(projectDirectoryURL, at: 1, treeNode: node, filteredby: filter, monitoredBy: monitor, currentTarget: nil, fileManager: fileManager)
         }
-        return (fileTree: node, groupTree: node)
+        return node.sendable
     }
  
     private func generateIndentation(for depth: Int) -> String {
@@ -109,7 +109,8 @@ class SwiftPackageDataSource: SourceFileDataSource {
         treeNode parent: TreeNode,
         filteredby filter: String,
         monitoredBy monitor: any CancelMonitoring,
-        currentTarget: String?
+        currentTarget: String?,
+        fileManager: any FileManaging
     ) {
         guard !monitor.isCancelled else { return }
 
@@ -135,7 +136,7 @@ class SwiftPackageDataSource: SourceFileDataSource {
                     
                     let treeNode = TreeNode(groupName: child.lastPathComponent)
                     parent.children.append(treeNode)
-                    traverse(child, at: depth + 1, treeNode: treeNode, filteredby: filter, monitoredBy: monitor, currentTarget: newTarget)
+                    traverse(child, at: depth + 1, treeNode: treeNode, filteredby: filter, monitoredBy: monitor, currentTarget: newTarget, fileManager: fileManager)
                     
                 } else {
                     

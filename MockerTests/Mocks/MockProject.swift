@@ -9,7 +9,7 @@
 import Foundation
 import XcodeEditor
 
-class MockProject: Project {
+final class MockProject: Project, @unchecked Sendable {
 
     struct Method: OptionSet {
         let rawValue: Int
@@ -41,7 +41,7 @@ class MockProject: Project {
 
     var targetsReturnValue: [XCTarget]!
     var objectsReturnValue: NSMutableDictionary!
-    var traverseFilteredByFilterMonitoredByReturnValue: ProjectTraversalResult!
+    var traverseFilteredByFilterMonitoredByReturnValue: SendableTreeNode = SendableTreeNode(type: .group, name: "GROUP", fileURL: nil, target: nil, children: [])
     var fileWithKeyKeyReturnValue: XCSourceFile!
     var fileWithNameNameReturnValue: XCSourceFile!
     var filePathReturnValue: String!
@@ -68,7 +68,7 @@ class MockProject: Project {
         return objectsReturnValue
     }
 
-    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> ProjectTraversalResult {
+    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> SendableTreeNode {
         calledMethods.insert(.traverseFilteredByFilterMonitoredByCalled)
         self.filter = filter
         assignedParameters.insert(.filter)

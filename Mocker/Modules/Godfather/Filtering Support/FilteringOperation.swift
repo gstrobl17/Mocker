@@ -9,11 +9,11 @@ import Foundation
 
 class FilteringOperation: Operation, @unchecked Sendable {
     
-    weak var dataSource: (any SourceFileDataSource)?
+    let dataSource: any SourceFileDataSource
     let filter: String
-    let completionHandler: (ProjectTraversalResult) -> Void
+    let completionHandler: (SendableTreeNode) -> Void
     
-    init(dataSource: any SourceFileDataSource, filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
+    init(dataSource: any SourceFileDataSource, filter: String, completionHandler: @escaping (SendableTreeNode) -> Void) {
         self.dataSource = dataSource
         self.filter = filter
         self.completionHandler = completionHandler
@@ -21,8 +21,7 @@ class FilteringOperation: Operation, @unchecked Sendable {
     }
     
     override func main() {
-        guard let dataSource = dataSource else { return }
-        let result = dataSource.traverse(filteredBy: filter, monitoredBy: self)
+        let result = dataSource.traverse(filteredBy: filter, monitoredBy: self, fileManager: FileManager.default)
         if !isCancelled {
             completionHandler(result)
         }

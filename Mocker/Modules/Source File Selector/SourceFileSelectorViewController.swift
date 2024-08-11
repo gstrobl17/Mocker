@@ -14,7 +14,7 @@ class SourceFileSelectorViewController: NSViewController {
     var presenter: (any SourceFileSelectorPresenterProtocol)?
     weak var delegate: (any SourceFileSelectorInterfaceDelegate)?
 
-    private var rootTreeNode: TreeNode?
+    private var rootTreeNode: SendableTreeNode?
     private var dataSource: (any SourceFileDataSource)?
 
 	override func viewDidLoad() {
@@ -32,7 +32,7 @@ extension SourceFileSelectorViewController: SourceFileSelectorViewProtocol {
 
 extension SourceFileSelectorViewController: SourceFileSelectorInterfaceProtocol {
     
-    func present(tree rootTreeNode: TreeNode, for dataSource: any SourceFileDataSource) {
+    func present(tree rootTreeNode: SendableTreeNode, for dataSource: any SourceFileDataSource) {
         self.rootTreeNode = rootTreeNode
         self.dataSource = dataSource
         outlineView.reloadData()

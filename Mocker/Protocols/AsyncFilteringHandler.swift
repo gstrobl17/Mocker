@@ -9,6 +9,6 @@ import Foundation
 
 protocol AsyncFilteringHandler {
     
-    func performFiltering(on dataSource: any SourceFileDataSource, with filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void)
+    func performFiltering(on dataSource: any SourceFileDataSource, with filter: String, completionHandler: @escaping (SendableTreeNode) -> Void)
     
 }

@@ -135,9 +135,10 @@ class GodfatherInteractor {
         guard let currentDataSource else { return }
         let filter = userDefaults.sourceFileFilterValue ?? ""
         filteringHandler.performFiltering(on: currentDataSource, with: filter) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let strongSelf = self, let dataSource = strongSelf.currentDataSource else { return }
-                strongSelf.sourceFileSelector.present(tree: result.fileTree, for: dataSource)
+            guard let self, let dataSource = self.currentDataSource else { return }
+            
+            DispatchQueue.main.async { [dataSource, sourceFileSelector] in
+                sourceFileSelector.present(tree: result, for: dataSource)
             }
         }
     }

@@ -10,25 +10,24 @@ import XcodeEditor
 
 private let logTraversalInformation = false
 
-extension XCProject: Project { }
+// XCProject purposely marked as @unchecked Sendable. This should be safe since the ability to modify the project as eliminated a while back.
+extension XCProject: Project, @unchecked @retroactive Sendable { }
 
 extension XCProject {
     
-    func traverse(filteredBy filter: String, monitoredBy monitor: any CancelMonitoring) -> (fileTree: TreeNode, groupTree: TreeNode) {
+    func traverse(filteredBy filter: String, monitoredBy monitor: any CancelMonitoring) -> SendableTreeNode {
         
         let rootTreeNode = TreeNode(groupName: "Root")
         traverse(self.rootGroup(), at: 0, treeNode: rootTreeNode, filteredby: filter.lowercased(), monitoredBy: monitor)
         
         if monitor.isCancelled {
             // Return what we have now. (It will probably be disacarded anyway.)
-            return (fileTree: rootTreeNode, groupTree: rootTreeNode)
+            return rootTreeNode.sendable
         } else {
             
             // Process the tree into a tree with the files and tree with only the groups
             let rootFileTreeNode = filterIntoFileTree(rootTreeNode)
-            let rootGroupTreeNode = filterIntoGroupTree(rootTreeNode)
-
-            return (fileTree: rootFileTreeNode, groupTree: rootGroupTreeNode)
+            return rootFileTreeNode.sendable
         }
     }
     
@@ -117,25 +116,6 @@ extension XCProject {
             let newTreeNode = TreeNode(fileURL: fileURL, target: treeNode.target)
             assert(treeNode.children.isEmpty)
             parent.children.append(newTreeNode)
-        }
-    }
-
-    private func filterIntoGroupTree(_ rootTreeNode: TreeNode) -> TreeNode {
-        assert(rootTreeNode.type == .group)
-        let rootGroupTreeNode = TreeNode(groupName: rootTreeNode.name)
-        for child in rootTreeNode.children {
-            filter(groupTreeCandidate: child, parent: rootGroupTreeNode)
-        }
-        return rootGroupTreeNode
-    }
-    
-    private func filter(groupTreeCandidate treeNode: TreeNode, parent: TreeNode) {
-        if treeNode.type == .group {
-            let newTreeNode = TreeNode(groupName: treeNode.name)
-            parent.children.append(newTreeNode)
-            for child in treeNode.children {
-                filter(groupTreeCandidate: child, parent: newTreeNode)
-            }
         }
     }
     

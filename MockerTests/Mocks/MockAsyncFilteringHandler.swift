@@ -26,7 +26,7 @@ class MockAsyncFilteringHandler: AsyncFilteringHandler {
 
     private(set) var dataSource: (any SourceFileDataSource)?
     private(set) var filter: String?
-    private(set) var completionHandler: ((ProjectTraversalResult) -> Void)?
+    private(set) var completionHandler: ((SendableTreeNode) -> Void)?
 
     func reset() {
         calledMethods = []
@@ -36,7 +36,7 @@ class MockAsyncFilteringHandler: AsyncFilteringHandler {
         completionHandler = nil
     }
 
-    func performFiltering(on dataSource: any SourceFileDataSource, with filter: String, completionHandler: @escaping (ProjectTraversalResult) -> Void) {
+    func performFiltering(on dataSource: any SourceFileDataSource, with filter: String, completionHandler: @escaping (SendableTreeNode) -> Void) {
         calledMethods.insert(.performFilteringOnDataSourceWithFilterCompletionHandlerCalled)
         self.dataSource = dataSource
         assignedParameters.insert(.dataSource)

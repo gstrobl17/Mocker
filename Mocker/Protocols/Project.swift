@@ -8,12 +8,12 @@
 import Foundation
 import XcodeEditor
 
-protocol Project: AnyObject {
+protocol Project: AnyObject, Sendable {
 
     func targets() -> [XCTarget]!
     func objects() -> NSMutableDictionary!
 
-    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> ProjectTraversalResult
+    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> SendableTreeNode
     func file(withKey key: String!) -> XCSourceFile!
     func filePath() -> String!
     func groupWithPath(fromRoot: String!) -> XCGroup!

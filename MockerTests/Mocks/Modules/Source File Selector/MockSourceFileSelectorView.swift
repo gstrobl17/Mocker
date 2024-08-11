@@ -27,7 +27,7 @@ class MockSourceFileSelectorView: NSViewController, SourceFileSelectorViewProtoc
     }
     private(set) var assignedParameters = MethodParameter()
     
-    private(set) var rootTreeNode: TreeNode?
+    private(set) var rootTreeNode: SendableTreeNode?
     private(set) var dataSource: (any SourceFileDataSource)?
     
     func reset() {
@@ -37,7 +37,7 @@ class MockSourceFileSelectorView: NSViewController, SourceFileSelectorViewProtoc
         dataSource = nil
     }
     
-    func present(tree rootTreeNode: TreeNode, for dataSource: any SourceFileDataSource) {
+    func present(tree rootTreeNode: SendableTreeNode, for dataSource: any SourceFileDataSource) {
         calledMethods.insert(.presentTreeRootTreeNodeForDataSourceCalled)
         self.rootTreeNode = rootTreeNode
         assignedParameters.insert(.rootTreeNode)

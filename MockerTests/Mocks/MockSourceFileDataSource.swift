@@ -9,8 +9,8 @@
 @testable import Mocker
 import Foundation
 
-class MockSourceFileDataSource: SourceFileDataSource {
-
+final class MockSourceFileDataSource: SourceFileDataSource, @unchecked Sendable {
+    
     // MARK: - Variables for Properties Used for Protocol Conformance
     // Use these properties to get/set/initialize the properties without registering a method call
 
@@ -27,7 +27,7 @@ class MockSourceFileDataSource: SourceFileDataSource {
         static let projectDirectoryURLGetterCalled = Method(rawValue: 1 << 1)
         static let organizationNameGetterCalled = Method(rawValue: 1 << 2)
         static let targetsGetterCalled = Method(rawValue: 1 << 3)
-        static let traverseFilteredByFilterMonitoredByCalled = Method(rawValue: 1 << 4)
+        static let traverseFilteredByFilterMonitoredByFileManagerCalled = Method(rawValue: 1 << 4)
     }
     private(set) var calledMethods = Method()
 
@@ -35,6 +35,7 @@ class MockSourceFileDataSource: SourceFileDataSource {
         let rawValue: UInt
         static let filter = MethodParameter(rawValue: 1 << 0)
         static let monitoredBy = MethodParameter(rawValue: 1 << 1)
+        static let fileManager = MethodParameter(rawValue: 1 << 2)
     }
     private(set) var assignedParameters = MethodParameter()
 
@@ -42,10 +43,11 @@ class MockSourceFileDataSource: SourceFileDataSource {
 
     private(set) var filter: String?
     private(set) var monitoredBy: (any CancelMonitoring)?
+    private(set) var fileManager: (any FileManaging)?
 
     // MARK: - Variables to Use as Method Return Values
 
-    var traverseFilteredByFilterMonitoredByReturnValue: ProjectTraversalResult!
+    var traverseFilteredByFilterMonitoredByFileManagerReturnValue: SendableTreeNode = SendableTreeNode(type: .file, name: "name", fileURL: nil, target: nil, children: [])
     var filePathReturnValue: String!
 
     func reset() {
@@ -53,6 +55,7 @@ class MockSourceFileDataSource: SourceFileDataSource {
         assignedParameters = []
         filter = nil
         monitoredBy = nil
+        fileManager = nil
     }
 
     // MARK: - Properties for Protocol Conformance
@@ -79,13 +82,19 @@ class MockSourceFileDataSource: SourceFileDataSource {
 
     // MARK: - Methods for Protocol Conformance
 
-    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> ProjectTraversalResult {
-        calledMethods.insert(.traverseFilteredByFilterMonitoredByCalled)
+    func traverse(
+        filteredBy filter: String,
+        monitoredBy: any CancelMonitoring,
+        fileManager: any FileManaging
+    ) -> SendableTreeNode {
+        calledMethods.insert(.traverseFilteredByFilterMonitoredByFileManagerCalled)
         self.filter = filter
         assignedParameters.insert(.filter)
         self.monitoredBy = monitoredBy
         assignedParameters.insert(.monitoredBy)
-        return traverseFilteredByFilterMonitoredByReturnValue
+        self.fileManager = fileManager
+        assignedParameters.insert(.fileManager)
+        return traverseFilteredByFilterMonitoredByFileManagerReturnValue
     }
 
 }
@@ -118,9 +127,9 @@ extension MockSourceFileDataSource.Method: CustomStringConvertible {
             handleFirst()
             value += ".targetsGetterCalled"
         }
-        if self.contains(.traverseFilteredByFilterMonitoredByCalled) {
+        if self.contains(.traverseFilteredByFilterMonitoredByFileManagerCalled) {
             handleFirst()
-            value += ".traverseFilteredByFilterMonitoredByCalled"
+            value += ".traverseFilteredByFilterMonitoredByFileManagerCalled"
         }
 
         value += "]"
@@ -147,6 +156,10 @@ extension MockSourceFileDataSource.MethodParameter: CustomStringConvertible {
         if self.contains(.monitoredBy) {
             handleFirst()
             value += ".monitoredBy"
+        }
+        if self.contains(.fileManager) {
+            handleFirst()
+            value += ".fileManager"
         }
 
         value += "]"

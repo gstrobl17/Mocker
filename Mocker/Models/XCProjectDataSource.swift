@@ -9,7 +9,8 @@
 import Foundation
 import XcodeEditor
 
-class XCProjectDataSource: SourceFileDataSource {
+struct XCProjectDataSource: SourceFileDataSource {
+    
     let project: any Project
     
     init?(filePath: String) {
@@ -33,7 +34,11 @@ class XCProjectDataSource: SourceFileDataSource {
         project.targets().compactMap { $0.nameForCode }
     }
     
-    func traverse(filteredBy filter: String, monitoredBy monitor: any CancelMonitoring) -> ProjectTraversalResult {
+    func traverse(
+        filteredBy filter: String,
+        monitoredBy monitor: any CancelMonitoring,
+        fileManager: any FileManaging
+    ) -> SendableTreeNode {
         project.traverse(filteredBy: filter, monitoredBy: monitor)
     }
     

@@ -38,4 +38,23 @@ class TreeNode: NSObject {
         guard let fileURL else { return false }
         return fileURL.pathExtension == "swift"
     }
+    
+    var sendable: SendableTreeNode {
+        let sendableChildren = children.map { $0.sendable }
+        return SendableTreeNode(
+            type: type,
+            name: name,
+            fileURL: fileURL,
+            target: target,
+            children: sendableChildren
+        )
+    }
+}
+
+struct SendableTreeNode: Sendable, Equatable {
+    let type: TreeNodeType
+    let name: String       // Either the group name or the file name
+    let fileURL: URL?
+    let target: String?
+    let children: [SendableTreeNode]
 }

@@ -42,7 +42,7 @@ extension SyntaxKind {
     }
 }
 
-class SwiftSyntaxHighligher: NSObject, NSTextStorageDelegate, NSLayoutManagerDelegate {
+class SwiftSyntaxHighligher: NSObject, NSTextStorageDelegate, NSLayoutManagerDelegate, @unchecked Sendable {
     let textStorage: NSTextStorage
     let textView: NSTextView
     let scrollView: NSScrollView
