@@ -21,7 +21,7 @@ class MockSourceFileDataSource: SourceFileDataSource {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: UInt
         static let projectNameGetterCalled = Method(rawValue: 1 << 0)
         static let projectDirectoryURLGetterCalled = Method(rawValue: 1 << 1)
@@ -31,7 +31,7 @@ class MockSourceFileDataSource: SourceFileDataSource {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: UInt
         static let filter = MethodParameter(rawValue: 1 << 0)
         static let monitoredBy = MethodParameter(rawValue: 1 << 1)

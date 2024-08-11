@@ -18,7 +18,7 @@ class MockFullNameProviding: FullNameProviding {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: UInt
         static let nameGetterCalled = Method(rawValue: 1 << 0)
     }

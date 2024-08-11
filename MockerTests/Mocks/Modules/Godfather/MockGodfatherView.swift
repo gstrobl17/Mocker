@@ -16,7 +16,7 @@ class MockGodfatherView: GodfatherViewProtocol {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled = Method(rawValue: 1 << 0)
         static let displayAlertCalled = Method(rawValue: 1 << 1)
@@ -29,7 +29,7 @@ class MockGodfatherView: GodfatherViewProtocol {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let projectFileSelector = MethodParameter(rawValue: 1 << 0)
         static let sourceFileSelector = MethodParameter(rawValue: 1 << 1)

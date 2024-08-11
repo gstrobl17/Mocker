@@ -58,7 +58,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let openHelpCalled = Method(rawValue: 1 << 0)
                                }
@@ -151,7 +151,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let openHelpCalled = Method(rawValue: 1 << 0)
@@ -244,7 +244,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let viewControllerGetterCalled = Method(rawValue: 1 << 0)
                                    static let analyticsRecorderGetterCalled = Method(rawValue: 1 << 1)
@@ -380,7 +380,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let viewControllerGetterCalled = Method(rawValue: 1 << 0)

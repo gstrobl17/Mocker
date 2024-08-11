@@ -15,7 +15,7 @@ class MockMockFileParametersPresenter: MockFileParametersPresenterProtocol {
 
     var interactor: MockFileParametersInteractorInputProtocol?
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let setProtocolNameProtocolNameCalled = Method(rawValue: 1 << 0)
         static let prefixUpdatedToPrefixCalled = Method(rawValue: 1 << 1)
@@ -29,7 +29,7 @@ class MockMockFileParametersPresenter: MockFileParametersPresenterProtocol {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let protocolName = MethodParameter(rawValue: 1)
         static let prefix = MethodParameter(rawValue: 2)

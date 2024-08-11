@@ -13,7 +13,7 @@ class MockKeyValueStoring: KeyValueStoring {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: UInt
         static let objectForKeyDefaultNameCalled = Method(rawValue: 1 << 0)
         static let setValueForKeyDefaultNameCalled = Method(rawValue: 1 << 1)
@@ -38,7 +38,7 @@ class MockKeyValueStoring: KeyValueStoring {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: UInt
         static let defaultName = MethodParameter(rawValue: 1 << 0)
         static let value = MethodParameter(rawValue: 1 << 1)

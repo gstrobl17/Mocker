@@ -16,7 +16,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     var presenter: MockFileParametersPresenterProtocol?
     var delegate: MockFileParametersInterfaceDelegate?  //swiftlint:disable:this weak_delegate
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled = Method(rawValue: 1)
         static let setNameNameCalled = Method(rawValue: 2)
@@ -27,7 +27,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let prefix = MethodParameter(rawValue: 1 << 0)
         static let includeHeader = MethodParameter(rawValue: 1 << 1)

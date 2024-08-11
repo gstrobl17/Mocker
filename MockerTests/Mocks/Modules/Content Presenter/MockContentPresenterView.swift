@@ -10,13 +10,13 @@ import AppKit
 
 class MockContentPresenterView: NSViewController, ContentPresenterInterfaceProtocol {
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let presentTextCalled = Method(rawValue: 1)
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let text = MethodParameter(rawValue: 1)
     }

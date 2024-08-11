@@ -12,14 +12,14 @@ class MockFilterInteractorInput: FilterInteractorInputProtocol {
 
     var presenter: FilterInteractorOutputProtocol?
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let viewHasLoadedCalled = Method(rawValue: 1)
         static let filterValueChangedToValueCalled = Method(rawValue: 2)
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let value = MethodParameter(rawValue: 1)
     }

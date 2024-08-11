@@ -12,7 +12,7 @@ class MockFilterInterface: FilterInterfaceProtocol {
 
     var delegate: FilterInterfaceDelegate?  //swiftlint:disable:this weak_delegate
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let clearCalled = Method(rawValue: 1)
     }

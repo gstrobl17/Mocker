@@ -13,13 +13,13 @@ class MockDocumentControlling: DocumentControlling {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: UInt
         static let noteNewRecentDocumentURLUrlCalled = Method(rawValue: 1 << 0)
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: UInt
         static let url = MethodParameter(rawValue: 1 << 0)
     }

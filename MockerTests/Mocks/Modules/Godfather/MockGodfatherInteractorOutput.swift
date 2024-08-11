@@ -10,7 +10,7 @@ import AppKit
 
 class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled = Method(rawValue: 1 << 0)
         static let reportErrorErrorCalled = Method(rawValue: 1 << 1)
@@ -22,7 +22,7 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let projectFileSelector = MethodParameter(rawValue: 1 << 0)
         static let sourceFileSelector = MethodParameter(rawValue: 1 << 1)

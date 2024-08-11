@@ -13,7 +13,7 @@ class MockSourceFileSelectorPresenter: SourceFileSelectorPresenterProtocol {
 
     var interactor: SourceFileSelectorInteractorInputProtocol?
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let viewHasLoadedCalled = Method(rawValue: 1)
     }

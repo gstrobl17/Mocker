@@ -10,13 +10,13 @@ import AppKit
 
 class MockProjectFileSelectorInteractorOutput: ProjectFileSelectorInteractorOutputProtocol {
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let showSelectedFileUrlCalled = Method(rawValue: 1)
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let url = MethodParameter(rawValue: 1)
     }

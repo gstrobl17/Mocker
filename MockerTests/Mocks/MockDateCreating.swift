@@ -18,14 +18,14 @@ class MockDateCreating: DateCreating {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: UInt
         static let nowGetterCalled = Method(rawValue: 1 << 0)
         static let dateTimeIntervalSinceNowCalled = Method(rawValue: 1 << 1)
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: UInt
         static let timeIntervalSinceNow = MethodParameter(rawValue: 1 << 0)
     }
