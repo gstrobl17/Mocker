@@ -14,7 +14,7 @@ class MockProjectFileSelectorView: NSViewController, ProjectFileSelectorViewProt
     var presenter: (any ProjectFileSelectorPresenterProtocol)?
     var delegate: (any ProjectFileSelectorInterfaceDelegate)?
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let showSelectedFileUrlCalled = Method(rawValue: 1 << 0)
         static let openModalSheetWithOpenPanelCompletionHandlerHandlerCalled = Method(rawValue: 1 << 1)
@@ -25,7 +25,7 @@ class MockProjectFileSelectorView: NSViewController, ProjectFileSelectorViewProt
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let url = MethodParameter(rawValue: 1 << 0)
         static let openPanel = MethodParameter(rawValue: 1 << 1)

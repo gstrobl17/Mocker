@@ -14,13 +14,13 @@ class MockProtocolSelectorView: NSViewController, ProtocolSelectorViewProtocol, 
     var presenter: (any ProtocolSelectorPresenterProtocol)?
     var delegate: (any ProtocolSelectorInterfaceDelegate)?    //swiftlint:disable:this weak_delegate
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let presentProtocolsCalled = Method(rawValue: 1)
     }
     private(set) var calledMethods = Method()
     
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let protocols = MethodParameter(rawValue: 1)
     }

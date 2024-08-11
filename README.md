@@ -23,7 +23,7 @@ The exact code generated for a mock depends, obviously, on the requirements of t
 - a `Method` option set. A value for each method in the protocol is defined using the method's name and the parameters. This naming approach handles methods with the same name but different signatures.
  
 ```swift
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let dataForRequestDelegateCalled = Method(rawValue: 1 << 0)
         static let dataFromUrlDelegateCalled = Method(rawValue: 1 << 1)
@@ -39,7 +39,7 @@ The exact code generated for a mock depends, obviously, on the requirements of t
 - a `MethodParameter` option set. This defines a value for each parameter in all the methods in the protocol.
 
 ```swift
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let request = MethodParameter(rawValue: 1 << 0)
         static let delegate = MethodParameter(rawValue: 1 << 1)

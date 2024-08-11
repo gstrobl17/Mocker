@@ -17,7 +17,7 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
     var mockName: String = ""
     var mockCode: String = ""
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let selectProjectCalled = Method(rawValue: 1 << 0)
         static let canReloadProjectCalled = Method(rawValue: 1 << 1)
@@ -29,7 +29,7 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let choice = MethodParameter(rawValue: 1 << 0)
         static let url = MethodParameter(rawValue: 1 << 1)

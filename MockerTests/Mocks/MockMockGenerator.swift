@@ -10,13 +10,13 @@ import Foundation
 
 class MockMockGenerator: MockGenerating {
     
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let generateMockCodeForParametersCalled = Method(rawValue: 1)
     }
     private(set) var calledMethods = Method()
     
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let parameters = MethodParameter(rawValue: 1)
     }

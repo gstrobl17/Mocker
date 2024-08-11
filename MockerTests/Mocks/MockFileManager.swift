@@ -13,7 +13,7 @@ class MockFileManager: FileManaging {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: UInt
         static let fileExistsAtPathPathCalled = Method(rawValue: 1 << 0)
         static let createDirectoryAtUrlWithIntermediateDirectoriesCreateIntermediatesAttributesCalled = Method(rawValue: 1 << 1)
@@ -22,7 +22,7 @@ class MockFileManager: FileManaging {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: UInt
         static let path = MethodParameter(rawValue: 1 << 0)
         static let url = MethodParameter(rawValue: 1 << 1)

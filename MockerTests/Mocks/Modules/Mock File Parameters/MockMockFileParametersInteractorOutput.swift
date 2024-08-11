@@ -13,14 +13,14 @@ import XcodeEditor
 
 class MockMockFileParametersInteractorOutput: MockFileParametersInteractorOutputProtocol {
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled = Method(rawValue: 1)
         static let setNameNameCalled = Method(rawValue: 2)
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let prefix = MethodParameter(rawValue: 1 << 0)
         static let includeHeader = MethodParameter(rawValue: 1 << 1)

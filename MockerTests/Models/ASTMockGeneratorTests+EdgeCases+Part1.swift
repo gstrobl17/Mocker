@@ -52,7 +52,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo1CompletionHandlerCalled = Method(rawValue: 1 << 0)
                                    static let foo2CompletionHandlerCalled = Method(rawValue: 1 << 1)
@@ -63,7 +63,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) var calledMethods = Method()
 
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let stringCompletionHandler = MethodParameter(rawValue: 1 << 0)
                                    static let stringsCompletionHandler = MethodParameter(rawValue: 1 << 1)
@@ -315,7 +315,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo1CompletionHandlerCalled = Method(rawValue: 1 << 0)
@@ -327,7 +327,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let stringCompletionHandler = MethodParameter(rawValue: 1 << 0)
@@ -578,7 +578,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo1CompletionHandlerCalled = Method(rawValue: 1 << 0)
                                    static let foo2CompletionHandlerCalled = Method(rawValue: 1 << 1)
@@ -590,7 +590,7 @@ extension ASTMockGeneratorTests {
                                private(set) var calledMethods = Method()
 
                                //swiftlint:disable identifier_name
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let stringCompletionHandler = MethodParameter(rawValue: 1 << 0)
                                    static let stringsCompletionHandler = MethodParameter(rawValue: 1 << 1)
@@ -856,14 +856,14 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo1Called = Method(rawValue: 1 << 0)
                                    static let foo2Called = Method(rawValue: 1 << 1)
                                }
                                private(set) var calledMethods = Method()
 
-                               struct StaticMethod: OptionSet {
+                               struct StaticMethod: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo3Called = StaticMethod(rawValue: 1 << 0)
                                    static let foo4Called = StaticMethod(rawValue: 1 << 1)
@@ -1005,7 +1005,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo1Called = Method(rawValue: 1 << 0)
@@ -1013,7 +1013,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct StaticMethod: OptionSet {
+                               public struct StaticMethod: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo3Called = StaticMethod(rawValue: 1 << 0)
@@ -1154,14 +1154,14 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo1Called = Method(rawValue: 1 << 0)
                                    static let foo2Called = Method(rawValue: 1 << 1)
                                }
                                private(set) var calledMethods = Method()
 
-                               struct StaticMethod: OptionSet {
+                               struct StaticMethod: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo3Called = StaticMethod(rawValue: 1 << 0)
                                    static let foo4Called = StaticMethod(rawValue: 1 << 1)
@@ -1480,14 +1480,14 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let delegateGetterCalled = Method(rawValue: 1 << 0)
                                    static let delegateSetterCalled = Method(rawValue: 1 << 1)
                                }
                                private(set) var calledMethods = Method()
 
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let delegateInSetter = MethodParameter(rawValue: 1 << 0)
                                }
@@ -1620,7 +1620,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let delegateGetterCalled = Method(rawValue: 1 << 0)
@@ -1628,7 +1628,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let delegateInSetter = MethodParameter(rawValue: 1 << 0)
@@ -1765,13 +1765,13 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct StaticMethod: OptionSet {
+                               struct StaticMethod: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled = StaticMethod(rawValue: 1 << 0)
                                }
                                private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct StaticMethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let flag = StaticMethodParameter(rawValue: 1 << 0)
                                }
@@ -1888,14 +1888,14 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct StaticMethod: OptionSet {
+                               public struct StaticMethod: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled = StaticMethod(rawValue: 1 << 0)
                                }
                                private(set) public static var calledStaticMethods = StaticMethod()
 
-                               public struct StaticMethodParameter: OptionSet {
+                               public struct StaticMethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let flag = StaticMethodParameter(rawValue: 1 << 0)
@@ -2012,14 +2012,14 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Trackings Method Invocation
 
                                //swiftlint:disable identifier_name
-                               struct StaticMethod: OptionSet {
+                               struct StaticMethod: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled = StaticMethod(rawValue: 1 << 0)
                                }
                                //swiftlint:enable identifier_name
                                private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct StaticMethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let flag = StaticMethodParameter(rawValue: 1 << 0)
                                }
@@ -2137,7 +2137,7 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Trackings Method Invocation
 
                                //swiftlint:disable identifier_name
-                               public struct StaticMethod: OptionSet {
+                               public struct StaticMethod: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let thisIsAVeryLongMethodNameThatWillTriggerASwiftlintWarningFlagCalled = StaticMethod(rawValue: 1 << 0)
@@ -2145,7 +2145,7 @@ extension ASTMockGeneratorTests {
                                //swiftlint:enable identifier_name
                                private(set) public static var calledStaticMethods = StaticMethod()
 
-                               public struct StaticMethodParameter: OptionSet {
+                               public struct StaticMethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let flag = StaticMethodParameter(rawValue: 1 << 0)
@@ -2272,19 +2272,19 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo1ABCDEFGCalled = Method(rawValue: 1 << 0)
                                }
                                private(set) var calledMethods = Method()
 
-                               struct StaticMethod: OptionSet {
+                               struct StaticMethod: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo2ABCDEFGCalled = StaticMethod(rawValue: 1 << 0)
                                }
                                private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let a = MethodParameter(rawValue: 1 << 0)
                                    static let b = MethodParameter(rawValue: 1 << 1)
@@ -2296,7 +2296,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) var assignedParameters = MethodParameter()
 
-                               struct StaticMethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let a = StaticMethodParameter(rawValue: 1 << 0)
                                    static let b = StaticMethodParameter(rawValue: 1 << 1)
@@ -2557,21 +2557,21 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo1ABCDEFGCalled = Method(rawValue: 1 << 0)
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct StaticMethod: OptionSet {
+                               public struct StaticMethod: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo2ABCDEFGCalled = StaticMethod(rawValue: 1 << 0)
                                }
                                private(set) public static var calledStaticMethods = StaticMethod()
 
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let a = MethodParameter(rawValue: 1 << 0)
@@ -2584,7 +2584,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public var assignedParameters = MethodParameter()
 
-                               public struct StaticMethodParameter: OptionSet {
+                               public struct StaticMethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let a = StaticMethodParameter(rawValue: 1 << 0)
@@ -2844,20 +2844,20 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo1ABCDEFGCalled = Method(rawValue: 1 << 0)
                                }
                                private(set) var calledMethods = Method()
 
-                               struct StaticMethod: OptionSet {
+                               struct StaticMethod: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo2ABCDEFGCalled = StaticMethod(rawValue: 1 << 0)
                                }
                                private(set) static var calledStaticMethods = StaticMethod()
 
                                //swiftlint:disable identifier_name
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let a = MethodParameter(rawValue: 1 << 0)
                                    static let b = MethodParameter(rawValue: 1 << 1)
@@ -2871,7 +2871,7 @@ extension ASTMockGeneratorTests {
                                private(set) var assignedParameters = MethodParameter()
 
                                //swiftlint:disable identifier_name
-                               struct StaticMethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let a = StaticMethodParameter(rawValue: 1 << 0)
                                    static let b = StaticMethodParameter(rawValue: 1 << 1)
@@ -3135,14 +3135,14 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo1ABCDEFGCalled = Method(rawValue: 1 << 0)
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct StaticMethod: OptionSet {
+                               public struct StaticMethod: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo2ABCDEFGCalled = StaticMethod(rawValue: 1 << 0)
@@ -3150,7 +3150,7 @@ extension ASTMockGeneratorTests {
                                private(set) public static var calledStaticMethods = StaticMethod()
 
                                //swiftlint:disable identifier_name
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let a = MethodParameter(rawValue: 1 << 0)
@@ -3165,7 +3165,7 @@ extension ASTMockGeneratorTests {
                                private(set) public var assignedParameters = MethodParameter()
 
                                //swiftlint:disable identifier_name
-                               public struct StaticMethodParameter: OptionSet {
+                               public struct StaticMethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let a = StaticMethodParameter(rawValue: 1 << 0)
@@ -3438,13 +3438,13 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo1CompletionHandlerToBeCalledWhenDoneCalled = Method(rawValue: 1 << 0)
                                }
                                private(set) var calledMethods = Method()
 
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let stringCompletionHandlerToBeCalledWhenDone = MethodParameter(rawValue: 1 << 0)
                                }
@@ -3574,14 +3574,14 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo1CompletionHandlerToBeCalledWhenDoneCalled = Method(rawValue: 1 << 0)
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let stringCompletionHandlerToBeCalledWhenDone = MethodParameter(rawValue: 1 << 0)
@@ -3711,7 +3711,7 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Trackings Method Invocation
 
                                //swiftlint:disable identifier_name
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let foo1CompletionHandlerToBeCalledWhenDoneCalled = Method(rawValue: 1 << 0)
                                }
@@ -3719,7 +3719,7 @@ extension ASTMockGeneratorTests {
                                private(set) var calledMethods = Method()
 
                                //swiftlint:disable identifier_name
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let stringCompletionHandlerToBeCalledWhenDone = MethodParameter(rawValue: 1 << 0)
                                }
@@ -3853,7 +3853,7 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Trackings Method Invocation
 
                                //swiftlint:disable identifier_name
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo1CompletionHandlerToBeCalledWhenDoneCalled = Method(rawValue: 1 << 0)
@@ -3862,7 +3862,7 @@ extension ASTMockGeneratorTests {
                                private(set) public var calledMethods = Method()
 
                                //swiftlint:disable identifier_name
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let stringCompletionHandlerToBeCalledWhenDone = MethodParameter(rawValue: 1 << 0)

@@ -14,13 +14,13 @@ class MockSourceFileSelectorView: NSViewController, SourceFileSelectorViewProtoc
     var presenter: (any SourceFileSelectorPresenterProtocol)?
     var delegate: (any SourceFileSelectorInterfaceDelegate)?  //swiftlint:disable:this weak_delegate
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let presentTreeRootTreeNodeForDataSourceCalled = Method(rawValue: 1)
     }
     private(set) var calledMethods = Method()
     
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let rootTreeNode = MethodParameter(rawValue: 1)
         static let dataSource = MethodParameter(rawValue: 2)

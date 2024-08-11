@@ -70,7 +70,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let addWarmUpCalled = Method(rawValue: 1 << 0)
                                    static let updateWarmUpCalled = Method(rawValue: 1 << 1)
@@ -83,7 +83,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) var calledMethods = Method()
 
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let warmUp = MethodParameter(rawValue: 1 << 0)
                                    static let index = MethodParameter(rawValue: 1 << 1)
@@ -336,7 +336,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let addWarmUpCalled = Method(rawValue: 1 << 0)
@@ -350,7 +350,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let warmUp = MethodParameter(rawValue: 1 << 0)
@@ -604,7 +604,7 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Trackings Method Invocation
 
                                //swiftlint:disable identifier_name
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let delegateGetterCalled = Method(rawValue: 1 << 0)
                                    static let delegateSetterCalled = Method(rawValue: 1 << 1)
@@ -624,7 +624,7 @@ extension ASTMockGeneratorTests {
                                //swiftlint:enable identifier_name
                                private(set) var calledMethods = Method()
 
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt
                                    static let delegateInSetter = MethodParameter(rawValue: 1 << 0)
                                    static let instantWarmUpInSetter = MethodParameter(rawValue: 1 << 1)
@@ -955,7 +955,7 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Trackings Method Invocation
 
                                //swiftlint:disable identifier_name
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let delegateGetterCalled = Method(rawValue: 1 << 0)
@@ -976,7 +976,7 @@ extension ASTMockGeneratorTests {
                                //swiftlint:enable identifier_name
                                private(set) public var calledMethods = Method()
 
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let delegateInSetter = MethodParameter(rawValue: 1 << 0)

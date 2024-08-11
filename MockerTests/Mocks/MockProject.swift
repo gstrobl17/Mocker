@@ -11,7 +11,7 @@ import XcodeEditor
 
 final class MockProject: Project, @unchecked Sendable {
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let targetsCalled = Method(rawValue: 1)
         static let objectsCalled = Method(rawValue: 2)
@@ -23,7 +23,7 @@ final class MockProject: Project, @unchecked Sendable {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let filter = MethodParameter(rawValue: 1)
         static let monitoredBy = MethodParameter(rawValue: 2)

@@ -137,7 +137,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (70) than bits (64).
                                    static let foo1Value1Called = Method(rawValue: 1 << 0)
                                    static let foo2Value2Called = Method(rawValue: 1 << 1)
@@ -212,7 +212,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) var calledMethods = Method()
 
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (70) than bits (64).
                                    static let value1 = MethodParameter(rawValue: 1 << 0)
                                    static let value2 = MethodParameter(rawValue: 1 << 1)
@@ -1513,7 +1513,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (70) than bits (64).
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let foo1Value1Called = Method(rawValue: 1 << 0)
@@ -1589,7 +1589,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (70) than bits (64).
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let value1 = MethodParameter(rawValue: 1 << 0)
@@ -2890,7 +2890,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct Method: OptionSet {
+                               struct Method: OptionSet, Sendable {
                                    let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (85) than bits (64).
                                    static let aGetterCalled = Method(rawValue: 1 << 0)
                                    static let value10GetterCalled = Method(rawValue: 1 << 1)
@@ -2980,7 +2980,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) var calledMethods = Method()
 
-                               struct MethodParameter: OptionSet {
+                               struct MethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (77) than bits (64).
                                    static let value10InSetter = MethodParameter(rawValue: 1 << 0)
                                    static let value21InSetter = MethodParameter(rawValue: 1 << 1)
@@ -4489,7 +4489,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               public struct Method: OptionSet {
+                               public struct Method: OptionSet, Sendable {
                                    public let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (85) than bits (64).
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let aGetterCalled = Method(rawValue: 1 << 0)
@@ -4580,7 +4580,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public var calledMethods = Method()
 
-                               public struct MethodParameter: OptionSet {
+                               public struct MethodParameter: OptionSet, Sendable {
                                    public let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (77) than bits (64).
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
                                    public static let value10InSetter = MethodParameter(rawValue: 1 << 0)
@@ -6176,7 +6176,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct StaticMethod: OptionSet {
+                               struct StaticMethod: OptionSet, Sendable {
                                    let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (70) than bits (64).
                                    static let foo1Called = StaticMethod(rawValue: 1 << 0)
                                    static let foo2Value2Called = StaticMethod(rawValue: 1 << 1)
@@ -6251,7 +6251,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct StaticMethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (67) than bits (64).
                                    static let value2 = StaticMethodParameter(rawValue: 1 << 0)
                                    static let value3 = StaticMethodParameter(rawValue: 1 << 1)
@@ -7524,7 +7524,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Trackings Method Invocation
 
-                               struct StaticMethod: OptionSet {
+                               struct StaticMethod: OptionSet, Sendable {
                                    let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (85) than bits (64).
                                    static let aGetterCalled = Method(rawValue: 1 << 0)
                                    static let value10GetterCalled = Method(rawValue: 1 << 1)
@@ -7614,7 +7614,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) static var calledStaticMethods = StaticMethod()
 
-                               struct StaticMethodParameter: OptionSet {
+                               struct StaticMethodParameter: OptionSet, Sendable {
                                    let rawValue: UInt  // TODO: Increase the size of OptionSet storage. There are more options (74) than bits (64).
                                    static let value10InSetter = StaticMethodParameter(rawValue: 1 << 0)
                                    static let value21InSetter = StaticMethodParameter(rawValue: 1 << 1)

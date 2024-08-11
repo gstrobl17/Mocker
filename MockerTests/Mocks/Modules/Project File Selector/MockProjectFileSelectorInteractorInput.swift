@@ -13,7 +13,7 @@ class MockProjectFileSelectorInteractorInput: ProjectFileSelectorInteractorInput
     var presenter: (any ProjectFileSelectorInteractorOutputProtocol)?
     var url: URL?
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: Int
         static let setURLUrlCalled = Method(rawValue: 1)
         static let projectFileSelectedUrlCalled = Method(rawValue: 2)
@@ -21,7 +21,7 @@ class MockProjectFileSelectorInteractorInput: ProjectFileSelectorInteractorInput
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: Int
         static let url = MethodParameter(rawValue: 1)
     }

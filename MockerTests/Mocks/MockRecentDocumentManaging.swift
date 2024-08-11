@@ -18,7 +18,7 @@ class MockRecentDocumentManaging: RecentDocumentManaging {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet {
+    struct Method: OptionSet, Sendable {
         let rawValue: UInt
         static let recentsGetterCalled = Method(rawValue: 1 << 0)
         static let addUrlCalled = Method(rawValue: 1 << 1)
@@ -27,7 +27,7 @@ class MockRecentDocumentManaging: RecentDocumentManaging {
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet {
+    struct MethodParameter: OptionSet, Sendable {
         let rawValue: UInt
         static let url = MethodParameter(rawValue: 1 << 0)
     }

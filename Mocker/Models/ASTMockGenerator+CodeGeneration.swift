@@ -150,7 +150,7 @@ extension ASTMockGenerator {
     }
     
     func startOptionSetDeclaration(name: String, count: Int, with parameters: MockGeneratorParameters) {
-        code += "\(indentation)\(publicAccessQualifier)struct \(name): OptionSet {\n"
+        code += "\(indentation)\(publicAccessQualifier)struct \(name): OptionSet, Sendable {\n"
         let optionalTodo = (count > UInt.bitWidth) ? "  // TODO: Increase the size of OptionSet storage. There are more options (\(count)) than bits (\(UInt.bitWidth))." : ""
         code += "\(indentation)\(indentation)\(publicAccessQualifier)let rawValue: UInt" + optionalTodo + "\n"
         if parameters.public {

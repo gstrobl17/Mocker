@@ -9,7 +9,7 @@
 import XCTest
 @testable import Mocker
 
-final fileprivate class SourceFileDataSourceA: SourceFileDataSource {
+final private class SourceFileDataSourceA: SourceFileDataSource {
     
     let projectName: String?
     let projectDirectoryURL: URL?
@@ -34,7 +34,7 @@ final fileprivate class SourceFileDataSourceA: SourceFileDataSource {
     
 }
 
-fileprivate struct SourceFileDataSourceB: SourceFileDataSource {
+private struct SourceFileDataSourceB: SourceFileDataSource {
     let projectName: String?
     let projectDirectoryURL: URL?
     let organizationName: String?
@@ -56,7 +56,6 @@ fileprivate struct SourceFileDataSourceB: SourceFileDataSource {
         SendableTreeNode(type: .file, name: "FILE", fileURL: nil, target: nil, children: [])
     }
 }
-
 
 final class SourceFileDataSourceTests: XCTestCase {
     
@@ -81,7 +80,6 @@ final class SourceFileDataSourceTests: XCTestCase {
         XCTAssertFalse(b.isEqual(a))
     }
 
-    
     func testIsEqual_sameObjectTypesWithDifferentValue() {
         let a = SourceFileDataSourceA()
         var x = SourceFileDataSourceA()
