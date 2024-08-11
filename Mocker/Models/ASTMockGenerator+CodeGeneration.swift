@@ -341,7 +341,9 @@ extension ASTMockGenerator {
                 generateHeader()
                 let modifier = variable.isStatic ? "static " : ""
                 let optionalModifier = variable.isOptional ? "" : "?"
-                code += "\(indentation)private(set) \(publicAccessQualifier)\(modifier)var \(variable.setterCaptureValueVariableName)\(variable.typeForCode)\(optionalModifier)\n"
+                let typeWrapperStart = variable.isSomeOrAnyType ? "(" : ""
+                let typeWrapperEnd = variable.isSomeOrAnyType ? ")" : ""
+                code += "\(indentation)private(set) \(publicAccessQualifier)\(modifier)var \(variable.setterCaptureValueVariableName): \(typeWrapperStart)\(variable.processedTypeNameForCode)\(typeWrapperEnd)\(optionalModifier)\n"
                 
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
@@ -356,8 +358,12 @@ extension ASTMockGenerator {
                     generateHeader()
                     let modifier = method.isStatic ? "static " : ""
                     let optionalModifier = parameter.isOptional ? "" : "?"
-                    let typeWrapperStart = parameter.isFunction ? "(" : ""
-                    let typeWrapperEnd = parameter.isFunction ? ")" : ""
+                    var typeWrapperStart = ""
+                    var typeWrapperEnd = ""
+                    if parameter.type.is(SomeOrAnyTypeSyntax.self) || parameter.isFunction {
+                        typeWrapperStart = "("
+                        typeWrapperEnd = ")"
+                    }
                     code += "\(indentation)private(set) \(publicAccessQualifier)\(modifier)var \(parameterName): \(typeWrapperStart)\(parameter.nonEscapingTypeNameForParameter)\(typeWrapperEnd)\(optionalModifier)\n"
                     
                     usedNames.insert(parameterName)
@@ -393,11 +399,13 @@ extension ASTMockGenerator {
             }
             let modifier = method.isStatic ? "static " : ""
             let implicitlyUnwrappedOptionalModifier = returnType.isOptional ? "" : "!"
+            let typeWrapperStart = returnType.is(SomeOrAnyTypeSyntax.self) ? "(" : ""
+            let typeWrapperEnd = returnType.is(SomeOrAnyTypeSyntax.self) ? ")" : ""
             var swiftlintCommand = ""
             if swiftlintAware && !isNameValid(method.returnValueVariableName) {
                 swiftlintCommand = " \(SwiftlintSupport.IdentifierName.disableThisComment)"
             }
-            code += "\(indentation)\(publicAccessQualifier)\(modifier)var \(method.returnValueVariableName): \(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(implicitlyUnwrappedOptionalModifier)\(swiftlintCommand)\n"
+            code += "\(indentation)\(publicAccessQualifier)\(modifier)var \(method.returnValueVariableName): \(typeWrapperStart)\(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(typeWrapperEnd)\(implicitlyUnwrappedOptionalModifier)\(swiftlintCommand)\n"
         }
 
         if !first && swiftlintAware && hasImplicitlyUnwrappedOptionals {

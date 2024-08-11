@@ -36,6 +36,139 @@ final class ASTMockGeneratorTests: XCTestCase {
         static let organizationName = "Acme Corp"
     }
     
+    private func generatePopulatedHeader(includeTestableImport: Bool) -> String {
+        guard let expectedDate else { return "expectedDate is nil "}
+        guard let expectedYear else { return "expectedYear is nil "}
+        var string = """
+            //
+            //  MockTest.swift
+            //  file
+            //
+            // Created by Chris X. Programmer on \(expectedDate).
+            // Copyright © \(expectedYear). All rights reserved.
+            //
+
+            
+            """
+        if includeTestableImport {
+            string += """
+            @testable import Mocker
+            
+            """
+        }
+        string += """
+            import Foundation
+            import UIKit
+            import Core
+            """
+        return string
+    }
+    
+    // \(expectedPopulatedHeader)
+    var expectedPopulatedHeader: String {
+        generatePopulatedHeader(includeTestableImport: false)
+    }
+    
+    // \(expectedPopulatedHeaderWithTestableImport)
+    var expectedPopulatedHeaderWithTestableImport: String {
+        generatePopulatedHeader(includeTestableImport: true)
+    }
+    
+    private func generateExpectedCustomReflectableString(
+        isPublic: Bool,
+        childrenPairs: [(key: String, Value: String)]
+    ) -> String {
+        let publicSpecifier = isPublic ? "public " : ""
+        var string = """
+            extension MockTest: CustomReflectable {
+                \(publicSpecifier)var customMirror: Mirror {
+                    Mirror(self,
+                           children: [
+            
+            """
+        for pair in childrenPairs {
+            string += """
+                            "\(pair.key)": \(pair.Value),
+            
+            """
+        }
+        string += """
+                           ],
+                           displayStyle: .none
+                    )
+                }
+            }
+            
+            """
+        return string
+    }
+    
+    // \(expectedCustomReflectableWithCalledMethods)
+    var expectedCustomReflectableWithCalledMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledMethods", "calledMethods")]
+        )
+    }
+    
+    // \(expectedPublicCustomReflectableWithCalledMethods)
+    var expectedPublicCustomReflectableWithCalledMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledMethods", "calledMethods")]
+        )
+    }
+
+    // \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
+    var expectedCustomReflectableWithCalledMethodsAndAssignedParameters: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledMethods", "calledMethods"), ("assignedParameters", "assignedParameters")]
+        )
+    }
+
+    // \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
+    var expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledMethods", "calledMethods"), ("assignedParameters", "assignedParameters")]
+        )
+    }
+    
+    // \(expectedCustomReflectableWithCalledStaticMethods)
+    var expectedCustomReflectableWithCalledStaticMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods")]
+        )
+    }
+    
+    // \(expectedPublicCustomReflectableWithCalledStaticMethods)
+    var expectedPublicCustomReflectableWithCalledStaticMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods")]
+        )
+    }
+
+    // \(expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
+    var expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods"),
+                            ("assignedStaticParameters", "MockTest.assignedStaticParameters")]
+        )
+    }
+
+    // \(expectedPublicCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
+    var expectedPublicCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods"),
+                            ("assignedStaticParameters", "MockTest.assignedStaticParameters")]
+        )
+    }
+
     override func setUpWithError() throws {
         try super.setUpWithError()
 
@@ -112,23 +245,11 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
     
     func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeader)
 
                            class MockTest: Empty {
 
@@ -147,23 +268,11 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
     
     func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeader)
 
                            public class MockTest: Empty {
 
@@ -310,24 +419,11 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
 
     func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: Empty {
 
@@ -346,24 +442,11 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
 
     func testCodeGeneration_emptyProtocol_includeHeaderTRUE_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: Empty {
 
