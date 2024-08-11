@@ -19,6 +19,13 @@ extension VariableDeclSyntax {
         guard let typeAnnotation = binding.typeAnnotation else { return false }
         return typeAnnotation.type.isOptional
     }
+    
+    var isSomeOrAnyType: Bool {
+        assert(bindings.count == 1)
+        guard let binding = bindings.first else { return false }
+        guard let typeAnnotation = binding.typeAnnotation else { return false }
+        return typeAnnotation.type.is(SomeOrAnyTypeSyntax.self)
+    }
 
     var isDelegate: Bool {
         nameForCode == "delegate"
@@ -39,9 +46,17 @@ extension VariableDeclSyntax {
     var typeForCode: String {
         assert(bindings.count == 1)
         guard let binding = bindings.first else { return "Unexpected Binding Count(\(bindings.count)" }
-        guard let typeAnnotation = binding.typeAnnotation else { return "Type not found for variable" }
+        guard let typeAnnotation = binding.typeAnnotation else { return "Type annotation not found for variable" }
         
         return typeAnnotation.description.trimmingTrailingCharacters(in: .whitespaces)
+    }
+    
+    var processedTypeNameForCode: String {
+        assert(bindings.count == 1)
+        guard let binding = bindings.first else { return "Unexpected Binding Count(\(bindings.count)" }
+        guard let typeAnnotation = binding.typeAnnotation else { return "Type annotation not found for variable" }
+        
+        return typeAnnotation.type.processedTypeName(removeEscaping: true)
     }
 
     var hasGetter: Bool {

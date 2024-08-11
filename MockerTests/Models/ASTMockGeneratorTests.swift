@@ -36,107 +36,127 @@ final class ASTMockGeneratorTests: XCTestCase {
         static let organizationName = "Acme Corp"
     }
     
-    var expectedPopulatedHeader: String {
-        //swiftlint:disable force_unwrapping
-        """
-        //
-        //  MockTest.swift
-        //  file
-        //
-        // Created by Chris X. Programmer on \(expectedDate!).
-        // Copyright © \(expectedYear!). All rights reserved.
-        //
+    private func generatePopulatedHeader(includeTestableImport: Bool) -> String {
+        guard let expectedDate else { return "expectedDate is nil "}
+        guard let expectedYear else { return "expectedYear is nil "}
+        var string = """
+            //
+            //  MockTest.swift
+            //  file
+            //
+            // Created by Chris X. Programmer on \(expectedDate).
+            // Copyright © \(expectedYear). All rights reserved.
+            //
 
-        import Foundation
-        import UIKit
-        import Core
-        """
-        //swiftlint:enable force_unwrapping
+            
+            """
+        if includeTestableImport {
+            string += """
+            @testable import Mocker
+            
+            """
+        }
+        string += """
+            import Foundation
+            import UIKit
+            import Core
+            """
+        return string
+    }
+    
+    var expectedPopulatedHeader: String {
+        generatePopulatedHeader(includeTestableImport: false)
     }
     
     var expectedPopulatedHeaderWithTestableImport: String {
-        //swiftlint:disable force_unwrapping
-        """
-        //
-        //  MockTest.swift
-        //  file
-        //
-        // Created by Chris X. Programmer on \(expectedDate!).
-        // Copyright © \(expectedYear!). All rights reserved.
-        //
-
-        @testable import Mocker
-        import Foundation
-        import UIKit
-        import Core
-        """
-        //swiftlint:enable force_unwrapping
+        generatePopulatedHeader(includeTestableImport: true)
+    }
+    
+    private func generateExpectedCustomReflectableString(
+        isPublic: Bool,
+        childrenPairs: [(key: String, Value: String)]
+    ) -> String {
+        let publicSpecifier = isPublic ? "public " : ""
+        var string = """
+            extension MockTest: CustomReflectable {
+                \(publicSpecifier)var customMirror: Mirror {
+                    Mirror(self,
+                           children: [
+            
+            """
+        for pair in childrenPairs {
+            string += """
+                            "\(pair.key)": \(pair.Value),
+            
+            """
+        }
+        string += """
+                           ],
+                           displayStyle: .none
+                    )
+                }
+            }
+            
+            """
+        return string
     }
     
     var expectedCustomReflectableWithCalledMethods: String {
-        """
-        extension MockTest: CustomReflectable {
-            var customMirror: Mirror {
-                Mirror(self,
-                       children: [
-                        "calledMethods": calledMethods,
-                       ],
-                       displayStyle: .none
-                )
-            }
-        }
-
-        """
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledMethods", "calledMethods")]
+        )
     }
     
     var expectedPublicCustomReflectableWithCalledMethods: String {
-        """
-        extension MockTest: CustomReflectable {
-            public var customMirror: Mirror {
-                Mirror(self,
-                       children: [
-                        "calledMethods": calledMethods,
-                       ],
-                       displayStyle: .none
-                )
-            }
-        }
-
-        """
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledMethods", "calledMethods")]
+        )
     }
 
     var expectedCustomReflectableWithCalledMethodsAndAssignedParameters: String {
-        """
-        extension MockTest: CustomReflectable {
-            var customMirror: Mirror {
-                Mirror(self,
-                       children: [
-                        "calledMethods": calledMethods,
-                        "assignedParameters": assignedParameters,
-                       ],
-                       displayStyle: .none
-                )
-            }
-        }
-
-        """
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledMethods", "calledMethods"), ("assignedParameters", "assignedParameters")]
+        )
     }
 
     var expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters: String {
-        """
-        extension MockTest: CustomReflectable {
-            public var customMirror: Mirror {
-                Mirror(self,
-                       children: [
-                        "calledMethods": calledMethods,
-                        "assignedParameters": assignedParameters,
-                       ],
-                       displayStyle: .none
-                )
-            }
-        }
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledMethods", "calledMethods"), ("assignedParameters", "assignedParameters")]
+        )
+    }
+    
+    var expectedCustomReflectableWithCalledStaticMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods")]
+        )
+    }
+    
+    var expectedPublicCustomReflectableWithCalledStaticMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods")]
+        )
+    }
 
-        """
+    var expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods"),
+                            ("assignedStaticParameters", "MockTest.assignedStaticParameters")]
+        )
+    }
+
+    var expectedPublicCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods"),
+                            ("assignedStaticParameters", "MockTest.assignedStaticParameters")]
+        )
     }
 
     override func setUpWithError() throws {

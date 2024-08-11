@@ -341,7 +341,9 @@ extension ASTMockGenerator {
                 generateHeader()
                 let modifier = variable.isStatic ? "static " : ""
                 let optionalModifier = variable.isOptional ? "" : "?"
-                code += "\(indentation)private(set) \(publicAccessQualifier)\(modifier)var \(variable.setterCaptureValueVariableName)\(variable.typeForCode)\(optionalModifier)\n"
+                let typeWrapperStart = variable.isSomeOrAnyType ? "(" : ""
+                let typeWrapperEnd = variable.isSomeOrAnyType ? ")" : ""
+                code += "\(indentation)private(set) \(publicAccessQualifier)\(modifier)var \(variable.setterCaptureValueVariableName): \(typeWrapperStart)\(variable.processedTypeNameForCode)\(typeWrapperEnd)\(optionalModifier)\n"
                 
                 usedNames.insert(variable.setterCaptureValueVariableName)
             }
