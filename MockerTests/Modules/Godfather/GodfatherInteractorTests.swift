@@ -21,16 +21,16 @@ class GodfatherInteractorTests: XCTestCase {
     @StroblMock var dataSource: MockSourceFileDataSource!
     var mockGeneratorFactory: MockMockGeneratorFactory!
     @StroblMock var mockGenerator: MockMockGenerator!
-    var openPanelFactory: OpenPanelFactory!
-    var projectFileSelectorRouterType: ProjectFileSelectorWireframeProtocol.Type!
+    var openPanelFactory: (any OpenPanelFactory)!
+    var projectFileSelectorRouterType: (any ProjectFileSelectorWireframeProtocol.Type)!
     @StroblMock var projectFileSelectorView: MockProjectFileSelectorView!
-    var sourceFileSelectorRouterType: SourceFileSelectorWireframeProtocol.Type!
+    var sourceFileSelectorRouterType: (any SourceFileSelectorWireframeProtocol.Type)!
     @StroblMock var sourceFileSelectorView: MockSourceFileSelectorView!
-    var sourceFileFilterRouterType: FilterWireframeProtocol.Type!
-    var protocolSelectorRouterType: ProtocolSelectorWireframeProtocol.Type!
-    var mockFileParametersRouterType: MockFileParametersWireframeProtocol.Type!
+    var sourceFileFilterRouterType: (any FilterWireframeProtocol.Type)!
+    var protocolSelectorRouterType: (any ProtocolSelectorWireframeProtocol.Type)!
+    var mockFileParametersRouterType: (any MockFileParametersWireframeProtocol.Type)!
     @StroblMock var mockFileParametersView: MockMockFileParametersView!
-    var contentPresenterRouterType: ContentPresenterWireframeProtocol.Type!
+    var contentPresenterRouterType: (any ContentPresenterWireframeProtocol.Type)!
     @StroblMock var filteringHandler: MockAsyncFilteringHandler!
     @StroblMock var recentDocumentManager: MockRecentDocumentManaging!
     @StroblMock var documentController: MockDocumentControlling!
@@ -359,7 +359,7 @@ class GodfatherInteractorTests: XCTestCase {
     // MARK: - SourceFileSelectorInterfaceDelegate methods -
     
     func test_sourceFileSelectorFileSelected_projectFileCreationSucceeds() throws {
-        let treeNode = TreeNode(fileURL: URL(fileURLWithPath: #file), target: nil)
+        let treeNode = TreeNode(fileURL: URL(fileURLWithPath: #filePath), target: nil)
         let interactor = try createInterator()
             
         interactor.sourceFileSelector(sourceFileSelectorView, fileSelected: treeNode)

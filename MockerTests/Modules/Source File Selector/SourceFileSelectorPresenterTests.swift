@@ -14,7 +14,7 @@ class SourceFileSelectorPresenterTests: XCTestCase {
     
     @StroblMock var view: MockSourceFileSelectorView!
     @StroblMock var interactor: MockSourceFileSelectorInteractorInput!
-    var router: SourceFileSelectorWireframeProtocol!
+    var router: (any SourceFileSelectorWireframeProtocol)!
     var presenter: SourceFileSelectorPresenter!
 
     override func setUp() {

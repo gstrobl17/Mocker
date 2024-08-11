@@ -13,7 +13,7 @@ import XcodeEditor
 
 class MockMockFileParametersInteractorInput: MockFileParametersInteractorInputProtocol {
 
-    var presenter: MockFileParametersInteractorOutputProtocol?
+    var presenter: (any MockFileParametersInteractorOutputProtocol)?
 
     struct Method: OptionSet {
         let rawValue: Int

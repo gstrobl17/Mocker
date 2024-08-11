@@ -15,7 +15,7 @@ class GodfatherPresenterTests: XCTestCase {
     
     @StroblMock var view: MockGodfatherView!
     @StroblMock var interactor: MockGodfatherInteractorInput!
-    var router: GodfatherWireframeProtocol!
+    var router: (any GodfatherWireframeProtocol)!
     var presenter: GodfatherPresenter!
     @StroblMock var userDefaults: MockUserDefaults!
 

@@ -13,8 +13,8 @@ import XcodeEditor
 
 class MockMockFileParametersView: NSViewController, MockFileParametersViewProtocol, MockFileParametersInterfaceProtocol {
 
-    var presenter: MockFileParametersPresenterProtocol?
-    var delegate: MockFileParametersInterfaceDelegate?  //swiftlint:disable:this weak_delegate
+    var presenter: (any MockFileParametersPresenterProtocol)?
+    var delegate: (any MockFileParametersInterfaceDelegate)?  //swiftlint:disable:this weak_delegate
 
     struct Method: OptionSet {
         let rawValue: Int
@@ -52,7 +52,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     private(set) var `public`: Bool?
     private(set) var name: String?
     private(set) var protocolDeclaration: ProtocolDeclSyntax?
-    private(set) var dataSource: SourceFileDataSource?
+    private(set) var dataSource: (any SourceFileDataSource)?
     private(set) var target: String?
 
     func reset() {
@@ -108,7 +108,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         assignedParameters.insert(.protocolDeclaration)
     }
     
-    func setup(for dataSource: SourceFileDataSource) {
+    func setup(for dataSource: any SourceFileDataSource) {
         calledMethods.insert(.setupForDataSourceCalled)
         self.dataSource = dataSource
         assignedParameters.insert(.dataSource)

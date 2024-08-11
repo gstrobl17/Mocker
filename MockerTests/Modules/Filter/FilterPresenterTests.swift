@@ -15,7 +15,7 @@ class FilterPresenterTests: XCTestCase {
 
     @StroblMock var view: MockFilterView!
     @StroblMock var interactor: MockFilterInteractorInput!
-    var router: FilterWireframeProtocol!
+    var router: (any FilterWireframeProtocol)!
     var presenter: FilterPresenter!
 
     override func setUp() {

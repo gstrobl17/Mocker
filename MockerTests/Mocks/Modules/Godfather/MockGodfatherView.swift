@@ -12,7 +12,7 @@ class MockGodfatherView: GodfatherViewProtocol {
 
     // MARK: - Variables for Protocol Conformance
 
-    var presenter: GodfatherPresenterProtocol?
+    var presenter: (any GodfatherPresenterProtocol)?
 
     // MARK: - Variables for Trackings Method Invocation
 

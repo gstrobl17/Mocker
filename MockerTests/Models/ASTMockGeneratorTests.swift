@@ -61,8 +61,8 @@ final class ASTMockGeneratorTests: XCTestCase {
     
     func createGenerator(
         swiftlintAware: Bool? = nil,
-        dateFactory: DateCreating? = nil,
-        fullNameProvider: FullNameProviding? = nil
+        dateFactory: (any DateCreating)? = nil,
+        fullNameProvider: (any FullNameProviding)? = nil
     ) {
         generator = ASTMockGenerator(
             swiftlintAware: swiftlintAware ?? false,
@@ -72,7 +72,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     }
 
     func createParameters(
-        dataSource: SourceFileDataSource? = nil,
+        dataSource: (any SourceFileDataSource)? = nil,
         imports: [ImportDeclSyntax]? = nil,
         protocolDeclaration: ProtocolDeclSyntax,
         mockName: String? = nil,

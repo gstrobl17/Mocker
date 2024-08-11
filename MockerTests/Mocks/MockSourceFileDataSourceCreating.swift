@@ -31,7 +31,7 @@ class MockSourceFileDataSourceCreating: SourceFileDataSourceCreating {
 
     // MARK: - Variables to Use as Method Return Values
 
-    var createDataSourceForFileURLReturnValue: SourceFileDataSource? = MockSourceFileDataSource()
+    var createDataSourceForFileURLReturnValue: (any SourceFileDataSource)? = MockSourceFileDataSource()
 
     func reset() {
         calledMethods = []
@@ -41,7 +41,7 @@ class MockSourceFileDataSourceCreating: SourceFileDataSourceCreating {
 
     // MARK: - Methods for Protocol Conformance
 
-    func createDataSource(for fileURL: URL) -> SourceFileDataSource? {
+    func createDataSource(for fileURL: URL) -> (any SourceFileDataSource)? {
         calledMethods.insert(.createDataSourceForFileURLCalled)
         self.fileURL = fileURL
         assignedParameters.insert(.fileURL)

@@ -45,7 +45,7 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
     private(set) var protocolSelector: NSViewController?
     private(set) var mockFileParameters: NSViewController?
     private(set) var contentPresenter: NSViewController?
-    private(set) var error: Error?
+    private(set) var error: (any Error)?
     private(set) var messageText: String?
     private(set) var informativeText: String?
     private(set) var message: String?
@@ -86,7 +86,7 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
         assignedParameters.insert(.contentPresenter)
     }
 
-    func reportError(_ error: Error) {
+    func reportError(_ error: any Error) {
         calledMethods.insert(.reportErrorErrorCalled)
         self.error = error
         assignedParameters.insert(.error)

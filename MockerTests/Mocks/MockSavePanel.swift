@@ -44,7 +44,7 @@ class MockSavePanel: SavePanel {
     var allowedFileTypes: [String]?
     var allowsOtherFileTypes: Bool = false
     var accessoryView: NSView?
-    weak var delegate: NSOpenSavePanelDelegate?
+    weak var delegate: (any NSOpenSavePanelDelegate)?
     var isExpanded: Bool = false
     var canCreateDirectories: Bool = false
     var canSelectHiddenExtension: Bool = false

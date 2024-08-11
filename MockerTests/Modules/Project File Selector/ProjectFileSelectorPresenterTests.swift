@@ -14,7 +14,7 @@ class ProjectFileSelectorPresenterTests: XCTestCase {
     
     @StroblMock var view: MockProjectFileSelectorView!
     @StroblMock var interactor: MockProjectFileSelectorInteractorInput!
-    var router: ProjectFileSelectorWireframeProtocol!
+    var router: (any ProjectFileSelectorWireframeProtocol)!
     var presenter: ProjectFileSelectorPresenter!
     let openPanelFactory = MockOpenPanelFactory()
 

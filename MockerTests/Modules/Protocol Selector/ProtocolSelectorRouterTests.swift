@@ -14,8 +14,8 @@ class ProtocolSelectorRouterTests: XCTestCase {
         
         let viewController = ProtocolSelectorRouter.createModule()
         
-        XCTAssertTrue(viewController is ProtocolSelectorViewProtocol)
-        if let viewController = viewController as? ProtocolSelectorViewProtocol {
+        XCTAssertTrue(viewController is any ProtocolSelectorViewProtocol)
+        if let viewController = viewController as? any ProtocolSelectorViewProtocol {
             XCTAssertNotNil(viewController.presenter)
             if let presenter = viewController.presenter {
                 XCTAssertTrue(presenter is ProtocolSelectorPresenter)

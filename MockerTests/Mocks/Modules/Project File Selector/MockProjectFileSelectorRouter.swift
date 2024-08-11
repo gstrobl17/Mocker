@@ -11,9 +11,9 @@ import AppKit
 class MockProjectFileSelectorRouter: ProjectFileSelectorWireframeProtocol {
     static let view = MockProjectFileSelectorView()
     
-    weak var viewController: (NSViewController & ProjectFileSelectorInterfaceProtocol)?
+    weak var viewController: (any NSViewController & ProjectFileSelectorInterfaceProtocol)?
     
-    static func createModule(openPanelFactory: OpenPanelFactory) -> (NSViewController & ProjectFileSelectorInterfaceProtocol) {
+    static func createModule(openPanelFactory: any OpenPanelFactory) -> (any NSViewController & ProjectFileSelectorInterfaceProtocol) {
         
         let view = MockProjectFileSelectorRouter.view
         view.reset()

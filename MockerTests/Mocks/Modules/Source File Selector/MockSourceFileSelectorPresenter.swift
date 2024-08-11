@@ -11,7 +11,7 @@ import XcodeEditor
 
 class MockSourceFileSelectorPresenter: SourceFileSelectorPresenterProtocol {
 
-    var interactor: SourceFileSelectorInteractorInputProtocol?
+    var interactor: (any SourceFileSelectorInteractorInputProtocol)?
 
     struct Method: OptionSet {
         let rawValue: Int

@@ -10,10 +10,10 @@ import AppKit
 
 class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
 
-    var presenter: GodfatherInteractorOutputProtocol?
-    var userDefaults: KeyValueStoring = MockUserDefaults()
-    var fileManager: FileManaging = MockFileManager()
-    var currentDataSource: SourceFileDataSource?
+    var presenter: (any GodfatherInteractorOutputProtocol)?
+    var userDefaults: any KeyValueStoring = MockUserDefaults()
+    var fileManager: any FileManaging = MockFileManager()
+    var currentDataSource: (any SourceFileDataSource)?
     var mockName: String = ""
     var mockCode: String = ""
 

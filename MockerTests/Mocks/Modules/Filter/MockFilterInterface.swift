@@ -10,7 +10,7 @@ import AppKit
 
 class MockFilterInterface: FilterInterfaceProtocol {
 
-    var delegate: FilterInterfaceDelegate?  //swiftlint:disable:this weak_delegate
+    var delegate: (any FilterInterfaceDelegate)?  //swiftlint:disable:this weak_delegate
 
     struct Method: OptionSet {
         let rawValue: Int

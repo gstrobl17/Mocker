@@ -12,7 +12,7 @@ class MockFilterWireframe: FilterWireframeProtocol {
 
     var viewController: NSViewController?
 
-    static func createModule(userDefaults: KeyValueStoring) -> (view: NSViewController, interface: FilterInterfaceProtocol) {
+    static func createModule(userDefaults: any KeyValueStoring) -> (view: NSViewController, interface: any FilterInterfaceProtocol) {
 
         let view = MockFilterView()
         view.reset()

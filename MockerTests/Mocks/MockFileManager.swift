@@ -47,7 +47,7 @@ class MockFileManager: FileManaging {
     var fileExistsAtPathPathReturnValue = false
     var contentsOfDirectoryAtUrlIncludingPropertiesForKeysKeysOptionsMaskReturnValue = [URL]()
 
-    var errorToThrow: Error!
+    var errorToThrow: (any Error)!
     var createDirectoryAtUrlWithIntermediateDirectoriesCreateIntermediatesAttributesShouldThrowError = false
     var removeItemAtPathPathShouldThrowError = false
     var contentsOfDirectoryAtUrlIncludingPropertiesForKeysKeysOptionsMaskShouldThrowError = false

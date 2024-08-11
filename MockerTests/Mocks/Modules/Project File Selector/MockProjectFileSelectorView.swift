@@ -11,8 +11,8 @@ import AppKit
 
 class MockProjectFileSelectorView: NSViewController, ProjectFileSelectorViewProtocol, ProjectFileSelectorInterfaceProtocol {
 
-    var presenter: ProjectFileSelectorPresenterProtocol?
-    var delegate: ProjectFileSelectorInterfaceDelegate?
+    var presenter: (any ProjectFileSelectorPresenterProtocol)?
+    var delegate: (any ProjectFileSelectorInterfaceDelegate)?
 
     struct Method: OptionSet {
         let rawValue: Int
@@ -34,7 +34,7 @@ class MockProjectFileSelectorView: NSViewController, ProjectFileSelectorViewProt
     private(set) var assignedParameters = MethodParameter()
 
     private(set) var url: URL?
-    private(set) var openPanel: OpenPanel?
+    private(set) var openPanel: (any OpenPanel)?
     private(set) var handler: ((NSApplication.ModalResponse) -> Swift.Void)?
 
     var canReloadProjectReturnValue: Bool!
@@ -53,7 +53,7 @@ class MockProjectFileSelectorView: NSViewController, ProjectFileSelectorViewProt
         assignedParameters.insert(.url)
     }
 
-    func openModalSheet(with openPanel: OpenPanel, completionHandler handler: @escaping (NSApplication.ModalResponse) -> Swift.Void) {
+    func openModalSheet(with openPanel: any OpenPanel, completionHandler handler: @escaping (NSApplication.ModalResponse) -> Swift.Void) {
         calledMethods.insert(.openModalSheetWithOpenPanelCompletionHandlerHandlerCalled)
         self.openPanel = openPanel
         assignedParameters.insert(.openPanel)

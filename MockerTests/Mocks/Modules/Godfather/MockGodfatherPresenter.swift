@@ -10,7 +10,7 @@ import AppKit
 
 class MockGodfatherPresenter: GodfatherPresenterProtocol {
 
-    var interactor: GodfatherInteractorInputProtocol?
+    var interactor: (any GodfatherInteractorInputProtocol)?
 
     struct Method: OptionSet {
         let rawValue: Int

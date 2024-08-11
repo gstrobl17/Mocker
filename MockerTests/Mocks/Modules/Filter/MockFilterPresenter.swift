@@ -10,7 +10,7 @@ import AppKit
 
 class MockFilterPresenter: FilterPresenterProtocol {
 
-    var interactor: FilterInteractorInputProtocol?
+    var interactor: (any FilterInteractorInputProtocol)?
 
     struct Method: OptionSet {
         let rawValue: Int

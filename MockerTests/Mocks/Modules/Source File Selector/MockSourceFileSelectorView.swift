@@ -11,8 +11,8 @@ import XcodeEditor
 
 class MockSourceFileSelectorView: NSViewController, SourceFileSelectorViewProtocol, SourceFileSelectorInterfaceProtocol {
 
-    var presenter: SourceFileSelectorPresenterProtocol?
-    var delegate: SourceFileSelectorInterfaceDelegate?  //swiftlint:disable:this weak_delegate
+    var presenter: (any SourceFileSelectorPresenterProtocol)?
+    var delegate: (any SourceFileSelectorInterfaceDelegate)?  //swiftlint:disable:this weak_delegate
 
     struct Method: OptionSet {
         let rawValue: Int
@@ -28,7 +28,7 @@ class MockSourceFileSelectorView: NSViewController, SourceFileSelectorViewProtoc
     private(set) var assignedParameters = MethodParameter()
     
     private(set) var rootTreeNode: TreeNode?
-    private(set) var dataSource: SourceFileDataSource?
+    private(set) var dataSource: (any SourceFileDataSource)?
     
     func reset() {
         calledMethods = []
@@ -37,7 +37,7 @@ class MockSourceFileSelectorView: NSViewController, SourceFileSelectorViewProtoc
         dataSource = nil
     }
     
-    func present(tree rootTreeNode: TreeNode, for dataSource: SourceFileDataSource) {
+    func present(tree rootTreeNode: TreeNode, for dataSource: any SourceFileDataSource) {
         calledMethods.insert(.presentTreeRootTreeNodeForDataSourceCalled)
         self.rootTreeNode = rootTreeNode
         assignedParameters.insert(.rootTreeNode)

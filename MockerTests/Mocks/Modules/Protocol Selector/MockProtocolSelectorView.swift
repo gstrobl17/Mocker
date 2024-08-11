@@ -11,8 +11,8 @@ import SwiftSyntax
 
 class MockProtocolSelectorView: NSViewController, ProtocolSelectorViewProtocol, ProtocolSelectorInterfaceProtocol {
 
-    var presenter: ProtocolSelectorPresenterProtocol?
-    var delegate: ProtocolSelectorInterfaceDelegate?    //swiftlint:disable:this weak_delegate
+    var presenter: (any ProtocolSelectorPresenterProtocol)?
+    var delegate: (any ProtocolSelectorInterfaceDelegate)?    //swiftlint:disable:this weak_delegate
 
     struct Method: OptionSet {
         let rawValue: Int

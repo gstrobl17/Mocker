@@ -14,7 +14,7 @@ class MockFileParametersPresenterTests: XCTestCase {
     
     @StroblMock var view: MockMockFileParametersView!
     @StroblMock var interactor: MockMockFileParametersInteractorInput!
-    var router: MockFileParametersWireframeProtocol!
+    var router: (any MockFileParametersWireframeProtocol)!
     var presenter: MockFileParametersPresenter!
     
     override func setUp() {

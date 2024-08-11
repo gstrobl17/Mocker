@@ -34,7 +34,7 @@ class MockProject: Project {
     private(set) var assignedParameters = MethodParameter()
 
     private(set) var filter: String?
-    private(set) var monitoredBy: CancelMonitoring?
+    private(set) var monitoredBy: (any CancelMonitoring)?
     private(set) var key: String?
     private(set) var name: String?
     private(set) var fromRoot: String?
@@ -68,7 +68,7 @@ class MockProject: Project {
         return objectsReturnValue
     }
 
-    func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult {
+    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> ProjectTraversalResult {
         calledMethods.insert(.traverseFilteredByFilterMonitoredByCalled)
         self.filter = filter
         assignedParameters.insert(.filter)

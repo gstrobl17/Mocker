@@ -10,7 +10,7 @@ import AppKit
 
 class MockProjectFileSelectorPresenter: ProjectFileSelectorPresenterProtocol {
 
-    var interactor: ProjectFileSelectorInteractorInputProtocol?
+    var interactor: (any ProjectFileSelectorInteractorInputProtocol)?
 
     struct Method: OptionSet {
         let rawValue: Int

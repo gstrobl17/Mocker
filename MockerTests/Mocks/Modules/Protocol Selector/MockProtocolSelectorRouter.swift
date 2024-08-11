@@ -9,9 +9,9 @@ import AppKit
 @testable import Mocker
 
 class MockProtocolSelectorRouter: ProtocolSelectorWireframeProtocol {
-    weak var viewController: (NSViewController & ProtocolSelectorInterfaceProtocol)?
+    weak var viewController: (any NSViewController & ProtocolSelectorInterfaceProtocol)?
     
-    static func createModule() -> (NSViewController & ProtocolSelectorInterfaceProtocol) {
+    static func createModule() -> (any NSViewController & ProtocolSelectorInterfaceProtocol) {
         let view = MockProtocolSelectorView()
         let interactor = MockProtocolSelectorInteractorInput()
         let router = MockProtocolSelectorRouter()

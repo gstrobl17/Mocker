@@ -11,7 +11,7 @@ import AppKit
 struct MockOpenPanelFactory: OpenPanelFactory {
     let openPanel = MockOpenPanel()
     
-    func create(delegate: NSOpenSavePanelDelegate) -> OpenPanel {
+    func create(delegate: any NSOpenSavePanelDelegate) -> any OpenPanel {
         openPanel
     }
     

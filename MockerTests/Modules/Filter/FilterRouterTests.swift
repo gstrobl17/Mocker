@@ -29,8 +29,8 @@ class FilterRouterTests: XCTestCase {
         XCTAssertEqual(userDefaults.calledMethods, [.stringForKeyDefaultNameCalled])
         XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
         XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.sourceFileFilterValue])
-        XCTAssertTrue(module.view is FilterViewProtocol)
-        if let viewController = module.view as? FilterViewProtocol {
+        XCTAssertTrue(module.view is any FilterViewProtocol)
+        if let viewController = module.view as? any FilterViewProtocol {
             XCTAssertNotNil(viewController.presenter)
             if let presenter = viewController.presenter {
                 XCTAssertTrue(presenter is FilterPresenter)

@@ -22,8 +22,8 @@ class MockFileParametersRouterTests: XCTestCase {
         XCTAssertEqual(userDefaults.calledMethods, [.objectForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])
         XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
         XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.mockPrefix, UserDefaultsKey.includeHeader, UserDefaultsKey.stripTrailingProtocol, UserDefaultsKey.swiftlintAware, UserDefaultsKey.includeTestableImport, UserDefaultsKey.trackPropertyActivity, UserDefaultsKey.public])
-        XCTAssertTrue(viewController is MockFileParametersViewProtocol)
-        if let viewController = viewController as? MockFileParametersViewProtocol {
+        XCTAssertTrue(viewController is any MockFileParametersViewProtocol)
+        if let viewController = viewController as? any MockFileParametersViewProtocol {
             XCTAssertNotNil(viewController.presenter)
             if let presenter = viewController.presenter {
                 XCTAssertTrue(presenter is MockFileParametersPresenter)

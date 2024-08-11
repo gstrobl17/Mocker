@@ -14,7 +14,7 @@ class ProtocolSelectorPresenterTests: XCTestCase {
     
     @StroblMock var view: MockProtocolSelectorView!
     var interactor: MockProtocolSelectorInteractorInput!
-    var router: ProtocolSelectorWireframeProtocol!
+    var router: (any ProtocolSelectorWireframeProtocol)!
     var presenter: ProtocolSelectorPresenter!
     
     override func setUp() {

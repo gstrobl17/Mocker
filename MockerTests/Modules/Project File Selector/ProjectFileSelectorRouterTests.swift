@@ -16,8 +16,8 @@ class ProjectFileSelectorRouterTests: XCTestCase {
         
         let viewController = ProjectFileSelectorRouter.createModule(openPanelFactory: openPanelFactory)
         
-        XCTAssertTrue(viewController is ProjectFileSelectorViewProtocol)
-        if let viewController = viewController as? ProjectFileSelectorViewProtocol {
+        XCTAssertTrue(viewController is any ProjectFileSelectorViewProtocol)
+        if let viewController = viewController as? any ProjectFileSelectorViewProtocol {
             XCTAssertNotNil(viewController.presenter)
             if let presenter = viewController.presenter {
                 XCTAssertTrue(presenter is ProjectFileSelectorPresenter)

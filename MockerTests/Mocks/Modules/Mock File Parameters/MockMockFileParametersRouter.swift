@@ -9,11 +9,11 @@ import AppKit
 @testable import Mocker
 
 class MockMockFileParametersRouter: MockFileParametersWireframeProtocol {
-    static var view = MockMockFileParametersView()
+    nonisolated(unsafe) static var view = MockMockFileParametersView()
     
-    weak var viewController: (NSViewController & MockFileParametersInterfaceProtocol)?
+    weak var viewController: (any NSViewController & MockFileParametersInterfaceProtocol)?
     
-    static func createModule(userDefaults: KeyValueStoring) -> (NSViewController & MockFileParametersInterfaceProtocol) {
+    static func createModule(userDefaults: any KeyValueStoring) -> (any NSViewController & MockFileParametersInterfaceProtocol) {
         
         view.reset()
         let interactor = MockMockFileParametersInteractorInput()

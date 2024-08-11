@@ -9,9 +9,9 @@ import AppKit
 @testable import Mocker
 
 class MockSourceFileSelectorRouter: SourceFileSelectorWireframeProtocol {
-    weak var viewController: (NSViewController & SourceFileSelectorInterfaceProtocol)?
+    weak var viewController: (any NSViewController & SourceFileSelectorInterfaceProtocol)?
     
-    static func createModule() -> (NSViewController & SourceFileSelectorInterfaceProtocol) {
+    static func createModule() -> (any NSViewController & SourceFileSelectorInterfaceProtocol) {
         let view = MockSourceFileSelectorView()
         let interactor = MockSourceFileSelectorInteractorInput()
         let router = MockSourceFileSelectorRouter()

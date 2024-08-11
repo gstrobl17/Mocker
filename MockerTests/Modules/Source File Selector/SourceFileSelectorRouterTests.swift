@@ -14,8 +14,8 @@ class SourceFileSelectorRouterTests: XCTestCase {
         
         let viewController = SourceFileSelectorRouter.createModule()
         
-        XCTAssertTrue(viewController is SourceFileSelectorViewProtocol)
-        if let viewController = viewController as? SourceFileSelectorViewProtocol {
+        XCTAssertTrue(viewController is any SourceFileSelectorViewProtocol)
+        if let viewController = viewController as? any SourceFileSelectorViewProtocol {
             XCTAssertNotNil(viewController.presenter)
             if let presenter = viewController.presenter {
                 XCTAssertTrue(presenter is SourceFileSelectorPresenter)

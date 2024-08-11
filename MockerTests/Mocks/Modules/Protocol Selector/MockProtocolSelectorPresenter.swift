@@ -11,7 +11,7 @@ import SwiftSyntax
 
 class MockProtocolSelectorPresenter: ProtocolSelectorPresenterProtocol {
 
-    var interactor: ProtocolSelectorInteractorInputProtocol?
+    var interactor: (any ProtocolSelectorInteractorInputProtocol)?
 
     func reset() {
     }

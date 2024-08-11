@@ -41,7 +41,7 @@ class MockSourceFileDataSource: SourceFileDataSource {
     // MARK: - Variables for Captured Parameter Values
 
     private(set) var filter: String?
-    private(set) var monitoredBy: CancelMonitoring?
+    private(set) var monitoredBy: (any CancelMonitoring)?
 
     // MARK: - Variables to Use as Method Return Values
 
@@ -79,7 +79,7 @@ class MockSourceFileDataSource: SourceFileDataSource {
 
     // MARK: - Methods for Protocol Conformance
 
-    func traverse(filteredBy filter: String, monitoredBy: CancelMonitoring) -> ProjectTraversalResult {
+    func traverse(filteredBy filter: String, monitoredBy: any CancelMonitoring) -> ProjectTraversalResult {
         calledMethods.insert(.traverseFilteredByFilterMonitoredByCalled)
         self.filter = filter
         assignedParameters.insert(.filter)

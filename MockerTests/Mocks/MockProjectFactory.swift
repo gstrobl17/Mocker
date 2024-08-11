@@ -11,8 +11,8 @@ class MockProjectFactory: ProjectFactory {
     let project = MockProject()
     var returnProjectFromCreate = true
     
-    func createProject(for filePath: String) -> Project? {
-        var project: Project?
+    func createProject(for filePath: String) -> (any Project)? {
+        var project: (any Project)?
         if returnProjectFromCreate {
             self.project.reset()
             project = self.project

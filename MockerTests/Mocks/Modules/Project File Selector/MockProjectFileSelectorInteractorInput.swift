@@ -10,7 +10,7 @@ import AppKit
 
 class MockProjectFileSelectorInteractorInput: ProjectFileSelectorInteractorInputProtocol {
 
-    var presenter: ProjectFileSelectorInteractorOutputProtocol?
+    var presenter: (any ProjectFileSelectorInteractorOutputProtocol)?
     var url: URL?
 
     struct Method: OptionSet {

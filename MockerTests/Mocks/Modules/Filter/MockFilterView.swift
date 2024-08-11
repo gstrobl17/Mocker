@@ -10,7 +10,7 @@ import AppKit
 
 class MockFilterView: NSViewController, FilterViewProtocol {
 
-    var presenter: FilterPresenterProtocol?
+    var presenter: (any FilterPresenterProtocol)?
 
     struct Method: OptionSet {
         let rawValue: Int

@@ -10,9 +10,9 @@ import AppKit
 
 class MockContentPresenterRouter: ContentPresenterWireframeProtocol {
     
-    weak var viewController: (NSViewController & ContentPresenterInterfaceProtocol)?
+    weak var viewController: (any NSViewController & ContentPresenterInterfaceProtocol)?
     
-    static func createModule() -> (NSViewController & ContentPresenterInterfaceProtocol) {
+    static func createModule() -> (any NSViewController & ContentPresenterInterfaceProtocol) {
         let view = MockContentPresenterView()
         let router = MockContentPresenterRouter()
         router.viewController = view
