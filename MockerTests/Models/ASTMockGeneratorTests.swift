@@ -64,10 +64,12 @@ final class ASTMockGeneratorTests: XCTestCase {
         return string
     }
     
+    // \(expectedPopulatedHeader)
     var expectedPopulatedHeader: String {
         generatePopulatedHeader(includeTestableImport: false)
     }
     
+    // \(expectedPopulatedHeaderWithTestableImport)
     var expectedPopulatedHeaderWithTestableImport: String {
         generatePopulatedHeader(includeTestableImport: true)
     }
@@ -101,6 +103,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         return string
     }
     
+    // \(expectedCustomReflectableWithCalledMethods)
     var expectedCustomReflectableWithCalledMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
@@ -108,6 +111,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
     
+    // \(expectedPublicCustomReflectableWithCalledMethods)
     var expectedPublicCustomReflectableWithCalledMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
@@ -115,6 +119,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
 
+    // \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
     var expectedCustomReflectableWithCalledMethodsAndAssignedParameters: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
@@ -122,6 +127,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
 
+    // \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
     var expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
@@ -129,6 +135,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
     
+    // \(expectedCustomReflectableWithCalledStaticMethods)
     var expectedCustomReflectableWithCalledStaticMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
@@ -136,6 +143,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
     
+    // \(expectedPublicCustomReflectableWithCalledStaticMethods)
     var expectedPublicCustomReflectableWithCalledStaticMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
@@ -143,6 +151,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
 
+    // \(expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
     var expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
@@ -151,6 +160,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
 
+    // \(expectedPublicCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
     var expectedPublicCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
