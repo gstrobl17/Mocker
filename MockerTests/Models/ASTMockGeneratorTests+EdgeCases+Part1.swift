@@ -1,4 +1,3 @@
-//TODO: evaluate any change and rework to use constants
 //swiftlint:disable function_body_length file_length
 //
 //  ASTMockGeneratorTests+EdgeCases+Part1.swift
@@ -19,35 +18,27 @@ extension ASTMockGeneratorTests {
     var resultCompletionHandersProtocol: String {
         """
         protocol ResultCompletionHandersProtocol {
-            func foo1(completionHandler: @escaping (Result<String, Error>) -> Void)
-            func foo2(completionHandler: @escaping (Result<[String], Error>) -> Void)
+            func foo1(completionHandler: @escaping (Result<String, any Error>) -> Void)
+            func foo2(completionHandler: @escaping (Result<[String], some Error>) -> Void)
             func foo3(completionHandler: @escaping (Result<[Class], Error>) -> Void)
             func foo4(completionHandler: @escaping (Result<Bool?, Error>) -> Void)
             func foo5(completionHandler: @escaping (Result<(Int, Double, Bool, String), Error>) -> Void)
             func foo6(completionHandler: @escaping (Result<(String, String), Error>) -> Void)
+            func foo7(completionHandler: @escaping (Result<any SomeType, any Error>) -> Void)
+            func foo8(completionHandler: @escaping (Result<some SomeType, any Error>) -> Void)
+            func foo9(completionHandler: @escaping (Result<(any SomeType)?, any Error>) -> Void)
+            func foo10(completionHandler: @escaping (Result<[any SomeType], any Error>) -> Void)
+            func foo11(completionHandler: @escaping (Result<[some SomeType], any Error>) -> Void)
         }
         """
     }
     
     func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: resultCompletionHandersProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ResultCompletionHandersProtocol {
 
@@ -61,6 +52,11 @@ extension ASTMockGeneratorTests {
                                    static let foo4CompletionHandlerCalled = Method(rawValue: 1 << 3)
                                    static let foo5CompletionHandlerCalled = Method(rawValue: 1 << 4)
                                    static let foo6CompletionHandlerCalled = Method(rawValue: 1 << 5)
+                                   static let foo7CompletionHandlerCalled = Method(rawValue: 1 << 6)
+                                   static let foo8CompletionHandlerCalled = Method(rawValue: 1 << 7)
+                                   static let foo9CompletionHandlerCalled = Method(rawValue: 1 << 8)
+                                   static let foo10CompletionHandlerCalled = Method(rawValue: 1 << 9)
+                                   static let foo11CompletionHandlerCalled = Method(rawValue: 1 << 10)
                                }
                                private(set) var calledMethods = Method()
 
@@ -71,16 +67,26 @@ extension ASTMockGeneratorTests {
                                    static let classesCompletionHandler = MethodParameter(rawValue: 1 << 2)
                                    static let optionalBoolCompletionHandler = MethodParameter(rawValue: 1 << 3)
                                    static let UNDETERMINED TUPLE NAMETupleCompletionHandler = MethodParameter(rawValue: 1 << 4)
+                                   static let anySomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 5)
+                                   static let someSomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 6)
+                                   static let optionalAnySomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 7)
+                                   static let anySomeTypesCompletionHandler = MethodParameter(rawValue: 1 << 8)
+                                   static let someSomeTypesCompletionHandler = MethodParameter(rawValue: 1 << 9)
                                }
                                private(set) var assignedParameters = MethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var stringCompletionHandler: ((Result<String, Error>) -> Void)?
-                               private(set) var stringsCompletionHandler: ((Result<[String], Error>) -> Void)?
+                               private(set) var stringCompletionHandler: ((Result<String, any Error>) -> Void)?
+                               private(set) var stringsCompletionHandler: ((Result<[String], some Error>) -> Void)?
                                private(set) var classesCompletionHandler: ((Result<[Class], Error>) -> Void)?
                                private(set) var optionalBoolCompletionHandler: ((Result<Bool?, Error>) -> Void)?
                                private(set) var UNDETERMINED TUPLE NAMETupleCompletionHandler: ((Result<(Int, Double, Bool, String), Error>) -> Void)?
+                               private(set) var anySomeTypeCompletionHandler: ((Result<any SomeType, any Error>) -> Void)?
+                               private(set) var someSomeTypeCompletionHandler: ((Result<some SomeType, any Error>) -> Void)?
+                               private(set) var optionalAnySomeTypeCompletionHandler: ((Result<(any SomeType)?, any Error>) -> Void)?
+                               private(set) var anySomeTypesCompletionHandler: ((Result<[any SomeType], any Error>) -> Void)?
+                               private(set) var someSomeTypesCompletionHandler: ((Result<[some SomeType], any Error>) -> Void)?
 
                                // MARK: - Variables to Use to Control Completion Handlers
 
@@ -90,11 +96,16 @@ extension ASTMockGeneratorTests {
                                var classesCompletionHandlerResult = .failure(MockError)
                                var optionalBoolCompletionHandlerResult = .failure(MockError)
                                var UNDETERMINED TUPLE NAMETupleCompletionHandlerResult = .failure(MockError)
+                               var anySomeTypeCompletionHandlerResult = .failure(MockError)
+                               var someSomeTypeCompletionHandlerResult = .failure(MockError)
+                               var optionalAnySomeTypeCompletionHandlerResult = .failure(MockError)
+                               var anySomeTypesCompletionHandlerResult = .failure(MockError)
+                               var someSomeTypesCompletionHandlerResult = .failure(MockError)
 
                                var shouldCallFoo1CompletionHandlerCompletionHander = false
-                               var foo1CompletionHandlerCompletionHanderResult: Result<String, Error> = .failure(MockError)
+                               var foo1CompletionHandlerCompletionHanderResult: Result<String, any Error> = .failure(MockError)
                                var shouldCallFoo2CompletionHandlerCompletionHander = false
-                               var foo2CompletionHandlerCompletionHanderResult: Result<[String], Error> = .failure(MockError)
+                               var foo2CompletionHandlerCompletionHanderResult: Result<[String], some Error> = .failure(MockError)
                                var shouldCallFoo3CompletionHandlerCompletionHander = false
                                var foo3CompletionHandlerCompletionHanderResult: Result<[Class], Error> = .failure(MockError)
                                var shouldCallFoo4CompletionHandlerCompletionHander = false
@@ -103,6 +114,16 @@ extension ASTMockGeneratorTests {
                                var foo5CompletionHandlerCompletionHanderResult: Result<(Int, Double, Bool, String), Error> = .failure(MockError)
                                var shouldCallFoo6CompletionHandlerCompletionHander = false
                                var foo6CompletionHandlerCompletionHanderResult: Result<(String, String), Error> = .failure(MockError)
+                               var shouldCallFoo7CompletionHandlerCompletionHander = false
+                               var foo7CompletionHandlerCompletionHanderResult: Result<any SomeType, any Error> = .failure(MockError)
+                               var shouldCallFoo8CompletionHandlerCompletionHander = false
+                               var foo8CompletionHandlerCompletionHanderResult: Result<some SomeType, any Error> = .failure(MockError)
+                               var shouldCallFoo9CompletionHandlerCompletionHander = false
+                               var foo9CompletionHandlerCompletionHanderResult: Result<(any SomeType)?, any Error> = .failure(MockError)
+                               var shouldCallFoo10CompletionHandlerCompletionHander = false
+                               var foo10CompletionHandlerCompletionHanderResult: Result<[any SomeType], any Error> = .failure(MockError)
+                               var shouldCallFoo11CompletionHandlerCompletionHander = false
+                               var foo11CompletionHandlerCompletionHanderResult: Result<[some SomeType], any Error> = .failure(MockError)
 
                                func reset() {
                                    calledMethods = []
@@ -112,11 +133,16 @@ extension ASTMockGeneratorTests {
                                    classesCompletionHandler = nil
                                    optionalBoolCompletionHandler = nil
                                    UNDETERMINED TUPLE NAMETupleCompletionHandler = nil
+                                   anySomeTypeCompletionHandler = nil
+                                   someSomeTypeCompletionHandler = nil
+                                   optionalAnySomeTypeCompletionHandler = nil
+                                   anySomeTypesCompletionHandler = nil
+                                   someSomeTypesCompletionHandler = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo1(completionHandler: @escaping (Result<String, Error>) -> Void) {
+                               func foo1(completionHandler: @escaping (Result<String, any Error>) -> Void) {
                                    calledMethods.insert(.foo1CompletionHandlerCalled)
                                    self.stringCompletionHandler = completionHandler
                                    assignedParameters.insert(.stringCompletionHandler)
@@ -128,7 +154,7 @@ extension ASTMockGeneratorTests {
                                    }
                                }
 
-                               func foo2(completionHandler: @escaping (Result<[String], Error>) -> Void) {
+                               func foo2(completionHandler: @escaping (Result<[String], some Error>) -> Void) {
                                    calledMethods.insert(.foo2CompletionHandlerCalled)
                                    self.stringsCompletionHandler = completionHandler
                                    assignedParameters.insert(.stringsCompletionHandler)
@@ -188,6 +214,66 @@ extension ASTMockGeneratorTests {
                                    }
                                }
 
+                               func foo7(completionHandler: @escaping (Result<any SomeType, any Error>) -> Void) {
+                                   calledMethods.insert(.foo7CompletionHandlerCalled)
+                                   self.anySomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.anySomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(anySomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo7CompletionHandlerCompletionHander {
+                                       completionHandler(foo7CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               func foo8(completionHandler: @escaping (Result<some SomeType, any Error>) -> Void) {
+                                   calledMethods.insert(.foo8CompletionHandlerCalled)
+                                   self.someSomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.someSomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(someSomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo8CompletionHandlerCompletionHander {
+                                       completionHandler(foo8CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               func foo9(completionHandler: @escaping (Result<(any SomeType)?, any Error>) -> Void) {
+                                   calledMethods.insert(.foo9CompletionHandlerCalled)
+                                   self.optionalAnySomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.optionalAnySomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(optionalAnySomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo9CompletionHandlerCompletionHander {
+                                       completionHandler(foo9CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               func foo10(completionHandler: @escaping (Result<[any SomeType], any Error>) -> Void) {
+                                   calledMethods.insert(.foo10CompletionHandlerCalled)
+                                   self.anySomeTypesCompletionHandler = completionHandler
+                                   assignedParameters.insert(.anySomeTypesCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(anySomeTypesCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo10CompletionHandlerCompletionHander {
+                                       completionHandler(foo10CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               func foo11(completionHandler: @escaping (Result<[some SomeType], any Error>) -> Void) {
+                                   calledMethods.insert(.foo11CompletionHandlerCalled)
+                                   self.someSomeTypesCompletionHandler = completionHandler
+                                   assignedParameters.insert(.someSomeTypesCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(someSomeTypesCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo11CompletionHandlerCompletionHander {
+                                       completionHandler(foo11CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
                            }
 
                            extension MockTest.Method: CustomStringConvertible {
@@ -225,6 +311,26 @@ extension ASTMockGeneratorTests {
                                    if self.contains(.foo6CompletionHandlerCalled) {
                                        handleFirst()
                                        value += ".foo6CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo7CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo7CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo8CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo8CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo9CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo9CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo10CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo10CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo11CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo11CompletionHandlerCalled"
                                    }
 
                                    value += "]"
@@ -264,24 +370,33 @@ extension ASTMockGeneratorTests {
                                        handleFirst()
                                        value += ".UNDETERMINED TUPLE NAMETupleCompletionHandler"
                                    }
+                                   if self.contains(.anySomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".anySomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.someSomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".someSomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.optionalAnySomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".optionalAnySomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.anySomeTypesCompletionHandler) {
+                                       handleFirst()
+                                       value += ".anySomeTypesCompletionHandler"
+                                   }
+                                   if self.contains(.someSomeTypesCompletionHandler) {
+                                       handleFirst()
+                                       value += ".someSomeTypesCompletionHandler"
+                                   }
 
                                    value += "]"
                                    return value
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -291,24 +406,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: resultCompletionHandersProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ResultCompletionHandersProtocol {
                            
@@ -325,6 +427,11 @@ extension ASTMockGeneratorTests {
                                    public static let foo4CompletionHandlerCalled = Method(rawValue: 1 << 3)
                                    public static let foo5CompletionHandlerCalled = Method(rawValue: 1 << 4)
                                    public static let foo6CompletionHandlerCalled = Method(rawValue: 1 << 5)
+                                   public static let foo7CompletionHandlerCalled = Method(rawValue: 1 << 6)
+                                   public static let foo8CompletionHandlerCalled = Method(rawValue: 1 << 7)
+                                   public static let foo9CompletionHandlerCalled = Method(rawValue: 1 << 8)
+                                   public static let foo10CompletionHandlerCalled = Method(rawValue: 1 << 9)
+                                   public static let foo11CompletionHandlerCalled = Method(rawValue: 1 << 10)
                                }
                                private(set) public var calledMethods = Method()
 
@@ -336,16 +443,26 @@ extension ASTMockGeneratorTests {
                                    public static let classesCompletionHandler = MethodParameter(rawValue: 1 << 2)
                                    public static let optionalBoolCompletionHandler = MethodParameter(rawValue: 1 << 3)
                                    public static let UNDETERMINED TUPLE NAMETupleCompletionHandler = MethodParameter(rawValue: 1 << 4)
+                                   public static let anySomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 5)
+                                   public static let someSomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 6)
+                                   public static let optionalAnySomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 7)
+                                   public static let anySomeTypesCompletionHandler = MethodParameter(rawValue: 1 << 8)
+                                   public static let someSomeTypesCompletionHandler = MethodParameter(rawValue: 1 << 9)
                                }
                                private(set) public var assignedParameters = MethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) public var stringCompletionHandler: ((Result<String, Error>) -> Void)?
-                               private(set) public var stringsCompletionHandler: ((Result<[String], Error>) -> Void)?
+                               private(set) public var stringCompletionHandler: ((Result<String, any Error>) -> Void)?
+                               private(set) public var stringsCompletionHandler: ((Result<[String], some Error>) -> Void)?
                                private(set) public var classesCompletionHandler: ((Result<[Class], Error>) -> Void)?
                                private(set) public var optionalBoolCompletionHandler: ((Result<Bool?, Error>) -> Void)?
                                private(set) public var UNDETERMINED TUPLE NAMETupleCompletionHandler: ((Result<(Int, Double, Bool, String), Error>) -> Void)?
+                               private(set) public var anySomeTypeCompletionHandler: ((Result<any SomeType, any Error>) -> Void)?
+                               private(set) public var someSomeTypeCompletionHandler: ((Result<some SomeType, any Error>) -> Void)?
+                               private(set) public var optionalAnySomeTypeCompletionHandler: ((Result<(any SomeType)?, any Error>) -> Void)?
+                               private(set) public var anySomeTypesCompletionHandler: ((Result<[any SomeType], any Error>) -> Void)?
+                               private(set) public var someSomeTypesCompletionHandler: ((Result<[some SomeType], any Error>) -> Void)?
 
                                // MARK: - Variables to Use to Control Completion Handlers
 
@@ -355,11 +472,16 @@ extension ASTMockGeneratorTests {
                                public var classesCompletionHandlerResult = .failure(MockError)
                                public var optionalBoolCompletionHandlerResult = .failure(MockError)
                                public var UNDETERMINED TUPLE NAMETupleCompletionHandlerResult = .failure(MockError)
+                               public var anySomeTypeCompletionHandlerResult = .failure(MockError)
+                               public var someSomeTypeCompletionHandlerResult = .failure(MockError)
+                               public var optionalAnySomeTypeCompletionHandlerResult = .failure(MockError)
+                               public var anySomeTypesCompletionHandlerResult = .failure(MockError)
+                               public var someSomeTypesCompletionHandlerResult = .failure(MockError)
 
                                public var shouldCallFoo1CompletionHandlerCompletionHander = false
-                               public var foo1CompletionHandlerCompletionHanderResult: Result<String, Error> = .failure(MockError)
+                               public var foo1CompletionHandlerCompletionHanderResult: Result<String, any Error> = .failure(MockError)
                                public var shouldCallFoo2CompletionHandlerCompletionHander = false
-                               public var foo2CompletionHandlerCompletionHanderResult: Result<[String], Error> = .failure(MockError)
+                               public var foo2CompletionHandlerCompletionHanderResult: Result<[String], some Error> = .failure(MockError)
                                public var shouldCallFoo3CompletionHandlerCompletionHander = false
                                public var foo3CompletionHandlerCompletionHanderResult: Result<[Class], Error> = .failure(MockError)
                                public var shouldCallFoo4CompletionHandlerCompletionHander = false
@@ -368,6 +490,16 @@ extension ASTMockGeneratorTests {
                                public var foo5CompletionHandlerCompletionHanderResult: Result<(Int, Double, Bool, String), Error> = .failure(MockError)
                                public var shouldCallFoo6CompletionHandlerCompletionHander = false
                                public var foo6CompletionHandlerCompletionHanderResult: Result<(String, String), Error> = .failure(MockError)
+                               public var shouldCallFoo7CompletionHandlerCompletionHander = false
+                               public var foo7CompletionHandlerCompletionHanderResult: Result<any SomeType, any Error> = .failure(MockError)
+                               public var shouldCallFoo8CompletionHandlerCompletionHander = false
+                               public var foo8CompletionHandlerCompletionHanderResult: Result<some SomeType, any Error> = .failure(MockError)
+                               public var shouldCallFoo9CompletionHandlerCompletionHander = false
+                               public var foo9CompletionHandlerCompletionHanderResult: Result<(any SomeType)?, any Error> = .failure(MockError)
+                               public var shouldCallFoo10CompletionHandlerCompletionHander = false
+                               public var foo10CompletionHandlerCompletionHanderResult: Result<[any SomeType], any Error> = .failure(MockError)
+                               public var shouldCallFoo11CompletionHandlerCompletionHander = false
+                               public var foo11CompletionHandlerCompletionHanderResult: Result<[some SomeType], any Error> = .failure(MockError)
 
                                public func reset() {
                                    calledMethods = []
@@ -377,11 +509,16 @@ extension ASTMockGeneratorTests {
                                    classesCompletionHandler = nil
                                    optionalBoolCompletionHandler = nil
                                    UNDETERMINED TUPLE NAMETupleCompletionHandler = nil
+                                   anySomeTypeCompletionHandler = nil
+                                   someSomeTypeCompletionHandler = nil
+                                   optionalAnySomeTypeCompletionHandler = nil
+                                   anySomeTypesCompletionHandler = nil
+                                   someSomeTypesCompletionHandler = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               public func foo1(completionHandler: @escaping (Result<String, Error>) -> Void) {
+                               public func foo1(completionHandler: @escaping (Result<String, any Error>) -> Void) {
                                    calledMethods.insert(.foo1CompletionHandlerCalled)
                                    self.stringCompletionHandler = completionHandler
                                    assignedParameters.insert(.stringCompletionHandler)
@@ -393,7 +530,7 @@ extension ASTMockGeneratorTests {
                                    }
                                }
 
-                               public func foo2(completionHandler: @escaping (Result<[String], Error>) -> Void) {
+                               public func foo2(completionHandler: @escaping (Result<[String], some Error>) -> Void) {
                                    calledMethods.insert(.foo2CompletionHandlerCalled)
                                    self.stringsCompletionHandler = completionHandler
                                    assignedParameters.insert(.stringsCompletionHandler)
@@ -453,6 +590,66 @@ extension ASTMockGeneratorTests {
                                    }
                                }
 
+                               public func foo7(completionHandler: @escaping (Result<any SomeType, any Error>) -> Void) {
+                                   calledMethods.insert(.foo7CompletionHandlerCalled)
+                                   self.anySomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.anySomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(anySomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo7CompletionHandlerCompletionHander {
+                                       completionHandler(foo7CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo8(completionHandler: @escaping (Result<some SomeType, any Error>) -> Void) {
+                                   calledMethods.insert(.foo8CompletionHandlerCalled)
+                                   self.someSomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.someSomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(someSomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo8CompletionHandlerCompletionHander {
+                                       completionHandler(foo8CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo9(completionHandler: @escaping (Result<(any SomeType)?, any Error>) -> Void) {
+                                   calledMethods.insert(.foo9CompletionHandlerCalled)
+                                   self.optionalAnySomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.optionalAnySomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(optionalAnySomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo9CompletionHandlerCompletionHander {
+                                       completionHandler(foo9CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo10(completionHandler: @escaping (Result<[any SomeType], any Error>) -> Void) {
+                                   calledMethods.insert(.foo10CompletionHandlerCalled)
+                                   self.anySomeTypesCompletionHandler = completionHandler
+                                   assignedParameters.insert(.anySomeTypesCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(anySomeTypesCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo10CompletionHandlerCompletionHander {
+                                       completionHandler(foo10CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               public func foo11(completionHandler: @escaping (Result<[some SomeType], any Error>) -> Void) {
+                                   calledMethods.insert(.foo11CompletionHandlerCalled)
+                                   self.someSomeTypesCompletionHandler = completionHandler
+                                   assignedParameters.insert(.someSomeTypesCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(someSomeTypesCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo11CompletionHandlerCompletionHander {
+                                       completionHandler(foo11CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
                            }
 
                            extension MockTest.Method: CustomStringConvertible {
@@ -490,6 +687,26 @@ extension ASTMockGeneratorTests {
                                    if self.contains(.foo6CompletionHandlerCalled) {
                                        handleFirst()
                                        value += ".foo6CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo7CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo7CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo8CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo8CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo9CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo9CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo10CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo10CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo11CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo11CompletionHandlerCalled"
                                    }
 
                                    value += "]"
@@ -529,24 +746,33 @@ extension ASTMockGeneratorTests {
                                        handleFirst()
                                        value += ".UNDETERMINED TUPLE NAMETupleCompletionHandler"
                                    }
+                                   if self.contains(.anySomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".anySomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.someSomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".someSomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.optionalAnySomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".optionalAnySomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.anySomeTypesCompletionHandler) {
+                                       handleFirst()
+                                       value += ".anySomeTypesCompletionHandler"
+                                   }
+                                   if self.contains(.someSomeTypesCompletionHandler) {
+                                       handleFirst()
+                                       value += ".someSomeTypesCompletionHandler"
+                                   }
 
                                    value += "]"
                                    return value
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -556,24 +782,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_resultCompletionHandersProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: resultCompletionHandersProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ResultCompletionHandersProtocol {
 
@@ -587,6 +800,11 @@ extension ASTMockGeneratorTests {
                                    static let foo4CompletionHandlerCalled = Method(rawValue: 1 << 3)
                                    static let foo5CompletionHandlerCalled = Method(rawValue: 1 << 4)
                                    static let foo6CompletionHandlerCalled = Method(rawValue: 1 << 5)
+                                   static let foo7CompletionHandlerCalled = Method(rawValue: 1 << 6)
+                                   static let foo8CompletionHandlerCalled = Method(rawValue: 1 << 7)
+                                   static let foo9CompletionHandlerCalled = Method(rawValue: 1 << 8)
+                                   static let foo10CompletionHandlerCalled = Method(rawValue: 1 << 9)
+                                   static let foo11CompletionHandlerCalled = Method(rawValue: 1 << 10)
                                }
                                private(set) var calledMethods = Method()
 
@@ -598,17 +816,27 @@ extension ASTMockGeneratorTests {
                                    static let classesCompletionHandler = MethodParameter(rawValue: 1 << 2)
                                    static let optionalBoolCompletionHandler = MethodParameter(rawValue: 1 << 3)
                                    static let UNDETERMINED TUPLE NAMETupleCompletionHandler = MethodParameter(rawValue: 1 << 4)
+                                   static let anySomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 5)
+                                   static let someSomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 6)
+                                   static let optionalAnySomeTypeCompletionHandler = MethodParameter(rawValue: 1 << 7)
+                                   static let anySomeTypesCompletionHandler = MethodParameter(rawValue: 1 << 8)
+                                   static let someSomeTypesCompletionHandler = MethodParameter(rawValue: 1 << 9)
                                }
                                //swiftlint:enable identifier_name
                                private(set) var assignedParameters = MethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var stringCompletionHandler: ((Result<String, Error>) -> Void)?
-                               private(set) var stringsCompletionHandler: ((Result<[String], Error>) -> Void)?
+                               private(set) var stringCompletionHandler: ((Result<String, any Error>) -> Void)?
+                               private(set) var stringsCompletionHandler: ((Result<[String], some Error>) -> Void)?
                                private(set) var classesCompletionHandler: ((Result<[Class], Error>) -> Void)?
                                private(set) var optionalBoolCompletionHandler: ((Result<Bool?, Error>) -> Void)?
                                private(set) var UNDETERMINED TUPLE NAMETupleCompletionHandler: ((Result<(Int, Double, Bool, String), Error>) -> Void)?
+                               private(set) var anySomeTypeCompletionHandler: ((Result<any SomeType, any Error>) -> Void)?
+                               private(set) var someSomeTypeCompletionHandler: ((Result<some SomeType, any Error>) -> Void)?
+                               private(set) var optionalAnySomeTypeCompletionHandler: ((Result<(any SomeType)?, any Error>) -> Void)?
+                               private(set) var anySomeTypesCompletionHandler: ((Result<[any SomeType], any Error>) -> Void)?
+                               private(set) var someSomeTypesCompletionHandler: ((Result<[some SomeType], any Error>) -> Void)?
 
                                // MARK: - Variables to Use to Control Completion Handlers
 
@@ -619,11 +847,16 @@ extension ASTMockGeneratorTests {
                                var classesCompletionHandlerResult = .failure(MockError)
                                var optionalBoolCompletionHandlerResult = .failure(MockError)
                                var UNDETERMINED TUPLE NAMETupleCompletionHandlerResult = .failure(MockError)
+                               var anySomeTypeCompletionHandlerResult = .failure(MockError)
+                               var someSomeTypeCompletionHandlerResult = .failure(MockError)
+                               var optionalAnySomeTypeCompletionHandlerResult = .failure(MockError)
+                               var anySomeTypesCompletionHandlerResult = .failure(MockError)
+                               var someSomeTypesCompletionHandlerResult = .failure(MockError)
 
                                var shouldCallFoo1CompletionHandlerCompletionHander = false
-                               var foo1CompletionHandlerCompletionHanderResult: Result<String, Error> = .failure(MockError)
+                               var foo1CompletionHandlerCompletionHanderResult: Result<String, any Error> = .failure(MockError)
                                var shouldCallFoo2CompletionHandlerCompletionHander = false
-                               var foo2CompletionHandlerCompletionHanderResult: Result<[String], Error> = .failure(MockError)
+                               var foo2CompletionHandlerCompletionHanderResult: Result<[String], some Error> = .failure(MockError)
                                var shouldCallFoo3CompletionHandlerCompletionHander = false
                                var foo3CompletionHandlerCompletionHanderResult: Result<[Class], Error> = .failure(MockError)
                                var shouldCallFoo4CompletionHandlerCompletionHander = false
@@ -632,6 +865,16 @@ extension ASTMockGeneratorTests {
                                var foo5CompletionHandlerCompletionHanderResult: Result<(Int, Double, Bool, String), Error> = .failure(MockError)
                                var shouldCallFoo6CompletionHandlerCompletionHander = false
                                var foo6CompletionHandlerCompletionHanderResult: Result<(String, String), Error> = .failure(MockError)
+                               var shouldCallFoo7CompletionHandlerCompletionHander = false
+                               var foo7CompletionHandlerCompletionHanderResult: Result<any SomeType, any Error> = .failure(MockError)
+                               var shouldCallFoo8CompletionHandlerCompletionHander = false
+                               var foo8CompletionHandlerCompletionHanderResult: Result<some SomeType, any Error> = .failure(MockError)
+                               var shouldCallFoo9CompletionHandlerCompletionHander = false
+                               var foo9CompletionHandlerCompletionHanderResult: Result<(any SomeType)?, any Error> = .failure(MockError)
+                               var shouldCallFoo10CompletionHandlerCompletionHander = false
+                               var foo10CompletionHandlerCompletionHanderResult: Result<[any SomeType], any Error> = .failure(MockError)
+                               var shouldCallFoo11CompletionHandlerCompletionHander = false
+                               var foo11CompletionHandlerCompletionHanderResult: Result<[some SomeType], any Error> = .failure(MockError)
                                //swiftlint:enable identifier_name
 
                                func reset() {
@@ -642,11 +885,16 @@ extension ASTMockGeneratorTests {
                                    classesCompletionHandler = nil
                                    optionalBoolCompletionHandler = nil
                                    UNDETERMINED TUPLE NAMETupleCompletionHandler = nil
+                                   anySomeTypeCompletionHandler = nil
+                                   someSomeTypeCompletionHandler = nil
+                                   optionalAnySomeTypeCompletionHandler = nil
+                                   anySomeTypesCompletionHandler = nil
+                                   someSomeTypesCompletionHandler = nil
                                }
 
                                // MARK: - Methods for Protocol Conformance
 
-                               func foo1(completionHandler: @escaping (Result<String, Error>) -> Void) {
+                               func foo1(completionHandler: @escaping (Result<String, any Error>) -> Void) {
                                    calledMethods.insert(.foo1CompletionHandlerCalled)
                                    self.stringCompletionHandler = completionHandler
                                    assignedParameters.insert(.stringCompletionHandler)
@@ -658,7 +906,7 @@ extension ASTMockGeneratorTests {
                                    }
                                }
 
-                               func foo2(completionHandler: @escaping (Result<[String], Error>) -> Void) {
+                               func foo2(completionHandler: @escaping (Result<[String], some Error>) -> Void) {
                                    calledMethods.insert(.foo2CompletionHandlerCalled)
                                    self.stringsCompletionHandler = completionHandler
                                    assignedParameters.insert(.stringsCompletionHandler)
@@ -718,6 +966,66 @@ extension ASTMockGeneratorTests {
                                    }
                                }
 
+                               func foo7(completionHandler: @escaping (Result<any SomeType, any Error>) -> Void) {
+                                   calledMethods.insert(.foo7CompletionHandlerCalled)
+                                   self.anySomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.anySomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(anySomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo7CompletionHandlerCompletionHander {
+                                       completionHandler(foo7CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               func foo8(completionHandler: @escaping (Result<some SomeType, any Error>) -> Void) {
+                                   calledMethods.insert(.foo8CompletionHandlerCalled)
+                                   self.someSomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.someSomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(someSomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo8CompletionHandlerCompletionHander {
+                                       completionHandler(foo8CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               func foo9(completionHandler: @escaping (Result<(any SomeType)?, any Error>) -> Void) {
+                                   calledMethods.insert(.foo9CompletionHandlerCalled)
+                                   self.optionalAnySomeTypeCompletionHandler = completionHandler
+                                   assignedParameters.insert(.optionalAnySomeTypeCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(optionalAnySomeTypeCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo9CompletionHandlerCompletionHander {
+                                       completionHandler(foo9CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               func foo10(completionHandler: @escaping (Result<[any SomeType], any Error>) -> Void) {
+                                   calledMethods.insert(.foo10CompletionHandlerCalled)
+                                   self.anySomeTypesCompletionHandler = completionHandler
+                                   assignedParameters.insert(.anySomeTypesCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(anySomeTypesCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo10CompletionHandlerCompletionHander {
+                                       completionHandler(foo10CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
+                               func foo11(completionHandler: @escaping (Result<[some SomeType], any Error>) -> Void) {
+                                   calledMethods.insert(.foo11CompletionHandlerCalled)
+                                   self.someSomeTypesCompletionHandler = completionHandler
+                                   assignedParameters.insert(.someSomeTypesCompletionHandler)
+                                   if shouldCallCompletionHandler {
+                                       completionHandler(someSomeTypesCompletionHandlerResult)
+                                   }
+                                   if shouldCallFoo11CompletionHandlerCompletionHander {
+                                       completionHandler(foo11CompletionHandlerCompletionHanderResult)
+                                   }
+                               }
+
                            }
 
                            extension MockTest.Method: CustomStringConvertible {
@@ -755,6 +1063,26 @@ extension ASTMockGeneratorTests {
                                    if self.contains(.foo6CompletionHandlerCalled) {
                                        handleFirst()
                                        value += ".foo6CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo7CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo7CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo8CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo8CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo9CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo9CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo10CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo10CompletionHandlerCalled"
+                                   }
+                                   if self.contains(.foo11CompletionHandlerCalled) {
+                                       handleFirst()
+                                       value += ".foo11CompletionHandlerCalled"
                                    }
 
                                    value += "]"
@@ -794,24 +1122,33 @@ extension ASTMockGeneratorTests {
                                        handleFirst()
                                        value += ".UNDETERMINED TUPLE NAMETupleCompletionHandler"
                                    }
+                                   if self.contains(.anySomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".anySomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.someSomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".someSomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.optionalAnySomeTypeCompletionHandler) {
+                                       handleFirst()
+                                       value += ".optionalAnySomeTypeCompletionHandler"
+                                   }
+                                   if self.contains(.anySomeTypesCompletionHandler) {
+                                       handleFirst()
+                                       value += ".anySomeTypesCompletionHandler"
+                                   }
+                                   if self.contains(.someSomeTypesCompletionHandler) {
+                                       handleFirst()
+                                       value += ".someSomeTypesCompletionHandler"
+                                   }
 
                                    value += "]"
                                    return value
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -820,7 +1157,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Protocol with Throwing Methods
+    // MARK: - Protocol with Throwing Methods
     
     var throwingMethodsProtocol: String {
         """
@@ -834,24 +1171,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: throwingMethodsProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ThrowingMethodsProtocol {
 
@@ -960,18 +1284,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndCalledStaticMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -981,24 +1294,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: throwingMethodsProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ThrowingMethodsProtocol {
                            
@@ -1111,18 +1411,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndCalledStaticMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1132,24 +1421,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_throwingMethodsProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: throwingMethodsProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ThrowingMethodsProtocol {
 
@@ -1258,18 +1534,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndCalledStaticMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1278,7 +1543,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    // MARK: Protocol with Delegate
+    // MARK: - Protocol with Delegate
     
     var protocolWithDelegate: String {
         """
@@ -1289,24 +1554,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_protocolWithDelegate_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithDelegate {
 
@@ -1329,24 +1581,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_protocolWithDelegate_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithDelegate {
                            
@@ -1371,24 +1610,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithDelegate {
 
@@ -1411,24 +1637,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithDelegate {
                            
@@ -1453,24 +1666,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithDelegate {
 
@@ -1570,18 +1770,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1591,24 +1780,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithDelegate_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithDelegate))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithDelegate {
                            
@@ -1712,18 +1888,73 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+    
+    // MARK: - Protocol with Any Delegate
+    
+    var protocolWithAnyDelegate: String {
+        """
+        protocol ProtocolWithDelegate {
+            var delegate: (any SomeDelegate)? { get set }
+        }
+        """
+    }
+    
+    func testCodeGeneration_protocolWithAnyDelegate_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithAnyDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           \(expectedPopulatedHeaderWithTestableImport)
 
+                           class MockTest: ProtocolWithDelegate {
+
+                               // MARK: - Variables for Protocol Conformance
+
+                               var delegate: (any SomeDelegate)?
+
+
+                               func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+    
+    func testCodeGeneration_protocolWithAnyDelegate_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithAnyDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: false)
+        let expectedCode = """
+                           \(expectedPopulatedHeaderWithTestableImport)
+
+                           public class MockTest: ProtocolWithDelegate {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Protocol Conformance
+
+                               public var delegate: (any SomeDelegate)?
+
+
+                               public func reset() {
+                               }
+
+                           }
+                           
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1732,7 +1963,295 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 
-    // MARK: Protocol with Long Static Method Name
+    func testCodeGeneration_protocolWithAnyDelegate_swiftlintAwareTRUE_trackPropertyActivityFALSE_publicFALSE() throws {
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithAnyDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           \(expectedPopulatedHeaderWithTestableImport)
+
+                           class MockTest: ProtocolWithDelegate {
+
+                               // MARK: - Variables for Protocol Conformance
+
+                               var delegate: (any SomeDelegate)? //swiftlint:disable:this weak_delegate
+
+
+                               func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_protocolWithAnyDelegate_swiftlintAwareTRUE_trackPropertyActivityFALSE_publicTRUE() throws {
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithAnyDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           \(expectedPopulatedHeaderWithTestableImport)
+
+                           public class MockTest: ProtocolWithDelegate {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Protocol Conformance
+
+                               public var delegate: (any SomeDelegate)? //swiftlint:disable:this weak_delegate
+
+
+                               public func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_protocolWithAnyDelegate_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithAnyDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           \(expectedPopulatedHeaderWithTestableImport)
+
+                           class MockTest: ProtocolWithDelegate {
+
+                               // MARK: - Variables for Properties Used for Protocol Conformance
+                               // Use these properties to get/set/initialize the properties without registering a method call
+
+                               var _delegate: (any SomeDelegate)? //swiftlint:disable:this weak_delegate
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               struct Method: OptionSet, Sendable {
+                                   let rawValue: UInt
+                                   static let delegateGetterCalled = Method(rawValue: 1 << 0)
+                                   static let delegateSetterCalled = Method(rawValue: 1 << 1)
+                               }
+                               private(set) var calledMethods = Method()
+
+                               struct MethodParameter: OptionSet, Sendable {
+                                   let rawValue: UInt
+                                   static let delegateInSetter = MethodParameter(rawValue: 1 << 0)
+                               }
+                               private(set) var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) var delegateInSetter: (any SomeDelegate)?
+
+
+                               func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   delegateInSetter = nil
+                               }
+
+                               // MARK: - Properties for Protocol Conformance
+
+                               var delegate: (any SomeDelegate)? {
+                                   get {
+                                       calledMethods.insert(.delegateGetterCalled)
+                                       return _delegate
+                                   }
+                                   set {
+                                       calledMethods.insert(.delegateSetterCalled)
+                                       _delegate = newValue
+                                       self.delegateInSetter = newValue
+                                       assignedParameters.insert(.delegateInSetter)
+                                   }
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.delegateGetterCalled) {
+                                       handleFirst()
+                                       value += ".delegateGetterCalled"
+                                   }
+                                   if self.contains(.delegateSetterCalled) {
+                                       handleFirst()
+                                       value += ".delegateSetterCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.delegateInSetter) {
+                                       handleFirst()
+                                       value += ".delegateInSetter"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    func testCodeGeneration_protocolWithAnyDelegate_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
+        let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithAnyDelegate))
+        let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
+        createGenerator(swiftlintAware: true)
+        let expectedCode = """
+                           \(expectedPopulatedHeaderWithTestableImport)
+
+                           public class MockTest: ProtocolWithDelegate {
+                           
+                               public init() { }
+
+                               // MARK: - Variables for Properties Used for Protocol Conformance
+                               // Use these properties to get/set/initialize the properties without registering a method call
+
+                               public var _delegate: (any SomeDelegate)? //swiftlint:disable:this weak_delegate
+
+                               // MARK: - Variables for Trackings Method Invocation
+
+                               public struct Method: OptionSet, Sendable {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let delegateGetterCalled = Method(rawValue: 1 << 0)
+                                   public static let delegateSetterCalled = Method(rawValue: 1 << 1)
+                               }
+                               private(set) public var calledMethods = Method()
+
+                               public struct MethodParameter: OptionSet, Sendable {
+                                   public let rawValue: UInt
+                                   public init(rawValue: UInt) { self.rawValue = rawValue }
+                                   public static let delegateInSetter = MethodParameter(rawValue: 1 << 0)
+                               }
+                               private(set) public var assignedParameters = MethodParameter()
+
+                               // MARK: - Variables for Captured Parameter Values
+
+                               private(set) public var delegateInSetter: (any SomeDelegate)?
+
+
+                               public func reset() {
+                                   calledMethods = []
+                                   assignedParameters = []
+                                   delegateInSetter = nil
+                               }
+
+                               // MARK: - Properties for Protocol Conformance
+
+                               public var delegate: (any SomeDelegate)? {
+                                   get {
+                                       calledMethods.insert(.delegateGetterCalled)
+                                       return _delegate
+                                   }
+                                   set {
+                                       calledMethods.insert(.delegateSetterCalled)
+                                       _delegate = newValue
+                                       self.delegateInSetter = newValue
+                                       assignedParameters.insert(.delegateInSetter)
+                                   }
+                               }
+
+                           }
+
+                           extension MockTest.Method: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.delegateGetterCalled) {
+                                       handleFirst()
+                                       value += ".delegateGetterCalled"
+                                   }
+                                   if self.contains(.delegateSetterCalled) {
+                                       handleFirst()
+                                       value += ".delegateSetterCalled"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           extension MockTest.MethodParameter: CustomStringConvertible {
+                               public var description: String {
+                                   var value = "["
+                                   var first = true
+                                   func handleFirst() {
+                                       if first {
+                                           first = false
+                                       } else {
+                                           value += ", "
+                                       }
+                                   }
+
+                                   if self.contains(.delegateInSetter) {
+                                       handleFirst()
+                                       value += ".delegateInSetter"
+                                   }
+
+                                   value += "]"
+                                   return value
+                               }
+                           }
+
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+
+    // MARK: - Protocol with Long Static Method Name
     
     var protocolWithLongStaticMethodName: String {
         """
@@ -1743,24 +2262,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithLongStaticMethodName))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithLongStaticMethodName {
 
@@ -1843,18 +2349,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1864,24 +2359,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithLongStaticMethodName))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithLongStaticMethodName {
                            
@@ -1968,18 +2450,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -1989,24 +2460,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithLongStaticMethodName))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithLongStaticMethodName {
 
@@ -2091,18 +2549,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -2112,24 +2559,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithLongStaticMethodName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithLongStaticMethodName))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithLongStaticMethodName {
                            
@@ -2218,18 +2652,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -2238,7 +2661,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 
-    // MARK: Protocol with Function with a Lot of Parameters
+    // MARK: - Protocol with Function with a Lot of Parameters
     
     var protocolWithFunctionWithManyParameters: String {
         """
@@ -2250,24 +2673,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithManyParameters))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithFunctionWithManyParameters {
 
@@ -2510,20 +2920,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedParameters": assignedParameters,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithAllMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -2533,24 +2930,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithManyParameters))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithFunctionWithManyParameters {
                            
@@ -2799,20 +3183,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedParameters": assignedParameters,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithAllMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -2822,24 +3193,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithManyParameters))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithFunctionWithManyParameters {
 
@@ -3088,20 +3446,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedParameters": assignedParameters,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithAllMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -3111,24 +3456,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithFunctionWithManyParameters_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithManyParameters))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithFunctionWithManyParameters {
                            
@@ -3383,20 +3715,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "calledStaticMethods": MockTest.calledStaticMethods,
-                                           "assignedParameters": assignedParameters,
-                                           "assignedStaticParameters": MockTest.assignedStaticParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithAllMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -3405,7 +3724,7 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 
-    // MARK: Protocol with Function with a Long Completion Handler Name
+    // MARK: - Protocol with Function with a Long Completion Handler Name
     
     var protocolWithFunctionWithLongCompletionHandlerName: String {
         """
@@ -3416,24 +3735,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithLongCompletionHandlerName))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithFunctionWithManyParameters {
 
@@ -3529,18 +3835,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -3550,24 +3845,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithLongCompletionHandlerName))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithFunctionWithManyParameters {
                            
@@ -3667,18 +3949,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -3688,24 +3959,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithLongCompletionHandlerName))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: ProtocolWithFunctionWithManyParameters {
 
@@ -3807,18 +4065,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -3828,24 +4075,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_protocolWithFunctionWithLongCompletionHandlerName_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: protocolWithFunctionWithLongCompletionHandlerName))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: ProtocolWithFunctionWithManyParameters {
                            
@@ -3951,18 +4185,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)

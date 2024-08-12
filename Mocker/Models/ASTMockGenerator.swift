@@ -1,3 +1,4 @@
+//swiftlint:disable type_body_length
 //
 //  ASTMockGenerator.swift
 //  Mocker
@@ -119,18 +120,32 @@ class ASTMockGenerator: MockGenerating {
         }
     }
 
+    //swiftlint:disable:next cyclomatic_complexity
     func completionHandlerVariableName(for detail: FunctionParameterSyntax.ResultCompletionHandlerDetail) -> String {
         // Start with the type
         var name = "UNDETERMINED"
 
         // Prefix the name of the variable with the type
-        if let arrayType = detail.successType.as(ArrayTypeSyntax.self), let type = arrayType.element.as(IdentifierTypeSyntax.self) {
-            let lastCharacter = type.name.text.last
+        if let arrayType = detail.successType.as(ArrayTypeSyntax.self) {
             
-            if lastCharacter == "s" {
-                name = type.name.text.firstLowercased + "es"
-            } else {
-                name = type.name.text.firstLowercased + "s"
+            if let type = arrayType.element.as(IdentifierTypeSyntax.self) {
+                let lastCharacter = type.name.text.last
+                
+                if lastCharacter == "s" {
+                    name = type.name.text.firstLowercased + "es"
+                } else {
+                    name = type.name.text.firstLowercased + "s"
+                }
+            }
+
+            if let someOrAnyType = arrayType.element.as(SomeOrAnyTypeSyntax.self), let type = someOrAnyType.constraint.as(IdentifierTypeSyntax.self) {
+                let lastCharacter = type.name.text.last
+                
+                if lastCharacter == "s" {
+                    name = someOrAnyType.someOrAnySpecifier.text + type.name.text.firstUppercased + "es"
+                } else {
+                    name = someOrAnyType.someOrAnySpecifier.text + type.name.text.firstUppercased + "s"
+                }
             }
         }
 
@@ -138,12 +153,29 @@ class ASTMockGenerator: MockGenerating {
             name = type.name.text.firstLowercased
         }
 
-        if let optional = detail.successType.as(OptionalTypeSyntax.self), let type = optional.wrappedType.as(IdentifierTypeSyntax.self) {
-            name = "optional" + type.name.text.firstUppercased
+        if let optional = detail.successType.as(OptionalTypeSyntax.self) {
+            if let type = optional.wrappedType.as(IdentifierTypeSyntax.self) {
+                name = "optional" + type.name.text.firstUppercased
+            }
+            
+            if let tupleType = optional.wrappedType.as(TupleTypeSyntax.self),
+                tupleType.elements.count == 1,
+                let tupleTypeElement = tupleType.elements.first?.as(TupleTypeElementSyntax.self),
+                let someOrAnyType = tupleTypeElement.type.as(SomeOrAnyTypeSyntax.self),
+                let type = someOrAnyType.constraint.as(IdentifierTypeSyntax.self) {
+                name = "optional" + someOrAnyType.someOrAnySpecifier.text.firstUppercased + type.name.text.firstUppercased
+            }
         }
 
         if let type = detail.successType.as(TupleTypeSyntax.self) {
             name = type.concatenatedVariableName
+        }
+        
+        if let someOrAnyType = detail.successType.as(SomeOrAnyTypeSyntax.self) {
+            name = someOrAnyType.someOrAnySpecifier.text
+            if let type = someOrAnyType.constraint.as(IdentifierTypeSyntax.self) {
+                name += type.name.text.firstUppercased
+            }
         }
 
         // Add the name of the parameter
@@ -284,3 +316,4 @@ class ASTMockGenerator: MockGenerating {
         !(name.count < SwiftlintSupport.IdentifierName.minLength || name.count > SwiftlintSupport.IdentifierName.maxLength)
     }
 }
+//swiftlint:enable type_body_length
