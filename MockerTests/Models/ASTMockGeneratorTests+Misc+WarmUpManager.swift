@@ -1,4 +1,3 @@
-//TODO: evaluate any change and rework to use constants
 //swiftlint:disable function_body_length file_length
 //
 //  ASTMockGeneratorTests+Misc+WarmUpManager.swift
@@ -18,7 +17,7 @@ extension ASTMockGeneratorTests {
         """
         protocol WarmUpManager {
             
-            var delegate: WarmUpManagerDelegate? { get set }
+            var delegate: (any WarmUpManagerDelegate)? { get set }
             
             var instantWarmUp: WarmUp { get set }
             var userDefinedWarmUps: [WarmUp] { get }
@@ -41,30 +40,17 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_warmUpManagerProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: warmUpManagerProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: WarmUpManager {
 
                                // MARK: - Variables for Protocol Conformance
 
-                               var delegate: WarmUpManagerDelegate?
+                               var delegate: (any WarmUpManagerDelegate)?
                                var instantWarmUp: WarmUp
                                var userDefinedWarmUps: [WarmUp]
                                var count: Int
@@ -284,18 +270,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -305,24 +280,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_warmUpManagerProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: warmUpManagerProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: WarmUpManager {
                            
@@ -330,7 +292,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Protocol Conformance
 
-                               public var delegate: WarmUpManagerDelegate?
+                               public var delegate: (any WarmUpManagerDelegate)?
                                public var instantWarmUp: WarmUp
                                public var userDefinedWarmUps: [WarmUp]
                                public var count: Int
@@ -552,18 +514,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -573,31 +524,18 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_warmUpManagerProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: warmUpManagerProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: WarmUpManager {
 
                                // MARK: - Variables for Properties Used for Protocol Conformance
                                // Use these properties to get/set/initialize the properties without registering a method call
 
-                               var _delegate: WarmUpManagerDelegate? //swiftlint:disable:this weak_delegate
+                               var _delegate: (any WarmUpManagerDelegate)? //swiftlint:disable:this weak_delegate
                                var _instantWarmUp: WarmUp
                                var _userDefinedWarmUps: [WarmUp]
                                var _count: Int
@@ -640,7 +578,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var delegateInSetter: WarmUpManagerDelegate?
+                               private(set) var delegateInSetter: (any WarmUpManagerDelegate)?
                                private(set) var instantWarmUpInSetter: WarmUp?
                                private(set) var warmUp: WarmUp?
                                private(set) var index: Int?
@@ -674,7 +612,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Properties for Protocol Conformance
 
-                               var delegate: WarmUpManagerDelegate? {
+                               var delegate: (any WarmUpManagerDelegate)? {
                                    get {
                                        calledMethods.insert(.delegateGetterCalled)
                                        return _delegate
@@ -901,18 +839,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -922,24 +849,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_warmUpManagerProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: warmUpManagerProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: WarmUpManager {
                            
@@ -948,7 +862,7 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Properties Used for Protocol Conformance
                                // Use these properties to get/set/initialize the properties without registering a method call
 
-                               public var _delegate: WarmUpManagerDelegate? //swiftlint:disable:this weak_delegate
+                               public var _delegate: (any WarmUpManagerDelegate)? //swiftlint:disable:this weak_delegate
                                public var _instantWarmUp: WarmUp
                                public var _userDefinedWarmUps: [WarmUp]
                                public var _count: Int
@@ -993,7 +907,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) public var delegateInSetter: WarmUpManagerDelegate?
+                               private(set) public var delegateInSetter: (any WarmUpManagerDelegate)?
                                private(set) public var instantWarmUpInSetter: WarmUp?
                                private(set) public var warmUp: WarmUp?
                                private(set) public var index: Int?
@@ -1027,7 +941,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Properties for Protocol Conformance
 
-                               public var delegate: WarmUpManagerDelegate? {
+                               public var delegate: (any WarmUpManagerDelegate)? {
                                    get {
                                        calledMethods.insert(.delegateGetterCalled)
                                        return _delegate
@@ -1254,18 +1168,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)

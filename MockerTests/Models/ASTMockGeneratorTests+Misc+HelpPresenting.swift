@@ -1,5 +1,4 @@
-//TODO: evaluate any change and rework to use constants
-//swiftlint:disable function_body_length file_length
+//swiftlint:disable function_body_length
 //
 //  ASTMockGeneratorTests+Misc+HelpPresenting.swift
 //  MockerTests
@@ -18,9 +17,9 @@ extension ASTMockGeneratorTests {
         """
         protocol HelpPresenting {
             
-            var viewController: ViewController? { get }
-            var analyticsRecorder: AnalyticsRecording { get }
-            var helpMenuWireframeType: HelpMenuWireframeProtocol.Type { get }
+            var viewController: (any ViewController)? { get }
+            var analyticsRecorder: any AnalyticsRecording { get }
+            var helpMenuWireframeType: any HelpMenuWireframeProtocol.Type { get }
             var helpItems: [HelpItem] { get }
             
             func openHelp()
@@ -29,32 +28,19 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_helpPresentingProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: helpPresentingProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: HelpPresenting {
 
                                // MARK: - Variables for Protocol Conformance
 
-                               var viewController: ViewController?
-                               var analyticsRecorder: AnalyticsRecording
-                               var helpMenuWireframeType: HelpMenuWireframeProtocol.Type
+                               var viewController: (any ViewController)?
+                               var analyticsRecorder: any AnalyticsRecording
+                               var helpMenuWireframeType: any HelpMenuWireframeProtocol.Type
                                var helpItems: [HelpItem]
 
                                // MARK: - Variables for Trackings Method Invocation
@@ -100,17 +86,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -120,24 +96,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_helpPresentingProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: helpPresentingProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: HelpPresenting {
                            
@@ -145,9 +108,9 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Protocol Conformance
 
-                               public var viewController: ViewController?
-                               public var analyticsRecorder: AnalyticsRecording
-                               public var helpMenuWireframeType: HelpMenuWireframeProtocol.Type
+                               public var viewController: (any ViewController)?
+                               public var analyticsRecorder: any AnalyticsRecording
+                               public var helpMenuWireframeType: any HelpMenuWireframeProtocol.Type
                                public var helpItems: [HelpItem]
 
                                // MARK: - Variables for Trackings Method Invocation
@@ -194,17 +157,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -214,33 +167,20 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_helpPresentingProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: helpPresentingProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: HelpPresenting {
 
                                // MARK: - Variables for Properties Used for Protocol Conformance
                                // Use these properties to get/set/initialize the properties without registering a method call
 
-                               var _viewController: ViewController?
-                               var _analyticsRecorder: AnalyticsRecording
-                               var _helpMenuWireframeType: HelpMenuWireframeProtocol.Type
+                               var _viewController: (any ViewController)?
+                               var _analyticsRecorder: any AnalyticsRecording
+                               var _helpMenuWireframeType: any HelpMenuWireframeProtocol.Type
                                var _helpItems: [HelpItem]
 
                                // MARK: - Variables for Trackings Method Invocation
@@ -262,17 +202,17 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Properties for Protocol Conformance
 
-                               var viewController: ViewController? {
+                               var viewController: (any ViewController)? {
                                    calledMethods.insert(.viewControllerGetterCalled)
                                    return _viewController
                                }
 
-                               var analyticsRecorder: AnalyticsRecording {
+                               var analyticsRecorder: any AnalyticsRecording {
                                    calledMethods.insert(.analyticsRecorderGetterCalled)
                                    return _analyticsRecorder
                                }
 
-                               var helpMenuWireframeType: HelpMenuWireframeProtocol.Type {
+                               var helpMenuWireframeType: any HelpMenuWireframeProtocol.Type {
                                    calledMethods.insert(.helpMenuWireframeTypeGetterCalled)
                                    return _helpMenuWireframeType
                                }
@@ -328,17 +268,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -348,24 +278,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_helpPresentingProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: helpPresentingProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: HelpPresenting {
                            
@@ -374,9 +291,9 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Properties Used for Protocol Conformance
                                // Use these properties to get/set/initialize the properties without registering a method call
 
-                               public var _viewController: ViewController?
-                               public var _analyticsRecorder: AnalyticsRecording
-                               public var _helpMenuWireframeType: HelpMenuWireframeProtocol.Type
+                               public var _viewController: (any ViewController)?
+                               public var _analyticsRecorder: any AnalyticsRecording
+                               public var _helpMenuWireframeType: any HelpMenuWireframeProtocol.Type
                                public var _helpItems: [HelpItem]
 
                                // MARK: - Variables for Trackings Method Invocation
@@ -399,17 +316,17 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Properties for Protocol Conformance
 
-                               public var viewController: ViewController? {
+                               public var viewController: (any ViewController)? {
                                    calledMethods.insert(.viewControllerGetterCalled)
                                    return _viewController
                                }
 
-                               public var analyticsRecorder: AnalyticsRecording {
+                               public var analyticsRecorder: any AnalyticsRecording {
                                    calledMethods.insert(.analyticsRecorderGetterCalled)
                                    return _analyticsRecorder
                                }
 
-                               public var helpMenuWireframeType: HelpMenuWireframeProtocol.Type {
+                               public var helpMenuWireframeType: any HelpMenuWireframeProtocol.Type {
                                    calledMethods.insert(.helpMenuWireframeTypeGetterCalled)
                                    return _helpMenuWireframeType
                                }
@@ -465,17 +382,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethods)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -484,4 +391,4 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 }
-//swiftlint:enable function_body_length file_length
+//swiftlint:enable function_body_length

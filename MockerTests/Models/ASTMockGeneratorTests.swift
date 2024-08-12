@@ -169,6 +169,46 @@ final class ASTMockGeneratorTests: XCTestCase {
         )
     }
 
+    // \(expectedCustomReflectableWithCalledMethodsAndCalledStaticMethods)
+    var expectedCustomReflectableWithCalledMethodsAndCalledStaticMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledMethods", "calledMethods"), ("calledStaticMethods", "MockTest.calledStaticMethods")]
+        )
+    }
+
+    // \(expectedPublicCustomReflectableWithCalledMethodsAndCalledStaticMethods)
+    var expectedPublicCustomReflectableWithCalledMethodsAndCalledStaticMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledMethods", "calledMethods"), ("calledStaticMethods", "MockTest.calledStaticMethods")]
+        )
+    }
+
+    // \(expectedCustomReflectableWithAllMethods)
+    var expectedCustomReflectableWithAllMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            childrenPairs: [("calledMethods", "calledMethods"), 
+                            ("calledStaticMethods", "MockTest.calledStaticMethods"),
+                            ("assignedParameters", "assignedParameters"),
+                            ("assignedStaticParameters", "MockTest.assignedStaticParameters")
+                           ]
+        )
+    }
+
+    // \(expectedPublicCustomReflectableWithAllMethods)
+    var expectedPublicCustomReflectableWithAllMethods: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            childrenPairs: [("calledMethods", "calledMethods"),
+                            ("calledStaticMethods", "MockTest.calledStaticMethods"),
+                            ("assignedParameters", "assignedParameters"),
+                            ("assignedStaticParameters", "MockTest.assignedStaticParameters")
+                           ]
+        )
+    }
+
     override func setUpWithError() throws {
         try super.setUpWithError()
 
