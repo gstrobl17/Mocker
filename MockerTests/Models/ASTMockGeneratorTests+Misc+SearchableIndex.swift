@@ -1,4 +1,3 @@
-//TODO: evaluate any change and rework to use constants
 //swiftlint:disable function_body_length file_length
 //
 //  ASTMockGeneratorTests+Misc+SearchableIndex.swift
@@ -18,7 +17,7 @@ extension ASTMockGeneratorTests {
         """
         protocol SearchableIndex {
 
-            var indexDelegate: CSSearchableIndexDelegate? { get set }
+            var indexDelegate: (any CSSearchableIndexDelegate)? { get set }
 
             func indexSearchableItems(_ items: [CSSearchableItem], completionHandler: ((Error?) -> Void)?)
             func deleteSearchableItems(withIdentifiers identifiers: [String], completionHandler: ((Error?) -> Void)?)
@@ -29,30 +28,17 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_searchableIndexProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: searchableIndexProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: SearchableIndex {
 
                                // MARK: - Variables for Protocol Conformance
 
-                               var indexDelegate: CSSearchableIndexDelegate?
+                               var indexDelegate: (any CSSearchableIndexDelegate)?
 
                                // MARK: - Variables for Trackings Method Invocation
 
@@ -173,18 +159,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -194,24 +169,11 @@ extension ASTMockGeneratorTests {
     }
     
     func testCodeGeneration_searchableIndexProtocol_swiftlintAwareFALSE_trackPropertyActivityFALSE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: searchableIndexProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: false, public: true)
         createGenerator(swiftlintAware: false)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: SearchableIndex {
                            
@@ -219,7 +181,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Protocol Conformance
 
-                               public var indexDelegate: CSSearchableIndexDelegate?
+                               public var indexDelegate: (any CSSearchableIndexDelegate)?
 
                                // MARK: - Variables for Trackings Method Invocation
 
@@ -342,18 +304,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -363,31 +314,18 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_searchableIndexProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicFALSE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: searchableIndexProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            class MockTest: SearchableIndex {
 
                                // MARK: - Variables for Properties Used for Protocol Conformance
                                // Use these properties to get/set/initialize the properties without registering a method call
 
-                               var _indexDelegate: CSSearchableIndexDelegate?
+                               var _indexDelegate: (any CSSearchableIndexDelegate)?
 
                                // MARK: - Variables for Trackings Method Invocation
 
@@ -414,7 +352,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) var indexDelegateInSetter: CSSearchableIndexDelegate?
+                               private(set) var indexDelegateInSetter: (any CSSearchableIndexDelegate)?
                                private(set) var items: [CSSearchableItem]?
                                private(set) var completionHandler: ((Error?) -> Void)?
                                private(set) var identifiers: [String]?
@@ -431,7 +369,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Properties for Protocol Conformance
 
-                               var indexDelegate: CSSearchableIndexDelegate? {
+                               var indexDelegate: (any CSSearchableIndexDelegate)? {
                                    get {
                                        calledMethods.insert(.indexDelegateGetterCalled)
                                        return _indexDelegate
@@ -542,18 +480,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
@@ -563,24 +490,11 @@ extension ASTMockGeneratorTests {
     }
 
     func testCodeGeneration_searchableIndexProtocol_swiftlintAwareTRUE_trackPropertyActivityTRUE_publicTRUE() throws {
-        let expectedDate = try XCTUnwrap(self.expectedDate)
-        let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: searchableIndexProtocol))
         let parameters = createParameters(protocolDeclaration: decl, trackPropertyActivity: true, public: true)
         createGenerator(swiftlintAware: true)
         let expectedCode = """
-                           //
-                           //  MockTest.swift
-                           //  file
-                           //
-                           // Created by Chris X. Programmer on \(expectedDate).
-                           // Copyright © \(expectedYear). All rights reserved.
-                           //
-                           
-                           @testable import Mocker
-                           import Foundation
-                           import UIKit
-                           import Core
+                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: SearchableIndex {
                            
@@ -589,7 +503,7 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables for Properties Used for Protocol Conformance
                                // Use these properties to get/set/initialize the properties without registering a method call
 
-                               public var _indexDelegate: CSSearchableIndexDelegate?
+                               public var _indexDelegate: (any CSSearchableIndexDelegate)?
 
                                // MARK: - Variables for Trackings Method Invocation
 
@@ -618,7 +532,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Variables for Captured Parameter Values
 
-                               private(set) public var indexDelegateInSetter: CSSearchableIndexDelegate?
+                               private(set) public var indexDelegateInSetter: (any CSSearchableIndexDelegate)?
                                private(set) public var items: [CSSearchableItem]?
                                private(set) public var completionHandler: ((Error?) -> Void)?
                                private(set) public var identifiers: [String]?
@@ -635,7 +549,7 @@ extension ASTMockGeneratorTests {
 
                                // MARK: - Properties for Protocol Conformance
 
-                               public var indexDelegate: CSSearchableIndexDelegate? {
+                               public var indexDelegate: (any CSSearchableIndexDelegate)? {
                                    get {
                                        calledMethods.insert(.indexDelegateGetterCalled)
                                        return _indexDelegate
@@ -746,18 +660,7 @@ extension ASTMockGeneratorTests {
                                }
                            }
 
-                           extension MockTest: CustomReflectable {
-                               public var customMirror: Mirror {
-                                   Mirror(self,
-                                          children: [
-                                           "calledMethods": calledMethods,
-                                           "assignedParameters": assignedParameters,
-                                          ],
-                                          displayStyle: .none
-                                   )
-                               }
-                           }
-
+                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
                            """
         
         let code = generator.generateMockCode(for: parameters)
