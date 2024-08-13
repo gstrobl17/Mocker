@@ -38,10 +38,6 @@ extension MockFileParametersPresenter: MockFileParametersPresenterProtocol {
     func stripTrailingProtocolFlagUpdated(to flag: Bool) {
         interactor?.stripTrailingProtocolFlagUpdated(to: flag)
     }
-    
-    func swiftlintAwareFlagUpdated(to flag: Bool) {
-        interactor?.swiftlintAwareFlagUpdated(to: flag)
-    }
 
     func includeTestableImportFlagUpdated(to flag: Bool) {
         interactor?.includeTestableImportFlagUpdated(to: flag)
@@ -67,14 +63,12 @@ extension MockFileParametersPresenter: MockFileParametersInteractorOutputProtoco
     func setParameters(prefix: String,
                        includeHeader: Bool,
                        stripTrailingProtocol: Bool,
-                       swiftlintAware: Bool,
                        includeTestableImport: Bool,
                        trackPropertyActivity: Bool,
                        public: Bool) {
         view?.setParameters(prefix: prefix,
                             includeHeader: includeHeader,
                             stripTrailingProtocol: stripTrailingProtocol,
-                            swiftlintAware: swiftlintAware,
                             includeTestableImport: includeTestableImport,
                             trackPropertyActivity: trackPropertyActivity,
                             public: `public`)

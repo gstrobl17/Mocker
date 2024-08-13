@@ -23,10 +23,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersNoReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -84,10 +83,9 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersNoReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -95,131 +93,6 @@ extension ASTMockGeneratorTests {
 
                                public init() { }
                            
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() {
-                                   calledMethods.insert(.fooCalled)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() {
-                                   calledMethods.insert(.fooCalled)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
                                // MARK: - Variables for Trackings Method Invocation
 
                                public struct Method: OptionSet, Sendable {
@@ -283,10 +156,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocol3InputParametersNoReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol3InputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -398,10 +270,9 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocol3InputParametersNoReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol3InputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -425,244 +296,6 @@ extension ASTMockGeneratorTests {
                                    public static let b = MethodParameter(rawValue: 1 << 1)
                                    public static let c = MethodParameter(rawValue: 1 << 2)
                                }
-                               private(set) public var assignedParameters = MethodParameter()
-
-                               // MARK: - Variables for Captured Parameter Values
-
-                               private(set) public var a: String?
-                               private(set) public var b: Int?
-                               private(set) public var c: Bool?
-
-
-                               public func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   a = nil
-                                   b = nil
-                                   c = nil
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo(_ a: String, b: Int, c: Bool) {
-                                   calledMethods.insert(.fooABCCalled)
-                                   self.a = a
-                                   assignedParameters.insert(.a)
-                                   self.b = b
-                                   assignedParameters.insert(.b)
-                                   self.c = c
-                                   assignedParameters.insert(.c)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooABCCalled) {
-                                       handleFirst()
-                                       value += ".fooABCCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           extension MockTest.MethodParameter: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.a) {
-                                       handleFirst()
-                                       value += ".a"
-                                   }
-                                   if self.contains(.b) {
-                                       handleFirst()
-                                       value += ".b"
-                                   }
-                                   if self.contains(.c) {
-                                       handleFirst()
-                                       value += ".c"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol3InputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooABCCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               //swiftlint:disable identifier_name
-                               struct MethodParameter: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let a = MethodParameter(rawValue: 1 << 0)
-                                   static let b = MethodParameter(rawValue: 1 << 1)
-                                   static let c = MethodParameter(rawValue: 1 << 2)
-                               }
-                               //swiftlint:enable identifier_name
-                               private(set) var assignedParameters = MethodParameter()
-
-                               // MARK: - Variables for Captured Parameter Values
-
-                               private(set) var a: String?
-                               private(set) var b: Int?
-                               private(set) var c: Bool?
-
-
-                               func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   a = nil
-                                   b = nil
-                                   c = nil
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo(_ a: String, b: Int, c: Bool) {
-                                   calledMethods.insert(.fooABCCalled)
-                                   self.a = a
-                                   assignedParameters.insert(.a)
-                                   self.b = b
-                                   assignedParameters.insert(.b)
-                                   self.c = c
-                                   assignedParameters.insert(.c)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooABCCalled) {
-                                       handleFirst()
-                                       value += ".fooABCCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           extension MockTest.MethodParameter: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.a) {
-                                       handleFirst()
-                                       value += ".a"
-                                   }
-                                   if self.contains(.b) {
-                                       handleFirst()
-                                       value += ".b"
-                                   }
-                                   if self.contains(.c) {
-                                       handleFirst()
-                                       value += ".c"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocol3InputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol3InputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           public class MockTest: SingleFunction {
-
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooABCCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               //swiftlint:disable identifier_name
-                               public struct MethodParameter: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let a = MethodParameter(rawValue: 1 << 0)
-                                   public static let b = MethodParameter(rawValue: 1 << 1)
-                                   public static let c = MethodParameter(rawValue: 1 << 2)
-                               }
-                               //swiftlint:enable identifier_name
                                private(set) public var assignedParameters = MethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
@@ -765,10 +398,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocol2AnyInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocol2AnyInputParametersNoReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol2AnyInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -871,10 +503,9 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocol2AnyInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocol2AnyInputParametersNoReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol2AnyInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -897,226 +528,6 @@ extension ASTMockGeneratorTests {
                                    public static let a = MethodParameter(rawValue: 1 << 0)
                                    public static let b = MethodParameter(rawValue: 1 << 1)
                                }
-                               private(set) public var assignedParameters = MethodParameter()
-
-                               // MARK: - Variables for Captured Parameter Values
-
-                               private(set) public var a: (any SomeType)?
-                               private(set) public var b: (any SomeOptionalType)?
-
-
-                               public func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   a = nil
-                                   b = nil
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo(_ a: any SomeType, b: (any SomeOptionalType)?) {
-                                   calledMethods.insert(.fooABCalled)
-                                   self.a = a
-                                   assignedParameters.insert(.a)
-                                   self.b = b
-                                   assignedParameters.insert(.b)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooABCalled) {
-                                       handleFirst()
-                                       value += ".fooABCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           extension MockTest.MethodParameter: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.a) {
-                                       handleFirst()
-                                       value += ".a"
-                                   }
-                                   if self.contains(.b) {
-                                       handleFirst()
-                                       value += ".b"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocol2AnyInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol2AnyInputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooABCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               //swiftlint:disable identifier_name
-                               struct MethodParameter: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let a = MethodParameter(rawValue: 1 << 0)
-                                   static let b = MethodParameter(rawValue: 1 << 1)
-                               }
-                               //swiftlint:enable identifier_name
-                               private(set) var assignedParameters = MethodParameter()
-
-                               // MARK: - Variables for Captured Parameter Values
-
-                               private(set) var a: (any SomeType)?
-                               private(set) var b: (any SomeOptionalType)?
-
-
-                               func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   a = nil
-                                   b = nil
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo(_ a: any SomeType, b: (any SomeOptionalType)?) {
-                                   calledMethods.insert(.fooABCalled)
-                                   self.a = a
-                                   assignedParameters.insert(.a)
-                                   self.b = b
-                                   assignedParameters.insert(.b)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooABCalled) {
-                                       handleFirst()
-                                       value += ".fooABCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           extension MockTest.MethodParameter: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.a) {
-                                       handleFirst()
-                                       value += ".a"
-                                   }
-                                   if self.contains(.b) {
-                                       handleFirst()
-                                       value += ".b"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocol2AnyInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocol2AnyInputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           public class MockTest: SingleFunction {
-
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooABCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               //swiftlint:disable identifier_name
-                               public struct MethodParameter: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let a = MethodParameter(rawValue: 1 << 0)
-                                   public static let b = MethodParameter(rawValue: 1 << 1)
-                               }
-                               //swiftlint:enable identifier_name
                                private(set) public var assignedParameters = MethodParameter()
 
                                // MARK: - Variables for Captured Parameter Values
@@ -1211,10 +622,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersIntReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersIntReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -1277,10 +687,9 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersIntReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersIntReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -1300,145 +709,6 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables to Use as Method Return Values
 
                                public var fooReturnValue: Int!
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() -> Int {
-                                   calledMethods.insert(.fooCalled)
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersIntReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               //swiftlint:disable implicitly_unwrapped_optional
-                               var fooReturnValue: Int!
-                               //swiftlint:enable implicitly_unwrapped_optional
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() -> Int {
-                                   calledMethods.insert(.fooCalled)
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersIntReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersIntReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               //swiftlint:disable implicitly_unwrapped_optional
-                               public var fooReturnValue: Int!
-                               //swiftlint:enable implicitly_unwrapped_optional
 
 
                                public func reset() {
@@ -1495,10 +765,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -1561,10 +830,9 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -1584,145 +852,6 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables to Use as Method Return Values
 
                                public var fooReturnValue: (any SomeType)!
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() -> any SomeType {
-                                   calledMethods.insert(.fooCalled)
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               //swiftlint:disable implicitly_unwrapped_optional
-                               var fooReturnValue: (any SomeType)!
-                               //swiftlint:enable implicitly_unwrapped_optional
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() -> any SomeType {
-                                   calledMethods.insert(.fooCalled)
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersAnySomeTypeReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               //swiftlint:disable implicitly_unwrapped_optional
-                               public var fooReturnValue: (any SomeType)!
-                               //swiftlint:enable implicitly_unwrapped_optional
 
 
                                public func reset() {
@@ -1779,10 +908,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -1845,147 +973,11 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               public var fooReturnValue: (any SomeType)?
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() -> (any SomeType)? {
-                                   calledMethods.insert(.fooCalled)
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               var fooReturnValue: (any SomeType)?
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() -> (any SomeType)? {
-                                   calledMethods.insert(.fooCalled)
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalAnySomeTypeReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: SingleFunction {
                            
@@ -2059,10 +1051,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -2156,210 +1147,11 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCompletionCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               public struct MethodParameter: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let completion = MethodParameter(rawValue: 1 << 0)
-                               }
-                               private(set) public var assignedParameters = MethodParameter()
-
-                               // MARK: - Variables for Captured Parameter Values
-
-                               private(set) public var completion: (() -> Void)?
-
-
-                               public func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   completion = nil
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo(completion: (() -> Void)?) {
-                                   calledMethods.insert(.fooCompletionCalled)
-                                   self.completion = completion
-                                   assignedParameters.insert(.completion)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCompletionCalled) {
-                                       handleFirst()
-                                       value += ".fooCompletionCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           extension MockTest.MethodParameter: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.completion) {
-                                       handleFirst()
-                                       value += ".completion"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCompletionCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               struct MethodParameter: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let completion = MethodParameter(rawValue: 1 << 0)
-                               }
-                               private(set) var assignedParameters = MethodParameter()
-
-                               // MARK: - Variables for Captured Parameter Values
-
-                               private(set) var completion: (() -> Void)?
-
-
-                               func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   completion = nil
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo(completion: (() -> Void)?) {
-                                   calledMethods.insert(.fooCompletionCalled)
-                                   self.completion = completion
-                                   assignedParameters.insert(.completion)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCompletionCalled) {
-                                       handleFirst()
-                                       value += ".fooCompletionCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           extension MockTest.MethodParameter: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.completion) {
-                                       handleFirst()
-                                       value += ".completion"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolOptionalVoidCompletionHandlerInputParameterNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: SingleFunction {
                            
@@ -2465,10 +1257,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -2575,10 +1366,9 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -2613,234 +1403,6 @@ extension ASTMockGeneratorTests {
 
                                public var shouldCallFooCompletionHandlerCompletionHander = false
                                public var fooCompletionHandlerCompletionHanderResult: Result<[Item], Error> = .failure(MockError)
-
-                               public func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   itemsCompletionHandler = nil
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo(completionHandler: @escaping (Result<[Item], Error>) -> Void) {
-                                   calledMethods.insert(.fooCompletionHandlerCalled)
-                                   self.itemsCompletionHandler = completionHandler
-                                   assignedParameters.insert(.itemsCompletionHandler)
-                                   if shouldCallCompletionHandler {
-                                       completionHandler(itemsCompletionHandlerResult)
-                                   }
-                                   if shouldCallFooCompletionHandlerCompletionHander {
-                                       completionHandler(fooCompletionHandlerCompletionHanderResult)
-                                   }
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCompletionHandlerCalled) {
-                                       handleFirst()
-                                       value += ".fooCompletionHandlerCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           extension MockTest.MethodParameter: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.itemsCompletionHandler) {
-                                       handleFirst()
-                                       value += ".itemsCompletionHandler"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCompletionHandlerCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               struct MethodParameter: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let itemsCompletionHandler = MethodParameter(rawValue: 1 << 0)
-                               }
-                               private(set) var assignedParameters = MethodParameter()
-
-                               // MARK: - Variables for Captured Parameter Values
-
-                               private(set) var itemsCompletionHandler: ((Result<[Item], Error>) -> Void)?
-
-                               // MARK: - Variables to Use to Control Completion Handlers
-
-                               //swiftlint:disable identifier_name
-                               var shouldCallCompletionHandler = false
-                               var itemsCompletionHandlerResult = .failure(MockError)
-
-                               var shouldCallFooCompletionHandlerCompletionHander = false
-                               var fooCompletionHandlerCompletionHanderResult: Result<[Item], Error> = .failure(MockError)
-                               //swiftlint:enable identifier_name
-
-                               func reset() {
-                                   calledMethods = []
-                                   assignedParameters = []
-                                   itemsCompletionHandler = nil
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo(completionHandler: @escaping (Result<[Item], Error>) -> Void) {
-                                   calledMethods.insert(.fooCompletionHandlerCalled)
-                                   self.itemsCompletionHandler = completionHandler
-                                   assignedParameters.insert(.itemsCompletionHandler)
-                                   if shouldCallCompletionHandler {
-                                       completionHandler(itemsCompletionHandlerResult)
-                                   }
-                                   if shouldCallFooCompletionHandlerCompletionHander {
-                                       completionHandler(fooCompletionHandlerCompletionHanderResult)
-                                   }
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCompletionHandlerCalled) {
-                                       handleFirst()
-                                       value += ".fooCompletionHandlerCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           extension MockTest.MethodParameter: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.itemsCompletionHandler) {
-                                       handleFirst()
-                                       value += ".itemsCompletionHandler"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethodsAndAssignedParameters)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolEscapingResultVoidCompletionHandlerInputParameterNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           public class MockTest: SingleFunction {
-
-                               public init() { }
-                           
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCompletionHandlerCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               public struct MethodParameter: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let itemsCompletionHandler = MethodParameter(rawValue: 1 << 0)
-                               }
-                               private(set) public var assignedParameters = MethodParameter()
-
-                               // MARK: - Variables for Captured Parameter Values
-
-                               private(set) public var itemsCompletionHandler: ((Result<[Item], Error>) -> Void)?
-
-                               // MARK: - Variables to Use to Control Completion Handlers
-
-                               //swiftlint:disable identifier_name
-                               public var shouldCallCompletionHandler = false
-                               public var itemsCompletionHandlerResult = .failure(MockError)
-
-                               public var shouldCallFooCompletionHandlerCompletionHander = false
-                               public var fooCompletionHandlerCompletionHanderResult: Result<[Item], Error> = .failure(MockError)
-                               //swiftlint:enable identifier_name
 
                                public func reset() {
                                    calledMethods = []
@@ -2927,10 +1489,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncNoInputParametersNoReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -2988,137 +1549,11 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncNoInputParametersNoReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() async {
-                                   calledMethods.insert(.fooCalled)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncNoInputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() async {
-                                   calledMethods.insert(.fooCalled)
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-    
-    func testCodeGeneration_singleFunctionProtocolAsyncNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncNoInputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: false)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: SingleFunction {
                            
@@ -3187,10 +1622,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -3254,149 +1688,11 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               public var errorToThrow: Error!
-                               public var fooShouldThrowError = false
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() async throws {
-                                   calledMethods.insert(.fooCalled)
-                                   if fooShouldThrowError && errorToThrow != nil {
-                                       throw errorToThrow
-                                   }
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               var errorToThrow: Error!
-                               var fooShouldThrowError = false
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() async throws {
-                                   calledMethods.insert(.fooCalled)
-                                   if fooShouldThrowError && errorToThrow != nil {
-                                       throw errorToThrow
-                                   }
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersNoReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: SingleFunction {
                            
@@ -3471,10 +1767,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -3543,10 +1838,9 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -3566,157 +1860,6 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables to Use as Method Return Values
 
                                public var fooReturnValue: SomeItem!
-
-                               public var errorToThrow: Error!
-                               public var fooShouldThrowError = false
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() async throws -> SomeItem {
-                                   calledMethods.insert(.fooCalled)
-                                   if fooShouldThrowError && errorToThrow != nil {
-                                       throw errorToThrow
-                                   }
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               //swiftlint:disable implicitly_unwrapped_optional
-                               var fooReturnValue: SomeItem!
-                               //swiftlint:enable implicitly_unwrapped_optional
-
-                               var errorToThrow: Error!
-                               var fooShouldThrowError = false
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() async throws -> SomeItem {
-                                   calledMethods.insert(.fooCalled)
-                                   if fooShouldThrowError && errorToThrow != nil {
-                                       throw errorToThrow
-                                   }
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersSomeItemReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               //swiftlint:disable implicitly_unwrapped_optional
-                               public var fooReturnValue: SomeItem!
-                               //swiftlint:enable implicitly_unwrapped_optional
 
                                public var errorToThrow: Error!
                                public var fooShouldThrowError = false
@@ -3779,10 +1922,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -3845,147 +1987,11 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               public var fooReturnValue: SomeItem?
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() -> SomeItem? {
-                                   calledMethods.insert(.fooCalled)
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               var fooReturnValue: SomeItem?
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() -> SomeItem? {
-                                   calledMethods.insert(.fooCalled)
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolNoInputParametersOptionalSomeItemReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: SingleFunction {
                            
@@ -4059,10 +2065,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -4131,10 +2136,9 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -4154,157 +2158,6 @@ extension ASTMockGeneratorTests {
                                // MARK: - Variables to Use as Method Return Values
 
                                public var fooReturnValue: (any SomeItem)!
-
-                               public var errorToThrow: Error!
-                               public var fooShouldThrowError = false
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() async throws -> any SomeItem {
-                                   calledMethods.insert(.fooCalled)
-                                   if fooShouldThrowError && errorToThrow != nil {
-                                       throw errorToThrow
-                                   }
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               //swiftlint:disable implicitly_unwrapped_optional
-                               var fooReturnValue: (any SomeItem)!
-                               //swiftlint:enable implicitly_unwrapped_optional
-
-                               var errorToThrow: Error!
-                               var fooShouldThrowError = false
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() async throws -> any SomeItem {
-                                   calledMethods.insert(.fooCalled)
-                                   if fooShouldThrowError && errorToThrow != nil {
-                                       throw errorToThrow
-                                   }
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersAnySomeItemReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               //swiftlint:disable implicitly_unwrapped_optional
-                               public var fooReturnValue: (any SomeItem)!
-                               //swiftlint:enable implicitly_unwrapped_optional
 
                                public var errorToThrow: Error!
                                public var fooShouldThrowError = false
@@ -4367,10 +2220,9 @@ extension ASTMockGeneratorTests {
         """
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicFALSE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -4439,159 +2291,11 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
     
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue_swiftlintAwareFALSE_includeTestableImportFALSE_publicTRUE() throws {
+    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
-        createGenerator(swiftlintAware: false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
-
-                           public class MockTest: SingleFunction {
-                           
-                               public init() { }
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               public struct Method: OptionSet, Sendable {
-                                   public let rawValue: UInt
-                                   public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) public var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               public var fooReturnValue: (any SomeItem)?
-
-                               public var errorToThrow: Error!
-                               public var fooShouldThrowError = false
-
-
-                               public func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               public func foo() async throws -> (any SomeItem)? {
-                                   calledMethods.insert(.fooCalled)
-                                   if fooShouldThrowError && errorToThrow != nil {
-                                       throw errorToThrow
-                                   }
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               public var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedPublicCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicFALSE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
-
-                           class MockTest: SingleFunction {
-
-                               // MARK: - Variables for Trackings Method Invocation
-
-                               struct Method: OptionSet, Sendable {
-                                   let rawValue: UInt
-                                   static let fooCalled = Method(rawValue: 1 << 0)
-                               }
-                               private(set) var calledMethods = Method()
-
-                               // MARK: - Variables to Use as Method Return Values
-
-                               var fooReturnValue: (any SomeItem)?
-
-                               var errorToThrow: Error!
-                               var fooShouldThrowError = false
-
-
-                               func reset() {
-                                   calledMethods = []
-                               }
-
-                               // MARK: - Methods for Protocol Conformance
-
-                               func foo() async throws -> (any SomeItem)? {
-                                   calledMethods.insert(.fooCalled)
-                                   if fooShouldThrowError && errorToThrow != nil {
-                                       throw errorToThrow
-                                   }
-                                   return fooReturnValue
-                               }
-
-                           }
-
-                           extension MockTest.Method: CustomStringConvertible {
-                               var description: String {
-                                   var value = "["
-                                   var first = true
-                                   func handleFirst() {
-                                       if first {
-                                           first = false
-                                       } else {
-                                           value += ", "
-                                       }
-                                   }
-
-                                   if self.contains(.fooCalled) {
-                                       handleFirst()
-                                       value += ".fooCalled"
-                                   }
-
-                                   value += "]"
-                                   return value
-                               }
-                           }
-
-                           \(expectedCustomReflectableWithCalledMethods)
-                           """
-        
-        let code = generator.generateMockCode(for: parameters)
-        
-        XCTAssertEqual(code, expectedCode)
-        printFirstDifference(code, expectedCode)
-    }
-
-    func testCodeGeneration_singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue_swiftlintAwareTRUE_includeTestableImportTRUE_publicTRUE() throws {
-        let decl = try XCTUnwrap(protocolDeclaration(for: singleFunctionProtocolAsyncThrowsNoInputParametersOptionalAnySomeItemReturnValue))
-        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: true, public: true)
-        createGenerator(swiftlintAware: true)
-        let expectedCode = """
-                           \(expectedPopulatedHeaderWithTestableImport)
 
                            public class MockTest: SingleFunction {
                            

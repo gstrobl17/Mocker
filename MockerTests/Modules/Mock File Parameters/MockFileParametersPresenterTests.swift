@@ -72,17 +72,6 @@ class MockFileParametersPresenterTests: XCTestCase {
         XCTAssertEqual(interactor.flag, stripTrailingProtocol)
     }
 
-    func test_swiftlintAwareFlagUpdated() {
-        let swiftlintAware = true
-        
-        presenter.swiftlintAwareFlagUpdated(to: swiftlintAware)
-        
-        verifyStroblMocksUnused(except: [.interactor])
-        XCTAssertEqual(interactor.calledMethods, [.swiftlintAwareFlagUpdatedToFlagCalled])
-        XCTAssertEqual(interactor.assignedParameters, [.flag])
-        XCTAssertEqual(interactor.flag, swiftlintAware)
-    }
-
     func test_includeTestableImportFlagUpdated() {
         let includeTestableImport = true
         
@@ -131,7 +120,6 @@ class MockFileParametersPresenterTests: XCTestCase {
         let prefix = "PREFIX"
         let includeHeader = false
         let stripTrailingProtocol = false
-        let swiftlintAware = false
         let includeTestableImport = false
         let trackPropertyActivity = true
         let `public` = false
@@ -139,18 +127,16 @@ class MockFileParametersPresenterTests: XCTestCase {
         presenter.setParameters(prefix: prefix,
                                 includeHeader: includeHeader,
                                 stripTrailingProtocol: stripTrailingProtocol,
-                                swiftlintAware: swiftlintAware,
                                 includeTestableImport: includeTestableImport,
                                 trackPropertyActivity: trackPropertyActivity,
                                 public: `public`)
 
         verifyStroblMocksUnused(except: [.view])
-        XCTAssertEqual(view.calledMethods, [.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled])
-        XCTAssertEqual(view.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .swiftlintAware, .includeTestableImport, .trackPropertyActivity, .public])
+        XCTAssertEqual(view.calledMethods, [.setParametersPrefixIncludeHeaderStripTrailingProtocolIncludeTestableImportTrackPropertyActivityPublicCalled])
+        XCTAssertEqual(view.assignedParameters, [.prefix, .includeHeader, .stripTrailingProtocol, .includeTestableImport, .trackPropertyActivity, .public])
         XCTAssertEqual(view.prefix, prefix)
         XCTAssertEqual(view.includeHeader, includeHeader)
         XCTAssertEqual(view.stripTrailingProtocol, stripTrailingProtocol)
-        XCTAssertEqual(view.swiftlintAware, swiftlintAware)
         XCTAssertEqual(view.includeTestableImport, includeTestableImport)
         XCTAssertEqual(view.trackPropertyActivity, trackPropertyActivity)
         XCTAssertEqual(view.public, `public`)

@@ -48,7 +48,6 @@ class MockFileParametersInteractor {
         presenter?.setParameters(prefix: userDefaults.mockPrefix,
                                  includeHeader: userDefaults.includeHeader,
                                  stripTrailingProtocol: userDefaults.stripTrailingProtocol,
-                                 swiftlintAware: userDefaults.swiftlintAware,
                                  includeTestableImport: userDefaults.includeTestableImport,
                                  trackPropertyActivity: userDefaults.trackPropertyActivity,
                                  public: userDefaults.public)
@@ -76,10 +75,6 @@ extension MockFileParametersInteractor: MockFileParametersInteractorInputProtoco
     func stripTrailingProtocolFlagUpdated(to flag: Bool) {
         userDefaults.stripTrailingProtocol = flag
         broadcastMockFileName()
-    }
-    
-    func swiftlintAwareFlagUpdated(to flag: Bool) {
-        userDefaults.swiftlintAware = flag
     }
     
     func includeTestableImportFlagUpdated(to flag: Bool) {

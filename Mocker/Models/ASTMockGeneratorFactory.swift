@@ -8,7 +8,7 @@
 import Foundation
 
 struct ASTMockGeneratorFactory: MockGeneratorFactory {
-    func createMockGenerator(swiftlintAware: Bool) -> MockGenerating {
-        ASTMockGenerator(swiftlintAware: swiftlintAware)
+    func createMockGenerator() -> MockGenerating {
+        ASTMockGenerator()
     }
 }

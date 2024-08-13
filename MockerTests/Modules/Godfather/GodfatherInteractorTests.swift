@@ -396,14 +396,13 @@ class GodfatherInteractorTests: XCTestCase {
         let mockName = "Name"
         let includeHeader = true
         let includeTestableImport = true
-        let swiftlintAware = true
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
         let interactor = try createInterator()
         interactor.currentDataSource = nil
         
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
         verifyStroblMocksUnused()
@@ -414,7 +413,6 @@ class GodfatherInteractorTests: XCTestCase {
         let mockName = "Name"
         let includeHeader = true
         let includeTestableImport = true
-        let swiftlintAware = true
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
@@ -422,7 +420,7 @@ class GodfatherInteractorTests: XCTestCase {
         interactor.currentDataSource = MockSourceFileDataSource()
         interactor.currentSourceFile = nil
         
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
         verifyStroblMocksUnused()
@@ -433,7 +431,6 @@ class GodfatherInteractorTests: XCTestCase {
         let mockName = "Name"
         let includeHeader = true
         let includeTestableImport = true
-        let swiftlintAware = true
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
@@ -442,7 +439,7 @@ class GodfatherInteractorTests: XCTestCase {
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
         interactor.currentProtocolDeclaration = nil
         
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertNotEqual(interactor.mockName, mockName)
         verifyStroblMocksUnused()
@@ -453,7 +450,6 @@ class GodfatherInteractorTests: XCTestCase {
         let mockName = ""
         let includeHeader = true
         let includeTestableImport = true
-        let swiftlintAware = true
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
@@ -463,7 +459,7 @@ class GodfatherInteractorTests: XCTestCase {
         let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
         interactor.currentProtocolDeclaration = ProtocolDeclSyntax(name: identifier, memberBlock: MemberBlockSyntax(members: MemberBlockItemListSyntax([])))
         
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertEqual(interactor.mockName, "")
         XCTAssertEqual(interactor.mockCode, "")
@@ -479,7 +475,6 @@ class GodfatherInteractorTests: XCTestCase {
         let mockName = "Name"
         let includeHeader = true
         let includeTestableImport = true
-        let swiftlintAware = true
         let testableTargetName = "Fred"
         let trackPropertyActivity = true
         let `public` = false
@@ -489,7 +484,7 @@ class GodfatherInteractorTests: XCTestCase {
         let identifier = try XCTUnwrap(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
         interactor.currentProtocolDeclaration = ProtocolDeclSyntax(name: identifier, memberBlock: MemberBlockSyntax(members: MemberBlockItemListSyntax([])))
 
-        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, swiftlintAware: swiftlintAware, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
+        interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         XCTAssertEqual(interactor.mockName, mockName)
         verifyStroblMocksUnused(except: [.presenter, .mockGenerator])

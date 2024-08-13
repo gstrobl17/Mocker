@@ -95,23 +95,15 @@ extension ASTMockGenerator {
                     generateMark(with: "Variables for Properties Used for Protocol Conformance", includeTrailingCarriageReturn: false)
                     generateComment(with: "Use these properties to get/set/initialize the properties without registering a method call")
                 }
-                var swiftlintCommand = ""
-                if swiftlintAware && variable.isDelegate {
-                    swiftlintCommand = " \(SwiftlintSupport.WeakDelegate.disableThisComment)"
-                }
                 let prefix = variable.isStatic ? "static " : ""
-                code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.internalNameForCode)\(variable.typeForCode)\(swiftlintCommand)\n"
+                code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.internalNameForCode)\(variable.typeForCode)\n"
             } else {
                 if first {
                     first = false
                     generateMark(with: "Variables for Protocol Conformance")
                 }
-                var swiftlintCommand = ""
-                if swiftlintAware && variable.isDelegate {
-                    swiftlintCommand = " \(SwiftlintSupport.WeakDelegate.disableThisComment)"
-                }
                 let prefix = variable.isStatic ? "static " : ""
-                code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.nameForCode)\(variable.typeForCode)\(swiftlintCommand)\n"
+                code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.nameForCode)\(variable.typeForCode)\n"
             }
         }
 
@@ -159,15 +151,7 @@ extension ASTMockGenerator {
     }
 
     func generateNonStaticMethodCalledOptionSet(for parameters: MockGeneratorParameters) {
-        var addIdentifierNameComments = false
-        if swiftlintAware {
-            addIdentifierNameComments = !areNonStaticMethodNamesValid(for: parameters)
-        }
-
         contentGenerated = true
-        if addIdentifierNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
-        }
         
         // Pre-generate the individual options (so that we know the count when we declare the option set)
         var options = ""
@@ -193,22 +177,11 @@ extension ASTMockGenerator {
         startOptionSetDeclaration(name: TypeName.Method, count: valueNumber, with: parameters)
         code += options
         code += "\(indentation)}\n"
-        if addIdentifierNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
-        }
         code += "\(indentation)private(set) \(publicAccessQualifier)var \(VariableName.calledMethods) = \(TypeName.Method)()\n"
     }
 
     func generateStaticMethodCalledOptionSet(for parameters: MockGeneratorParameters) {
-        var addIdentifierNameComments = false
-        if swiftlintAware {
-            addIdentifierNameComments = !areStaticMethodNamesValid(for: parameters)
-        }
-
         contentGenerated = true
-        if addIdentifierNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
-        }
         
         // Pre-generate the individual options (so that we know the count when we declare the option set)
         var options = ""
@@ -234,23 +207,12 @@ extension ASTMockGenerator {
         startOptionSetDeclaration(name: TypeName.StaticMethod, count: valueNumber, with: parameters)
         code += options
         code += "\(indentation)}\n"
-        if addIdentifierNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
-        }
         code += "\(indentation)private(set) \(publicAccessQualifier)static var \(VariableName.calledStaticMethods) = \(TypeName.StaticMethod)()\n"
     }
 
     func generateNonStaticMethodParamterAssignedOptionSet(for parameters: MockGeneratorParameters) {
         var usedNames: Set<String> = []
-        var addIdentifierNameComments = false
-        if swiftlintAware {
-            addIdentifierNameComments = !areNonStaticMethodParamterAssignedNamesValid(for: parameters)
-        }
-
         contentGenerated = true
-        if addIdentifierNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
-        }
         
         // Pre-generate the individual options (so that we know the count when we declare the option set)
         var options = ""
@@ -276,23 +238,12 @@ extension ASTMockGenerator {
         startOptionSetDeclaration(name: TypeName.MethodParameter, count: valueNumber, with: parameters)
         code += options
         code += "\(indentation)}\n"
-        if addIdentifierNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
-        }
         code += "\(indentation)private(set) \(publicAccessQualifier)var \(VariableName.assignedParameters) = \(TypeName.MethodParameter)()\n"
     }
 
     func generateStaticMethodParamterAssignedOptionSet(for parameters: MockGeneratorParameters) {
         var usedNames: Set<String> = []
-        var addIdentifierNameComments = false
-        if swiftlintAware {
-            addIdentifierNameComments = !areStaticMethodParamterAssignedNamesValid(for: parameters)
-        }
-
         contentGenerated = true
-        if addIdentifierNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
-        }
         
         // Pre-generate the individual options (so that we know the count when we declare the option set)
         var options = ""
@@ -318,9 +269,6 @@ extension ASTMockGenerator {
         startOptionSetDeclaration(name: TypeName.StaticMethodParameter, count: valueNumber, with: parameters)
         code += options
         code += "\(indentation)}\n"
-        if addIdentifierNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
-        }
         code += "\(indentation)private(set) \(publicAccessQualifier)static var \(VariableName.assignedStaticParameters) = \(TypeName.StaticMethodParameter)()\n"
     }
 
@@ -375,43 +323,20 @@ extension ASTMockGenerator {
     func generateReturnValueAttributes(for parameters: MockGeneratorParameters) {
         var first = true
         
-        // Determine if any of return values will be implicitly unwrapped optional
-        var hasImplicitlyUnwrappedOptionals = false
-        for method in parameters.methods {
-            guard let returnType = method.signature.returnClause?.type else { continue }
-            if !returnType.isOptional {
-                // This return value will be a "!"
-                hasImplicitlyUnwrappedOptionals = true
-                break
-            }
-        }
-        
         for method in parameters.methods {
             guard let returnType = method.signature.returnClause?.type else { continue }
             
             contentGenerated = true
             if first {
                 generateMark(with: "Variables to Use as Method Return Values")
-                if swiftlintAware && hasImplicitlyUnwrappedOptionals {
-                    code += "\(indentation)\(SwiftlintSupport.ImplicitlyUnwrappedOptional.disableComment)\n"
-                }
                 first = false
             }
             let modifier = method.isStatic ? "static " : ""
             let implicitlyUnwrappedOptionalModifier = returnType.isOptional ? "" : "!"
             let typeWrapperStart = returnType.is(SomeOrAnyTypeSyntax.self) ? "(" : ""
             let typeWrapperEnd = returnType.is(SomeOrAnyTypeSyntax.self) ? ")" : ""
-            var swiftlintCommand = ""
-            if swiftlintAware && !isNameValid(method.returnValueVariableName) {
-                swiftlintCommand = " \(SwiftlintSupport.IdentifierName.disableThisComment)"
-            }
-            code += "\(indentation)\(publicAccessQualifier)\(modifier)var \(method.returnValueVariableName): \(typeWrapperStart)\(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(typeWrapperEnd)\(implicitlyUnwrappedOptionalModifier)\(swiftlintCommand)\n"
+            code += "\(indentation)\(publicAccessQualifier)\(modifier)var \(method.returnValueVariableName): \(typeWrapperStart)\(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(typeWrapperEnd)\(implicitlyUnwrappedOptionalModifier)\n"
         }
-
-        if !first && swiftlintAware && hasImplicitlyUnwrappedOptionals {
-            code += "\(indentation)\(SwiftlintSupport.ImplicitlyUnwrappedOptional.enableComment)\n"
-        }
-
     }
 
     func generateErrorThrowingAttributes(for parameters: MockGeneratorParameters) {
@@ -431,14 +356,9 @@ extension ASTMockGenerator {
         }
     }
 
-    func generateShouldCallAttributes(for parameters: MockGeneratorParameters) { //swiftlint:disable:this cyclomatic_complexity function_body_length
+    func generateShouldCallAttributes(for parameters: MockGeneratorParameters) { //swiftlint:disable:this cyclomatic_complexity
         var firstShouldCallVariable = true
         var usedNames: Set<String> = []
-
-        var addVariableNameComments = false
-        if swiftlintAware {
-            addVariableNameComments = !areShouldCallAndResultVariableNamesValid(for: parameters)
-        }
 
         contentGenerated = true
 
@@ -450,9 +370,6 @@ extension ASTMockGenerator {
 
                 if !usedNames.contains(shouldCallVariableName) {
                     generateMark(with: "Variables to Use to Control Completion Handlers")
-                    if addVariableNameComments {
-                        code += "\(indentation)\(SwiftlintSupport.IdentifierName.disableComment)\n"
-                    }
                     code += "\(indentation)\(publicAccessQualifier)var \(shouldCallVariableName) = false\n"
                     usedNames.insert(shouldCallVariableName)
                 }
@@ -494,10 +411,6 @@ extension ASTMockGenerator {
                     }
                 }
             }
-        }
-
-        if addVariableNameComments {
-            code += "\(indentation)\(SwiftlintSupport.IdentifierName.enableComment)\n"
         }
     }
 
@@ -595,7 +508,7 @@ extension ASTMockGenerator {
         }
     }
 
-    func generateProtocolFunctions(for parameters: MockGeneratorParameters) { //swiftlint:disable:this cyclomatic_complexity function_body_length
+    func generateProtocolFunctions(for parameters: MockGeneratorParameters) {
         var first = true
 
         for method in parameters.methods {
@@ -609,9 +522,6 @@ extension ASTMockGenerator {
             }
 
             // Method declaration
-            if swiftlintAware && method.signature.parameterClause.parameters.count > SwiftlintSupport.FunctionParamterCount.max {
-                code += "\(indentation)\(SwiftlintSupport.FunctionParamterCount.disableNextComment)\n"
-            }
             code += "\(indentation)\(publicAccessQualifier)\(method.signatureString) {\n"
 
             // Method called recording

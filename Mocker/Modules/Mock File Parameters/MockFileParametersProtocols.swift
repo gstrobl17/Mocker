@@ -23,7 +23,6 @@ protocol MockFileParametersInterfaceDelegate: AnyObject {
                             mockName: String,
                             includeHeader: Bool,
                             includeTestableImport: Bool,
-                            swiftlintAware: Bool,
                             testableTargetName: String,
                             trackPropertyActivity: Bool,
                             public: Bool)
@@ -45,7 +44,6 @@ protocol MockFileParametersPresenterProtocol: AnyObject {
     func prefixUpdated(to prefix: String)
     func includeHeaderFlagUpdated(to flag: Bool)
     func stripTrailingProtocolFlagUpdated(to flag: Bool)
-    func swiftlintAwareFlagUpdated(to flag: Bool)
     func includeTestableImportFlagUpdated(to flag: Bool)
     func trackPropertyActivityFlagUpdated(to flag: Bool)
     func publicFlagUpdated(to flag: Bool)
@@ -65,7 +63,6 @@ protocol MockFileParametersInteractorOutputProtocol: AnyObject {    //swiftlint:
     func setParameters(prefix: String,
                        includeHeader: Bool,
                        stripTrailingProtocol: Bool,
-                       swiftlintAware: Bool,
                        includeTestableImport: Bool,
                        trackPropertyActivity: Bool,
                        public: Bool)
@@ -82,7 +79,6 @@ protocol MockFileParametersInteractorInputProtocol: AnyObject { //swiftlint:disa
     func prefixUpdated(to prefix: String)
     func includeHeaderFlagUpdated(to flag: Bool)
     func stripTrailingProtocolFlagUpdated(to flag: Bool)
-    func swiftlintAwareFlagUpdated(to flag: Bool)
     func includeTestableImportFlagUpdated(to flag: Bool)
     func trackPropertyActivityFlagUpdated(to flag: Bool)
     func publicFlagUpdated(to flag: Bool)
@@ -99,7 +95,6 @@ protocol MockFileParametersViewProtocol: AnyObject {
     func setParameters(prefix: String,
                        includeHeader: Bool,
                        stripTrailingProtocol: Bool,
-                       swiftlintAware: Bool,
                        includeTestableImport: Bool,
                        trackPropertyActivity: Bool,
                        public: Bool)

@@ -1,4 +1,3 @@
-//swiftlint:disable type_body_length
 //
 //  ASTMockGenerator.swift
 //  Mocker
@@ -11,7 +10,6 @@ import SwiftSyntax
 
 class ASTMockGenerator: MockGenerating {
 
-    let swiftlintAware: Bool
     let dateFactory: DateCreating
     let fullNameProvider: FullNameProviding
     internal var code = ""
@@ -44,11 +42,9 @@ class ASTMockGenerator: MockGenerating {
     }
 
     init(
-        swiftlintAware: Bool,
         dateFactory: DateCreating = DateFactory(),
         fullNameProvider: FullNameProviding = FullNameProvider()
     ) {
-        self.swiftlintAware = swiftlintAware
         self.dateFactory = dateFactory
         self.fullNameProvider = fullNameProvider
     }
@@ -237,83 +233,4 @@ class ASTMockGenerator: MockGenerating {
         generateCustomReflectationExtension(for: parameters)
         return code
     }
-
-    // MARK: - swiftlint support methods -
-    
-    private func areMethodNamesValid(for methods: [FunctionDeclSyntax]) -> Bool {
-        var valid = true
-        for method in methods {
-            guard let calledAttributeName = calledAttributeName(for: method) else { continue }
-            if !isNameValid(calledAttributeName) {
-                valid = false
-                break
-            }
-        }
-        return valid
-    }
-
-    func areNonStaticMethodNamesValid(for parameters: MockGeneratorParameters) -> Bool {
-        areMethodNamesValid(for: parameters.methods.filter { !$0.isStatic })
-    }
-
-    func areStaticMethodNamesValid(for parameters: MockGeneratorParameters) -> Bool {
-        areMethodNamesValid(for: parameters.methods.filter { $0.isStatic })
-    }
-
-    private func areParameterNamesValid(for methods: [FunctionDeclSyntax], isMethodStatic: Bool) -> Bool {
-        var valid = true
-        for method in methods {
-            for parameter in method.signature.parameterClause.parameters {
-                guard let parameterName = parameterName(for: parameter, in: method) else { continue }
-                if !isNameValid(parameterName) {
-                    valid = false
-                    break
-                }
-            }
-        }
-        return valid
-    }
-
-    func areNonStaticMethodParamterAssignedNamesValid(for parameters: MockGeneratorParameters) -> Bool {
-        areParameterNamesValid(for: parameters.methods.filter { !$0.isStatic }, isMethodStatic: false)
-    }
-
-    func areStaticMethodParamterAssignedNamesValid(for parameters: MockGeneratorParameters) -> Bool {
-        areParameterNamesValid(for: parameters.methods.filter { $0.isStatic }, isMethodStatic: false)
-    }
-
-    func areShouldCallAndResultVariableNamesValid(for parameters: MockGeneratorParameters) -> Bool {
-        var valid = true
-        for method in parameters.methods {
-            for parameter in method.signature.parameterClause.parameters where parameter.isFunction {
-                let shouldCallVariableName = parameter.shouldCallVariableName
-                if !isNameValid(shouldCallVariableName) {
-                    valid = false
-                    break
-                }
-                
-                if case let FunctionParameterSyntax.ResultCompletionHandlerAnswer.yes(details) = parameter.isResultCompletionHandler {
-                    let resultVariableName = completionHandlerResultVariableName(for: details)
-                    if !isNameValid(resultVariableName) {
-                        valid = false
-                        break
-                    }
-                    
-                    let methodResultVariableName = method.completionHandlerResultVariableName
-                    let shouldCallVariableName = method.shouldCallCompletionHandlerVariableName
-                    assert(shouldCallVariableName.count > methodResultVariableName.count)
-                    if !isNameValid(shouldCallVariableName) {
-                        valid = false
-                        break
-                    }
-                }
-            }
-        }
-        return valid
-    }
-                
-    func isNameValid(_ name: String) -> Bool {
-        !(name.count < SwiftlintSupport.IdentifierName.minLength || name.count > SwiftlintSupport.IdentifierName.maxLength)
-    }
 }
-//swiftlint:enable type_body_length

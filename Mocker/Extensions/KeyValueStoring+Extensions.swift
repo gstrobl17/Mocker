@@ -13,7 +13,6 @@ enum UserDefaultsKey {
     static let mockPrefix = "Mock Prefix"
     static let includeHeader = "Include Header"
     static let stripTrailingProtocol = "Strip Trailing Protocol"
-    static let swiftlintAware = "swiftlint Aware"
     static let includeTestableImport = "Include Testable Import"
     static let trackPropertyActivity = "Track Property Activity"
     static let `public` = "Public"
@@ -29,7 +28,6 @@ enum DefaultUserDefaultValue {
     static let mockPrefix = "Mock"
     static let includeHeader = true
     static let stripTrailingProtocol = true
-    static let swiftlintAware = true
     static let includeTestableImport = true
     static let trackPropertyActivity = false
     static let `public` = false
@@ -94,15 +92,12 @@ extension KeyValueStoring {
         }
     }
     
+    @available(*, deprecated, message: "swiftlint is no longer support in mock generation")
     var swiftlintAware: Bool {
         get {
-            if object(forKey: UserDefaultsKey.swiftlintAware) == nil {
-                return DefaultUserDefaultValue.swiftlintAware
-            }
-            return bool(forKey: UserDefaultsKey.swiftlintAware)
+            false
         }
-        set {
-            set(newValue, forKey: UserDefaultsKey.swiftlintAware)
+        set { //swiftlint:disable:this unused_setter_value
         }
     }
 
