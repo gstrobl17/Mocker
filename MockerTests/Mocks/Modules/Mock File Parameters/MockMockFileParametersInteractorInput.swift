@@ -21,7 +21,6 @@ class MockMockFileParametersInteractorInput: MockFileParametersInteractorInputPr
         static let prefixUpdatedToPrefixCalled = Method(rawValue: 1 << 1)
         static let includeHeaderFlagUpdatedToFlagCalled = Method(rawValue: 1 << 2)
         static let stripTrailingProtocolFlagUpdatedToFlagCalled = Method(rawValue: 1 << 3)
-        static let swiftlintAwareFlagUpdatedToFlagCalled = Method(rawValue: 1 << 4)
         static let includeTestableImportFlagUpdatedToFlagCalled = Method(rawValue: 1 << 5)
         static let trackPropertyActivityFlagUpdatedToFlagCalled = Method(rawValue: 1 << 6)
         static let publicFlagUpdatedToFlagCalled = Method(rawValue: 1 << 7)
@@ -69,12 +68,6 @@ class MockMockFileParametersInteractorInput: MockFileParametersInteractorInputPr
 
     func stripTrailingProtocolFlagUpdated(to flag: Bool) {
         calledMethods.insert(.stripTrailingProtocolFlagUpdatedToFlagCalled)
-        self.flag = flag
-        assignedParameters.insert(.flag)
-    }
-
-    func swiftlintAwareFlagUpdated(to flag: Bool) {
-        calledMethods.insert(.swiftlintAwareFlagUpdatedToFlagCalled)
         self.flag = flag
         assignedParameters.insert(.flag)
     }
@@ -130,10 +123,6 @@ extension MockMockFileParametersInteractorInput.Method: CustomStringConvertible 
         if self.contains(.stripTrailingProtocolFlagUpdatedToFlagCalled) {
             handleFirst()
             value += ".stripTrailingProtocolFlagUpdatedToFlagCalled"
-        }
-        if self.contains(.swiftlintAwareFlagUpdatedToFlagCalled) {
-            handleFirst()
-            value += ".swiftlintAwareFlagUpdatedToFlagCalled"
         }
         if self.contains(.includeTestableImportFlagUpdatedToFlagCalled) {
             handleFirst()

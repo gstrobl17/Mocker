@@ -18,7 +18,6 @@ class MockFileParametersViewController: NSViewController {
     @IBOutlet weak private var stripTrailingProtocolCheckBox: NSButton!
     @IBOutlet weak private var includeTestableImportCheckBox: NSButton!
     @IBOutlet weak private var includeHeaderCheckBox: NSButton!
-    @IBOutlet weak private var swiftlintAwareCheckBox: NSButton!
     @IBOutlet weak private var targetsComboBox: NSComboBox!
     @IBOutlet weak private var trackPropertyActivityCheckbox: NSButton!
     @IBOutlet weak private var publicCheckbox: NSButton!
@@ -48,7 +47,6 @@ class MockFileParametersViewController: NSViewController {
         let mockName = nameTextField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         let includeHeader = (includeHeaderCheckBox.state == .on)
         let includeTestableImport = (includeTestableImportCheckBox.state == .on)
-        let swiftlintAware = (swiftlintAwareCheckBox.state == .on)
         let testableTargetName = targetsComboBox.stringValue
         let trackPropertyActivity = (trackPropertyActivityCheckbox.state == .on)
         let `public` = (publicCheckbox.state == .on)
@@ -56,7 +54,6 @@ class MockFileParametersViewController: NSViewController {
                                      mockName: mockName,
                                      includeHeader: includeHeader,
                                      includeTestableImport: includeTestableImport,
-                                     swiftlintAware: swiftlintAware,
                                      testableTargetName: testableTargetName,
                                      trackPropertyActivity: trackPropertyActivity, 
                                      public: `public`)
@@ -95,20 +92,6 @@ class MockFileParametersViewController: NSViewController {
             presenter?.includeTestableImportFlagUpdated(to: true)
         case .off:
             presenter?.includeTestableImportFlagUpdated(to: false)
-        default:
-            assertionFailure("Unexpected button state")
-        }
-        setState()
-        broadcastParameters()
-    }
-   
-    @IBAction private func swiftlintAwarePressed(_ sender: Any) {
-        guard let checkBox = sender as? NSButton else { return }
-        switch checkBox.state {
-        case .on:
-            presenter?.swiftlintAwareFlagUpdated(to: true)
-        case .off:
-            presenter?.swiftlintAwareFlagUpdated(to: false)
         default:
             assertionFailure("Unexpected button state")
         }
@@ -155,7 +138,6 @@ extension MockFileParametersViewController: MockFileParametersViewProtocol {
     func setParameters(prefix: String,
                        includeHeader: Bool,
                        stripTrailingProtocol: Bool,
-                       swiftlintAware: Bool,
                        includeTestableImport: Bool,
                        trackPropertyActivity: Bool,
                        public: Bool) {
@@ -172,12 +154,6 @@ extension MockFileParametersViewController: MockFileParametersViewProtocol {
             stripTrailingProtocolCheckBox.state = .on
         case false:
             stripTrailingProtocolCheckBox.state = .off
-        }
-        switch swiftlintAware {
-        case true:
-            swiftlintAwareCheckBox.state = .on
-        case false:
-            swiftlintAwareCheckBox.state = .off
         }
         switch includeTestableImport {
         case true:

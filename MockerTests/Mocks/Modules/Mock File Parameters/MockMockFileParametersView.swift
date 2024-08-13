@@ -18,7 +18,7 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
 
     struct Method: OptionSet, Sendable {
         let rawValue: Int
-        static let setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled = Method(rawValue: 1)
+        static let setParametersPrefixIncludeHeaderStripTrailingProtocolIncludeTestableImportTrackPropertyActivityPublicCalled = Method(rawValue: 1)
         static let setNameNameCalled = Method(rawValue: 2)
         static let setupForProtocolDeclarationCalled = Method(rawValue: 4)
         static let setupForDataSourceCalled = Method(rawValue: 8)
@@ -32,7 +32,6 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         static let prefix = MethodParameter(rawValue: 1 << 0)
         static let includeHeader = MethodParameter(rawValue: 1 << 1)
         static let stripTrailingProtocol = MethodParameter(rawValue: 1 << 2)
-        static let swiftlintAware = MethodParameter(rawValue: 1 << 3)
         static let includeTestableImport = MethodParameter(rawValue: 1 << 4)
         static let trackPropertyActivity = MethodParameter(rawValue: 1 << 5)
         static let `public` = MethodParameter(rawValue: 1 << 6)
@@ -46,7 +45,6 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     private(set) var prefix: String?
     private(set) var includeHeader: Bool?
     private(set) var stripTrailingProtocol: Bool?
-    private(set) var swiftlintAware: Bool?
     private(set) var includeTestableImport: Bool?
     private(set) var trackPropertyActivity: Bool?
     private(set) var `public`: Bool?
@@ -61,7 +59,6 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
         prefix = nil
         includeHeader = nil
         stripTrailingProtocol = nil
-        swiftlintAware = nil
         includeTestableImport = nil
         trackPropertyActivity = nil
         `public` = nil
@@ -75,19 +72,16 @@ class MockMockFileParametersView: NSViewController, MockFileParametersViewProtoc
     func setParameters(prefix: String,
                        includeHeader: Bool,
                        stripTrailingProtocol: Bool,
-                       swiftlintAware: Bool,
                        includeTestableImport: Bool,
                        trackPropertyActivity: Bool,
                        public: Bool) {
-        calledMethods.insert(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled)
+        calledMethods.insert(.setParametersPrefixIncludeHeaderStripTrailingProtocolIncludeTestableImportTrackPropertyActivityPublicCalled)
         self.prefix = prefix
         assignedParameters.insert(.prefix)
         self.includeHeader = includeHeader
         assignedParameters.insert(.includeHeader)
         self.stripTrailingProtocol = stripTrailingProtocol
         assignedParameters.insert(.stripTrailingProtocol)
-        self.swiftlintAware = swiftlintAware
-        assignedParameters.insert(.swiftlintAware)
         self.includeTestableImport = includeTestableImport
         assignedParameters.insert(.includeTestableImport)
         self.trackPropertyActivity = trackPropertyActivity
@@ -138,9 +132,9 @@ extension MockMockFileParametersView.Method: CustomStringConvertible {
             }
         }
 
-        if self.contains(.setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled) {
+        if self.contains(.setParametersPrefixIncludeHeaderStripTrailingProtocolIncludeTestableImportTrackPropertyActivityPublicCalled) {
             handleFirst()
-            value += ".setParametersPrefixIncludeHeaderStripTrailingProtocolSwiftlintAwareIncludeTestableImportTrackPropertyActivityPublicCalled"
+            value += ".setParametersPrefixIncludeHeaderStripTrailingProtocolIncludeTestableImportTrackPropertyActivityPublicCalled"
         }
         if self.contains(.setNameNameCalled) {
             handleFirst()
@@ -187,10 +181,6 @@ extension MockMockFileParametersView.MethodParameter: CustomStringConvertible {
         if self.contains(.stripTrailingProtocol) {
             handleFirst()
             value += ".stripTrailingProtocol"
-        }
-        if self.contains(.swiftlintAware) {
-            handleFirst()
-            value += ".swiftlintAware"
         }
         if self.contains(.includeTestableImport) {
             handleFirst()

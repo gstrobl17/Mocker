@@ -11,7 +11,7 @@ import Foundation
 class MockMockGeneratorFactory: MockGeneratorFactory {
     let mockGenerator = MockMockGenerator()
     
-    func createMockGenerator(swiftlintAware: Bool) -> any MockGenerating {
+    func createMockGenerator() -> any MockGenerating {
         mockGenerator
     }
 

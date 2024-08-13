@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -796,16 +796,6 @@
                                     <action selector="stripTrailingProtocolPressed:" target="ed8-DP-i1A" id="eX7-SV-Qn5"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oWe-RO-yVx">
-                                <rect key="frame" x="479" y="94" width="114" height="18"/>
-                                <buttonCell key="cell" type="check" title="swiftlint Aware" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xrW-5H-QMy">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="swiftlintAwarePressed:" target="ed8-DP-i1A" id="G2d-zf-7FP"/>
-                                </connections>
-                            </button>
                             <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jYf-vV-0xV">
                                 <rect key="frame" x="-2" y="60" width="194" height="18"/>
                                 <buttonCell key="cell" type="check" title="Include @testable import to" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aws-rA-8cx">
@@ -884,7 +874,6 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="top" secondItem="I85-gj-dmO" secondAttribute="bottom" constant="16" id="4Sz-wF-iPF"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oWe-RO-yVx" secondAttribute="trailing" id="7VS-lu-m0Q"/>
                             <constraint firstItem="AEF-pH-4LF" firstAttribute="baseline" secondItem="ejr-y1-6Mp" secondAttribute="baseline" id="9aV-j2-ROB"/>
                             <constraint firstAttribute="trailing" secondItem="3dd-4F-zNw" secondAttribute="trailing" id="AQp-IH-N3O"/>
                             <constraint firstItem="AEF-pH-4LF" firstAttribute="leading" secondItem="ejr-y1-6Mp" secondAttribute="trailing" constant="8" id="Bjd-2h-d5x"/>
@@ -894,12 +883,10 @@
                             <constraint firstAttribute="bottom" secondItem="Gix-P9-f71" secondAttribute="bottom" id="OJ0-2H-Qz2"/>
                             <constraint firstItem="SfD-Zc-Ybu" firstAttribute="top" secondItem="3dd-4F-zNw" secondAttribute="bottom" constant="11" id="P1e-LI-dq9"/>
                             <constraint firstItem="I85-gj-dmO" firstAttribute="baseline" secondItem="AEF-pH-4LF" secondAttribute="baseline" id="SP4-eq-Vrz"/>
-                            <constraint firstItem="oWe-RO-yVx" firstAttribute="firstBaseline" secondItem="I85-gj-dmO" secondAttribute="firstBaseline" id="Ycd-Cs-vnC"/>
                             <constraint firstItem="mQe-Kp-ZSl" firstAttribute="leading" secondItem="SfD-Zc-Ybu" secondAttribute="trailing" constant="8" symbolic="YES" id="cAd-uj-Vx8"/>
                             <constraint firstItem="gIl-zo-V8o" firstAttribute="leading" secondItem="zlJ-cH-ne1" secondAttribute="leading" id="cS2-zu-WOc"/>
                             <constraint firstItem="Gix-P9-f71" firstAttribute="baseline" secondItem="gIl-zo-V8o" secondAttribute="baseline" id="gfF-w7-GTZ"/>
                             <constraint firstItem="AEF-pH-4LF" firstAttribute="top" secondItem="zlJ-cH-ne1" secondAttribute="top" id="haB-Bm-jtW"/>
-                            <constraint firstItem="oWe-RO-yVx" firstAttribute="leading" secondItem="I85-gj-dmO" secondAttribute="trailing" constant="20" id="izg-MJ-ANe"/>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="leading" secondItem="jYf-vV-0xV" secondAttribute="trailing" constant="8" id="m9N-hM-mCm"/>
                             <constraint firstItem="mQe-Kp-ZSl" firstAttribute="firstBaseline" secondItem="SfD-Zc-Ybu" secondAttribute="firstBaseline" id="mVZ-LN-o1J"/>
                             <constraint firstItem="3dd-4F-zNw" firstAttribute="baseline" secondItem="jYf-vV-0xV" secondAttribute="baseline" id="n7f-VZ-cfY"/>
@@ -918,7 +905,6 @@
                         <outlet property="prefixTextField" destination="AEF-pH-4LF" id="rmp-bD-MV1"/>
                         <outlet property="publicCheckbox" destination="mQe-Kp-ZSl" id="ddu-Mj-uAV"/>
                         <outlet property="stripTrailingProtocolCheckBox" destination="I85-gj-dmO" id="ORY-6V-h5h"/>
-                        <outlet property="swiftlintAwareCheckBox" destination="oWe-RO-yVx" id="peb-Sf-Uli"/>
                         <outlet property="targetsComboBox" destination="3dd-4F-zNw" id="3nZ-G7-Lx4"/>
                         <outlet property="trackPropertyActivityCheckbox" destination="SfD-Zc-Ybu" id="o5E-Lh-3gl"/>
                     </connections>
