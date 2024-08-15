@@ -6,40 +6,30 @@
 //
 
 import AppKit
-import XCTest
 @testable import Mocker
-import MacrosForStroblMocks
+//import MacrosForStroblMocks   //TODO: Update for Swift Testing and implement
+import Testing
 
-//TODO: resolve
-//@UsesStroblMocks
-//class FilterRouterTests: XCTestCase {
-//
-//    @StroblMock var userDefaults: MockUserDefaults!
-//    
-//    override func setUp() {
-//        super.setUp()
-//        
-//        userDefaults = MockUserDefaults()
-//    }
-//
-//    func testCreateModule() {
-//
-//        let module = FilterRouter.createModule(userDefaults: userDefaults)
-//
+@MainActor
+struct FilterRouterTests {
+    var userDefaults: MockUserDefaults!
+    
+    init() async throws {
+        userDefaults = try #require(MockUserDefaults())
+    }
+    
+    @Test func createModule() throws {
+        
+        let module = FilterRouter.createModule(userDefaults: userDefaults)
+
 //        verifyStroblMocksUnused(except: [.userDefaults])
-//        XCTAssertEqual(userDefaults.calledMethods, [.stringForKeyDefaultNameCalled])
-//        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
-//        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.sourceFileFilterValue])
-//        XCTAssertTrue(module.view is any FilterViewProtocol)
-//        if let viewController = module.view as? any FilterViewProtocol {
-//            XCTAssertNotNil(viewController.presenter)
-//            if let presenter = viewController.presenter {
-//                XCTAssertTrue(presenter is FilterPresenter)
-//                if let presenter = presenter as? FilterPresenter {
-//                    XCTAssertNotNil(presenter.router.viewController)
-//                    XCTAssertTrue(presenter.router.viewController === viewController)
-//                }
-//            }
-//        }
-//    }
-//}
+        #expect(userDefaults.calledMethods == [.stringForKeyDefaultNameCalled])
+        #expect(userDefaults.assignedParameters == [.defaultName])
+        #expect(userDefaults.defaultNames == [UserDefaultsKey.sourceFileFilterValue])
+        let viewController = try #require(module.view as? any FilterViewProtocol)
+        let presenter = try #require(viewController.presenter as? FilterPresenter)
+        let presenterViewController = try #require(presenter.router.viewController)
+        #expect(presenterViewController === viewController)
+    }
+}
+ 

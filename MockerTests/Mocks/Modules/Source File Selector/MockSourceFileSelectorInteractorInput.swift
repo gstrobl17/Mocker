@@ -51,7 +51,7 @@ extension MockSourceFileSelectorInteractorInput.Method: CustomStringConvertible 
     }
 }
 
-extension MockSourceFileSelectorInteractorInput: CustomReflectable {
+extension MockSourceFileSelectorInteractorInput: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

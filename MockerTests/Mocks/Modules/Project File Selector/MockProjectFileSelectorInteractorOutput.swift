@@ -8,6 +8,7 @@
 @testable import Mocker
 import AppKit
 
+@MainActor
 class MockProjectFileSelectorInteractorOutput: ProjectFileSelectorInteractorOutputProtocol {
 
     struct Method: OptionSet, Sendable {
@@ -82,7 +83,7 @@ extension MockProjectFileSelectorInteractorOutput.MethodParameter: CustomStringC
     }
 }
 
-extension MockProjectFileSelectorInteractorOutput: CustomReflectable {
+extension MockProjectFileSelectorInteractorOutput: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

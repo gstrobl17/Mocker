@@ -9,6 +9,7 @@
 @testable import Mocker
 import Foundation
 
+@MainActor
 class MockDocumentControlling: DocumentControlling {
 
     // MARK: - Variables for Trackings Method Invocation
@@ -89,7 +90,7 @@ extension MockDocumentControlling.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockDocumentControlling: CustomReflectable {
+extension MockDocumentControlling: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

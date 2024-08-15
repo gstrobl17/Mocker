@@ -82,7 +82,7 @@ extension MockFilterInteractorOutput.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockFilterInteractorOutput: CustomReflectable {
+extension MockFilterInteractorOutput: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

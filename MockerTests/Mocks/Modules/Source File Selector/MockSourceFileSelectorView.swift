@@ -95,7 +95,7 @@ extension MockSourceFileSelectorView.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockSourceFileSelectorView: CustomReflectable {
+extension MockSourceFileSelectorView: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

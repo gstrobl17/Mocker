@@ -93,7 +93,7 @@ extension MockFilterPresenter.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockFilterPresenter: CustomReflectable {
+extension MockFilterPresenter: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

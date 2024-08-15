@@ -85,7 +85,7 @@ extension MockFilterView.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockFilterView: CustomReflectable {
+extension MockFilterView: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

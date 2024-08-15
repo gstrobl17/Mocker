@@ -8,6 +8,7 @@
 @testable import Mocker
 import AppKit
 
+@MainActor
 class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
 
     struct Method: OptionSet, Sendable {
@@ -236,7 +237,7 @@ extension MockGodfatherInteractorOutput.MethodParameter: CustomStringConvertible
     }
 }
 
-extension MockGodfatherInteractorOutput: CustomReflectable {
+extension MockGodfatherInteractorOutput: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

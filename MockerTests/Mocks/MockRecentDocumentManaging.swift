@@ -9,6 +9,7 @@
 @testable import Mocker
 import Foundation
 
+@MainActor
 class MockRecentDocumentManaging: RecentDocumentManaging {
 
     // MARK: - Variables for Properties Used for Protocol Conformance
@@ -126,7 +127,7 @@ extension MockRecentDocumentManaging.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockRecentDocumentManaging: CustomReflectable {
+extension MockRecentDocumentManaging: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

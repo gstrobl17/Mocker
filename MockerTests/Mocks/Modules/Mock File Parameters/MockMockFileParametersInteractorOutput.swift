@@ -154,7 +154,7 @@ extension MockMockFileParametersInteractorOutput.MethodParameter: CustomStringCo
     }
 }
 
-extension MockMockFileParametersInteractorOutput: CustomReflectable {
+extension MockMockFileParametersInteractorOutput: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

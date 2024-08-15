@@ -50,7 +50,7 @@ extension MockFilterInterface.Method: CustomStringConvertible {
     }
 }
 
-extension MockFilterInterface: CustomReflectable {
+extension MockFilterInterface: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

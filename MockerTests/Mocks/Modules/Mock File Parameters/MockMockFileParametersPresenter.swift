@@ -176,7 +176,7 @@ extension MockMockFileParametersPresenter.MethodParameter: CustomStringConvertib
     }
 }
 
-extension MockMockFileParametersPresenter: CustomReflectable {
+extension MockMockFileParametersPresenter: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

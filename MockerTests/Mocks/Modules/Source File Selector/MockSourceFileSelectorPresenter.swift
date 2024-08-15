@@ -9,6 +9,7 @@
 import AppKit
 import XcodeEditor
 
+@MainActor
 class MockSourceFileSelectorPresenter: SourceFileSelectorPresenterProtocol {
 
     var interactor: (any SourceFileSelectorInteractorInputProtocol)?
@@ -51,7 +52,7 @@ extension MockSourceFileSelectorPresenter.Method: CustomStringConvertible {
     }
 }
 
-extension MockSourceFileSelectorPresenter: CustomReflectable {
+extension MockSourceFileSelectorPresenter: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

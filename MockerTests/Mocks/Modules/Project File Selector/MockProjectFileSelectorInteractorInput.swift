@@ -8,6 +8,7 @@
 @testable import Mocker
 import AppKit
 
+@MainActor
 class MockProjectFileSelectorInteractorInput: ProjectFileSelectorInteractorInputProtocol {
 
     var presenter: (any ProjectFileSelectorInteractorOutputProtocol)?
@@ -103,7 +104,7 @@ extension MockProjectFileSelectorInteractorInput.MethodParameter: CustomStringCo
     }
 }
 
-extension MockProjectFileSelectorInteractorInput: CustomReflectable {
+extension MockProjectFileSelectorInteractorInput: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

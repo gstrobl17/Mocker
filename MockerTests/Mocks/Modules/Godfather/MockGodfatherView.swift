@@ -8,6 +8,7 @@
 @testable import Mocker
 import AppKit
 
+@MainActor
 class MockGodfatherView: GodfatherViewProtocol {
 
     // MARK: - Variables for Protocol Conformance
@@ -246,7 +247,7 @@ extension MockGodfatherView.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockGodfatherView: CustomReflectable {
+extension MockGodfatherView: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

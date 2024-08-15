@@ -82,7 +82,7 @@ extension MockContentPresenterView.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockContentPresenterView: CustomReflectable {
+extension MockContentPresenterView: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

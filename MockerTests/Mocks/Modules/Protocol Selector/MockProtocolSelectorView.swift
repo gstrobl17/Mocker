@@ -86,7 +86,7 @@ extension MockProtocolSelectorView.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockProtocolSelectorView: CustomReflectable {
+extension MockProtocolSelectorView: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [

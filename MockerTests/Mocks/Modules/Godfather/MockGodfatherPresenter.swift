@@ -8,6 +8,7 @@
 @testable import Mocker
 import AppKit
 
+@MainActor
 class MockGodfatherPresenter: GodfatherPresenterProtocol {
 
     var interactor: (any GodfatherInteractorInputProtocol)?
@@ -150,7 +151,7 @@ extension MockGodfatherPresenter.MethodParameter: CustomStringConvertible {
     }
 }
 
-extension MockGodfatherPresenter: CustomReflectable {
+extension MockGodfatherPresenter: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [
