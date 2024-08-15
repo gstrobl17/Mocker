@@ -12,6 +12,7 @@ enum DisplayChoice: Int {
     case source
 }
 
+@MainActor
 protocol GodfatherInterfaceProtocol: AnyObject {
     func selectProject()
     func canReloadProject() -> Bool
@@ -22,6 +23,7 @@ protocol GodfatherInterfaceProtocol: AnyObject {
 }
 
 // MARK: Wireframe -
+@MainActor
 protocol GodfatherWireframeProtocol: AnyObject {
     var view: (any GodfatherViewProtocol & GodfatherInterfaceProtocol)? { get }
     
@@ -47,6 +49,7 @@ protocol GodfatherWireframeProtocol: AnyObject {
 }
 
 // MARK: Presenter -
+@MainActor
 protocol GodfatherPresenterProtocol: AnyObject {
 
     var interactor: (any GodfatherInteractorInputProtocol)? { get set }
@@ -61,6 +64,7 @@ protocol GodfatherPresenterProtocol: AnyObject {
 }
 
 // MARK: Interactor -
+@MainActor
 protocol GodfatherInteractorOutputProtocol: AnyObject {
     
     //swiftlint:disable:next function_parameter_count
@@ -80,6 +84,7 @@ protocol GodfatherInteractorOutputProtocol: AnyObject {
     /* Interactor -> Presenter */
 }
 
+@MainActor
 protocol GodfatherInteractorInputProtocol: AnyObject {
 
     var presenter: (any GodfatherInteractorOutputProtocol)? { get set }
@@ -101,6 +106,7 @@ protocol GodfatherInteractorInputProtocol: AnyObject {
 }
 
 // MARK: View -
+@MainActor
 protocol GodfatherViewProtocol: AnyObject {
 
     var presenter: (any GodfatherPresenterProtocol)? { get set }

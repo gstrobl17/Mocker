@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 class RecentDocumentManager: RecentDocumentManaging {
     
     private(set) var userDefaults: any KeyValueStoring

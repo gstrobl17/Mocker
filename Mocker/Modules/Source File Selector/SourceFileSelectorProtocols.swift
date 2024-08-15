@@ -8,17 +8,20 @@
 import AppKit
 import XcodeEditor
 
+@MainActor
 protocol SourceFileSelectorInterfaceProtocol: AnyObject {
     var delegate: (any SourceFileSelectorInterfaceDelegate)? { get set }
     
     func present(tree rootTreeNode: SendableTreeNode, for dataSource: any SourceFileDataSource)
 }
 
+@MainActor
 protocol SourceFileSelectorInterfaceDelegate: AnyObject {
     func sourceFileSelector(_ view: (any NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: TreeNode)
 }
 
 // MARK: Wireframe -
+@MainActor
 protocol SourceFileSelectorWireframeProtocol: AnyObject {
     var viewController: (any NSViewController & SourceFileSelectorInterfaceProtocol)? { get }
     
@@ -26,6 +29,7 @@ protocol SourceFileSelectorWireframeProtocol: AnyObject {
 }
 
 // MARK: Presenter -
+@MainActor
 protocol SourceFileSelectorPresenterProtocol: AnyObject {
 
     var interactor: (any SourceFileSelectorInteractorInputProtocol)? { get set }
@@ -34,11 +38,13 @@ protocol SourceFileSelectorPresenterProtocol: AnyObject {
 }
 
 // MARK: Interactor -
+@MainActor
 protocol SourceFileSelectorInteractorOutputProtocol: AnyObject {    //swiftlint:disable:this type_name
     
     /* Interactor -> Presenter */
 }
 
+@MainActor
 protocol SourceFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
     
     var presenter: (any SourceFileSelectorInteractorOutputProtocol)? { get set }
@@ -48,6 +54,7 @@ protocol SourceFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:disa
 }
 
 // MARK: View -
+@MainActor
 protocol SourceFileSelectorViewProtocol: AnyObject {
 
     var presenter: (any SourceFileSelectorPresenterProtocol)? { get set }

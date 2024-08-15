@@ -9,6 +9,7 @@ import AppKit
 import SwiftSyntax
 import SwiftParser
 
+@MainActor
 class GodfatherInteractor {
 
     weak var presenter: (any GodfatherInteractorOutputProtocol)? {
@@ -24,7 +25,7 @@ class GodfatherInteractor {
     }
     
     private var theViewHasAppeared = false
-    private(set) var userDefaults: any  KeyValueStoring
+    private(set) var userDefaults: any KeyValueStoring
     let fileManager: any FileManaging
     let dataSourceFactory: any SourceFileDataSourceCreating
     let mockGeneratorFactory: any MockGeneratorFactory

@@ -9,6 +9,7 @@
 import Foundation
 
 /// Protocol used to abstract funtionality in NSDocumentController
+@MainActor
 protocol DocumentControlling {
     func noteNewRecentDocumentURL(_ url: URL)
 }

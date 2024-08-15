@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class GodfatherView {
 
 	var presenter: (any GodfatherPresenterProtocol)?

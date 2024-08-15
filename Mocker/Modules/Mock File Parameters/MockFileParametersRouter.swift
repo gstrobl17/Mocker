@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class MockFileParametersRouter: MockFileParametersWireframeProtocol {
 
     weak var viewController: (any NSViewController & MockFileParametersInterfaceProtocol)?

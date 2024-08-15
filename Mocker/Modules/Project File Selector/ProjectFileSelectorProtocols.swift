@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 protocol ProjectFileSelectorInterfaceProtocol: AnyObject {
     var delegate: (any ProjectFileSelectorInterfaceDelegate)? { get set }
 
@@ -17,11 +18,13 @@ protocol ProjectFileSelectorInterfaceProtocol: AnyObject {
     func renderURLOfSelectedFile(_ url: URL)
 }
 
+@MainActor
 protocol ProjectFileSelectorInterfaceDelegate: AnyObject {
     func projectFileSelector(_ view: any NSViewController & ProjectFileSelectorInterfaceProtocol, fileSelected: URL)
 }
 
 // MARK: Wireframe -
+@MainActor
 protocol ProjectFileSelectorWireframeProtocol: AnyObject {
 
     var viewController: (any NSViewController & ProjectFileSelectorInterfaceProtocol)? { get }
@@ -30,6 +33,7 @@ protocol ProjectFileSelectorWireframeProtocol: AnyObject {
 }
 
 // MARK: Presenter -
+@MainActor
 protocol ProjectFileSelectorPresenterProtocol: AnyObject {
 
     var interactor: (any ProjectFileSelectorInteractorInputProtocol)? { get set }
@@ -42,6 +46,7 @@ protocol ProjectFileSelectorPresenterProtocol: AnyObject {
 }
 
 // MARK: Interactor -
+@MainActor
 protocol ProjectFileSelectorInteractorOutputProtocol: AnyObject { //swiftlint:disable:this type_name
 
     func showSelectedFile(_ url: URL)
@@ -49,6 +54,7 @@ protocol ProjectFileSelectorInteractorOutputProtocol: AnyObject { //swiftlint:di
     /* Interactor -> Presenter */
 }
 
+@MainActor
 protocol ProjectFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
 
     var presenter: (any ProjectFileSelectorInteractorOutputProtocol)? { get set }
@@ -61,6 +67,7 @@ protocol ProjectFileSelectorInteractorInputProtocol: AnyObject { //swiftlint:dis
 }
 
 // MARK: View -
+@MainActor
 protocol ProjectFileSelectorViewProtocol: AnyObject {
 
     var presenter: (any ProjectFileSelectorPresenterProtocol)? { get set }

@@ -10,16 +10,20 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    override init() {
-        // https://stackoverflow.com/a/7373892
-        let recentDocumentsManager = RecentDocumentManager(
-            userDefaults: UserDefaults.standard
-        )
-        let documentController = MockerDocumentController(
-            recentDocumentManager: recentDocumentsManager,
-            userDefaults: UserDefaults.standard
-        )
-        super.init()
+    let documentController = MockerDocumentController()
+    
+//    @MainActor
+//    override init() {
+//        // https://stackoverflow.com/a/7373892
+//        self.documentController = MockerDocumentController()
+//        super.init()
+//    }
+
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        let userDefaults = UserDefaults.standard
+        let recentDocumentsManager = RecentDocumentManager(userDefaults: userDefaults)
+        documentController.recentDocumentManager = recentDocumentsManager
+        documentController.userDefaults = userDefaults
         
         recentDocumentsManager.recents.forEach { documentController.noteNewRecentDocumentURL($0) }
     }

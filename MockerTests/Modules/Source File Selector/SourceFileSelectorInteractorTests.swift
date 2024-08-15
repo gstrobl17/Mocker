@@ -29,6 +29,7 @@ class SourceFileSelectorInteractorTests: XCTestCase {
 
     // MARK: - SourceFileSelectorInteractorInputProtocol methods -
 
+    @MainActor
     func test_viewHasLoaded() {
         let interactor = SourceFileSelectorInteractor()
         interactor.presenter = presenter

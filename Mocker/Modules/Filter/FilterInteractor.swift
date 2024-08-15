@@ -13,6 +13,7 @@ import AppKit
 //  directly store data in userDefaults.sourceFileFilterValue
 //
 
+@MainActor
 class FilterInteractor {
 
     weak var presenter: (any FilterInteractorOutputProtocol)? {

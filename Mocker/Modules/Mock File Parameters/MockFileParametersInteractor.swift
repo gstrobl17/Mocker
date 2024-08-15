@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class MockFileParametersInteractor {
 
     weak var presenter: (any MockFileParametersInteractorOutputProtocol)? {

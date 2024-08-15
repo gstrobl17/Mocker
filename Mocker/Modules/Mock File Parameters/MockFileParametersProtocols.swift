@@ -9,6 +9,7 @@ import AppKit
 import SwiftSyntax
 import XcodeEditor
 
+@MainActor
 protocol MockFileParametersInterfaceProtocol: AnyObject {
     var delegate: (any MockFileParametersInterfaceDelegate)? { get set }
 
@@ -18,6 +19,7 @@ protocol MockFileParametersInterfaceProtocol: AnyObject {
     func clearProtocol()
 }
 
+@MainActor
 protocol MockFileParametersInterfaceDelegate: AnyObject {
     func mockFileParameters(_ view: (any NSViewController & MockFileParametersInterfaceProtocol),   //swiftlint:disable:this function_parameter_count
                             mockName: String,
@@ -29,6 +31,7 @@ protocol MockFileParametersInterfaceDelegate: AnyObject {
 }
 
 // MARK: Wireframe -
+@MainActor
 protocol MockFileParametersWireframeProtocol: AnyObject {
     var viewController: (any NSViewController & MockFileParametersInterfaceProtocol)? { get }
     
@@ -36,6 +39,7 @@ protocol MockFileParametersWireframeProtocol: AnyObject {
 }
 
 // MARK: Presenter -
+@MainActor
 protocol MockFileParametersPresenterProtocol: AnyObject {
 
     var interactor: (any MockFileParametersInteractorInputProtocol)? { get set }
@@ -57,6 +61,7 @@ protocol MockFileParametersPresenterProtocol: AnyObject {
 }
 
 // MARK: Interactor -
+@MainActor
 protocol MockFileParametersInteractorOutputProtocol: AnyObject {    //swiftlint:disable:this type_name
 
     //swiftlint:disable:next function_parameter_count
@@ -71,6 +76,7 @@ protocol MockFileParametersInteractorOutputProtocol: AnyObject {    //swiftlint:
     /* Interactor -> Presenter */
 }
 
+@MainActor
 protocol MockFileParametersInteractorInputProtocol: AnyObject { //swiftlint:disable:this type_name
 
     var presenter: (any MockFileParametersInteractorOutputProtocol)? { get set }
@@ -87,6 +93,7 @@ protocol MockFileParametersInteractorInputProtocol: AnyObject { //swiftlint:disa
 }
 
 // MARK: View -
+@MainActor
 protocol MockFileParametersViewProtocol: AnyObject {
 
     var presenter: (any MockFileParametersPresenterProtocol)? { get set }

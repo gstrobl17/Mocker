@@ -7,11 +7,13 @@
 
 import AppKit
 
+@MainActor
 protocol ContentPresenterInterfaceProtocol: AnyObject {
     func present(text: String?)
 }
 
 // MARK: Wireframe -
+@MainActor
 protocol ContentPresenterWireframeProtocol: AnyObject {
 
     var viewController: (any NSViewController & ContentPresenterInterfaceProtocol)? { get }

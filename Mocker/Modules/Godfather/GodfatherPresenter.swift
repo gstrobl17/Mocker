@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class GodfatherPresenter {
 
     weak private var view: (any GodfatherViewProtocol)?

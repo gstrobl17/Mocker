@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class ContentPresenterViewController: NSViewController {
 
     var syntaxHighlighter: SwiftSyntaxHighligher?

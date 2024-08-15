@@ -10,6 +10,7 @@ import XCTest
 
 class ProtocolSelectorRouterTests: XCTestCase {
     
+    @MainActor
     func testCreateModule() {
         
         let viewController = ProtocolSelectorRouter.createModule()

@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class GodfatherRouter: GodfatherWireframeProtocol {
 
     weak var view: (any GodfatherViewProtocol & GodfatherInterfaceProtocol)?

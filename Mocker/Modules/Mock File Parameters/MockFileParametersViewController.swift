@@ -9,6 +9,7 @@ import AppKit
 import SwiftSyntax
 import XcodeEditor
 
+@MainActor
 class MockFileParametersViewController: NSViewController {
 
 	var presenter: (any MockFileParametersPresenterProtocol)?

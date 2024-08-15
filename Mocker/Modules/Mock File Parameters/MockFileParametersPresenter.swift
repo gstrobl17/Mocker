@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class MockFileParametersPresenter {
 
     weak private var view: (any MockFileParametersViewProtocol)?

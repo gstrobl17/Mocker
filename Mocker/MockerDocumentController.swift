@@ -10,28 +10,16 @@ import AppKit
 
 class MockerDocumentController: NSDocumentController {
     
-    let recentDocumentManager: any RecentDocumentManaging
-    let userDefaults: any KeyValueStoring
+    var recentDocumentManager: (any RecentDocumentManaging)?
+    var userDefaults: (any KeyValueStoring)?
 
-    init(
-        recentDocumentManager: any RecentDocumentManaging,
-        userDefaults: any KeyValueStoring
-    ) {
-        self.recentDocumentManager = recentDocumentManager
-        self.userDefaults = userDefaults
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override var maximumRecentDocumentCount: Int {
-        userDefaults.maxRecentDocumentCount
+        guard let userDefaults else { return 0 }
+        return userDefaults.maxRecentDocumentCount
     }
     
     override func clearRecentDocuments(_ sender: Any?) {
-        recentDocumentManager.clear()
+        recentDocumentManager?.clear()
         super.clearRecentDocuments(sender)
     }
 }

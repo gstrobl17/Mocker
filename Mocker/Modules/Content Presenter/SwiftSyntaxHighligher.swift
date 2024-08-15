@@ -46,7 +46,8 @@ class SwiftSyntaxHighligher: NSObject, NSTextStorageDelegate, NSLayoutManagerDel
     let textStorage: NSTextStorage
     let textView: NSTextView
     let scrollView: NSScrollView
-    
+
+    @MainActor
     init(textStorage: NSTextStorage, textView: NSTextView, scrollView: NSScrollView) {
         self.textStorage = textStorage
         self.scrollView = scrollView
@@ -57,12 +58,14 @@ class SwiftSyntaxHighligher: NSObject, NSTextStorageDelegate, NSLayoutManagerDel
         parse()
     }
     
+    @MainActor
     func visibleRange() -> NSRange {
         guard let container = textView.textContainer, let layoutManager = textView.layoutManager else { return NSRange() }
         let glyphRange = layoutManager.glyphRange(forBoundingRect: scrollView.contentView.bounds, in: container)
         return layoutManager.characterRange(forGlyphRange: glyphRange, actualGlyphRange: nil)
     }
     
+    @MainActor
     func parse() {
         guard let tokens = parseString(string: textStorage.string) else {
             return

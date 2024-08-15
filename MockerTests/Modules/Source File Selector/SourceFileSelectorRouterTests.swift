@@ -10,6 +10,7 @@ import XCTest
 
 class SourceFileSelectorRouterTests: XCTestCase {
 
+    @MainActor
     func testCreateModule() {
         
         let viewController = SourceFileSelectorRouter.createModule()

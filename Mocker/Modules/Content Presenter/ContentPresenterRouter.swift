@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class ContentPresenterRouter: ContentPresenterWireframeProtocol {
     
     weak var viewController: (any NSViewController & ContentPresenterInterfaceProtocol)?

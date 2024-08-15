@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 protocol OpenPanelFactory {
     
     func create(delegate: any NSOpenSavePanelDelegate) -> any OpenPanel

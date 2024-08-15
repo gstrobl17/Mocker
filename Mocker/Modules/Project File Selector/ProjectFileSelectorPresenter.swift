@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class ProjectFileSelectorPresenter: NSObject {
 
     weak private var view: (any ProjectFileSelectorViewProtocol)?

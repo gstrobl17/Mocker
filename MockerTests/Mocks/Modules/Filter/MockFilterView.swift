@@ -8,6 +8,7 @@
 @testable import Mocker
 import AppKit
 
+@MainActor
 class MockFilterView: NSViewController, FilterViewProtocol {
 
     var presenter: (any FilterPresenterProtocol)?

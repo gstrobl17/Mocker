@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class ProjectFileSelectorViewController: NSViewController, ProjectFileSelectorInterfaceProtocol {
 
     @IBOutlet weak private var projectLabel: NSTextField!

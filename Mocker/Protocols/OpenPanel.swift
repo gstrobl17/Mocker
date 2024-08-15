@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol OpenPanel: SavePanel {
 
     var urls: [URL] { get }

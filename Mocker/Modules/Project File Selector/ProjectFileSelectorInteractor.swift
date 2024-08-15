@@ -7,6 +7,7 @@
 
 import AppKit
 
+@MainActor
 class ProjectFileSelectorInteractor {
 
     weak var presenter: (any ProjectFileSelectorInteractorOutputProtocol)? {

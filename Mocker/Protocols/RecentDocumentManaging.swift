@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 protocol RecentDocumentManaging {
     var recents: [URL] { get }
     func add(_ url: URL)
