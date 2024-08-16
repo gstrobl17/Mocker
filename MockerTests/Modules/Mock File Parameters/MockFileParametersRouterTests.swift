@@ -5,35 +5,30 @@
 //  Created by Greg on 2/26/18.
 //
 
-import XCTest
+import Testing
 @testable import Mocker
 import MacrosForStroblMocks
 
-//TODO: resolve
-//@UsesStroblMocks
-//class MockFileParametersRouterTests: XCTestCase {
-//
-//    @StroblMock let userDefaults = MockUserDefaults()
-//    
-//    func testCreateModule() {
-//        
-//        let viewController = MockFileParametersRouter.createModule(userDefaults: userDefaults)
-//        
-//        verifyStroblMocksUnused(except: [.userDefaults])
-//        XCTAssertEqual(userDefaults.calledMethods, [.objectForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])
-//        XCTAssertEqual(userDefaults.assignedParameters, [.defaultName])
-//        XCTAssertEqual(userDefaults.defaultNames, [UserDefaultsKey.mockPrefix, UserDefaultsKey.includeHeader, UserDefaultsKey.stripTrailingProtocol, UserDefaultsKey.includeTestableImport, UserDefaultsKey.trackPropertyActivity, UserDefaultsKey.public])
-//        XCTAssertTrue(viewController is any MockFileParametersViewProtocol)
-//        if let viewController = viewController as? any MockFileParametersViewProtocol {
-//            XCTAssertNotNil(viewController.presenter)
-//            if let presenter = viewController.presenter {
-//                XCTAssertTrue(presenter is MockFileParametersPresenter)
-//                if let presenter = presenter as? MockFileParametersPresenter {
-//                    XCTAssertNotNil(presenter.router.viewController)
-//                    XCTAssertTrue(presenter.router.viewController === viewController)
-//                }
-//            }
-//        }
-//    }
-//
-//}
+@MainActor @UsesStroblMocks
+struct MockFileParametersRouterTests {
+
+    @StroblMock var userDefaults: MockUserDefaults!
+    
+    init() async {
+        userDefaults = MockUserDefaults()
+    }
+    
+    @Test func createModule() throws {
+        
+        let viewController = MockFileParametersRouter.createModule(userDefaults: userDefaults)
+        
+        verifyStroblMocksUnused(except: [.userDefaults])
+        #expect(userDefaults.calledMethods == [.objectForKeyDefaultNameCalled, .stringForKeyDefaultNameCalled])
+        #expect(userDefaults.assignedParameters == [.defaultName])
+        #expect(userDefaults.defaultNames == [UserDefaultsKey.mockPrefix, UserDefaultsKey.includeHeader, UserDefaultsKey.stripTrailingProtocol, UserDefaultsKey.includeTestableImport, UserDefaultsKey.trackPropertyActivity, UserDefaultsKey.public])
+        let routerViewController = try #require(viewController as? any MockFileParametersViewProtocol)
+        let presenter = try #require(routerViewController.presenter as? MockFileParametersPresenter)
+        #expect(presenter.router.viewController === viewController)
+    }
+
+}

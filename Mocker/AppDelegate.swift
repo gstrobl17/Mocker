@@ -10,14 +10,13 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    let documentController = MockerDocumentController()
+    let documentController: MockerDocumentController
     
-//    @MainActor
-//    override init() {
-//        // https://stackoverflow.com/a/7373892
-//        self.documentController = MockerDocumentController()
-//        super.init()
-//    }
+    override init() {
+        // https://stackoverflow.com/a/7373892
+        self.documentController = MockerDocumentController()
+        super.init()
+    }
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         let userDefaults = UserDefaults.standard

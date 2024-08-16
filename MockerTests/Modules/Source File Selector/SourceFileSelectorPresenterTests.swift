@@ -5,36 +5,33 @@
 //  Created by Greg on 2/23/18.
 //
 
-import XCTest
+import Testing
 @testable import Mocker
 import MacrosForStroblMocks
 
-//TODO: resolve
-//@UsesStroblMocks
-//class SourceFileSelectorPresenterTests: XCTestCase {
-//    
-//    @StroblMock var view: MockSourceFileSelectorView!
-//    @StroblMock var interactor: MockSourceFileSelectorInteractorInput!
-//    var router: (any SourceFileSelectorWireframeProtocol)!
-//    var presenter: SourceFileSelectorPresenter!
-//
-//    override func setUp() {
-//        super.setUp()
-//        
-//        view = MockSourceFileSelectorView()
-//        interactor = MockSourceFileSelectorInteractorInput()
-//        router = SourceFileSelectorRouter()
-//        presenter = SourceFileSelectorPresenter(interface: view, interactor: interactor, router: router)
-//    }
-//
-//    // MARK: - SourceFileSelectorPresenterProtocol methods -
-//    
-//    func test_viewHasLoaded() {
-//        
-//        presenter.viewHasLoaded()
-//        
-//        verifyStroblMocksUnused(except: [.interactor])
-//        XCTAssertEqual(interactor.calledMethods, [.viewHasLoadedCalled])
-//    }
-//
-//}
+@MainActor @UsesStroblMocks
+struct SourceFileSelectorPresenterTests {
+    
+    @StroblMock var view: MockSourceFileSelectorView!
+    @StroblMock var interactor: MockSourceFileSelectorInteractorInput!
+    var router: (any SourceFileSelectorWireframeProtocol)!
+    var presenter: SourceFileSelectorPresenter!
+
+    init() async {
+        view = MockSourceFileSelectorView()
+        interactor = MockSourceFileSelectorInteractorInput()
+        router = SourceFileSelectorRouter()
+        presenter = SourceFileSelectorPresenter(interface: view, interactor: interactor, router: router)
+    }
+
+    // MARK: - SourceFileSelectorPresenterProtocol methods
+    
+    @Test func viewHasLoaded() {
+        
+        presenter.viewHasLoaded()
+        
+        verifyStroblMocksUnused(except: [.interactor])
+        #expect(interactor.calledMethods == [.viewHasLoadedCalled])
+    }
+
+}

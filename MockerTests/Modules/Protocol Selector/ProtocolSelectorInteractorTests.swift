@@ -5,26 +5,25 @@
 //  Created by Greg on 2/25/18.
 //
 
-import XCTest
+import Testing
 @testable import Mocker
+import MacrosForStroblMocks
 
-class ProtocolSelectorInteractorTests: XCTestCase {
+@MainActor
+struct ProtocolSelectorInteractorTests {
 
     var presenter: MockProtocolSelectorInteractorOutput!
     
-    override func setUp() {
-        super.setUp()
-        
+    init() async {
         presenter = MockProtocolSelectorInteractorOutput()
     }
     
-    // MARK: - init -
+    // MARK: - init
     
-    func testInit() {
+    @Test func testInit() {
         
         let interactor = ProtocolSelectorInteractor()
         interactor.presenter = presenter
-        
     }
 
 }

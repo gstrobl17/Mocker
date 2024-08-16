@@ -5,17 +5,18 @@
 //  Created by Greg on 2/24/18.
 //
 
-import XCTest
+import Testing
 @testable import Mocker
 
-class ContentPresenterRouterTests: XCTestCase {
+@MainActor
+struct ContentPresenterRouterTests {
     
-    @MainActor
-    func testCreateModule() {
+    @Test func createModule() {
         
         _ = ContentPresenterRouter.createModule()
         
-        // Commented out because it produces a warning that the result is always true. XCTAssertTrue(viewController is ContentPresenterInterfaceProtocol)
+        // Commented out because it produces a warning that the result is always true.
+        // #expect(viewController is any ContentPresenterInterfaceProtocol)
     }
 
 }

@@ -188,8 +188,8 @@
 		64C6091220457982005D6869 /* ASTMockGeneratorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6091120457982005D6869 /* ASTMockGeneratorFactory.swift */; };
 		64C6091420457991005D6869 /* ASTMockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6091320457991005D6869 /* ASTMockGenerator.swift */; };
 		64C609182046ABBB005D6869 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C609172046ABBB005D6869 /* String+Extensions.swift */; };
-		64CA1DD82C4762FB0074F15E /* MacrosForStroblMocks in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA1DD72C4762FB0074F15E /* MacrosForStroblMocks */; };
 		64DA2B322C68ED5500F97E18 /* SourceFileDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA2B312C68ED5500F97E18 /* SourceFileDataSourceTests.swift */; };
+		64EA798C2C6F7E9C007FEF86 /* MacrosForStroblMocks in Frameworks */ = {isa = PBXBuildFile; productRef = 64EA798B2C6F7E9C007FEF86 /* MacrosForStroblMocks */; };
 		64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FE8203A4B9B00AAB355 /* TreeNode.swift */; };
 		64F92FEB203C371C00AAB355 /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEA203C371C00AAB355 /* TreeNodeView.swift */; };
 		64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */; };
@@ -456,7 +456,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64CA1DD82C4762FB0074F15E /* MacrosForStroblMocks in Frameworks */,
+				64EA798C2C6F7E9C007FEF86 /* MacrosForStroblMocks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,7 +1028,7 @@
 			);
 			name = MockerTests;
 			packageProductDependencies = (
-				64CA1DD72C4762FB0074F15E /* MacrosForStroblMocks */,
+				64EA798B2C6F7E9C007FEF86 /* MacrosForStroblMocks */,
 			);
 			productName = MockerTests;
 			productReference = 6427B9FC2033954800BCA2E9 /* MockerTests.xctest */;
@@ -1075,8 +1075,8 @@
 			packageReferences = (
 				6464F9C223D515EB00B03205 /* XCRemoteSwiftPackageReference "SourceKitten" */,
 				643D97DB2A617A950001450E /* XCRemoteSwiftPackageReference "swift-syntax" */,
-				64CA1DD62C4762FB0074F15E /* XCRemoteSwiftPackageReference "MacrosForStroblMocks" */,
 				64312C322C6E0C2F000BA25C /* XCRemoteSwiftPackageReference "XcodeEditor" */,
+				64EA798A2C6F7E9C007FEF86 /* XCRemoteSwiftPackageReference "MacrosForStroblMocks" */,
 			);
 			productRefGroup = 6427B9EB2033954800BCA2E9 /* Products */;
 			projectDirPath = "";
@@ -1415,6 +1415,19 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
+				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
+				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 			};
 			name = Debug;
 		};
@@ -1470,6 +1483,19 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
+				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
+				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 			};
 			name = Release;
 		};
@@ -1690,12 +1716,12 @@
 				minimumVersion = 0.34.0;
 			};
 		};
-		64CA1DD62C4762FB0074F15E /* XCRemoteSwiftPackageReference "MacrosForStroblMocks" */ = {
+		64EA798A2C6F7E9C007FEF86 /* XCRemoteSwiftPackageReference "MacrosForStroblMocks" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gstrobl17/MacrosForStroblMocks";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
+				minimumVersion = 1.0.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1731,9 +1757,9 @@
 			package = 6464F9C223D515EB00B03205 /* XCRemoteSwiftPackageReference "SourceKitten" */;
 			productName = SourceKittenFramework;
 		};
-		64CA1DD72C4762FB0074F15E /* MacrosForStroblMocks */ = {
+		64EA798B2C6F7E9C007FEF86 /* MacrosForStroblMocks */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 64CA1DD62C4762FB0074F15E /* XCRemoteSwiftPackageReference "MacrosForStroblMocks" */;
+			package = 64EA798A2C6F7E9C007FEF86 /* XCRemoteSwiftPackageReference "MacrosForStroblMocks" */;
 			productName = MacrosForStroblMocks;
 		};
 /* End XCSwiftPackageProductDependency section */

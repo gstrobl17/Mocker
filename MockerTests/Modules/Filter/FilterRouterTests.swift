@@ -7,12 +7,12 @@
 
 import AppKit
 @testable import Mocker
-//import MacrosForStroblMocks   //TODO: Update for Swift Testing and implement
+import MacrosForStroblMocks
 import Testing
 
-@MainActor
+@MainActor @UsesStroblMocks
 struct FilterRouterTests {
-    var userDefaults: MockUserDefaults!
+    @StroblMock var userDefaults: MockUserDefaults!
     
     init() async throws {
         userDefaults = try #require(MockUserDefaults())
@@ -22,7 +22,7 @@ struct FilterRouterTests {
         
         let module = FilterRouter.createModule(userDefaults: userDefaults)
 
-//        verifyStroblMocksUnused(except: [.userDefaults])
+        verifyStroblMocksUnused(except: [.userDefaults])
         #expect(userDefaults.calledMethods == [.stringForKeyDefaultNameCalled])
         #expect(userDefaults.assignedParameters == [.defaultName])
         #expect(userDefaults.defaultNames == [UserDefaultsKey.sourceFileFilterValue])
