@@ -1,5 +1,5 @@
 //
-//  TreeNodeView.swift
+//  SendableTreeNodeView.swift
 //  Mocker
 //
 //  Created by Greg on 2/20/18.
@@ -12,15 +12,15 @@ extension NSImage.Name {
     static let folder = "Folder"
 }
 
-class TreeNodeView: NSView {
+class SendableTreeNodeView: NSView {
     
-    init(treeNode: TreeNode, dataSource: any SourceFileDataSource) {
+    init(sendableTreeNode: SendableTreeNode, dataSource: any SourceFileDataSource) {
         super.init(frame: NSRect.zero)
         
         var possibleImage: NSImage?
-        switch treeNode.type {
+        switch sendableTreeNode.type {
         case .file:
-            if treeNode.isSwiftFile {
+            if sendableTreeNode.isSwiftFile {
                 possibleImage = Bundle.main.image(forResource: .swiftSource)
             }
         case .group:
@@ -34,7 +34,7 @@ class TreeNodeView: NSView {
 
         let imageView = NSImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        let textField = NSTextField(labelWithString: treeNode.name)
+        let textField = NSTextField(labelWithString: sendableTreeNode.name)
         textField.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(imageView)

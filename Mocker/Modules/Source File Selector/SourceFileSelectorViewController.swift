@@ -46,7 +46,7 @@ extension SourceFileSelectorViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         if item == nil, let item = rootTreeNode {
             return item.children.count
-        } else if let item = item as? TreeNode {
+        } else if let item = item as? SendableTreeNode {
             return item.children.count
         }
         return 0
@@ -55,14 +55,14 @@ extension SourceFileSelectorViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if item == nil, let item = rootTreeNode {
             return item.children[index]
-        } else if let item = item as? TreeNode {
+        } else if let item = item as? SendableTreeNode {
             return item.children[index]
         }
         fatalError("Unexpected item: \(String(describing: item))")
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        if let item = item as? TreeNode {
+        if let item = item as? SendableTreeNode {
             if !item.children.isEmpty {
                 return true
             }
@@ -75,15 +75,15 @@ extension SourceFileSelectorViewController: NSOutlineViewDataSource {
 extension SourceFileSelectorViewController: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        guard let item = item as? TreeNode,
+        guard let item = item as? SendableTreeNode,
             let dataSource,
               !item.name.isEmpty else { return nil }
-        let view = TreeNodeView(treeNode: item, dataSource: dataSource)
+        let view = SendableTreeNodeView(sendableTreeNode: item, dataSource: dataSource)
         return view
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        if let item = item as? TreeNode {
+        if let item = item as? SendableTreeNode {
             if item.type == .file {
                 return true
             }
@@ -94,13 +94,13 @@ extension SourceFileSelectorViewController: NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
         let row = outlineView.selectedRow
         let item = outlineView.item(atRow: row)
-        if let item = item as? TreeNode {
+        if let item = item as? SendableTreeNode {
             delegate?.sourceFileSelector(self, fileSelected: item)
         }
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldCollapseItem item: Any) -> Bool {
-        if let item = item as? TreeNode {
+        if let item = item as? SendableTreeNode {
             if item.type == .group {
                 return true
             }

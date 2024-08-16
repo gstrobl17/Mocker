@@ -17,7 +17,7 @@ protocol SourceFileSelectorInterfaceProtocol: AnyObject {
 
 @MainActor
 protocol SourceFileSelectorInterfaceDelegate: AnyObject {
-    func sourceFileSelector(_ view: (any NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: TreeNode)
+    func sourceFileSelector(_ view: (any NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: SendableTreeNode)
 }
 
 // MARK: Wireframe -

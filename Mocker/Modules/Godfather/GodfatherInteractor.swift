@@ -219,7 +219,7 @@ extension GodfatherInteractor: ProjectFileSelectorInterfaceDelegate {
 
 extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
     
-    func sourceFileSelector(_ view: any (NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: TreeNode) {
+    func sourceFileSelector(_ view: any (NSViewController & SourceFileSelectorInterfaceProtocol), fileSelected treeNode: SendableTreeNode) {
 
         targetOfCurrentSourceFile = nil
         currentSourceFileCode = ""

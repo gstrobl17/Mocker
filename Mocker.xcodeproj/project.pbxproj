@@ -191,7 +191,7 @@
 		64DA2B322C68ED5500F97E18 /* SourceFileDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA2B312C68ED5500F97E18 /* SourceFileDataSourceTests.swift */; };
 		64EA798C2C6F7E9C007FEF86 /* MacrosForStroblMocks in Frameworks */ = {isa = PBXBuildFile; productRef = 64EA798B2C6F7E9C007FEF86 /* MacrosForStroblMocks */; };
 		64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FE8203A4B9B00AAB355 /* TreeNode.swift */; };
-		64F92FEB203C371C00AAB355 /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEA203C371C00AAB355 /* TreeNodeView.swift */; };
+		64F92FEB203C371C00AAB355 /* SendableTreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEA203C371C00AAB355 /* SendableTreeNodeView.swift */; };
 		64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */; };
 		81FCF93CEACB6CD96117EF7D /* MockFilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FFA2C931820F46200E6C9 /* MockFilterPresenter.swift */; };
 		AC7B8CE31870DF38E3886601 /* MockFilterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88AA17967D4D0EDC45D95B /* MockFilterInterface.swift */; };
@@ -421,7 +421,7 @@
 		64C609172046ABBB005D6869 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		64DA2B312C68ED5500F97E18 /* SourceFileDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileDataSourceTests.swift; sourceTree = "<group>"; };
 		64F92FE8203A4B9B00AAB355 /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
-		64F92FEA203C371C00AAB355 /* TreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNodeView.swift; sourceTree = "<group>"; };
+		64F92FEA203C371C00AAB355 /* SendableTreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableTreeNodeView.swift; sourceTree = "<group>"; };
 		64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCProject+Extensions.swift"; sourceTree = "<group>"; };
 		6D264A465E5D2A3EC7F78515 /* MockFilterInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFilterInteractorOutput.swift; sourceTree = "<group>"; };
 		8D88AA17967D4D0EDC45D95B /* MockFilterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFilterInterface.swift; sourceTree = "<group>"; };
@@ -832,13 +832,13 @@
 				647C069F21725FCB00778040 /* NeverCancelledMonitor.swift */,
 				64C6080A20403198005D6869 /* ProjectFactory.swift */,
 				648691F82B6D582D0021A9F1 /* RecentDocumentManager.swift */,
+				64F92FEA203C371C00AAB355 /* SendableTreeNodeView.swift */,
 				64BB97162BF291E8007250D1 /* SourceFileDataSourceFactory.swift */,
 				C2273B532211A99400582263 /* SwiftlintSupport.swift */,
 				64BB97272BF64C8C007250D1 /* SwiftPackageConstant.swift */,
 				64BB97202BF512F9007250D1 /* SwiftPackageDataSource.swift */,
 				64BB97242BF64644007250D1 /* Syntax Visitors */,
 				64F92FE8203A4B9B00AAB355 /* TreeNode.swift */,
-				64F92FEA203C371C00AAB355 /* TreeNodeView.swift */,
 				64BB97182BF29299007250D1 /* XCProjectDataSource.swift */,
 				64C6080C204032E4005D6869 /* XCProjectFactory.swift */,
 			);
@@ -1217,7 +1217,7 @@
 				647C06AB2172653F00778040 /* ProjectFilteringHandler.swift in Sources */,
 				64C607D4203F7DED005D6869 /* OpenPanelFactory.swift in Sources */,
 				64C607CF203F7B73005D6869 /* OpenPanel.swift in Sources */,
-				64F92FEB203C371C00AAB355 /* TreeNodeView.swift in Sources */,
+				64F92FEB203C371C00AAB355 /* SendableTreeNodeView.swift in Sources */,
 				648691F32B6D4EA90021A9F1 /* DocumentControlling.swift in Sources */,
 				64C607A0203EC830005D6869 /* SourceFileSelectorViewController.swift in Sources */,
 				64BB97172BF291E8007250D1 /* SourceFileDataSourceFactory.swift in Sources */,
@@ -1616,7 +1616,7 @@
 				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
 				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mocker.app/Contents/MacOS/Mocker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mocker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mocker";
 			};
 			name = Debug;
 		};
@@ -1655,7 +1655,7 @@
 				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
 				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mocker.app/Contents/MacOS/Mocker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mocker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mocker";
 			};
 			name = Release;
 		};

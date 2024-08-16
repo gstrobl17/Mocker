@@ -356,10 +356,10 @@ struct GodfatherInteractorTests {
     // MARK: - SourceFileSelectorInterfaceDelegate methods
     
     @Test mutating func sourceFileSelectorFileSelected_projectFileCreationSucceeds() throws {
-        let treeNode = TreeNode(fileURL: URL(fileURLWithPath: #filePath), target: nil)
+        let sendableTreeNode = TreeNode(fileURL: URL(fileURLWithPath: #filePath), target: nil).sendable
         let interactor = try createInterator()
             
-        interactor.sourceFileSelector(sourceFileSelectorView, fileSelected: treeNode)
+        interactor.sourceFileSelector(sourceFileSelectorView, fileSelected: sendableTreeNode)
     
         verifyStroblMocksUnused(except: [.presenter, .mockFileParametersView])
         #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
