@@ -119,7 +119,8 @@ protocol GodfatherViewProtocol: AnyObject {
                  mockFileParameters: NSViewController,
                  contentPresenter: NSViewController)
     
-    func display(_ alert: NSAlert)
+    func reportError(_ error: any Error)
+    func reportErrorCondition(with messageText: String, and informativeText: String)
     func displayActivityIndicator(_ message: String)
     func closeActivityIndicator()
     func enableDisplayChoice(_ flag: Bool)

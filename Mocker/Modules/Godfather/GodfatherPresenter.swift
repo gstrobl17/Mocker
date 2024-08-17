@@ -78,17 +78,11 @@ extension GodfatherPresenter: GodfatherInteractorOutputProtocol {
     }
 
     func reportError(_ error: any Error) {
-        let alert = NSAlert(error: error)
-        view?.display(alert)
+        view?.reportError(error)
     }
     
     func reportErrorCondition(with messageText: String, and informativeText: String) {
-        let alert = NSAlert()
-        alert.messageText = messageText
-        alert.informativeText = informativeText
-        alert.alertStyle = .critical
-        alert.addButton(withTitle: "Continue")
-        view?.display(alert)
+        view?.reportErrorCondition(with: messageText, and: informativeText)
     }
     
     func showAsBusy(with message: String) {

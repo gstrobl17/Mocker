@@ -18,6 +18,11 @@ class GodfatherView {
         self.viewController = viewController
     }
     
+    func display(_ alert: NSAlert) {
+        guard let window = viewController.view.window else { return }
+        alert.beginSheetModal(for: window, completionHandler: nil)
+    }
+
 }
 
 extension GodfatherView: GodfatherInterfaceProtocol {
@@ -81,10 +86,19 @@ extension GodfatherView: GodfatherViewProtocol {
         childViewController.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         childViewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
-
-    func display(_ alert: NSAlert) {
-        guard let window = viewController.view.window else { return }
-        alert.beginSheetModal(for: window, completionHandler: nil)
+    
+    func reportError(_ error: any Error) {
+        let alert = NSAlert(error: error)
+        display(alert)
+    }
+    
+    func reportErrorCondition(with messageText: String, and informativeText: String) {
+        let alert = NSAlert()
+        alert.messageText = messageText
+        alert.informativeText = informativeText
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "Continue")
+        display(alert)
     }
     
     func displayActivityIndicator(_ message: String) {

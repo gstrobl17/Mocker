@@ -155,9 +155,9 @@ struct GodfatherPresenterTests {
         presenter.reportError(error)
         
         verifyStroblMocksUnused(except: [.view])
-        #expect(view.calledMethods == [.displayAlertCalled])
-        #expect(view.assignedParameters == [.alert])
-        #expect(view.alert != nil)
+        #expect(view.calledMethods == [.reportErrorErrorCalled])
+        #expect(view.assignedParameters == [.error])
+        #expect(view.error is UnitTestError)
     }
 
     @Test func reportErrorCondition() {
@@ -167,9 +167,10 @@ struct GodfatherPresenterTests {
         presenter.reportErrorCondition(with: message, and: information)
         
         verifyStroblMocksUnused(except: [.view])
-        #expect(view.calledMethods == [.displayAlertCalled])
-        #expect(view.assignedParameters == [.alert])
-        #expect(view.alert != nil)
+        #expect(view.calledMethods == [.reportErrorConditionWithMessageTextAndInformativeTextCalled])
+        #expect(view.assignedParameters == [.messageText, .informativeText])
+        #expect(view.messageText == message)
+        #expect(view.informativeText == information)
     }
     
     @Test func showAsBusy() {

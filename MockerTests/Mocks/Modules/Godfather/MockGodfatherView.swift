@@ -17,32 +17,35 @@ class MockGodfatherView: GodfatherViewProtocol {
 
     // MARK: - Variables for Trackings Method Invocation
 
-    struct Method: OptionSet, Sendable {
-        let rawValue: Int
+    struct Method: OptionSet {
+        let rawValue: UInt
         static let installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled = Method(rawValue: 1 << 0)
-        static let displayAlertCalled = Method(rawValue: 1 << 1)
-        static let displayActivityIndicatorMessageCalled = Method(rawValue: 1 << 2)
-        static let closeActivityIndicatorCalled = Method(rawValue: 1 << 3)
-        static let enableDisplayChoiceFlagCalled = Method(rawValue: 1 << 4)
-        static let setDisplayChoiceChoiceCalled = Method(rawValue: 1 << 5)
-        static let displayAsSheetViewControllerCalled = Method(rawValue: 1 << 6)
-        static let viewHasAppearedCalled = Method(rawValue: 1 << 7)
+        static let reportErrorErrorCalled = Method(rawValue: 1 << 1)
+        static let reportErrorConditionWithMessageTextAndInformativeTextCalled = Method(rawValue: 1 << 2)
+        static let displayActivityIndicatorMessageCalled = Method(rawValue: 1 << 3)
+        static let closeActivityIndicatorCalled = Method(rawValue: 1 << 4)
+        static let enableDisplayChoiceFlagCalled = Method(rawValue: 1 << 5)
+        static let setDisplayChoiceChoiceCalled = Method(rawValue: 1 << 6)
+        static let displayAsSheetViewControllerCalled = Method(rawValue: 1 << 7)
+        static let viewHasAppearedCalled = Method(rawValue: 1 << 8)
     }
     private(set) var calledMethods = Method()
 
-    struct MethodParameter: OptionSet, Sendable {
-        let rawValue: Int
+    struct MethodParameter: OptionSet {
+        let rawValue: UInt
         static let projectFileSelector = MethodParameter(rawValue: 1 << 0)
         static let sourceFileSelector = MethodParameter(rawValue: 1 << 1)
         static let sourceFileFilter = MethodParameter(rawValue: 1 << 2)
         static let protocolSelector = MethodParameter(rawValue: 1 << 3)
         static let mockFileParameters = MethodParameter(rawValue: 1 << 4)
         static let contentPresenter = MethodParameter(rawValue: 1 << 5)
-        static let alert = MethodParameter(rawValue: 1 << 6)
-        static let message = MethodParameter(rawValue: 1 << 7)
-        static let flag = MethodParameter(rawValue: 1 << 8)
-        static let choice = MethodParameter(rawValue: 1 << 9)
-        static let viewController = MethodParameter(rawValue: 1 << 10)
+        static let error = MethodParameter(rawValue: 1 << 6)
+        static let messageText = MethodParameter(rawValue: 1 << 7)
+        static let informativeText = MethodParameter(rawValue: 1 << 8)
+        static let message = MethodParameter(rawValue: 1 << 9)
+        static let flag = MethodParameter(rawValue: 1 << 10)
+        static let choice = MethodParameter(rawValue: 1 << 11)
+        static let viewController = MethodParameter(rawValue: 1 << 12)
     }
     private(set) var assignedParameters = MethodParameter()
 
@@ -54,7 +57,9 @@ class MockGodfatherView: GodfatherViewProtocol {
     private(set) var protocolSelector: NSViewController?
     private(set) var mockFileParameters: NSViewController?
     private(set) var contentPresenter: NSViewController?
-    private(set) var alert: NSAlert?
+    private(set) var error: (any Error)?
+    private(set) var messageText: String?
+    private(set) var informativeText: String?
     private(set) var message: String?
     private(set) var flag: Bool?
     private(set) var choice: DisplayChoice?
@@ -69,7 +74,9 @@ class MockGodfatherView: GodfatherViewProtocol {
         protocolSelector = nil
         mockFileParameters = nil
         contentPresenter = nil
-        alert = nil
+        error = nil
+        messageText = nil
+        informativeText = nil
         message = nil
         flag = nil
         choice = nil
@@ -95,10 +102,18 @@ class MockGodfatherView: GodfatherViewProtocol {
         assignedParameters.insert(.contentPresenter)
     }
 
-    func display(_ alert: NSAlert) {
-        calledMethods.insert(.displayAlertCalled)
-        self.alert = alert
-        assignedParameters.insert(.alert)
+    func reportError(_ error: any Error) {
+        calledMethods.insert(.reportErrorErrorCalled)
+        self.error = error
+        assignedParameters.insert(.error)
+    }
+
+    func reportErrorCondition(with messageText: String, and informativeText: String) {
+        calledMethods.insert(.reportErrorConditionWithMessageTextAndInformativeTextCalled)
+        self.messageText = messageText
+        assignedParameters.insert(.messageText)
+        self.informativeText = informativeText
+        assignedParameters.insert(.informativeText)
     }
 
     func displayActivityIndicator(_ message: String) {
@@ -151,9 +166,13 @@ extension MockGodfatherView.Method: CustomStringConvertible {
             handleFirst()
             value += ".installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled"
         }
-        if self.contains(.displayAlertCalled) {
+        if self.contains(.reportErrorErrorCalled) {
             handleFirst()
-            value += ".displayAlertCalled"
+            value += ".reportErrorErrorCalled"
+        }
+        if self.contains(.reportErrorConditionWithMessageTextAndInformativeTextCalled) {
+            handleFirst()
+            value += ".reportErrorConditionWithMessageTextAndInformativeTextCalled"
         }
         if self.contains(.displayActivityIndicatorMessageCalled) {
             handleFirst()
@@ -221,9 +240,17 @@ extension MockGodfatherView.MethodParameter: CustomStringConvertible {
             handleFirst()
             value += ".contentPresenter"
         }
-        if self.contains(.alert) {
+        if self.contains(.error) {
             handleFirst()
-            value += ".alert"
+            value += ".error"
+        }
+        if self.contains(.messageText) {
+            handleFirst()
+            value += ".messageText"
+        }
+        if self.contains(.informativeText) {
+            handleFirst()
+            value += ".informativeText"
         }
         if self.contains(.message) {
             handleFirst()
