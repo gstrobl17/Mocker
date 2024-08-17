@@ -23,7 +23,9 @@ class FilteringOperation: Operation, @unchecked Sendable {
     override func main() {
         let result = dataSource.traverse(filteredBy: filter, monitoredBy: self, fileManager: FileManager.default)
         if !isCancelled {
-            completionHandler(result)
+            DispatchQueue.main.async {
+                self.completionHandler(result)
+            }
         }
     }
 }
