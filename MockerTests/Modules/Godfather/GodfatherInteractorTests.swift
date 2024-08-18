@@ -244,13 +244,15 @@ class GodfatherInteractorTests: XCTestCase {
 
         interactor.copyMockToClipboard()
         
-        verifyStroblMocksUnused(except: [.pasteboard])
+        verifyStroblMocksUnused(except: [.pasteboard, .presenter])
         XCTAssertEqual(pasteboard.calledMethods, [.declareTypesNewTypesOwnerNewOwnerCalled, .setStringStringForTypeDataTypeCalled])
         XCTAssertEqual(pasteboard.assignedParameters, [.newTypes, .newOwner, .string, .dataType])
         XCTAssertEqual(pasteboard.newTypes, [.string])
         XCTAssertNil(pasteboard.newOwner)
         XCTAssertEqual(pasteboard.string, interactor.mockCode)
         XCTAssertEqual(pasteboard.dataType, NSPasteboard.PasteboardType.string)
+        XCTAssertEqual(presenter.calledMethods, [.mockCopiedToClipboardCalled])
+        XCTAssertEqual(presenter.assignedParameters, [])
     }
 
     func test_openRecentProjectFile() throws {

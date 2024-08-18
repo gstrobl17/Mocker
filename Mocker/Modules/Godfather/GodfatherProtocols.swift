@@ -77,6 +77,7 @@ protocol GodfatherInteractorOutputProtocol: AnyObject {
     func clearBusyMessage()
     func canChooseDisplay(_ flag: Bool)
     func setDisplayChoice(_ choice: DisplayChoice)
+    func mockCopiedToClipboard()
     /* Interactor -> Presenter */
 }
 
@@ -119,6 +120,7 @@ protocol GodfatherViewProtocol: AnyObject {
     func enableDisplayChoice(_ flag: Bool)
     func setDisplayChoice(_ choice: DisplayChoice)
     func displayAsSheet(_ viewController: NSViewController)
+    func mockCopiedToClipboard()
     /* Presenter -> ViewController */
     
     func viewHasAppeared()

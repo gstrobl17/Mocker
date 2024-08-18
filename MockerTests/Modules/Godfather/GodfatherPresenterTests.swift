@@ -212,4 +212,13 @@ class GodfatherPresenterTests: XCTestCase {
         XCTAssertEqual(view.assignedParameters, [.choice])
         XCTAssertEqual(view.choice, .source)
     }
+    
+    func test_mockCopiedToClipboard() {
+        
+        presenter.mockCopiedToClipboard()
+        
+        verifyStroblMocksUnused(except: [.view])
+        XCTAssertEqual(view.calledMethods, [.mockCopiedToClipboardCalled])
+        XCTAssertEqual(view.assignedParameters, [])
+    }
 }

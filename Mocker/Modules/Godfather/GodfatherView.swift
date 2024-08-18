@@ -128,4 +128,26 @@ extension GodfatherView: GodfatherViewProtocol {
         self.viewController.presentAsSheet(viewController)
     }
 
+    func mockCopiedToClipboard() {
+        let storyboard = NSStoryboard(name: .main, bundle: nil)
+        guard let copiedViewController = storyboard.instantiateController(withIdentifier: .copiedToPasteboad) as? CopiedToPasteboardViewController,
+              let button = viewController.copyToClipboardButton,
+              let contentView = NSApp.mainWindow?.contentView else { return }
+
+        let popover = NSPopover()
+        popover.contentSize = NSSize(width: 164, height: 22)
+        popover.behavior = .transient
+        popover.animates = true
+        popover.contentViewController = copiedViewController
+        
+        // Convert point to main window coordinates
+        let rect = button.convert(button.bounds, to: contentView)
+        
+        // Show the popover and close
+        popover.show(relativeTo: rect, of: contentView, preferredEdge: .maxY)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            popover.close()
+        }
+    }
+
 }

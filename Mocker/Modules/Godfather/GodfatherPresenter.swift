@@ -106,4 +106,8 @@ extension GodfatherPresenter: GodfatherInteractorOutputProtocol {
         view?.setDisplayChoice(choice)
     }
 
+    func mockCopiedToClipboard() {
+        view?.mockCopiedToClipboard()
+    }
+    
 }
