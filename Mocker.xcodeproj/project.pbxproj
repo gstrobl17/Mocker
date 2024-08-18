@@ -188,10 +188,11 @@
 		64C6091220457982005D6869 /* ASTMockGeneratorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6091120457982005D6869 /* ASTMockGeneratorFactory.swift */; };
 		64C6091420457991005D6869 /* ASTMockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C6091320457991005D6869 /* ASTMockGenerator.swift */; };
 		64C609182046ABBB005D6869 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C609172046ABBB005D6869 /* String+Extensions.swift */; };
+		64CC81D02C7239EE008EE6D4 /* SendableTreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CC81CF2C7239EE008EE6D4 /* SendableTreeNodeView.swift */; };
 		64DA2B322C68ED5500F97E18 /* SourceFileDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA2B312C68ED5500F97E18 /* SourceFileDataSourceTests.swift */; };
+		64E24A482C721EE200AE5C8A /* CopiedToPasteboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E24A472C721EE200AE5C8A /* CopiedToPasteboardViewController.swift */; };
 		64EA798C2C6F7E9C007FEF86 /* MacrosForStroblMocks in Frameworks */ = {isa = PBXBuildFile; productRef = 64EA798B2C6F7E9C007FEF86 /* MacrosForStroblMocks */; };
 		64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FE8203A4B9B00AAB355 /* TreeNode.swift */; };
-		64F92FEB203C371C00AAB355 /* SendableTreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEA203C371C00AAB355 /* SendableTreeNodeView.swift */; };
 		64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */; };
 		81FCF93CEACB6CD96117EF7D /* MockFilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FFA2C931820F46200E6C9 /* MockFilterPresenter.swift */; };
 		AC7B8CE31870DF38E3886601 /* MockFilterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88AA17967D4D0EDC45D95B /* MockFilterInterface.swift */; };
@@ -419,9 +420,10 @@
 		64C6091120457982005D6869 /* ASTMockGeneratorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMockGeneratorFactory.swift; sourceTree = "<group>"; };
 		64C6091320457991005D6869 /* ASTMockGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMockGenerator.swift; sourceTree = "<group>"; };
 		64C609172046ABBB005D6869 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		64CC81CF2C7239EE008EE6D4 /* SendableTreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableTreeNodeView.swift; sourceTree = "<group>"; };
 		64DA2B312C68ED5500F97E18 /* SourceFileDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileDataSourceTests.swift; sourceTree = "<group>"; };
+		64E24A472C721EE200AE5C8A /* CopiedToPasteboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopiedToPasteboardViewController.swift; sourceTree = "<group>"; };
 		64F92FE8203A4B9B00AAB355 /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
-		64F92FEA203C371C00AAB355 /* SendableTreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableTreeNodeView.swift; sourceTree = "<group>"; };
 		64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCProject+Extensions.swift"; sourceTree = "<group>"; };
 		6D264A465E5D2A3EC7F78515 /* MockFilterInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFilterInteractorOutput.swift; sourceTree = "<group>"; };
 		8D88AA17967D4D0EDC45D95B /* MockFilterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFilterInterface.swift; sourceTree = "<group>"; };
@@ -662,6 +664,7 @@
 				64C60781203EC7BD005D6869 /* GodfatherRouter.swift */,
 				64C60782203EC7BD005D6869 /* GodfatherView.swift */,
 				64C608D22043044B005D6869 /* ActivityIndicatorViewController.swift */,
+				64E24A472C721EE200AE5C8A /* CopiedToPasteboardViewController.swift */,
 			);
 			path = Godfather;
 			sourceTree = "<group>";
@@ -832,7 +835,7 @@
 				647C069F21725FCB00778040 /* NeverCancelledMonitor.swift */,
 				64C6080A20403198005D6869 /* ProjectFactory.swift */,
 				648691F82B6D582D0021A9F1 /* RecentDocumentManager.swift */,
-				64F92FEA203C371C00AAB355 /* SendableTreeNodeView.swift */,
+				64CC81CF2C7239EE008EE6D4 /* SendableTreeNodeView.swift */,
 				64BB97162BF291E8007250D1 /* SourceFileDataSourceFactory.swift */,
 				C2273B532211A99400582263 /* SwiftlintSupport.swift */,
 				64BB97272BF64C8C007250D1 /* SwiftPackageConstant.swift */,
@@ -1161,6 +1164,7 @@
 				64C608D520431832005D6869 /* SourceFileInformation.swift in Sources */,
 				64C608D32043044B005D6869 /* ActivityIndicatorViewController.swift in Sources */,
 				64C608F2204344D6005D6869 /* MockFileParametersRouter.swift in Sources */,
+				64E24A482C721EE200AE5C8A /* CopiedToPasteboardViewController.swift in Sources */,
 				64C6079C203EC830005D6869 /* SourceFileSelectorInteractor.swift in Sources */,
 				64C6091420457991005D6869 /* ASTMockGenerator.swift in Sources */,
 				64BB97152BF290C7007250D1 /* SourceFileDataSourceCreating.swift in Sources */,
@@ -1215,9 +1219,9 @@
 				64C607AB203EC906005D6869 /* ProtocolSelectorInteractor.swift in Sources */,
 				64C607AF203EC906005D6869 /* ProtocolSelectorViewController.swift in Sources */,
 				647C06AB2172653F00778040 /* ProjectFilteringHandler.swift in Sources */,
+				64CC81D02C7239EE008EE6D4 /* SendableTreeNodeView.swift in Sources */,
 				64C607D4203F7DED005D6869 /* OpenPanelFactory.swift in Sources */,
 				64C607CF203F7B73005D6869 /* OpenPanel.swift in Sources */,
-				64F92FEB203C371C00AAB355 /* SendableTreeNodeView.swift in Sources */,
 				648691F32B6D4EA90021A9F1 /* DocumentControlling.swift in Sources */,
 				64C607A0203EC830005D6869 /* SourceFileSelectorViewController.swift in Sources */,
 				64BB97172BF291E8007250D1 /* SourceFileDataSourceFactory.swift in Sources */,

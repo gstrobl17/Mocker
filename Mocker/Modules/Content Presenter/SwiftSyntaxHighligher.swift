@@ -93,7 +93,7 @@ class SwiftSyntaxHighligher: NSObject, NSTextStorageDelegate, NSLayoutManagerDel
         do {
             let syntaxMap = try SyntaxMap(file: File(contents: string))
             return syntaxMap.tokens.map { token in
-                let location = (token.offset.value > 0) ? token.offset.value - 1 : 0
+                let location = (token.offset.value > 0) ? token.offset.value : 0
                 return Token(kind: token.type, range: NSRange(location: location, length: token.length.value))
             }
         } catch let error {

@@ -20,6 +20,7 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
         static let clearBusyMessageCalled = Method(rawValue: 1 << 4)
         static let canChooseDisplayFlagCalled = Method(rawValue: 1 << 5)
         static let setDisplayChoiceChoiceCalled = Method(rawValue: 1 << 6)
+        static let mockCopiedToClipboardCalled = Method(rawValue: 1 << 7)
     }
     private(set) var calledMethods = Method()
 
@@ -123,6 +124,10 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
         assignedParameters.insert(.choice)
     }
 
+    func mockCopiedToClipboard() {
+        calledMethods.insert(.mockCopiedToClipboardCalled)
+    }
+
 }
 
 extension MockGodfatherInteractorOutput.Method: CustomStringConvertible {
@@ -164,6 +169,10 @@ extension MockGodfatherInteractorOutput.Method: CustomStringConvertible {
         if self.contains(.setDisplayChoiceChoiceCalled) {
             handleFirst()
             value += ".setDisplayChoiceChoiceCalled"
+        }
+        if self.contains(.mockCopiedToClipboardCalled) {
+            handleFirst()
+            value += ".mockCopiedToClipboardCalled"
         }
 
         value += "]"

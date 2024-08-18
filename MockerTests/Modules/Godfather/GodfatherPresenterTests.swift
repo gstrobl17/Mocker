@@ -212,4 +212,13 @@ struct GodfatherPresenterTests {
         #expect(view.assignedParameters == [.choice])
         #expect(view.choice == .source)
     }
+    
+    func mockCopiedToClipboard() {
+        
+        presenter.mockCopiedToClipboard()
+        
+        verifyStroblMocksUnused(except: [.view])
+        #expect(view.calledMethods == [.mockCopiedToClipboardCalled])
+        #expect(view.assignedParameters == [])
+    }
 }

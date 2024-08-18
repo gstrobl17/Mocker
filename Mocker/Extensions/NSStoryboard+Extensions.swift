@@ -15,6 +15,7 @@ extension NSStoryboard.SceneIdentifier {
     static let projectFileSelector = "ProjectFileSelector"
     static let sourceFileSelector = "SourceFileSelector"
     static let contentPresenter = "ContentPresenter"
+    static let copiedToPasteboad = "CopiedToPasteboard"
     static let activityIndicator = "ActivityIndicator"
     static let protocolSelector = "ProtocolSelector"
     static let mockFileParameters = "MockFileParameters"

@@ -243,13 +243,15 @@ struct GodfatherInteractorTests {
 
         interactor.copyMockToClipboard()
         
-        verifyStroblMocksUnused(except: [.pasteboard])
+        verifyStroblMocksUnused(except: [.pasteboard, .presenter])
         #expect(pasteboard.calledMethods == [.declareTypesNewTypesOwnerNewOwnerCalled, .setStringStringForTypeDataTypeCalled])
         #expect(pasteboard.assignedParameters == [.newTypes, .newOwner, .string, .dataType])
         #expect(pasteboard.newTypes == [.string])
         #expect(pasteboard.newOwner == nil)
         #expect(pasteboard.string == interactor.mockCode)
         #expect(pasteboard.dataType == NSPasteboard.PasteboardType.string)
+        #expect(presenter.calledMethods == [.mockCopiedToClipboardCalled])
+        #expect(presenter.assignedParameters == [])
     }
 
     @Test mutating func openRecentProjectFile() throws {

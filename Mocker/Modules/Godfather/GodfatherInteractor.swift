@@ -200,6 +200,7 @@ extension GodfatherInteractor: GodfatherInteractorInputProtocol {
     func copyMockToClipboard() {
         pasteboard.declareTypes([.string], owner: nil)
         pasteboard.setString(mockCode, forType: .string)
+        presenter?.mockCopiedToClipboard()
     }
 
     func openRecentProjectFile(_ url: URL) {

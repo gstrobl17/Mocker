@@ -27,6 +27,7 @@ class MockGodfatherView: GodfatherViewProtocol {
         static let enableDisplayChoiceFlagCalled = Method(rawValue: 1 << 5)
         static let setDisplayChoiceChoiceCalled = Method(rawValue: 1 << 6)
         static let displayAsSheetViewControllerCalled = Method(rawValue: 1 << 7)
+        static let mockCopiedToClipboardCalled = Method(rawValue: 1 << 7)
         static let viewHasAppearedCalled = Method(rawValue: 1 << 8)
     }
     private(set) var calledMethods = Method()
@@ -144,6 +145,10 @@ class MockGodfatherView: GodfatherViewProtocol {
         assignedParameters.insert(.viewController)
     }
 
+    func mockCopiedToClipboard() {
+        calledMethods.insert(.mockCopiedToClipboardCalled)
+    }
+
     func viewHasAppeared() {
         calledMethods.insert(.viewHasAppearedCalled)
     }
@@ -193,6 +198,10 @@ extension MockGodfatherView.Method: CustomStringConvertible {
         if self.contains(.displayAsSheetViewControllerCalled) {
             handleFirst()
             value += ".displayAsSheetViewControllerCalled"
+        }
+        if self.contains(.mockCopiedToClipboardCalled) {
+            handleFirst()
+            value += ".mockCopiedToClipboardCalled"
         }
         if self.contains(.viewHasAppearedCalled) {
             handleFirst()
