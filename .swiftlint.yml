@@ -1,6 +1,3 @@
-identifier_name:
-  excluded:
-    - id
 large_tuple:
   warning: 5 
 opt_in_rules:
