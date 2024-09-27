@@ -12,6 +12,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let documentController: MockerDocumentController
     
+    @MainActor
     override init() {
         // https://stackoverflow.com/a/7373892
         self.documentController = MockerDocumentController()

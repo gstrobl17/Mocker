@@ -11,6 +11,7 @@ import AppKit
 import SwiftSyntax
 import XcodeEditor
 
+@MainActor
 class MockMockFileParametersView: NSViewController, MockFileParametersViewProtocol, MockFileParametersInterfaceProtocol {
 
     var presenter: (any MockFileParametersPresenterProtocol)?

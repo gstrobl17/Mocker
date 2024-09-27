@@ -8,8 +8,9 @@
 import AppKit
 @testable import Mocker
 
+@MainActor
 class MockMockFileParametersRouter: MockFileParametersWireframeProtocol {
-    nonisolated(unsafe) static var view = MockMockFileParametersView()
+    static var view = MockMockFileParametersView()
     
     weak var viewController: (any NSViewController & MockFileParametersInterfaceProtocol)?
     
