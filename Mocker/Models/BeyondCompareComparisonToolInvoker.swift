@@ -12,9 +12,7 @@ class BeyondCompareComparisonToolInvoker: ComparisonToolInvoking {
 
     enum Constant {
         static let executablePath = "/usr/local/bin/bcompare"
-        static let which = "which"
-        static let shell = "/bin/zsh"
-        static let dashC = "-c"
+        static let leftreadonly = "-leftreadonly"
     }
     
     var delegate: (any ComparisonToolInvokerDelegate)?
@@ -42,7 +40,7 @@ class BeyondCompareComparisonToolInvoker: ComparisonToolInvoking {
         
         task.standardOutput = pipe
         task.standardError = pipe
-        task.arguments = ["\(url1)", "\(url2)"]
+        task.arguments = [Constant.leftreadonly, "\(url1)", "\(url2)"]
         task.executableURL = URL(fileURLWithPath: Constant.executablePath)
         task.standardInput = nil
 
