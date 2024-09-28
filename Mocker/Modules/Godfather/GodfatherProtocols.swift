@@ -41,6 +41,7 @@ protocol GodfatherWireframeProtocol: AnyObject {
         protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
         mockFileParametersRouterType: any MockFileParametersWireframeProtocol.Type,
         contentPresenterRouterType: any ContentPresenterWireframeProtocol.Type,
+        compareRouterType: any CompareWireframeProtocol.Type,
         filteringHandler: any AsyncFilteringHandler,
         recentDocumentManager: any RecentDocumentManaging,
         documentController: any DocumentControlling
@@ -73,7 +74,8 @@ protocol GodfatherInteractorOutputProtocol: AnyObject {
                  sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
-                 contentPresenter: NSViewController)
+                 contentPresenter: NSViewController,
+                 compare: NSViewController)
 
     func reportError(_ error: any Error)
     func reportErrorCondition(with messageText: String, and informativeText: String)
@@ -118,7 +120,8 @@ protocol GodfatherViewProtocol: AnyObject {
                  sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
-                 contentPresenter: NSViewController)
+                 contentPresenter: NSViewController,
+                 compare: NSViewController)
     
     func reportError(_ error: any Error)
     func reportErrorCondition(with messageText: String, and informativeText: String)

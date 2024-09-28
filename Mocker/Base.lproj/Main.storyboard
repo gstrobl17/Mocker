@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -453,13 +453,22 @@
                                                     <real value="3.4028234663852886e+38"/>
                                                 </customSpacing>
                                             </stackView>
+                                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y9q-cg-7lE">
+                                                <rect key="frame" x="249" y="0.0" width="60" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="zd2-Be-6BY"/>
+                                                </constraints>
+                                            </customView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="IPV-Yd-GRl" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="03B-Iw-Xl4"/>
                                             <constraint firstItem="7iC-HP-Yd0" firstAttribute="top" secondItem="Es3-Dx-XdM" secondAttribute="bottom" constant="8" symbolic="YES" id="FJc-UP-fNd"/>
                                             <constraint firstAttribute="trailing" secondItem="Es3-Dx-XdM" secondAttribute="trailing" id="HUB-6J-dWd"/>
                                             <constraint firstItem="7iC-HP-Yd0" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="IMz-cf-EKV"/>
+                                            <constraint firstItem="y9q-cg-7lE" firstAttribute="top" secondItem="Es3-Dx-XdM" secondAttribute="bottom" constant="8" symbolic="YES" id="PKN-yV-Xpz"/>
+                                            <constraint firstAttribute="trailing" secondItem="y9q-cg-7lE" secondAttribute="trailing" constant="4" id="SG7-3x-fjI"/>
                                             <constraint firstItem="IPV-Yd-GRl" firstAttribute="top" secondItem="1tC-3r-OJT" secondAttribute="bottom" constant="8" id="U2a-4x-avn"/>
+                                            <constraint firstAttribute="bottom" secondItem="y9q-cg-7lE" secondAttribute="bottom" id="XVl-qe-tjW"/>
                                             <constraint firstAttribute="trailing" secondItem="IPV-Yd-GRl" secondAttribute="trailing" id="XnP-y5-T1g"/>
                                             <constraint firstAttribute="trailing" secondItem="1tC-3r-OJT" secondAttribute="trailing" id="eGV-1l-ARS"/>
                                             <constraint firstItem="Es3-Dx-XdM" firstAttribute="leading" secondItem="erS-Cq-Cwx" secondAttribute="leading" constant="8" id="eZ7-Ph-LAY"/>
@@ -487,6 +496,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="compareView" destination="y9q-cg-7lE" id="b0G-DC-OGw"/>
                         <outlet property="contentPresenterView" destination="Es3-Dx-XdM" id="1Nq-PF-5fi"/>
                         <outlet property="copyToClipboardButton" destination="dw4-Bh-iC5" id="oOk-t9-1OQ"/>
                         <outlet property="displayChoiceSegmentedControl" destination="PDT-sp-KUl" id="AXC-5n-7Ra"/>
@@ -945,11 +955,45 @@
             </objects>
             <point key="canvasLocation" x="-425" y="1488"/>
         </scene>
+        <!--Compare View Controller-->
+        <scene sceneID="fTc-DC-Nhy">
+            <objects>
+                <viewController storyboardIdentifier="Compare" id="Ri4-Fn-vb1" customClass="CompareViewController" customModule="Mocker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="OdP-yA-2FZ">
+                        <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="00u-kg-ucR">
+                                <rect key="frame" x="-7" y="-7" width="104" height="32"/>
+                                <buttonCell key="cell" type="push" title="Compare ..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ruk-hs-hiN">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="comparePressed:" target="Ri4-Fn-vb1" id="MNn-Iu-5we"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="00u-kg-ucR" secondAttribute="trailing" id="AhS-bA-LXO"/>
+                            <constraint firstAttribute="bottom" secondItem="00u-kg-ucR" secondAttribute="bottom" id="N4Q-wn-auY"/>
+                            <constraint firstItem="00u-kg-ucR" firstAttribute="leading" secondItem="OdP-yA-2FZ" secondAttribute="leading" id="NB1-tG-7Ld"/>
+                            <constraint firstItem="00u-kg-ucR" firstAttribute="top" secondItem="OdP-yA-2FZ" secondAttribute="top" id="UoW-hC-l53"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="compareButton" destination="00u-kg-ucR" id="Qw0-7w-6f2"/>
+                    </connections>
+                </viewController>
+                <customObject id="sxC-SP-gHr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-607" y="1697"/>
+        </scene>
         <!--Copied To Pasteboard View Controller-->
         <scene sceneID="SYC-Bq-urW">
             <objects>
                 <viewController storyboardIdentifier="CopiedToPasteboard" id="dLf-fe-UNX" customClass="CopiedToPasteboardViewController" customModule="Mocker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="V4C-mZ-JH4">
+                    <view key="view" id="V4C-mZ-JH4">
                         <rect key="frame" x="0.0" y="0.0" width="164" height="22"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>

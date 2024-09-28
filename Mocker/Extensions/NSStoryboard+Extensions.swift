@@ -22,4 +22,5 @@ extension NSStoryboard.SceneIdentifier {
     static let destinationGroupSelector = "DestinationGroupSelector"
     static let fileSynthesis = "FileSynthesis"
     static let filter = "Filter"
+    static let compare = "Compare"
 }

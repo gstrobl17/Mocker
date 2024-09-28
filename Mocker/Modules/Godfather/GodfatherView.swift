@@ -61,13 +61,16 @@ extension GodfatherView: GodfatherViewProtocol {
                  sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
-                 contentPresenter: NSViewController) {
+                 contentPresenter: NSViewController,
+                 compare: NSViewController
+    ) {
         guard viewController.projectFileSelectorView != nil &&
-            viewController.sourceFileSelectorView != nil &&
-            viewController.sourceFileFilterView != nil &&
-            viewController.protocolSelectorView != nil &&
-            viewController.mockFileParametersView != nil &&
-            viewController.contentPresenterView != nil else { return }   // Added for unit testing
+                viewController.sourceFileSelectorView != nil &&
+                viewController.sourceFileFilterView != nil &&
+                viewController.protocolSelectorView != nil &&
+                viewController.mockFileParametersView != nil &&
+                viewController.contentPresenterView != nil &&
+                viewController.compareView != nil else { return }   // Added for unit testing
         
         attach(projectFileSelector, to: viewController.projectFileSelectorView)
         attach(sourceFileSelector, to: viewController.sourceFileSelectorView)
@@ -75,6 +78,7 @@ extension GodfatherView: GodfatherViewProtocol {
         attach(protocolSelector, to: viewController.protocolSelectorView)
         attach(mockFileParameters, to: viewController.mockFileParametersView)
         attach(contentPresenter, to: viewController.contentPresenterView)
+        attach(compare, to: viewController.compareView)
     }
     
     private func attach(_ childViewController: NSViewController, to containerView: NSView) {

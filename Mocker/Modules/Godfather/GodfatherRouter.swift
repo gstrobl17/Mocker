@@ -26,6 +26,7 @@ class GodfatherRouter: GodfatherWireframeProtocol {
         protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
         mockFileParametersRouterType: any MockFileParametersWireframeProtocol.Type,
         contentPresenterRouterType: any ContentPresenterWireframeProtocol.Type,
+        compareRouterType: any CompareWireframeProtocol.Type,
         filteringHandler: any AsyncFilteringHandler,
         recentDocumentManager: any RecentDocumentManaging,
         documentController: any DocumentControlling
@@ -44,6 +45,7 @@ class GodfatherRouter: GodfatherWireframeProtocol {
             protocolSelectorRouterType: protocolSelectorRouterType,
             mockFileParametersRouterType: mockFileParametersRouterType,
             contentPresenterRouterType: contentPresenterRouterType,
+            compareRouterType: compareRouterType,
             filteringHandler: filteringHandler,
             recentDocumentManager: recentDocumentManager,
             documentController: documentController

@@ -26,7 +26,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var contentPresenterView: NSView!    //swiftlint:disable:this private_outlet
     @IBOutlet weak var copyToClipboardButton: NSButton! //swiftlint:disable:this private_outlet
     @IBOutlet weak var displayChoiceSegmentedControl: NSSegmentedControl! //swiftlint:disable:this private_outlet
-
+    @IBOutlet weak var compareView: NSView!             //swiftlint:disable:this private_outlet
+    
     private var windowSetup = false
     private var userDefaults = UserDefaults.standard
     var godfatherView: (any GodfatherViewProtocol & GodfatherInterfaceProtocol)!
@@ -49,6 +50,7 @@ class ViewController: NSViewController {
             protocolSelectorRouterType: ProtocolSelectorRouter.self,
             mockFileParametersRouterType: MockFileParametersRouter.self,
             contentPresenterRouterType: ContentPresenterRouter.self,
+            compareRouterType: CompareRouter.self,
             filteringHandler: ProjectFilteringHandler(),
             recentDocumentManager: RecentDocumentManager(userDefaults: userDefaults),
             documentController: MockerDocumentController.shared

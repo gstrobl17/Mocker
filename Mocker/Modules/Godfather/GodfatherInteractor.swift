@@ -19,7 +19,8 @@ class GodfatherInteractor {
                                sourceFileFilter: sourceFileFilterModule.view,
                                protocolSelector: protocolSelector,
                                mockFileParameters: mockFileParameters,
-                               contentPresenter: contentPresenter)
+                               contentPresenter: contentPresenter,
+                               compare: compare)
             evaluateIfDisplayChoiceIsAvailable()
         }
     }
@@ -35,6 +36,7 @@ class GodfatherInteractor {
     let protocolSelector: any NSViewController & ProtocolSelectorInterfaceProtocol
     let mockFileParameters: any NSViewController & MockFileParametersInterfaceProtocol
     let contentPresenter: any NSViewController & ContentPresenterInterfaceProtocol
+    let compare: any NSViewController & CompareInterfaceProtocol
     let filteringHandler: any AsyncFilteringHandler
     let recentDocumentManager: any RecentDocumentManaging
     let documentController: any DocumentControlling
@@ -76,6 +78,7 @@ class GodfatherInteractor {
         protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
         mockFileParametersRouterType: any MockFileParametersWireframeProtocol.Type,
         contentPresenterRouterType: any ContentPresenterWireframeProtocol.Type,
+        compareRouterType: any CompareWireframeProtocol.Type,
         filteringHandler: any AsyncFilteringHandler,
         recentDocumentManager: any RecentDocumentManaging,
         documentController: any DocumentControlling,
@@ -86,12 +89,13 @@ class GodfatherInteractor {
         self.fileManager = fileManager
         self.dataSourceFactory = dataSourceFactory
         self.mockGeneratorFactory = mockGeneratorFactory
-        projectFileSelector = projectFileSelectorRouterType.createModule(openPanelFactory: openPanelFactory)
+        projectFileSelector = projectFileSelectorRouterType.createModule(openPanelFactory: openPanelFactory, userDefaults: userDefaults)
         sourceFileSelector = sourceFileSelectorRouterType.createModule()
         sourceFileFilterModule = sourceFileFilterRouterType.createModule(userDefaults: userDefaults)
         protocolSelector = protocolSelectorRouterType.createModule()
         mockFileParameters = mockFileParametersRouterType.createModule(userDefaults: userDefaults)
         contentPresenter = contentPresenterRouterType.createModule()
+        compare = compareRouterType.createModule(openPanelFactory: openPanelFactory, userDefaults: userDefaults)
         self.filteringHandler = filteringHandler
         self.recentDocumentManager = recentDocumentManager
         self.documentController = documentController
@@ -102,6 +106,7 @@ class GodfatherInteractor {
         sourceFileFilterModule.interface.delegate = self
         protocolSelector.delegate = self
         mockFileParameters.delegate = self
+        compare.delegate = self
     }
     
     private func openProjectFile(_ url: URL) {
@@ -163,6 +168,7 @@ class GodfatherInteractor {
         }
 
         presenter?.canChooseDisplay(canChooseDisplay)
+        compare.enableCompare(canChooseDisplay)
     }
 }
 
@@ -294,6 +300,14 @@ extension GodfatherInteractor: FilterInterfaceDelegate {
     
     func filter(_ filterInterface: any FilterInterfaceProtocol, newValue: String) {
         renderFilteredSourceFileTree()
+    }
+    
+}
+
+extension GodfatherInteractor: CompareInterfaceDelegate {
+    
+    func mockCodeForCompare(_ view: any NSViewController & CompareInterfaceProtocol) -> String {
+        mockCode
     }
     
 }

@@ -9,6 +9,8 @@ import Foundation
 
 enum UserDefaultsKey {
     static let projectFilePath = "Project File Path"
+    static let lastDirectoryOfSelectedProject = "Last Directory of Selected Project"
+    static let lastDirectoryOfSelectedFileToCompare = "Last Directory of File To Compare"
     static let leftPaneWidth = "Left Pane Width"
     static let mockPrefix = "Mock Prefix"
     static let includeHeader = "Include Header"
@@ -43,6 +45,30 @@ extension KeyValueStoring {
         }
         set {
             set(newValue, forKey: UserDefaultsKey.projectFilePath)
+        }
+    }
+    
+    var lastDirectoryOfSelectedProject: URL? {
+        get {
+            guard let path = object(forKey: UserDefaultsKey.lastDirectoryOfSelectedProject) as? NSString else { return nil }
+            let expandedPath = path.expandingTildeInPath
+            let url = URL(fileURLWithPath: expandedPath, isDirectory: true)
+            return url
+        }
+        set {
+            set(newValue, forKey: UserDefaultsKey.lastDirectoryOfSelectedProject)
+        }
+    }
+
+    var lastDirectoryOfSelectedFileToCompare: URL? {
+        get {
+            guard let path = object(forKey: UserDefaultsKey.lastDirectoryOfSelectedFileToCompare) as? NSString else { return nil }
+            let expandedPath = path.expandingTildeInPath
+            let url = URL(fileURLWithPath: expandedPath, isDirectory: true)
+            return url
+        }
+        set {
+            set(newValue, forKey: UserDefaultsKey.lastDirectoryOfSelectedFileToCompare)
         }
     }
     

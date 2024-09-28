@@ -68,13 +68,15 @@ extension GodfatherPresenter: GodfatherInteractorOutputProtocol {
                  sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
-                 contentPresenter: NSViewController) {
+                 contentPresenter: NSViewController,
+                 compare: NSViewController) {
         view?.install(projectFileSelector: projectFileSelector,
                       sourceFileSelector: sourceFileSelector,
                       sourceFileFilter: sourceFileFilter,
                       protocolSelector: protocolSelector,
                       mockFileParameters: mockFileParameters,
-                      contentPresenter: contentPresenter)
+                      contentPresenter: contentPresenter,
+                      compare: compare)
     }
 
     func reportError(_ error: any Error) {

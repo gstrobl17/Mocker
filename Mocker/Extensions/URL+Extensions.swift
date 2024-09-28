@@ -13,6 +13,10 @@ extension URL {
     var isXcodeProjectFile: Bool {
         pathExtension == "xcodeproj"
     }
+    
+    var isSwiftFile: Bool {
+        pathExtension == SwiftPackageConstant.File.swiftFileExtension
+    }
 
     var isSwiftPackageManifestFile: Bool {
         lastPathComponent == SwiftPackageConstant.File.manifestFileName

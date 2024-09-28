@@ -29,7 +29,7 @@ protocol ProjectFileSelectorWireframeProtocol: AnyObject {
 
     var viewController: (any NSViewController & ProjectFileSelectorInterfaceProtocol)? { get }
     
-    static func createModule(openPanelFactory: any OpenPanelFactory) -> (any NSViewController & ProjectFileSelectorInterfaceProtocol)
+    static func createModule(openPanelFactory: any OpenPanelFactory, userDefaults: any KeyValueStoring) -> (any NSViewController & ProjectFileSelectorInterfaceProtocol)
 }
 
 // MARK: Presenter -

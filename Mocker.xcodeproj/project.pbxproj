@@ -25,6 +25,7 @@
 		643D97E12A617A950001450E /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97E02A617A950001450E /* SwiftSyntax */; };
 		643D97E32A617A950001450E /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97E22A617A950001450E /* SwiftSyntaxBuilder */; };
 		6464F9C423D515EB00B03205 /* SourceKittenFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 6464F9C323D515EB00B03205 /* SourceKittenFramework */; };
+		646A25682CA8ADA800F2A708 /* TemporaryFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25672CA8ADA200F2A708 /* TemporaryFileHandler.swift */; };
 		647C068E2172036900778040 /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C06892172036900778040 /* FilterInteractor.swift */; };
 		647C068F2172036900778040 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C068A2172036900778040 /* FilterPresenter.swift */; };
 		647C06902172036900778040 /* FilterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C068B2172036900778040 /* FilterProtocols.swift */; };
@@ -72,6 +73,14 @@
 		6488BA472B628A3E004A1812 /* firstDifferenceBetweenStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA462B628A3E004A1812 /* firstDifferenceBetweenStrings.swift */; };
 		6488BA492B628C01004A1812 /* StringProtocol+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA482B628C01004A1812 /* StringProtocol+Extensions.swift */; };
 		6488BA4B2B62978A004A1812 /* XCTTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA4A2B62978A004A1812 /* XCTTest+Extensions.swift */; };
+		6491FE782CA73479008F7F78 /* ComparePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE742CA73479008F7F78 /* ComparePresenter.swift */; };
+		6491FE792CA73479008F7F78 /* CompareProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE752CA73479008F7F78 /* CompareProtocols.swift */; };
+		6491FE7A2CA73479008F7F78 /* CompareInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE732CA73479008F7F78 /* CompareInteractor.swift */; };
+		6491FE7B2CA73479008F7F78 /* CompareRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE762CA73479008F7F78 /* CompareRouter.swift */; };
+		6491FE7C2CA73479008F7F78 /* CompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE772CA73479008F7F78 /* CompareViewController.swift */; };
+		6491FE7E2CA7656E008F7F78 /* TemporaryFileHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE7D2CA7655E008F7F78 /* TemporaryFileHandling.swift */; };
+		6491FE802CA76591008F7F78 /* ComparisonToolInvoking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE7F2CA76581008F7F78 /* ComparisonToolInvoking.swift */; };
+		6491FE822CA7A242008F7F78 /* BeyondCompareComparisonToolInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE812CA7A235008F7F78 /* BeyondCompareComparisonToolInvoker.swift */; };
 		64A3567E205449CE009CD966 /* SwiftSyntaxHighligher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A3567D205449CE009CD966 /* SwiftSyntaxHighligher.swift */; };
 		64BB97132BF28FC9007250D1 /* SourceFileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97122BF28FC9007250D1 /* SourceFileDataSource.swift */; };
 		64BB97152BF290C7007250D1 /* SourceFileDataSourceCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BB97142BF290C7007250D1 /* SourceFileDataSourceCreating.swift */; };
@@ -256,6 +265,7 @@
 		6427BA022033954800BCA2E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6429FF442A01388800E7E5B5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6429FF452A01388800E7E5B5 /* UNLICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = UNLICENSE.txt; sourceTree = "<group>"; };
+		646A25672CA8ADA200F2A708 /* TemporaryFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFileHandler.swift; sourceTree = "<group>"; };
 		647C06892172036900778040 /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
 		647C068A2172036900778040 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		647C068B2172036900778040 /* FilterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterProtocols.swift; sourceTree = "<group>"; };
@@ -304,6 +314,14 @@
 		6488BA482B628C01004A1812 /* StringProtocol+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extensions.swift"; sourceTree = "<group>"; };
 		6488BA4A2B62978A004A1812 /* XCTTest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTTest+Extensions.swift"; sourceTree = "<group>"; };
 		648B51CE205432C300DB01E0 /* butterfly-clip-art-butterfly-clipart-printable.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "butterfly-clip-art-butterfly-clipart-printable.svg"; sourceTree = "<group>"; };
+		6491FE732CA73479008F7F78 /* CompareInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareInteractor.swift; sourceTree = "<group>"; };
+		6491FE742CA73479008F7F78 /* ComparePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparePresenter.swift; sourceTree = "<group>"; };
+		6491FE752CA73479008F7F78 /* CompareProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareProtocols.swift; sourceTree = "<group>"; };
+		6491FE762CA73479008F7F78 /* CompareRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareRouter.swift; sourceTree = "<group>"; };
+		6491FE772CA73479008F7F78 /* CompareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewController.swift; sourceTree = "<group>"; };
+		6491FE7D2CA7655E008F7F78 /* TemporaryFileHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFileHandling.swift; sourceTree = "<group>"; };
+		6491FE7F2CA76581008F7F78 /* ComparisonToolInvoking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonToolInvoking.swift; sourceTree = "<group>"; };
+		6491FE812CA7A235008F7F78 /* BeyondCompareComparisonToolInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeyondCompareComparisonToolInvoker.swift; sourceTree = "<group>"; };
 		64A3567D205449CE009CD966 /* SwiftSyntaxHighligher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSyntaxHighligher.swift; sourceTree = "<group>"; };
 		64BB97122BF28FC9007250D1 /* SourceFileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileDataSource.swift; sourceTree = "<group>"; };
 		64BB97142BF290C7007250D1 /* SourceFileDataSourceCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileDataSourceCreating.swift; sourceTree = "<group>"; };
@@ -605,6 +623,18 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		6491FE682CA732D7008F7F78 /* Compare */ = {
+			isa = PBXGroup;
+			children = (
+				6491FE732CA73479008F7F78 /* CompareInteractor.swift */,
+				6491FE742CA73479008F7F78 /* ComparePresenter.swift */,
+				6491FE752CA73479008F7F78 /* CompareProtocols.swift */,
+				6491FE762CA73479008F7F78 /* CompareRouter.swift */,
+				6491FE772CA73479008F7F78 /* CompareViewController.swift */,
+			);
+			path = Compare;
+			sourceTree = "<group>";
+		};
 		64BB97242BF64644007250D1 /* Syntax Visitors */ = {
 			isa = PBXGroup;
 			children = (
@@ -626,6 +656,7 @@
 				64C608E820434494005D6869 /* Mock File Parameters */,
 				64C608242041D0DD005D6869 /* Content Presenter */,
 				647C06882172014F00778040 /* Filter */,
+				6491FE682CA732D7008F7F78 /* Compare */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -736,6 +767,7 @@
 			children = (
 				647C06A8217264A600778040 /* AsyncFilteringHandler.swift */,
 				647C069B21725E0200778040 /* CancelMonitoring.swift */,
+				6491FE7F2CA76581008F7F78 /* ComparisonToolInvoking.swift */,
 				6488BA312B6178F5004A1812 /* DateCreating.swift */,
 				648691F22B6D4EA90021A9F1 /* DocumentControlling.swift */,
 				64C608CA2042F22A005D6869 /* FileManaging.swift */,
@@ -751,6 +783,7 @@
 				64C607D0203F7C0A005D6869 /* SavePanel.swift */,
 				64BB97122BF28FC9007250D1 /* SourceFileDataSource.swift */,
 				64BB97142BF290C7007250D1 /* SourceFileDataSourceCreating.swift */,
+				6491FE7D2CA7655E008F7F78 /* TemporaryFileHandling.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -829,6 +862,7 @@
 				64C6091320457991005D6869 /* ASTMockGenerator.swift */,
 				C2AEE706286499590018FB2B /* ASTMockGenerator+CodeGeneration.swift */,
 				64C6091120457982005D6869 /* ASTMockGeneratorFactory.swift */,
+				6491FE812CA7A235008F7F78 /* BeyondCompareComparisonToolInvoker.swift */,
 				6488BA332B61793A004A1812 /* DateFactory.swift */,
 				6488BA372B6179F6004A1812 /* FullNameProvider.swift */,
 				6418CFA421413431008DD695 /* NameTracker.swift */,
@@ -841,6 +875,7 @@
 				64BB97272BF64C8C007250D1 /* SwiftPackageConstant.swift */,
 				64BB97202BF512F9007250D1 /* SwiftPackageDataSource.swift */,
 				64BB97242BF64644007250D1 /* Syntax Visitors */,
+				646A25672CA8ADA200F2A708 /* TemporaryFileHandler.swift */,
 				64F92FE8203A4B9B00AAB355 /* TreeNode.swift */,
 				64BB97182BF29299007250D1 /* XCProjectDataSource.swift */,
 				64C6080C204032E4005D6869 /* XCProjectFactory.swift */,
@@ -1145,6 +1180,7 @@
 				647C069C21725E0200778040 /* CancelMonitoring.swift in Sources */,
 				C2273B542211A99400582263 /* SwiftlintSupport.swift in Sources */,
 				648691FB2B6DF3E90021A9F1 /* MockerDocumentController.swift in Sources */,
+				6491FE7E2CA7656E008F7F78 /* TemporaryFileHandling.swift in Sources */,
 				64A3567E205449CE009CD966 /* SwiftSyntaxHighligher.swift in Sources */,
 				64C6079E203EC830005D6869 /* SourceFileSelectorProtocols.swift in Sources */,
 				64BB971F2BF4E4BB007250D1 /* URL+Extensions.swift in Sources */,
@@ -1154,6 +1190,11 @@
 				648691F92B6D582D0021A9F1 /* RecentDocumentManager.swift in Sources */,
 				64C608362042B7C1005D6869 /* XcodeGroupMember+Extensions.swift in Sources */,
 				64C607DA203F805D005D6869 /* NSStoryboard+Extensions.swift in Sources */,
+				6491FE782CA73479008F7F78 /* ComparePresenter.swift in Sources */,
+				6491FE792CA73479008F7F78 /* CompareProtocols.swift in Sources */,
+				6491FE7A2CA73479008F7F78 /* CompareInteractor.swift in Sources */,
+				6491FE7B2CA73479008F7F78 /* CompareRouter.swift in Sources */,
+				6491FE7C2CA73479008F7F78 /* CompareViewController.swift in Sources */,
 				64C6080920403174005D6869 /* Project.swift in Sources */,
 				64BB97232BF6252C007250D1 /* SwiftPackageManifestInformation.swift in Sources */,
 				C2635F87286332B800F87C71 /* FunctionSignatureSyntax+Extensions.swift in Sources */,
@@ -1205,11 +1246,13 @@
 				64C608F0204344D6005D6869 /* MockFileParametersPresenter.swift in Sources */,
 				647C06A9217264A600778040 /* AsyncFilteringHandler.swift in Sources */,
 				C2635F8328623B2000F87C71 /* DeclModifierListSyntax+Extensions.swift in Sources */,
+				6491FE822CA7A242008F7F78 /* BeyondCompareComparisonToolInvoker.swift in Sources */,
 				64C60788203EC7BD005D6869 /* GodfatherView.swift in Sources */,
 				641465C32BEFD8D2008CEBEA /* Pasteboard.swift in Sources */,
 				647C06A021725FCB00778040 /* NeverCancelledMonitor.swift in Sources */,
 				64C60790203EC807005D6869 /* ProjectFileSelectorInteractor.swift in Sources */,
 				64C608C32042EACD005D6869 /* KeyValueStoring.swift in Sources */,
+				646A25682CA8ADA800F2A708 /* TemporaryFileHandler.swift in Sources */,
 				64BB97262BF646CE007250D1 /* PackageInitializerInformation.swift in Sources */,
 				64C608F3204344D6005D6869 /* MockFileParametersViewController.swift in Sources */,
 				64C60793203EC807005D6869 /* ProjectFileSelectorRouter.swift in Sources */,
@@ -1226,6 +1269,7 @@
 				64C607A0203EC830005D6869 /* SourceFileSelectorViewController.swift in Sources */,
 				64BB97172BF291E8007250D1 /* SourceFileDataSourceFactory.swift in Sources */,
 				64C608EF204344D6005D6869 /* MockFileParametersInteractor.swift in Sources */,
+				6491FE802CA76591008F7F78 /* ComparisonToolInvoking.swift in Sources */,
 				647C06A7217261C200778040 /* FilteringOperation.swift in Sources */,
 				64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */,
 				64C6091220457982005D6869 /* ASTMockGeneratorFactory.swift in Sources */,
