@@ -27,10 +27,12 @@ struct DateFactoryTests {
         let factory = DateFactory()
         let timeInterval = TimeInterval(123456)
         let expectedDate = Date(timeIntervalSinceNow: timeInterval)
-        
+        let expectedDatePlusSome = Date(timeIntervalSinceNow: timeInterval + 100)
+
         let date = factory.date(timeIntervalSinceNow: timeInterval)
         
-        #expect(date == expectedDate)
+        #expect(date >= expectedDate)
+        #expect(date <= expectedDatePlusSome)
     }
 
 }

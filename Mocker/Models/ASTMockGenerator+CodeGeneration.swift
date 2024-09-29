@@ -75,6 +75,9 @@ extension ASTMockGenerator {
 
     func startClass(for parameters: MockGeneratorParameters) {
         contentGenerated = true
+        if parameters.protocolDeclaration.hasMainActorAnnotation {
+            code += "@MainActor\n"
+        }
         code += "\(publicAccessQualifier)class \(parameters.mockName): \(parameters.protocolDeclaration.name.text) {\n"
     }
 
@@ -717,8 +720,10 @@ extension ASTMockGenerator {
     func generateCustomReflectationExtension(for parameters: MockGeneratorParameters) {
         guard calledAttributeTracker.nonStaticNameCount > 0 || calledAttributeTracker.staticNameCount > 0 || parameterTracker.nonStaticNameCount > 0 || parameterTracker.staticNameCount > 0 else { return }
         
+        let possiblePreconcurrencyAnnotation = parameters.protocolDeclaration.hasMainActorAnnotation ? "@preconcurrency " : ""
+        
         code += "\n"
-        code += "extension \(parameters.mockName): CustomReflectable {\n"
+        code += "extension \(parameters.mockName): \(possiblePreconcurrencyAnnotation)CustomReflectable {\n"
         code += "\(indentation)\(publicAccessQualifier)var customMirror: Mirror {\n"
         code += "\(indentation)\(indentation)Mirror(self,\n"
         code += "\(indentation)\(indentation)       children: [\n"

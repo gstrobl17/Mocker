@@ -165,7 +165,7 @@ extension MockGodfatherPresenter: @preconcurrency CustomReflectable {
         Mirror(self,
                children: [
                 "calledMethods": calledMethods,
-                "assignedParameters": assignedParameters,
+                "assignedParameters": assignedParameters
                ],
                displayStyle: .none
         )

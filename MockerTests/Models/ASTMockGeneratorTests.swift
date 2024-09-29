@@ -76,11 +76,14 @@ final class ASTMockGeneratorTests: XCTestCase {
     
     private func generateExpectedCustomReflectableString(
         isPublic: Bool,
+        protocolHasMainActorAnnotation: Bool,
         childrenPairs: [(key: String, Value: String)]
     ) -> String {
         let publicSpecifier = isPublic ? "public " : ""
+        let possiblePreconcurrencyAnnotation = protocolHasMainActorAnnotation ? "@preconcurrency " : ""
+        
         var string = """
-            extension MockTest: CustomReflectable {
+            extension MockTest: \(possiblePreconcurrencyAnnotation)CustomReflectable {
                 \(publicSpecifier)var customMirror: Mirror {
                     Mirror(self,
                            children: [
@@ -107,6 +110,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedCustomReflectableWithCalledMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledMethods", "calledMethods")]
         )
     }
@@ -115,6 +119,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedPublicCustomReflectableWithCalledMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledMethods", "calledMethods")]
         )
     }
@@ -123,6 +128,16 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedCustomReflectableWithCalledMethodsAndAssignedParameters: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
+            protocolHasMainActorAnnotation: false,
+            childrenPairs: [("calledMethods", "calledMethods"), ("assignedParameters", "assignedParameters")]
+        )
+    }
+
+    // \(expectedCustomReflectableWithCalledMethodsAndAssignedParametersForMainActorProtocol)
+    var expectedCustomReflectableWithCalledMethodsAndAssignedParametersForMainActorProtocol: String {
+        generateExpectedCustomReflectableString(
+            isPublic: false,
+            protocolHasMainActorAnnotation: true,
             childrenPairs: [("calledMethods", "calledMethods"), ("assignedParameters", "assignedParameters")]
         )
     }
@@ -131,6 +146,16 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedPublicCustomReflectableWithCalledMethodsAndAssignedParameters: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
+            protocolHasMainActorAnnotation: false,
+            childrenPairs: [("calledMethods", "calledMethods"), ("assignedParameters", "assignedParameters")]
+        )
+    }
+
+    // \(expectedPublicCustomReflectableWithCalledMethodsAndAssignedParametersForMainActorProtocol)
+    var expectedPublicCustomReflectableWithCalledMethodsAndAssignedParametersForMainActorProtocol: String {
+        generateExpectedCustomReflectableString(
+            isPublic: true,
+            protocolHasMainActorAnnotation: true,
             childrenPairs: [("calledMethods", "calledMethods"), ("assignedParameters", "assignedParameters")]
         )
     }
@@ -139,6 +164,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedCustomReflectableWithCalledStaticMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods")]
         )
     }
@@ -147,6 +173,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedPublicCustomReflectableWithCalledStaticMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods")]
         )
     }
@@ -155,6 +182,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods"),
                             ("assignedStaticParameters", "MockTest.assignedStaticParameters")]
         )
@@ -164,6 +192,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedPublicCustomReflectableWithCalledStaticMethodsAndAssignedStaticParameters: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledStaticMethods", "MockTest.calledStaticMethods"),
                             ("assignedStaticParameters", "MockTest.assignedStaticParameters")]
         )
@@ -173,6 +202,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedCustomReflectableWithCalledMethodsAndCalledStaticMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledMethods", "calledMethods"), ("calledStaticMethods", "MockTest.calledStaticMethods")]
         )
     }
@@ -181,6 +211,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedPublicCustomReflectableWithCalledMethodsAndCalledStaticMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledMethods", "calledMethods"), ("calledStaticMethods", "MockTest.calledStaticMethods")]
         )
     }
@@ -189,7 +220,8 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedCustomReflectableWithAllMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: false,
-            childrenPairs: [("calledMethods", "calledMethods"), 
+            protocolHasMainActorAnnotation: false,
+            childrenPairs: [("calledMethods", "calledMethods"),
                             ("calledStaticMethods", "MockTest.calledStaticMethods"),
                             ("assignedParameters", "assignedParameters"),
                             ("assignedStaticParameters", "MockTest.assignedStaticParameters")
@@ -201,6 +233,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     var expectedPublicCustomReflectableWithAllMethods: String {
         generateExpectedCustomReflectableString(
             isPublic: true,
+            protocolHasMainActorAnnotation: false,
             childrenPairs: [("calledMethods", "calledMethods"),
                             ("calledStaticMethods", "MockTest.calledStaticMethods"),
                             ("assignedParameters", "assignedParameters"),

@@ -24,7 +24,6 @@ class MockComparePresenter: ComparePresenterProtocol {
     }
     private(set) var calledMethods = Method()
 
-
     func reset() {
         calledMethods = []
     }
@@ -63,7 +62,7 @@ extension MockComparePresenter: @preconcurrency CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [
-                "calledMethods": calledMethods,
+                "calledMethods": calledMethods
                ],
                displayStyle: .none
         )

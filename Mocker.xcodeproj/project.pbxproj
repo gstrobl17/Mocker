@@ -46,6 +46,8 @@
 		646A258E2CA973DE00F2A708 /* DateFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A258D2CA973DE00F2A708 /* DateFactoryTests.swift */; };
 		646A25902CA9760700F2A708 /* BeyondCompareComparisonToolInvokerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A258F2CA9760700F2A708 /* BeyondCompareComparisonToolInvokerTests.swift */; };
 		646A25922CA9768F00F2A708 /* MockComparisonToolInvokerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25912CA9768E00F2A708 /* MockComparisonToolInvokerDelegate.swift */; };
+		646A25942CA9801100F2A708 /* ProtocolDeclSyntax+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25932CA9800A00F2A708 /* ProtocolDeclSyntax+Extensions.swift */; };
+		646A25962CA9854B00F2A708 /* ASTMockGeneratorTests+Misc+ProjectFileSelectorInteractorInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25952CA9854B00F2A708 /* ASTMockGeneratorTests+Misc+ProjectFileSelectorInteractorInputProtocol.swift */; };
 		647C068E2172036900778040 /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C06892172036900778040 /* FilterInteractor.swift */; };
 		647C068F2172036900778040 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C068A2172036900778040 /* FilterPresenter.swift */; };
 		647C06902172036900778040 /* FilterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C068B2172036900778040 /* FilterProtocols.swift */; };
@@ -306,6 +308,8 @@
 		646A258D2CA973DE00F2A708 /* DateFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactoryTests.swift; sourceTree = "<group>"; };
 		646A258F2CA9760700F2A708 /* BeyondCompareComparisonToolInvokerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeyondCompareComparisonToolInvokerTests.swift; sourceTree = "<group>"; };
 		646A25912CA9768E00F2A708 /* MockComparisonToolInvokerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockComparisonToolInvokerDelegate.swift; sourceTree = "<group>"; };
+		646A25932CA9800A00F2A708 /* ProtocolDeclSyntax+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProtocolDeclSyntax+Extensions.swift"; sourceTree = "<group>"; };
+		646A25952CA9854B00F2A708 /* ASTMockGeneratorTests+Misc+ProjectFileSelectorInteractorInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTMockGeneratorTests+Misc+ProjectFileSelectorInteractorInputProtocol.swift"; sourceTree = "<group>"; };
 		647C06892172036900778040 /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
 		647C068A2172036900778040 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		647C068B2172036900778040 /* FilterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterProtocols.swift; sourceTree = "<group>"; };
@@ -538,6 +542,7 @@
 				648691B02B636E680021A9F1 /* ASTMockGeneratorTests+Misc+JSONDecoding.swift */,
 				648691B22B636FB90021A9F1 /* ASTMockGeneratorTests+Misc+KeyValueStoring.swift */,
 				648691AA2B62FE1E0021A9F1 /* ASTMockGeneratorTests+Misc+NotificationCenterProtocol.swift */,
+				646A25952CA9854B00F2A708 /* ASTMockGeneratorTests+Misc+ProjectFileSelectorInteractorInputProtocol.swift */,
 				648691AC2B6300170021A9F1 /* ASTMockGeneratorTests+Misc+SearchableIndex.swift */,
 				648691AE2B63015C0021A9F1 /* ASTMockGeneratorTests+Misc+WarmUpManager.swift */,
 				6488BA3F2B625E88004A1812 /* ASTMockGeneratorTests+SingleFunctionProtocol.swift */,
@@ -1072,6 +1077,7 @@
 				C2635F8A2863333400F87C71 /* FunctionParameterSyntax+Extensions.swift */,
 				C2635F86286332B800F87C71 /* FunctionSignatureSyntax+Extensions.swift */,
 				64BB97292BF748D2007250D1 /* LabeledExprListSyntax+Extensions.swift */,
+				646A25932CA9800A00F2A708 /* ProtocolDeclSyntax+Extensions.swift */,
 				C2AEE70A28649F940018FB2B /* TupleTypeSyntax+Extensions.swift */,
 				C2635F8E28637AA000F87C71 /* TypeSyntax+Extensions.swift */,
 				C2635F8028621EE100F87C71 /* VariableDeclSyntax+Extensions.swift */,
@@ -1337,6 +1343,7 @@
 				64C607BB203EC92C005D6869 /* ContentPresenterViewController.swift in Sources */,
 				64C608C72042EB3E005D6869 /* KeyValueStoring+Extensions.swift in Sources */,
 				C2635F8B2863333400F87C71 /* FunctionParameterSyntax+Extensions.swift in Sources */,
+				646A25942CA9801100F2A708 /* ProtocolDeclSyntax+Extensions.swift in Sources */,
 				64C607AB203EC906005D6869 /* ProtocolSelectorInteractor.swift in Sources */,
 				64C607AF203EC906005D6869 /* ProtocolSelectorViewController.swift in Sources */,
 				647C06AB2172653F00778040 /* ProjectFilteringHandler.swift in Sources */,
@@ -1473,6 +1480,7 @@
 				646A258C2CA9729300F2A708 /* AppKitOpenPanelFactoryTests.swift in Sources */,
 				6488BA492B628C01004A1812 /* StringProtocol+Extensions.swift in Sources */,
 				BFB040E78E3FB0167EE3CF61 /* MockFilterView.swift in Sources */,
+				646A25962CA9854B00F2A708 /* ASTMockGeneratorTests+Misc+ProjectFileSelectorInteractorInputProtocol.swift in Sources */,
 				648692012B6E62090021A9F1 /* MockRecentDocumentManaging.swift in Sources */,
 				C57EAAB91E76DEA5DB8317F5 /* MockAsyncFilteringHandler.swift in Sources */,
 			);

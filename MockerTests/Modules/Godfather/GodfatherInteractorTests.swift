@@ -136,7 +136,7 @@ struct GodfatherInteractorTests {
 
         verifyStroblMocksUnused(except: [.presenter])
         #expect(presenter.calledMethods == [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCompareCalled, .canChooseDisplayFlagCalled])
-        #expect(presenter.assignedParameters == [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter, .compare,  .flag])
+        #expect(presenter.assignedParameters == [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter, .compare, .flag])
     }
     
     // MARK: - evaluateIfDisplayChoiceIsAvailable()
