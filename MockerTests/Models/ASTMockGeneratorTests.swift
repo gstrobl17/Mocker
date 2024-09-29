@@ -89,9 +89,10 @@ final class ASTMockGeneratorTests: XCTestCase {
                            children: [
             
             """
-        for pair in childrenPairs {
+        for (index, pair) in childrenPairs.enumerated() {
+            let possibleTrailingComma = index == childrenPairs.count - 1 ? "" : ","
             string += """
-                            "\(pair.key)": \(pair.Value),
+                            "\(pair.key)": \(pair.Value)\(possibleTrailingComma)
             
             """
         }

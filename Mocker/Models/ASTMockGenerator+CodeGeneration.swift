@@ -727,17 +727,34 @@ extension ASTMockGenerator {
         code += "\(indentation)\(publicAccessQualifier)var customMirror: Mirror {\n"
         code += "\(indentation)\(indentation)Mirror(self,\n"
         code += "\(indentation)\(indentation)       children: [\n"
+        
         if calledAttributeTracker.nonStaticNameCount > 0 {
-            code += "\(indentation)\(indentation)        \"calledMethods\": calledMethods,\n"
+            var possibleTrailingComma = ""
+            if calledAttributeTracker.staticNameCount > 0 || parameterTracker.nonStaticNameCount > 0 || parameterTracker.staticNameCount > 0 {
+                possibleTrailingComma = ","
+            }
+            code += "\(indentation)\(indentation)        \"calledMethods\": calledMethods\(possibleTrailingComma)\n"
         }
+        
         if calledAttributeTracker.staticNameCount > 0 {
-            code += "\(indentation)\(indentation)        \"calledStaticMethods\": \(parameters.mockName).calledStaticMethods,\n"
+            var possibleTrailingComma = ""
+            if parameterTracker.nonStaticNameCount > 0 || parameterTracker.staticNameCount > 0 {
+                possibleTrailingComma = ","
+            }
+            code += "\(indentation)\(indentation)        \"calledStaticMethods\": \(parameters.mockName).calledStaticMethods\(possibleTrailingComma)\n"
         }
+        
         if parameterTracker.nonStaticNameCount > 0 {
-            code += "\(indentation)\(indentation)        \"assignedParameters\": assignedParameters,\n"
+            var possibleTrailingComma = ""
+            if parameterTracker.staticNameCount > 0 {
+                possibleTrailingComma = ","
+            }
+            code += "\(indentation)\(indentation)        \"assignedParameters\": assignedParameters\(possibleTrailingComma)\n"
         }
+        
         if parameterTracker.staticNameCount > 0 {
-            code += "\(indentation)\(indentation)        \"assignedStaticParameters\": \(parameters.mockName).assignedStaticParameters,\n"
+            let possibleTrailingComma = ""
+            code += "\(indentation)\(indentation)        \"assignedStaticParameters\": \(parameters.mockName).assignedStaticParameters\(possibleTrailingComma)\n"
         }
         code += "\(indentation)\(indentation)       ],\n"
         code += "\(indentation)\(indentation)       displayStyle: .none\n"
