@@ -1,62 +1,62 @@
 //
-//  MockSourceFileDataSourceCreating.swift
+//  MockTemporaryFileHandling.swift
 //  Mocker
 //
-// Created by Greg Strobl on 5/13/24.
-// Copyright © 2024 Goodman Productions. All rights reserved.
+//  Created by Greg Strobl on 9/29/24.
+//  Copyright © 2024 Goodman Productions. All rights reserved.
 //
 
 @testable import Mocker
 import Foundation
 
-class MockSourceFileDataSourceCreating: SourceFileDataSourceCreating {
+class MockTemporaryFileHandling: TemporaryFileHandling {
 
     // MARK: - Variables for Trackings Method Invocation
 
     struct Method: OptionSet, Sendable {
         let rawValue: UInt
-        static let createDataSourceForFileURLCalled = Method(rawValue: 1 << 0)
+        static let saveToTemporaryFileStringCalled = Method(rawValue: 1 << 0)
     }
     private(set) var calledMethods = Method()
 
     struct MethodParameter: OptionSet, Sendable {
         let rawValue: UInt
-        static let fileURL = MethodParameter(rawValue: 1 << 0)
+        static let string = MethodParameter(rawValue: 1 << 0)
     }
     private(set) var assignedParameters = MethodParameter()
 
     // MARK: - Variables for Captured Parameter Values
 
-    private(set) var fileURL: URL?
+    private(set) var string: String?
 
     // MARK: - Variables to Use as Method Return Values
 
-    var createDataSourceForFileURLReturnValue: (any SourceFileDataSource)? = MockSourceFileDataSource()
+    var saveToTemporaryFileStringReturnValue: URL = URL(fileURLWithPath: "temporaryFile")
 
     var errorToThrow: (any Error)!
-    var createDataSourceForFileURLShouldThrowError = false
+    var saveToTemporaryFileStringShouldThrowError = false
 
     func reset() {
         calledMethods = []
         assignedParameters = []
-        fileURL = nil
+        string = nil
     }
 
     // MARK: - Methods for Protocol Conformance
 
-    func createDataSource(for fileURL: URL) throws -> (any SourceFileDataSource)? {
-        calledMethods.insert(.createDataSourceForFileURLCalled)
-        self.fileURL = fileURL
-        assignedParameters.insert(.fileURL)
-        if createDataSourceForFileURLShouldThrowError && errorToThrow != nil {
+    func saveToTemporaryFile(_ string: String) throws -> URL {
+        calledMethods.insert(.saveToTemporaryFileStringCalled)
+        self.string = string
+        assignedParameters.insert(.string)
+        if saveToTemporaryFileStringShouldThrowError && errorToThrow != nil {
             throw errorToThrow
         }
-        return createDataSourceForFileURLReturnValue
+        return saveToTemporaryFileStringReturnValue
     }
 
 }
 
-extension MockSourceFileDataSourceCreating.Method: CustomStringConvertible {
+extension MockTemporaryFileHandling.Method: CustomStringConvertible {
     var description: String {
         var value = "["
         var first = true
@@ -68,9 +68,9 @@ extension MockSourceFileDataSourceCreating.Method: CustomStringConvertible {
             }
         }
 
-        if self.contains(.createDataSourceForFileURLCalled) {
+        if self.contains(.saveToTemporaryFileStringCalled) {
             handleFirst()
-            value += ".createDataSourceForFileURLCalled"
+            value += ".saveToTemporaryFileStringCalled"
         }
 
         value += "]"
@@ -78,7 +78,7 @@ extension MockSourceFileDataSourceCreating.Method: CustomStringConvertible {
     }
 }
 
-extension MockSourceFileDataSourceCreating.MethodParameter: CustomStringConvertible {
+extension MockTemporaryFileHandling.MethodParameter: CustomStringConvertible {
     var description: String {
         var value = "["
         var first = true
@@ -90,9 +90,9 @@ extension MockSourceFileDataSourceCreating.MethodParameter: CustomStringConverti
             }
         }
 
-        if self.contains(.fileURL) {
+        if self.contains(.string) {
             handleFirst()
-            value += ".fileURL"
+            value += ".string"
         }
 
         value += "]"
@@ -100,12 +100,12 @@ extension MockSourceFileDataSourceCreating.MethodParameter: CustomStringConverti
     }
 }
 
-extension MockSourceFileDataSourceCreating: CustomReflectable {
+extension MockTemporaryFileHandling: CustomReflectable {
     var customMirror: Mirror {
         Mirror(self,
                children: [
                 "calledMethods": calledMethods,
-                "assignedParameters": assignedParameters
+                "assignedParameters": assignedParameters,
                ],
                displayStyle: .none
         )

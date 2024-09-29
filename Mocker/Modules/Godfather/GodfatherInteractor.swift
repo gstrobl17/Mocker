@@ -41,6 +41,7 @@ class GodfatherInteractor {
     let recentDocumentManager: any RecentDocumentManaging
     let documentController: any DocumentControlling
     let pasteboard: any Pasteboard
+    let stringFromURLContentsFactory: any StringFromURLContentsCreating
     internal var currentDataSource: (any SourceFileDataSource)?
     private(set) var targetOfCurrentSourceFile: String? {
         didSet {
@@ -58,7 +59,7 @@ class GodfatherInteractor {
     }
     internal var currentProtocolDeclaration: ProtocolDeclSyntax?
     private(set) var mockName = ""
-    private(set) var mockCode = "" {
+    var mockCode = "" {
         didSet {
             contentPresenter.present(text: mockCode)
             presenter?.setDisplayChoice(.mock)
@@ -82,7 +83,8 @@ class GodfatherInteractor {
         filteringHandler: any AsyncFilteringHandler,
         recentDocumentManager: any RecentDocumentManaging,
         documentController: any DocumentControlling,
-        pasteboard: any Pasteboard = NSPasteboard.general
+        pasteboard: any Pasteboard = NSPasteboard.general,
+        stringFromURLContentsFactory: any StringFromURLContentsCreating = StringFromURLContentsFactory()
     ) {
         
         self.userDefaults = userDefaults
@@ -100,6 +102,7 @@ class GodfatherInteractor {
         self.recentDocumentManager = recentDocumentManager
         self.documentController = documentController
         self.pasteboard = pasteboard
+        self.stringFromURLContentsFactory = stringFromURLContentsFactory
 
         projectFileSelector.delegate = self
         sourceFileSelector.delegate = self
@@ -160,7 +163,7 @@ class GodfatherInteractor {
         }
     }
     
-    private func evaluateIfDisplayChoiceIsAvailable() {
+    internal func evaluateIfDisplayChoiceIsAvailable() {
         var canChooseDisplay = false
         
         if currentDataSource != nil && currentSourceFile != nil && currentProtocolDeclaration != nil && !mockCode.isEmpty {
@@ -239,7 +242,7 @@ extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
   
             // Parse the source file
             do {
-                currentSourceFileCode = try String(contentsOf: fileURL)
+                currentSourceFileCode = try stringFromURLContentsFactory.string(fromContentsOf: fileURL, encoding: .ascii)
                 let sourceFileSyntax = Parser.parse(source: currentSourceFileCode)
                 let sourceFileInformation = SourceFileInformation(viewMode: .sourceAccurate)
                 sourceFileInformation.walk(sourceFileSyntax)

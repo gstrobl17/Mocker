@@ -26,7 +26,7 @@ protocol CompareInterfaceDelegate: AnyObject {
 @MainActor
 protocol CompareWireframeProtocol: AnyObject {
 
-    var viewController: NSViewController? { get set }
+    var viewController: (any NSViewController & CompareInterfaceProtocol)? { get set }
 
     static func createModule(openPanelFactory: any OpenPanelFactory, userDefaults: any KeyValueStoring) -> (any NSViewController & CompareInterfaceProtocol)
 

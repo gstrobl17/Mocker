@@ -8,12 +8,13 @@
 @testable import Mocker
 import AppKit
 
-@MainActor
 class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
 
+    // MARK: - Variables for Trackings Method Invocation
+
     struct Method: OptionSet, Sendable {
-        let rawValue: Int
-        static let installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled = Method(rawValue: 1 << 0)
+        let rawValue: UInt
+        static let installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCompareCalled = Method(rawValue: 1 << 0)
         static let reportErrorErrorCalled = Method(rawValue: 1 << 1)
         static let reportErrorConditionWithMessageTextAndInformativeTextCalled = Method(rawValue: 1 << 2)
         static let showAsBusyWithMessageCalled = Method(rawValue: 1 << 3)
@@ -25,21 +26,24 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
     private(set) var calledMethods = Method()
 
     struct MethodParameter: OptionSet, Sendable {
-        let rawValue: Int
+        let rawValue: UInt
         static let projectFileSelector = MethodParameter(rawValue: 1 << 0)
         static let sourceFileSelector = MethodParameter(rawValue: 1 << 1)
         static let sourceFileFilter = MethodParameter(rawValue: 1 << 2)
         static let protocolSelector = MethodParameter(rawValue: 1 << 3)
         static let mockFileParameters = MethodParameter(rawValue: 1 << 4)
         static let contentPresenter = MethodParameter(rawValue: 1 << 5)
-        static let error = MethodParameter(rawValue: 1 << 6)
-        static let messageText = MethodParameter(rawValue: 1 << 7)
-        static let informativeText = MethodParameter(rawValue: 1 << 8)
-        static let message = MethodParameter(rawValue: 1 << 9)
-        static let flag = MethodParameter(rawValue: 1 << 10)
-        static let choice = MethodParameter(rawValue: 1 << 11)
+        static let compare = MethodParameter(rawValue: 1 << 6)
+        static let error = MethodParameter(rawValue: 1 << 7)
+        static let messageText = MethodParameter(rawValue: 1 << 8)
+        static let informativeText = MethodParameter(rawValue: 1 << 9)
+        static let message = MethodParameter(rawValue: 1 << 10)
+        static let flag = MethodParameter(rawValue: 1 << 11)
+        static let choice = MethodParameter(rawValue: 1 << 12)
     }
     private(set) var assignedParameters = MethodParameter()
+
+    // MARK: - Variables for Captured Parameter Values
 
     private(set) var projectFileSelector: NSViewController?
     private(set) var sourceFileSelector: NSViewController?
@@ -47,6 +51,7 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
     private(set) var protocolSelector: NSViewController?
     private(set) var mockFileParameters: NSViewController?
     private(set) var contentPresenter: NSViewController?
+    private(set) var compare: NSViewController?
     private(set) var error: (any Error)?
     private(set) var messageText: String?
     private(set) var informativeText: String?
@@ -63,6 +68,7 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
         protocolSelector = nil
         mockFileParameters = nil
         contentPresenter = nil
+        compare = nil
         error = nil
         messageText = nil
         informativeText = nil
@@ -71,9 +77,17 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
         choice = nil
     }
 
+    // MARK: - Methods for Protocol Conformance
+
     //swiftlint:disable:next function_parameter_count
-    func install(projectFileSelector: NSViewController, sourceFileSelector: NSViewController, sourceFileFilter: NSViewController, protocolSelector: NSViewController, mockFileParameters: NSViewController, contentPresenter: NSViewController) {
-        calledMethods.insert(.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled)
+    func install(projectFileSelector: NSViewController,
+                 sourceFileSelector: NSViewController,
+                 sourceFileFilter: NSViewController,
+                 protocolSelector: NSViewController,
+                 mockFileParameters: NSViewController,
+                 contentPresenter: NSViewController,
+                 compare: NSViewController) {
+        calledMethods.insert(.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCompareCalled)
         self.projectFileSelector = projectFileSelector
         assignedParameters.insert(.projectFileSelector)
         self.sourceFileSelector = sourceFileSelector
@@ -86,6 +100,8 @@ class MockGodfatherInteractorOutput: GodfatherInteractorOutputProtocol {
         assignedParameters.insert(.mockFileParameters)
         self.contentPresenter = contentPresenter
         assignedParameters.insert(.contentPresenter)
+        self.compare = compare
+        assignedParameters.insert(.compare)
     }
 
     func reportError(_ error: any Error) {
@@ -142,9 +158,9 @@ extension MockGodfatherInteractorOutput.Method: CustomStringConvertible {
             }
         }
 
-        if self.contains(.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled) {
+        if self.contains(.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCompareCalled) {
             handleFirst()
-            value += ".installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled"
+            value += ".installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCompareCalled"
         }
         if self.contains(.reportErrorErrorCalled) {
             handleFirst()
@@ -216,6 +232,10 @@ extension MockGodfatherInteractorOutput.MethodParameter: CustomStringConvertible
             handleFirst()
             value += ".contentPresenter"
         }
+        if self.contains(.compare) {
+            handleFirst()
+            value += ".compare"
+        }
         if self.contains(.error) {
             handleFirst()
             value += ".error"
@@ -251,7 +271,7 @@ extension MockGodfatherInteractorOutput: @preconcurrency CustomReflectable {
         Mirror(self,
                children: [
                 "calledMethods": calledMethods,
-                "assignedParameters": assignedParameters
+                "assignedParameters": assignedParameters,
                ],
                displayStyle: .none
         )

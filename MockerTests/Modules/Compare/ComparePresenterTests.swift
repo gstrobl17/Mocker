@@ -1,8 +1,9 @@
 //
-//  ProjectFileSelectorPresenterTests.swift
+//  ComparePresenterTests.swift
 //  MockerTests
 //
-//  Created by Greg on 2/22/18.
+//  Created by Greg Strobl on 9/29/24.
+//  Copyright © 2024 Goodman Productions. All rights reserved.
 //
 
 import Testing
@@ -11,22 +12,25 @@ import Foundation
 import MacrosForStroblMocks
 
 @MainActor @UsesStroblMocks
-struct ProjectFileSelectorPresenterTests {
+struct ComparePresenterTests {
     
-    @StroblMock var view: MockProjectFileSelectorView!
-    @StroblMock var interactor: MockProjectFileSelectorInteractorInput!
-    var router: (any ProjectFileSelectorWireframeProtocol)!
-    var presenter: ProjectFileSelectorPresenter!
+    @StroblMock var view: MockCompareView!
+    @StroblMock var interactor: MockCompareInteractorInput!
+    var router: (any CompareWireframeProtocol)!
+    var presenter: ComparePresenter!
     let openPanelFactory = MockOpenPanelFactory()
     @StroblMock var userDefaults: MockUserDefaults!
 
+    let mockCode = "MOCK-CODE"
+    
     init() async {
         userDefaults = MockUserDefaults()
-        view = MockProjectFileSelectorView()
-        interactor = MockProjectFileSelectorInteractorInput()
-        router = ProjectFileSelectorRouter()
-        presenter = ProjectFileSelectorPresenter(
-            interface: view,
+        view = MockCompareView()
+        view.mockCodeForCompareReturnValue = mockCode
+        interactor = MockCompareInteractorInput()
+        router = CompareRouter()
+        presenter = ComparePresenter(
+            view: view,
             interactor: interactor,
             router: router,
             openPanelFactory: openPanelFactory,
@@ -57,33 +61,22 @@ struct ProjectFileSelectorPresenterTests {
         presenter.handleOpenPanelResponse(.OK)
 
         verifyStroblMocksUnused(except: [.interactor, .userDefaults])
-        #expect(interactor.calledMethods == [.projectFileSelectedUrlCalled])
+        #expect(interactor.calledMethods == [.fileToCompareSelectedUrlCalled])
         #expect(interactor.assignedParameters == [.url])
         #expect(interactor.url == url)
         #expect(userDefaults.calledMethods == [.setUrlForKeyDefaultNameCalled])
         #expect(userDefaults.assignedParameters == [.defaultName, .url])
         #expect(userDefaults.url == directoyUrl)
-        #expect(userDefaults.defaultNames == ["Last Directory of Selected Project", "Last Directory of File To Compare"])
+        #expect(userDefaults.defaultNames == ["Last Directory of File To Compare"])
     }
     
-    // MARK: - ProjectFileSelectorPresenterProtocol methods
-    
-    @Test func setURL() {
-        let url = URL(fileURLWithPath: "file")
+    // MARK: - ComparePresenterProtocol methods
 
-        presenter.setURL(url)
-        
-        verifyStroblMocksUnused(except: [.interactor])
-        #expect(interactor.calledMethods == [.setURLUrlCalled])
-        #expect(interactor.assignedParameters == [.url])
-        #expect(interactor.url == url)
-    }
-
-    @Test func selectPressed() throws {
-        let expectedLastDirectoryUrl = userDefaults.lastDirectoryOfSelectedProject
+    @Test func compareButtonPressed() throws {
+        let expectedLastDirectoryUrl = userDefaults.lastDirectoryOfSelectedFileToCompare
         userDefaults.reset()
         
-        presenter.selectPressed()
+        presenter.compareButtonPressed()
         
         let panel = try #require(presenter.openPanel as? MockOpenPanel)
         #expect(panel.directoryURL == expectedLastDirectoryUrl)
@@ -91,7 +84,7 @@ struct ProjectFileSelectorPresenterTests {
         #expect(panel.canChooseDirectories == false)
         #expect(panel.canCreateDirectories == false)
         #expect(panel.canChooseFiles == true)
-        #expect(panel.message == "Select Project or Swift Package to Open")
+        #expect(panel.message == "Select Swift File to Compare Mock Against")
         verifyStroblMocksUnused(except: [.view, .userDefaults])
         #expect(view.calledMethods == [.openModalSheetWithOpenPanelCompletionHandlerHandlerCalled])
         #expect(view.assignedParameters == [.openPanel, .handler])
@@ -99,67 +92,80 @@ struct ProjectFileSelectorPresenterTests {
         #expect(view.handler != nil)
         #expect(userDefaults.calledMethods == [.objectForKeyDefaultNameCalled])
         #expect(userDefaults.assignedParameters == [.defaultName])
-        #expect(userDefaults.defaultNames == ["Last Directory of Selected Project"])
+        #expect(userDefaults.defaultNames == ["Last Directory of File To Compare"])
     }
+
+    // MARK: - CompareInteractorOutputProtocol methods
     
-    @Test func reloadPressed_noURLSet() {
+    @Test func showButton_viewNil() {
+        presenter.view = nil
         
-        presenter.reloadPressed()
+        presenter.showButton(false)
         
         verifyStroblMocksUnused()
     }
-    
-    @Test func reloadPressed_urlSet() {
-        let url = URL(fileURLWithPath: "file")
-        interactor.url = url
 
-        presenter.reloadPressed()
+    @Test func showButton_flagFalse() {
+        
+        presenter.showButton(false)
         
         verifyStroblMocksUnused(except: [.view])
-        #expect(view.calledMethods == [.showSelectedFileUrlCalled])
-        #expect(view.assignedParameters == [.url])
+        #expect(view.calledMethods == [.showButtonFlagCalled])
+        #expect(view.assignedParameters == [.flag])
+        #expect(view.flag == false)
     }
     
-    @Test func canReloadProject_noURLSet() {
+    @Test func showButton_flagTrue() {
         
-        let flag = presenter.canReloadProject()
-        
-        #expect(flag == false)
-        verifyStroblMocksUnused()
-    }
-    
-    @Test func canReloadProject_urlSet() {
-        let url = URL(fileURLWithPath: "file")
-        interactor.url = url
-
-        let flag = presenter.canReloadProject()
-        
-        #expect(flag == true)
-        verifyStroblMocksUnused()
-    }
-
-    @Test func viewHasLoaded() {
-        
-        presenter.viewHasLoaded()
-        
-        verifyStroblMocksUnused(except: [.interactor])
-        #expect(interactor.calledMethods == [.viewHasLoadedCalled])
-        #expect(interactor.assignedParameters == [])
-    }
-
-    // MARK: - ProjectFileSelectorInteractorOutputProtocol methods
-    
-    @Test func showSelectedFile() {
-        let url = URL(fileURLWithPath: "file")
-        
-        presenter.showSelectedFile(url)
+        presenter.showButton(true)
         
         verifyStroblMocksUnused(except: [.view])
-        #expect(view.calledMethods == [.showSelectedFileUrlCalled])
-        #expect(view.assignedParameters == [.url])
+        #expect(view.calledMethods == [.showButtonFlagCalled])
+        #expect(view.assignedParameters == [.flag])
+        #expect(view.flag == true)
+    }
+    
+    @Test func reportErrorCondition_viewNil() {
+        presenter.view = nil
+        
+        presenter.reportErrorCondition(with: "A", and: "B")
+        
+        verifyStroblMocksUnused()
     }
 
-    // MARK: - NSOpenSavePanelDelegate methods -
+    @Test func reportErrorCondition() {
+        let messageText = "MESSAGE-TEXT"
+        let informativeText = "INFORMATIVE-TEXT"
+        
+        presenter.reportErrorCondition(with: messageText, and: informativeText)
+        
+        verifyStroblMocksUnused(except: [.view])
+        #expect(view.calledMethods == [.reportErrorConditionWithMessageTextAndInformativeTextCalled])
+        #expect(view.assignedParameters == [.messageText, .informativeText])
+        #expect(view.messageText == messageText)
+        #expect(view.informativeText == informativeText)
+    }
+    
+    @Test func mockCodeForCompare_viewNil() {
+        presenter.view = nil
+        
+        let string = presenter.mockCodeForCompare()
+        
+        #expect(string == "")
+        verifyStroblMocksUnused()
+    }
+    
+    @Test func mockCodeForCompare() {
+        
+        let string = presenter.mockCodeForCompare()
+        
+        #expect(string == mockCode)
+        verifyStroblMocksUnused(except: [.view])
+        #expect(view.calledMethods == [.mockCodeForCompareCalled])
+        #expect(view.assignedParameters == [])
+    }
+
+    // MARK: - NSOpenSavePanelDelegate methods
 
     @Test func panelShouldEnableURL_xcassetsURL() throws {
         let url = try #require(URL(fileURLWithPath: "file:///Users/joe/App/Assets.xcassets/"))
@@ -175,7 +181,7 @@ struct ProjectFileSelectorPresenterTests {
 
         let result = presenter.panel(self, shouldEnable: url)
         
-        #expect(result == true)
+        #expect(result == false)
         verifyStroblMocksUnused()
     }
 

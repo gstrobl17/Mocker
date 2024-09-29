@@ -33,16 +33,20 @@ struct GodfatherInteractorTests {
     var mockFileParametersRouterType: (any MockFileParametersWireframeProtocol.Type)!
     @StroblMock var mockFileParametersView: MockMockFileParametersView!
     var contentPresenterRouterType: (any ContentPresenterWireframeProtocol.Type)!
+    var compareRouterType: (any CompareWireframeProtocol.Type)!
+    @StroblMock var compareView: MockCompareView!
     @StroblMock var filteringHandler: MockAsyncFilteringHandler!
     @StroblMock var recentDocumentManager: MockRecentDocumentManaging!
     @StroblMock var documentController: MockDocumentControlling!
     @StroblMock var pasteboard: MockPasteboard!
+    @StroblMock var stringFromURLContentsFactory: MockStringFromURLContentsCreating!
 
     init() async throws {
         userDefaults = MockUserDefaults()
         fileManager = MockFileManager()
         presenter = MockGodfatherInteractorOutput()
         dataSourceFactory = MockSourceFileDataSourceCreating()
+        dataSourceFactory.errorToThrow = UnitTestError.generic
         dataSource = try #require(dataSourceFactory.createDataSourceForFileURLReturnValue as? MockSourceFileDataSource)
         mockGeneratorFactory = MockMockGeneratorFactory()
         mockGenerator = mockGeneratorFactory.mockGenerator
@@ -57,10 +61,13 @@ struct GodfatherInteractorTests {
         mockFileParametersRouterType = MockMockFileParametersRouter.self
         mockFileParametersView = MockMockFileParametersView()
         contentPresenterRouterType = MockContentPresenterRouter.self
+        compareRouterType = MockCompareRouter.self
         filteringHandler = MockAsyncFilteringHandler()
         recentDocumentManager = MockRecentDocumentManaging()
         documentController = MockDocumentControlling()
         pasteboard = MockPasteboard()
+        stringFromURLContentsFactory = MockStringFromURLContentsCreating()
+        stringFromURLContentsFactory.errorToThrow = UnitTestError.generic
     }
 
     private mutating func createInterator(
@@ -78,19 +85,32 @@ struct GodfatherInteractorTests {
             protocolSelectorRouterType: protocolSelectorRouterType,
             mockFileParametersRouterType: mockFileParametersRouterType,
             contentPresenterRouterType: contentPresenterRouterType,
+            compareRouterType: compareRouterType,
             filteringHandler: filteringHandler,
             recentDocumentManager: recentDocumentManager,
             documentController: documentController,
-            pasteboard: pasteboard
+            pasteboard: pasteboard,
+            stringFromURLContentsFactory: stringFromURLContentsFactory
         )
         interactor.presenter = presenter
         interactor.currentSourceFileCode = "SOURCE"
         presenter.reset()
         sourceFileSelectorView = try #require(interactor.sourceFileSelector as? MockSourceFileSelectorView, sourceLocation: sourceLocation)
         mockFileParametersView = try #require(interactor.mockFileParameters as? MockMockFileParametersView, sourceLocation: sourceLocation)
+        compareView = try #require(interactor.compare as? MockCompareView, sourceLocation: sourceLocation)
+        compareView.reset()
         return interactor
     }
     
+    let mockCode = "MOCK-CODE"
+    var protocolDeclaration: ProtocolDeclSyntax {
+        get throws {
+            let identifier = try #require(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
+            let protocolDeclaration = ProtocolDeclSyntax(name: identifier, memberBlock: MemberBlockSyntax(members: MemberBlockItemListSyntax([])))
+            return protocolDeclaration
+        }
+    }
+
     // MARK: - init
     
     @Test func initAndPresenterAssignment() {
@@ -107,6 +127,7 @@ struct GodfatherInteractorTests {
             protocolSelectorRouterType: protocolSelectorRouterType,
             mockFileParametersRouterType: mockFileParametersRouterType,
             contentPresenterRouterType: contentPresenterRouterType,
+            compareRouterType: compareRouterType,
             filteringHandler: filteringHandler,
             recentDocumentManager: recentDocumentManager,
             documentController: documentController
@@ -114,8 +135,97 @@ struct GodfatherInteractorTests {
         interactor.presenter = presenter
 
         verifyStroblMocksUnused(except: [.presenter])
-        #expect(presenter.calledMethods == [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled, .canChooseDisplayFlagCalled])
-        #expect(presenter.assignedParameters == [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter, .flag])
+        #expect(presenter.calledMethods == [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCompareCalled, .canChooseDisplayFlagCalled])
+        #expect(presenter.assignedParameters == [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter, .compare,  .flag])
+    }
+    
+    // MARK: - evaluateIfDisplayChoiceIsAvailable()
+    
+    @Test mutating func evaluateIfDisplayChoiceIsAvailable_currentDataSourceNil_currentSourceFileNil_currentProtocolDeclarationNil_mockCodeEmpty() throws {
+        let expectedFlag = false
+        let interactor = try createInterator()
+
+        interactor.evaluateIfDisplayChoiceIsAvailable()
+        
+        verifyStroblMocksUnused(except: [.presenter, .compareView])
+        #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled])
+        #expect(presenter.assignedParameters == [.flag])
+        #expect(presenter.flag == expectedFlag)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == expectedFlag)
+    }
+    
+    @Test mutating func evaluateIfDisplayChoiceIsAvailable_currentDataSourceNotNil_currentSourceFileNil_currentProtocolDeclarationNil_mockCodeEmpty() throws {
+        let expectedFlag = false
+        let interactor = try createInterator()
+        interactor.currentDataSource = MockSourceFileDataSource()
+
+        interactor.evaluateIfDisplayChoiceIsAvailable()
+        
+        verifyStroblMocksUnused(except: [.presenter, .compareView])
+        #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled])
+        #expect(presenter.assignedParameters == [.flag])
+        #expect(presenter.flag == expectedFlag)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == expectedFlag)
+    }
+    
+    @Test mutating func evaluateIfDisplayChoiceIsAvailable_currentDataSourceNotNil_currentSourceFileNotNil_currentProtocolDeclarationNil_mockCodeEmpty() throws {
+        let expectedFlag = false
+        let interactor = try createInterator()
+        interactor.currentDataSource = MockSourceFileDataSource()
+        interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
+
+        interactor.evaluateIfDisplayChoiceIsAvailable()
+        
+        verifyStroblMocksUnused(except: [.presenter, .compareView])
+        #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled])
+        #expect(presenter.assignedParameters == [.flag])
+        #expect(presenter.flag == expectedFlag)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == expectedFlag)
+    }
+    
+    @Test mutating func evaluateIfDisplayChoiceIsAvailable_currentDataSourceNotNil_currentSourceFileNotNil_currentProtocolDeclarationNotNil_mockCodeEmpty() throws {
+        let expectedFlag = false
+        let interactor = try createInterator()
+        interactor.currentDataSource = MockSourceFileDataSource()
+        interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
+        interactor.currentProtocolDeclaration = try protocolDeclaration
+
+        interactor.evaluateIfDisplayChoiceIsAvailable()
+        
+        verifyStroblMocksUnused(except: [.presenter, .compareView])
+        #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled])
+        #expect(presenter.assignedParameters == [.flag])
+        #expect(presenter.flag == expectedFlag)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == expectedFlag)
+    }
+    
+    @Test mutating func evaluateIfDisplayChoiceIsAvailable_currentDataSourceNotNil_currentSourceFileNotNil_currentProtocolDeclarationNotNil_mockCodeNotEmpty() throws {
+        let expectedFlag = true
+        let interactor = try createInterator()
+        interactor.currentDataSource = MockSourceFileDataSource()
+        interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
+        interactor.currentProtocolDeclaration = try protocolDeclaration
+        interactor.mockCode = mockCode
+        presenter.reset()
+        compareView.reset()
+
+        interactor.evaluateIfDisplayChoiceIsAvailable()
+        
+        verifyStroblMocksUnused(except: [.presenter, .compareView])
+        #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled])
+        #expect(presenter.assignedParameters == [.flag])
+        #expect(presenter.flag == expectedFlag)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == expectedFlag)
     }
 
     // MARK: - GodfatherInteractorInputProtocol methods
@@ -295,6 +405,63 @@ struct GodfatherInteractorTests {
         }
     }
 
+    @Test mutating func openRecentProjectFile_createDataSourceReturnsNil() throws {
+        let url = try #require(URL(string: "a.txt"))
+        let interactor = try createInterator()
+        dataSourceFactory.createDataSourceForFileURLReturnValue = nil
+
+        interactor.openRecentProjectFile(url)
+        
+        verifyStroblMocksUnused(except: [.presenter, .dataSourceFactory, .projectFileSelectorView, .userDefaults])
+        #expect(presenter.calledMethods == [.showAsBusyWithMessageCalled, .clearBusyMessageCalled, .reportErrorConditionWithMessageTextAndInformativeTextCalled])
+        #expect(presenter.assignedParameters == [.message, .messageText, .informativeText])
+        #expect(presenter.message == "Loading a.txt")
+        #expect(presenter.messageText == "Project Load Failed")
+        #expect(presenter.informativeText == "Unable to load the selected project file")
+        #expect(dataSourceFactory.calledMethods == [.createDataSourceForFileURLCalled])
+        #expect(dataSourceFactory.assignedParameters == [.fileURL])
+        #expect(dataSourceFactory.fileURL == url)
+        #expect(dataSource.calledMethods == [])
+        #expect(projectFileSelectorView.calledMethods == [.renderURLOfSelectedFileUrlCalled])
+        #expect(projectFileSelectorView.assignedParameters == [.url])
+        #expect(projectFileSelectorView.url == url)
+        #expect(userDefaults.calledMethods == [.setValueForKeyDefaultNameCalled])
+        #expect(userDefaults.assignedParameters == [.defaultName, .value])
+        #expect(userDefaults.defaultNames == [UserDefaultsKey.projectFilePath])
+        #expect(userDefaults.values.count == 1)
+        if userDefaults.values.count == 1 {
+            #expect(userDefaults.values[0] is NSNull)
+        }
+    }
+
+    @Test mutating func openRecentProjectFile_createDataSourceThrows() throws {
+        let url = try #require(URL(string: "a.txt"))
+        let interactor = try createInterator()
+        dataSourceFactory.createDataSourceForFileURLShouldThrowError = true
+
+        interactor.openRecentProjectFile(url)
+        
+        verifyStroblMocksUnused(except: [.presenter, .dataSourceFactory, .projectFileSelectorView, .userDefaults])
+        #expect(presenter.calledMethods == [.showAsBusyWithMessageCalled, .clearBusyMessageCalled, .reportErrorErrorCalled])
+        #expect(presenter.assignedParameters == [.message, .error])
+        #expect(presenter.message == "Loading a.txt")
+        #expect(presenter.error is UnitTestError)
+        #expect(dataSourceFactory.calledMethods == [.createDataSourceForFileURLCalled])
+        #expect(dataSourceFactory.assignedParameters == [.fileURL])
+        #expect(dataSourceFactory.fileURL == url)
+        #expect(dataSource.calledMethods == [])
+        #expect(projectFileSelectorView.calledMethods == [.renderURLOfSelectedFileUrlCalled])
+        #expect(projectFileSelectorView.assignedParameters == [.url])
+        #expect(projectFileSelectorView.url == url)
+        #expect(userDefaults.calledMethods == [.setValueForKeyDefaultNameCalled])
+        #expect(userDefaults.assignedParameters == [.defaultName, .value])
+        #expect(userDefaults.defaultNames == [UserDefaultsKey.projectFilePath])
+        #expect(userDefaults.values.count == 1)
+        if userDefaults.values.count == 1 {
+            #expect(userDefaults.values[0] is NSNull)
+        }
+    }
+
     // MARK: - ProjectFileSelectorInterfaceDelegate methods
     
     @Test mutating func projectFileSelectorFileSelected_projectFileCreationFails() throws {
@@ -357,28 +524,87 @@ struct GodfatherInteractorTests {
 
     // MARK: - SourceFileSelectorInterfaceDelegate methods
     
-    @Test mutating func sourceFileSelectorFileSelected_projectFileCreationSucceeds() throws {
-        let sendableTreeNode = TreeNode(fileURL: URL(fileURLWithPath: #filePath), target: nil).sendable
+    @Test mutating func sourceFileSelectorFileSelected_parsingSourceCodeFromUrlSucceeds() throws {
+        let fileURL = URL(fileURLWithPath: #filePath)
+        let sendableTreeNode = TreeNode(fileURL: fileURL, target: nil).sendable
         let interactor = try createInterator()
             
         interactor.sourceFileSelector(sourceFileSelectorView, fileSelected: sendableTreeNode)
     
-        verifyStroblMocksUnused(except: [.presenter, .mockFileParametersView])
+        verifyStroblMocksUnused(except: [.presenter, .mockFileParametersView, .stringFromURLContentsFactory, .compareView])
         #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
         #expect(presenter.assignedParameters == [.flag, .choice])
         #expect(presenter.flag == false)
         #expect(presenter.choice == .mock)
         #expect(mockFileParametersView.calledMethods == [.clearProtocolCalled])
         #expect(mockFileParametersView.assignedParameters == [])
+        #expect(stringFromURLContentsFactory.calledMethods == [.stringFromContentsOfUrlEncodingCalled])
+        #expect(stringFromURLContentsFactory.assignedParameters == [.url, .encoding])
+        #expect(stringFromURLContentsFactory.url == fileURL)
+        #expect(stringFromURLContentsFactory.encoding == .ascii)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == false)
+    }
+    
+    @Test mutating func sourceFileSelectorFileSelected_parsingSourceCodeFromUrlSucceedsWithNonNilTarget() throws {
+        let fileURL = URL(fileURLWithPath: #filePath)
+        let target = "TARGET"
+        let sendableTreeNode = TreeNode(fileURL: fileURL, target: target).sendable
+        let interactor = try createInterator()
+            
+        interactor.sourceFileSelector(sourceFileSelectorView, fileSelected: sendableTreeNode)
+    
+        verifyStroblMocksUnused(except: [.presenter, .mockFileParametersView, .stringFromURLContentsFactory, .compareView])
+        #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
+        #expect(presenter.assignedParameters == [.flag, .choice])
+        #expect(presenter.flag == false)
+        #expect(presenter.choice == .mock)
+        #expect(mockFileParametersView.calledMethods == [.clearProtocolCalled, .setupForTargetCalled])
+        #expect(mockFileParametersView.assignedParameters == [.target])
+        #expect(mockFileParametersView.target == target)
+        #expect(stringFromURLContentsFactory.calledMethods == [.stringFromContentsOfUrlEncodingCalled])
+        #expect(stringFromURLContentsFactory.assignedParameters == [.url, .encoding])
+        #expect(stringFromURLContentsFactory.url == fileURL)
+        #expect(stringFromURLContentsFactory.encoding == .ascii)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == false)
+    }
+    
+    @Test mutating func sourceFileSelectorFileSelected_parsingSourceCodeFromUrlThrows() throws {
+        let fileURL = URL(fileURLWithPath: #filePath)
+        let target = "TARGET"
+        let sendableTreeNode = TreeNode(fileURL: fileURL, target: target).sendable
+        let interactor = try createInterator()
+        stringFromURLContentsFactory.stringFromContentsOfUrlEncodingShouldThrowError = true
+            
+        interactor.sourceFileSelector(sourceFileSelectorView, fileSelected: sendableTreeNode)
+    
+        verifyStroblMocksUnused(except: [.presenter, .mockFileParametersView, .stringFromURLContentsFactory, .compareView])
+        #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled, .reportErrorErrorCalled])
+        #expect(presenter.assignedParameters == [.flag, .choice, .error])
+        #expect(presenter.flag == false)
+        #expect(presenter.choice == .mock)
+        #expect(presenter.error is UnitTestError)
+        #expect(mockFileParametersView.calledMethods == [.clearProtocolCalled, .setupForTargetCalled])
+        #expect(mockFileParametersView.assignedParameters == [.target])
+        #expect(mockFileParametersView.target == target)
+        #expect(stringFromURLContentsFactory.calledMethods == [.stringFromContentsOfUrlEncodingCalled])
+        #expect(stringFromURLContentsFactory.assignedParameters == [.url, .encoding])
+        #expect(stringFromURLContentsFactory.url == fileURL)
+        #expect(stringFromURLContentsFactory.encoding == .ascii)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == false)
     }
 
-    // MARK: - SourceFileSelectorInterfaceDelegate methods
+    // MARK: - ProtocolSelectorInterfaceDelegate methods
 
     @Test mutating func test_protocolSelectorProtocolSelected() throws {
         let protocolSelector = MockProtocolSelectorView()
-        let identifier = try #require(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
-        let protocolDeclaration = ProtocolDeclSyntax(name: identifier, memberBlock: MemberBlockSyntax(members: MemberBlockItemListSyntax([])))
         let interactor = try createInterator()
+        let protocolDeclaration = try protocolDeclaration
 
         interactor.protocolSelector(protocolSelector, protocolSelected: protocolDeclaration)
         
@@ -455,18 +681,20 @@ struct GodfatherInteractorTests {
         let interactor = try createInterator()
         interactor.currentDataSource = MockSourceFileDataSource()
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
-        let identifier = try #require(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
-        interactor.currentProtocolDeclaration = ProtocolDeclSyntax(name: identifier, memberBlock: MemberBlockSyntax(members: MemberBlockItemListSyntax([])))
+        interactor.currentProtocolDeclaration = try protocolDeclaration
         
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         #expect(interactor.mockName == "")
         #expect(interactor.mockCode == "")
-        verifyStroblMocksUnused(except: [.presenter])
+        verifyStroblMocksUnused(except: [.presenter, .compareView])
         #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
         #expect(presenter.assignedParameters == [.flag, .choice])
         #expect(presenter.flag == false)
         #expect(presenter.choice == .mock)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == false)
     }
 
     @Test mutating func mockFileParametersMethod_mockNameIsValid() throws {
@@ -480,13 +708,12 @@ struct GodfatherInteractorTests {
         let interactor = try createInterator()
         interactor.currentDataSource = MockSourceFileDataSource()
         interactor.currentSourceFile = SourceFileInformation(viewMode: .sourceAccurate)
-        let identifier = try #require(TokenSyntax(TokenKind.identifier("ABCD"), presence: .present))
-        interactor.currentProtocolDeclaration = ProtocolDeclSyntax(name: identifier, memberBlock: MemberBlockSyntax(members: MemberBlockItemListSyntax([])))
+        interactor.currentProtocolDeclaration = try protocolDeclaration
 
         interactor.mockFileParameters(mockFileParameters, mockName: mockName, includeHeader: includeHeader, includeTestableImport: includeTestableImport, testableTargetName: testableTargetName, trackPropertyActivity: trackPropertyActivity, public: `public`)
         
         #expect(interactor.mockName == mockName)
-        verifyStroblMocksUnused(except: [.presenter, .mockGenerator])
+        verifyStroblMocksUnused(except: [.presenter, .mockGenerator, .compareView])
         #expect(presenter.calledMethods == [.canChooseDisplayFlagCalled, .setDisplayChoiceChoiceCalled])
         #expect(presenter.assignedParameters == [.flag, .choice])
         #expect(presenter.flag == false)
@@ -497,6 +724,9 @@ struct GodfatherInteractorTests {
         #expect(mockGenerator.parameters?.includeTestableImport == includeTestableImport)
         #expect(mockGenerator.parameters?.testableTargetName == testableTargetName)
         #expect(mockGenerator.parameters?.trackPropertyActivity == trackPropertyActivity)
+        #expect(compareView.calledMethods == [.enableCompareFlagCalled])
+        #expect(compareView.assignedParameters == [.flag])
+        #expect(compareView.flag == false)
     }
 
     // MARK: - FilterInterfaceDelegate methods
@@ -520,6 +750,21 @@ struct GodfatherInteractorTests {
         #expect(userDefaults.values.count == 1)
         let values = try #require(userDefaults.values as? [String])
         #expect(values == [newValue])
+    }
+
+    // MARK: - CompareInterfaceDelegate methods
+    
+    @Test mutating func mockCodeForCompare() throws {
+        let interactor = try createInterator()
+        interactor.mockCode = mockCode
+        presenter.reset()
+        compareView.reset()
+        let compareView = MockCompareView()
+
+        let value = interactor.mockCodeForCompare(compareView)
+        
+        verifyStroblMocksUnused()
+        #expect(value == mockCode)
     }
 }
 

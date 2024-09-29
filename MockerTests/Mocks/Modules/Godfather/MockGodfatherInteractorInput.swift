@@ -8,7 +8,6 @@
 @testable import Mocker
 import AppKit
 
-@MainActor
 class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
 
     var presenter: (any GodfatherInteractorOutputProtocol)?
@@ -19,7 +18,7 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
     var mockCode: String = ""
 
     struct Method: OptionSet, Sendable {
-        let rawValue: Int
+        let rawValue: UInt
         static let selectProjectCalled = Method(rawValue: 1 << 0)
         static let canReloadProjectCalled = Method(rawValue: 1 << 1)
         static let reloadProjectCalled = Method(rawValue: 1 << 2)
@@ -31,7 +30,7 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
     private(set) var calledMethods = Method()
 
     struct MethodParameter: OptionSet, Sendable {
-        let rawValue: Int
+        let rawValue: UInt
         static let choice = MethodParameter(rawValue: 1 << 0)
         static let url = MethodParameter(rawValue: 1 << 1)
     }
@@ -42,6 +41,8 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
     private(set) var choice: DisplayChoice?
     private(set) var url: URL?
 
+    // MARK: - Variables to Use as Method Return Values
+
     var canReloadProjectReturnValue = false
 
     func reset() {
@@ -50,6 +51,8 @@ class MockGodfatherInteractorInput: GodfatherInteractorInputProtocol {
         choice = nil
         url = nil
     }
+
+    // MARK: - Methods for Protocol Conformance
 
     func selectProject() {
         calledMethods.insert(.selectProjectCalled)
@@ -163,7 +166,7 @@ extension MockGodfatherInteractorInput: @preconcurrency CustomReflectable {
         Mirror(self,
                children: [
                 "calledMethods": calledMethods,
-                "assignedParameters": assignedParameters
+                "assignedParameters": assignedParameters,
                ],
                displayStyle: .none
         )

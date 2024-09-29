@@ -9,11 +9,12 @@ import AppKit
 @testable import Mocker
 
 class MockProjectFileSelectorRouter: ProjectFileSelectorWireframeProtocol {
+    
     static let view = MockProjectFileSelectorView()
     
     weak var viewController: (any NSViewController & ProjectFileSelectorInterfaceProtocol)?
     
-    static func createModule(openPanelFactory: any OpenPanelFactory) -> (any NSViewController & ProjectFileSelectorInterfaceProtocol) {
+    static func createModule(openPanelFactory: any OpenPanelFactory, userDefaults: any Mocker.KeyValueStoring) -> (any NSViewController & ProjectFileSelectorInterfaceProtocol) {
         
         let view = MockProjectFileSelectorRouter.view
         view.reset()

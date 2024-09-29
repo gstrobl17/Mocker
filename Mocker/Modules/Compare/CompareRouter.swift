@@ -10,7 +10,7 @@ import AppKit
 
 class CompareRouter: CompareWireframeProtocol {
 
-    weak var viewController: NSViewController?
+    weak var viewController: (any NSViewController & CompareInterfaceProtocol)?
 
     static func createModule(openPanelFactory: any OpenPanelFactory, userDefaults: any KeyValueStoring) -> (any NSViewController & CompareInterfaceProtocol) {
         let storyboard = NSStoryboard(name: .main, bundle: nil)

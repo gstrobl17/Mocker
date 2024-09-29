@@ -18,7 +18,7 @@ class CompareInteractor {
     }
     private(set) var comparisonToolInvoker: any ComparisonToolInvoking
     private(set) var temporaryFileHandler: any TemporaryFileHandling
-    private(set) var showButton = false
+    var showButton = false
 
     init(
         comparisonToolInvoker: any ComparisonToolInvoking = BeyondCompareComparisonToolInvoker(fileManager: FileManager.default),
@@ -55,7 +55,7 @@ extension CompareInteractor: CompareInteractorInputProtocol {
         // Compare
         let result = comparisonToolInvoker.openComparisonTool(for: fileForMock, and: fileToCompareAgainst)
         if result.terminationStatus != 0 {
-            presenter?.reportErrorCondition(with: "Comparison Error", and: "Attempt to comare returned a failure status: \(result.terminationStatus):\n\n\(result.output)")
+            presenter?.reportErrorCondition(with: "Comparison Error", and: "Attempt to compare returned a failure status: \(result.terminationStatus)\n\n\(result.output)")
         }
     }
 }

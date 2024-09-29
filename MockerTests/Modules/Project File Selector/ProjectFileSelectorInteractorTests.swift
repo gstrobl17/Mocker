@@ -31,6 +31,19 @@ struct ProjectFileSelectorInteractorTests {
         
         verifyStroblMocksUnused()
     }
+    
+    @Test func testInit_urlSetThenPresenterSet() {
+        let url = URL(fileURLWithPath: "file")
+
+        let interactor = ProjectFileSelectorInteractor()
+        interactor.url = url
+        interactor.presenter = presenter
+        
+        verifyStroblMocksUnused(except: [.presenter])
+        #expect(presenter.calledMethods == [.showSelectedFileUrlCalled])
+        #expect(presenter.assignedParameters == [.url])
+        #expect(presenter.url == url)
+    }
 
     // MARK: - ProjectFileSelectorInteractorInputProtocol methods
     

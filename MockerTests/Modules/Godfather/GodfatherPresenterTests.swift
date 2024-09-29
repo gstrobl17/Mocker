@@ -130,23 +130,26 @@ struct GodfatherPresenterTests {
         let protocolSelector = NSViewController()
         let mockFileParameters = NSViewController()
         let contentPresenter = NSViewController()
+        let compare = NSViewController()
 
         presenter.install(projectFileSelector: projectFileSelector,
                           sourceFileSelector: sourceFileSelector,
                           sourceFileFilter: sourceFileFilter,
                           protocolSelector: protocolSelector,
                           mockFileParameters: mockFileParameters,
-                          contentPresenter: contentPresenter)
+                          contentPresenter: contentPresenter,
+                          compare: compare)
 
         verifyStroblMocksUnused(except: [.view])
-        #expect(view.calledMethods == [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCalled])
-        #expect(view.assignedParameters == [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter])
+        #expect(view.calledMethods == [.installProjectFileSelectorSourceFileSelectorSourceFileFilterProtocolSelectorMockFileParametersContentPresenterCompareCalled])
+        #expect(view.assignedParameters == [.projectFileSelector, .sourceFileSelector, .sourceFileFilter, .protocolSelector, .mockFileParameters, .contentPresenter, .compare])
         #expect(view.projectFileSelector === projectFileSelector)
         #expect(view.sourceFileSelector === sourceFileSelector)
         #expect(view.sourceFileFilter === sourceFileFilter)
         #expect(view.protocolSelector === protocolSelector)
         #expect(view.mockFileParameters === mockFileParameters)
         #expect(view.contentPresenter === contentPresenter)
+        #expect(view.compare === compare)
     }
 
     @Test func reportError() {
@@ -213,7 +216,7 @@ struct GodfatherPresenterTests {
         #expect(view.choice == .source)
     }
     
-    func mockCopiedToClipboard() {
+    @Test func mockCopiedToClipboard() {
         
         presenter.mockCopiedToClipboard()
         

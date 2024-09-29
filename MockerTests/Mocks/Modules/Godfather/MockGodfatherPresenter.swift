@@ -8,13 +8,16 @@
 @testable import Mocker
 import AppKit
 
-@MainActor
 class MockGodfatherPresenter: GodfatherPresenterProtocol {
+
+    // MARK: - Variables for Protocol Conformance
 
     var interactor: (any GodfatherInteractorInputProtocol)?
 
+    // MARK: - Variables for Trackings Method Invocation
+
     struct Method: OptionSet, Sendable {
-        let rawValue: Int
+        let rawValue: UInt
         static let selectProjectCalled = Method(rawValue: 1 << 0)
         static let canReloadProjectCalled = Method(rawValue: 1 << 1)
         static let reloadProjectCalled = Method(rawValue: 1 << 2)
@@ -26,7 +29,7 @@ class MockGodfatherPresenter: GodfatherPresenterProtocol {
     private(set) var calledMethods = Method()
 
     struct MethodParameter: OptionSet, Sendable {
-        let rawValue: Int
+        let rawValue: UInt
         static let choice = MethodParameter(rawValue: 1 << 0)
         static let url = MethodParameter(rawValue: 1 << 1)
     }
@@ -47,6 +50,8 @@ class MockGodfatherPresenter: GodfatherPresenterProtocol {
         choice = nil
         url = nil
     }
+
+    // MARK: - Methods for Protocol Conformance
 
     func selectProject() {
         calledMethods.insert(.selectProjectCalled)
@@ -111,6 +116,10 @@ extension MockGodfatherPresenter.Method: CustomStringConvertible {
             handleFirst()
             value += ".displayChoiceChoiceCalled"
         }
+        if self.contains(.copyMockToClipboardCalled) {
+            handleFirst()
+            value += ".copyMockToClipboardCalled"
+        }
         if self.contains(.viewHasAppearedCalled) {
             handleFirst()
             value += ".viewHasAppearedCalled"
@@ -156,7 +165,7 @@ extension MockGodfatherPresenter: @preconcurrency CustomReflectable {
         Mirror(self,
                children: [
                 "calledMethods": calledMethods,
-                "assignedParameters": assignedParameters
+                "assignedParameters": assignedParameters,
                ],
                displayStyle: .none
         )

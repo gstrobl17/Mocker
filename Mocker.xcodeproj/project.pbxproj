@@ -26,6 +26,26 @@
 		643D97E32A617A950001450E /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97E22A617A950001450E /* SwiftSyntaxBuilder */; };
 		6464F9C423D515EB00B03205 /* SourceKittenFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 6464F9C323D515EB00B03205 /* SourceKittenFramework */; };
 		646A25682CA8ADA800F2A708 /* TemporaryFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25672CA8ADA200F2A708 /* TemporaryFileHandler.swift */; };
+		646A256B2CA8F67900F2A708 /* MockCompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A256A2CA8F67500F2A708 /* MockCompareView.swift */; };
+		646A256D2CA8F7A800F2A708 /* MockCompareInterfaceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A256C2CA8F7A600F2A708 /* MockCompareInterfaceDelegate.swift */; };
+		646A256F2CA8F80300F2A708 /* MockCompareInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A256E2CA8F80200F2A708 /* MockCompareInteractorOutput.swift */; };
+		646A25712CA8F83B00F2A708 /* MockCompareInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25702CA8F83500F2A708 /* MockCompareInteractorInput.swift */; };
+		646A25732CA8F86800F2A708 /* MockComparePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25722CA8F86600F2A708 /* MockComparePresenter.swift */; };
+		646A25752CA8F94A00F2A708 /* MockCompareRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25742CA8F94600F2A708 /* MockCompareRouter.swift */; };
+		646A25772CA94CE500F2A708 /* StringFromURLContentsCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25762CA94CD700F2A708 /* StringFromURLContentsCreating.swift */; };
+		646A25792CA94E4B00F2A708 /* StringFromURLContentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25782CA94E4500F2A708 /* StringFromURLContentsFactory.swift */; };
+		646A257B2CA94F7D00F2A708 /* MockStringFromURLContentsCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A257A2CA94F7B00F2A708 /* MockStringFromURLContentsCreating.swift */; };
+		646A257E2CA9601200F2A708 /* CompareRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A257D2CA9601200F2A708 /* CompareRouterTests.swift */; };
+		646A25802CA960A400F2A708 /* ComparePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A257F2CA960A400F2A708 /* ComparePresenterTests.swift */; };
+		646A25822CA9694400F2A708 /* MockComparisonToolInvoking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25812CA9694200F2A708 /* MockComparisonToolInvoking.swift */; };
+		646A25842CA9696F00F2A708 /* MockTemporaryFileHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25832CA9696D00F2A708 /* MockTemporaryFileHandling.swift */; };
+		646A25862CA96A1A00F2A708 /* CompareInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25852CA96A1A00F2A708 /* CompareInteractorTests.swift */; };
+		646A25882CA970C400F2A708 /* ASTMockGeneratorFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25872CA970C400F2A708 /* ASTMockGeneratorFactoryTests.swift */; };
+		646A258A2CA971D300F2A708 /* NeverCancelledMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25892CA971D300F2A708 /* NeverCancelledMonitorTests.swift */; };
+		646A258C2CA9729300F2A708 /* AppKitOpenPanelFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A258B2CA9729300F2A708 /* AppKitOpenPanelFactoryTests.swift */; };
+		646A258E2CA973DE00F2A708 /* DateFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A258D2CA973DE00F2A708 /* DateFactoryTests.swift */; };
+		646A25902CA9760700F2A708 /* BeyondCompareComparisonToolInvokerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A258F2CA9760700F2A708 /* BeyondCompareComparisonToolInvokerTests.swift */; };
+		646A25922CA9768F00F2A708 /* MockComparisonToolInvokerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646A25912CA9768E00F2A708 /* MockComparisonToolInvokerDelegate.swift */; };
 		647C068E2172036900778040 /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C06892172036900778040 /* FilterInteractor.swift */; };
 		647C068F2172036900778040 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C068A2172036900778040 /* FilterPresenter.swift */; };
 		647C06902172036900778040 /* FilterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C068B2172036900778040 /* FilterProtocols.swift */; };
@@ -266,6 +286,26 @@
 		6429FF442A01388800E7E5B5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6429FF452A01388800E7E5B5 /* UNLICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = UNLICENSE.txt; sourceTree = "<group>"; };
 		646A25672CA8ADA200F2A708 /* TemporaryFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFileHandler.swift; sourceTree = "<group>"; };
+		646A256A2CA8F67500F2A708 /* MockCompareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompareView.swift; sourceTree = "<group>"; };
+		646A256C2CA8F7A600F2A708 /* MockCompareInterfaceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompareInterfaceDelegate.swift; sourceTree = "<group>"; };
+		646A256E2CA8F80200F2A708 /* MockCompareInteractorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompareInteractorOutput.swift; sourceTree = "<group>"; };
+		646A25702CA8F83500F2A708 /* MockCompareInteractorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompareInteractorInput.swift; sourceTree = "<group>"; };
+		646A25722CA8F86600F2A708 /* MockComparePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockComparePresenter.swift; sourceTree = "<group>"; };
+		646A25742CA8F94600F2A708 /* MockCompareRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompareRouter.swift; sourceTree = "<group>"; };
+		646A25762CA94CD700F2A708 /* StringFromURLContentsCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFromURLContentsCreating.swift; sourceTree = "<group>"; };
+		646A25782CA94E4500F2A708 /* StringFromURLContentsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFromURLContentsFactory.swift; sourceTree = "<group>"; };
+		646A257A2CA94F7B00F2A708 /* MockStringFromURLContentsCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStringFromURLContentsCreating.swift; sourceTree = "<group>"; };
+		646A257D2CA9601200F2A708 /* CompareRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareRouterTests.swift; sourceTree = "<group>"; };
+		646A257F2CA960A400F2A708 /* ComparePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparePresenterTests.swift; sourceTree = "<group>"; };
+		646A25812CA9694200F2A708 /* MockComparisonToolInvoking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockComparisonToolInvoking.swift; sourceTree = "<group>"; };
+		646A25832CA9696D00F2A708 /* MockTemporaryFileHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTemporaryFileHandling.swift; sourceTree = "<group>"; };
+		646A25852CA96A1A00F2A708 /* CompareInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareInteractorTests.swift; sourceTree = "<group>"; };
+		646A25872CA970C400F2A708 /* ASTMockGeneratorFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMockGeneratorFactoryTests.swift; sourceTree = "<group>"; };
+		646A25892CA971D300F2A708 /* NeverCancelledMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeverCancelledMonitorTests.swift; sourceTree = "<group>"; };
+		646A258B2CA9729300F2A708 /* AppKitOpenPanelFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitOpenPanelFactoryTests.swift; sourceTree = "<group>"; };
+		646A258D2CA973DE00F2A708 /* DateFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactoryTests.swift; sourceTree = "<group>"; };
+		646A258F2CA9760700F2A708 /* BeyondCompareComparisonToolInvokerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeyondCompareComparisonToolInvokerTests.swift; sourceTree = "<group>"; };
+		646A25912CA9768E00F2A708 /* MockComparisonToolInvokerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockComparisonToolInvokerDelegate.swift; sourceTree = "<group>"; };
 		647C06892172036900778040 /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
 		647C068A2172036900778040 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		647C068B2172036900778040 /* FilterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterProtocols.swift; sourceTree = "<group>"; };
@@ -486,6 +526,8 @@
 		6418CFA621428078008DD695 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				646A258B2CA9729300F2A708 /* AppKitOpenPanelFactoryTests.swift */,
+				646A25872CA970C400F2A708 /* ASTMockGeneratorFactoryTests.swift */,
 				6488BA3D2B6184AA004A1812 /* ASTMockGeneratorTests.swift */,
 				648691B42B63B1DC0021A9F1 /* ASTMockGeneratorTests+EdgeCases+Part1.swift */,
 				648691B62B63D6650021A9F1 /* ASTMockGeneratorTests+EdgeCases+Part2.swift */,
@@ -501,7 +543,10 @@
 				6488BA3F2B625E88004A1812 /* ASTMockGeneratorTests+SingleFunctionProtocol.swift */,
 				648691A02B62E5390021A9F1 /* ASTMockGeneratorTests+SinglePropertyProtocol.swift */,
 				6486919E2B62D6D00021A9F1 /* ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift */,
+				646A258F2CA9760700F2A708 /* BeyondCompareComparisonToolInvokerTests.swift */,
+				646A258D2CA973DE00F2A708 /* DateFactoryTests.swift */,
 				6418CFA721428099008DD695 /* NameTrackerTests.swift */,
+				646A25892CA971D300F2A708 /* NeverCancelledMonitorTests.swift */,
 				648691FC2B6E55070021A9F1 /* RecentDocumentManagerTests.swift */,
 			);
 			path = Models;
@@ -569,6 +614,29 @@
 				64C607CB203F793A005D6869 /* Modules */,
 			);
 			path = MockerTests;
+			sourceTree = "<group>";
+		};
+		646A25692CA8F5EF00F2A708 /* Compare */ = {
+			isa = PBXGroup;
+			children = (
+				646A25742CA8F94600F2A708 /* MockCompareRouter.swift */,
+				646A25702CA8F83500F2A708 /* MockCompareInteractorInput.swift */,
+				646A256E2CA8F80200F2A708 /* MockCompareInteractorOutput.swift */,
+				646A256C2CA8F7A600F2A708 /* MockCompareInterfaceDelegate.swift */,
+				646A25722CA8F86600F2A708 /* MockComparePresenter.swift */,
+				646A256A2CA8F67500F2A708 /* MockCompareView.swift */,
+			);
+			path = Compare;
+			sourceTree = "<group>";
+		};
+		646A257C2CA95FBA00F2A708 /* Compare */ = {
+			isa = PBXGroup;
+			children = (
+				646A257F2CA960A400F2A708 /* ComparePresenterTests.swift */,
+				646A257D2CA9601200F2A708 /* CompareRouterTests.swift */,
+				646A25852CA96A1A00F2A708 /* CompareInteractorTests.swift */,
+			);
+			path = Compare;
 			sourceTree = "<group>";
 		};
 		647C06882172014F00778040 /* Filter */ = {
@@ -716,6 +784,8 @@
 			isa = PBXGroup;
 			children = (
 				1F58B3036F55BCAD8213218B /* MockAsyncFilteringHandler.swift */,
+				646A25912CA9768E00F2A708 /* MockComparisonToolInvokerDelegate.swift */,
+				646A25812CA9694200F2A708 /* MockComparisonToolInvoking.swift */,
 				6488BA392B618224004A1812 /* MockDateCreating.swift */,
 				648692022B6E62670021A9F1 /* MockDocumentControlling.swift */,
 				64C608CE2042F2A3005D6869 /* MockFileManager.swift */,
@@ -732,6 +802,8 @@
 				64C607DB203F8168005D6869 /* MockSavePanel.swift */,
 				64BB971C2BF2C58B007250D1 /* MockSourceFileDataSource.swift */,
 				64BB971A2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift */,
+				646A257A2CA94F7B00F2A708 /* MockStringFromURLContentsCreating.swift */,
+				646A25832CA9696D00F2A708 /* MockTemporaryFileHandling.swift */,
 				64C608C82042ECDB005D6869 /* MockUserDefaults.swift */,
 				64C607E2203F8599005D6869 /* Modules */,
 			);
@@ -748,6 +820,7 @@
 				64C608F620434517005D6869 /* Mock File Parameters */,
 				64C608262041DAEC005D6869 /* Content Presenter */,
 				647C06932172392400778040 /* Filter */,
+				646A257C2CA95FBA00F2A708 /* Compare */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -783,6 +856,7 @@
 				64C607D0203F7C0A005D6869 /* SavePanel.swift */,
 				64BB97122BF28FC9007250D1 /* SourceFileDataSource.swift */,
 				64BB97142BF290C7007250D1 /* SourceFileDataSourceCreating.swift */,
+				646A25762CA94CD700F2A708 /* StringFromURLContentsCreating.swift */,
 				6491FE7D2CA7655E008F7F78 /* TemporaryFileHandling.swift */,
 			);
 			path = Protocols;
@@ -818,6 +892,7 @@
 				64C608F520434504005D6869 /* Mock File Parameters */,
 				64C608252041DAC7005D6869 /* Content Presenter */,
 				647C06942172393F00778040 /* Filter */,
+				646A25692CA8F5EF00F2A708 /* Compare */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -871,6 +946,7 @@
 				648691F82B6D582D0021A9F1 /* RecentDocumentManager.swift */,
 				64CC81CF2C7239EE008EE6D4 /* SendableTreeNodeView.swift */,
 				64BB97162BF291E8007250D1 /* SourceFileDataSourceFactory.swift */,
+				646A25782CA94E4500F2A708 /* StringFromURLContentsFactory.swift */,
 				C2273B532211A99400582263 /* SwiftlintSupport.swift */,
 				64BB97272BF64C8C007250D1 /* SwiftPackageConstant.swift */,
 				64BB97202BF512F9007250D1 /* SwiftPackageDataSource.swift */,
@@ -1223,6 +1299,7 @@
 				C2635F8528623D1900F87C71 /* FunctionDeclSyntax+Extensions.swift in Sources */,
 				648691F52B6D4F210021A9F1 /* NSDocumentController+Extensions.swift in Sources */,
 				64C60792203EC807005D6869 /* ProjectFileSelectorProtocols.swift in Sources */,
+				646A25792CA94E4B00F2A708 /* StringFromURLContentsFactory.swift in Sources */,
 				64C607D1203F7C0A005D6869 /* SavePanel.swift in Sources */,
 				64C607B9203EC92C005D6869 /* ContentPresenterProtocols.swift in Sources */,
 				6418CFA521413431008DD695 /* NameTracker.swift in Sources */,
@@ -1235,6 +1312,7 @@
 				6488BA362B61797F004A1812 /* FullNameProviding.swift in Sources */,
 				64C60784203EC7BD005D6869 /* GodfatherInteractor.swift in Sources */,
 				6488BA342B61793A004A1812 /* DateFactory.swift in Sources */,
+				646A25772CA94CE500F2A708 /* StringFromURLContentsCreating.swift in Sources */,
 				64C609082045764A005D6869 /* MockGenerating.swift in Sources */,
 				64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */,
 				64C60786203EC7BD005D6869 /* GodfatherProtocols.swift in Sources */,
@@ -1287,7 +1365,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				646A256F2CA8F80300F2A708 /* MockCompareInteractorOutput.swift in Sources */,
 				648691A92B62FCE00021A9F1 /* ASTMockGeneratorTests+Misc+HelpPresenting.swift in Sources */,
+				646A25902CA9760700F2A708 /* BeyondCompareComparisonToolInvokerTests.swift in Sources */,
 				648691A52B62F9FB0021A9F1 /* ASTMockGeneratorTests+Misc+CloudStorage.swift in Sources */,
 				64C6080F20403531005D6869 /* MockProject.swift in Sources */,
 				64C607E1203F852C005D6869 /* MockOpenPanelFactory.swift in Sources */,
@@ -1295,21 +1375,27 @@
 				64DA2B322C68ED5500F97E18 /* SourceFileDataSourceTests.swift in Sources */,
 				64C6080520400D93005D6869 /* SourceFileSelectorInteractorTests.swift in Sources */,
 				64BB971D2BF2C58C007250D1 /* MockSourceFileDataSource.swift in Sources */,
+				646A25732CA8F86800F2A708 /* MockComparePresenter.swift in Sources */,
 				64C608342041E261005D6869 /* ContentPresenterRouterTests.swift in Sources */,
 				64C607FC203F9ECF005D6869 /* MockSourceFileSelectorRouter.swift in Sources */,
 				64C608E32043374A005D6869 /* ProtocolSelectorInteractorTests.swift in Sources */,
+				646A25802CA960A400F2A708 /* ComparePresenterTests.swift in Sources */,
 				64C607FA203F9E7A005D6869 /* MockSourceFileSelectorPresenter.swift in Sources */,
 				64C608D120430271005D6869 /* Common.swift in Sources */,
+				646A25712CA8F83B00F2A708 /* MockCompareInteractorInput.swift in Sources */,
 				64C6081A20416EE6005D6869 /* MockGodfatherPresenter.swift in Sources */,
+				646A256D2CA8F7A800F2A708 /* MockCompareInterfaceDelegate.swift in Sources */,
 				647C069821723FC600778040 /* FilterInteractorTests.swift in Sources */,
 				64C608DA204335BB005D6869 /* MockProtocolSelectorInteractorOutput.swift in Sources */,
 				64BB971B2BF2C553007250D1 /* MockSourceFileDataSourceCreating.swift in Sources */,
+				646A25842CA9696F00F2A708 /* MockTemporaryFileHandling.swift in Sources */,
 				64C607DF203F847F005D6869 /* MockOpenPanel.swift in Sources */,
 				64C607E7203F894C005D6869 /* MockProjectFileSelectorRouter.swift in Sources */,
 				648691B72B63D6650021A9F1 /* ASTMockGeneratorTests+EdgeCases+Part2.swift in Sources */,
 				64C6090620440F0D005D6869 /* MockFileParametersInteractorTests.swift in Sources */,
 				64C607F1203F8D1C005D6869 /* ProjectFileSelectorPresenterTests.swift in Sources */,
 				64C607F3203F8EA2005D6869 /* ProjectFileSelectorInteractorTests.swift in Sources */,
+				646A25822CA9694400F2A708 /* MockComparisonToolInvoking.swift in Sources */,
 				64C6082E2041DCB8005D6869 /* MockContentPresenterView.swift in Sources */,
 				64C607DC203F8168005D6869 /* MockSavePanel.swift in Sources */,
 				648691FD2B6E55070021A9F1 /* RecentDocumentManagerTests.swift in Sources */,
@@ -1335,6 +1421,7 @@
 				648691A72B62FB1C0021A9F1 /* ASTMockGeneratorTests+Misc+FileManagerProtocol.swift in Sources */,
 				641465C72BEFDB2C008CEBEA /* MockPasteboard.swift in Sources */,
 				64C609022044054F005D6869 /* MockFileParametersRouterTests.swift in Sources */,
+				646A25752CA8F94A00F2A708 /* MockCompareRouter.swift in Sources */,
 				6418CFA821428099008DD695 /* NameTrackerTests.swift in Sources */,
 				64C60813204038A5005D6869 /* MockProjectFactory.swift in Sources */,
 				64C6080320400CE0005D6869 /* SourceFileSelectorPresenterTests.swift in Sources */,
@@ -1342,12 +1429,15 @@
 				6488BA3C2B618290004A1812 /* MockFullNameProviding.swift in Sources */,
 				647C069921723FC600778040 /* FilterPresenterTests.swift in Sources */,
 				64C607EF203F8C24005D6869 /* ProjectFileSelectorRouterTests.swift in Sources */,
+				646A257B2CA94F7D00F2A708 /* MockStringFromURLContentsCreating.swift in Sources */,
 				648691AB2B62FE1E0021A9F1 /* ASTMockGeneratorTests+Misc+NotificationCenterProtocol.swift in Sources */,
 				647C069A21723FC600778040 /* FilterRouterTests.swift in Sources */,
 				6488BA472B628A3E004A1812 /* firstDifferenceBetweenStrings.swift in Sources */,
 				64C6091020457865005D6869 /* MockMockGeneratorFactory.swift in Sources */,
 				648691B32B636FB90021A9F1 /* ASTMockGeneratorTests+Misc+KeyValueStoring.swift in Sources */,
+				646A257E2CA9601200F2A708 /* CompareRouterTests.swift in Sources */,
 				64C607E9203F8A0C005D6869 /* MockProjectFileSelectorPresenter.swift in Sources */,
+				646A25882CA970C400F2A708 /* ASTMockGeneratorFactoryTests.swift in Sources */,
 				64C608CF2042F2A3005D6869 /* MockFileManager.swift in Sources */,
 				64C608E5204337C2005D6869 /* ProtocolSelectorPresenterTests.swift in Sources */,
 				648691B12B636E680021A9F1 /* ASTMockGeneratorTests+Misc+JSONDecoding.swift in Sources */,
@@ -1358,14 +1448,18 @@
 				64C607ED203F8B3E005D6869 /* MockProjectFileSelectorInteractorInput.swift in Sources */,
 				64C607FE203F9F71005D6869 /* MockSourceFileSelectorView.swift in Sources */,
 				64C608E020433691005D6869 /* MockProtocolSelectorView.swift in Sources */,
+				646A258A2CA971D300F2A708 /* NeverCancelledMonitorTests.swift in Sources */,
 				648691AF2B63015C0021A9F1 /* ASTMockGeneratorTests+Misc+WarmUpManager.swift in Sources */,
 				64C608DC204335FF005D6869 /* MockProtocolSelectorPresenter.swift in Sources */,
+				646A25922CA9768F00F2A708 /* MockComparisonToolInvokerDelegate.swift in Sources */,
 				64C608FA20435770005D6869 /* MockMockFileParametersInteractorOutput.swift in Sources */,
+				646A25862CA96A1A00F2A708 /* CompareInteractorTests.swift in Sources */,
 				6486919F2B62D6D00021A9F1 /* ASTMockGeneratorTests+SingleStaticFunctionProtocol.swift in Sources */,
 				64C6090020435906005D6869 /* MockMockFileParametersView.swift in Sources */,
 				6488BA4B2B62978A004A1812 /* XCTTest+Extensions.swift in Sources */,
 				64C607F6203F9D87005D6869 /* MockSourceFileSelectorInteractorInput.swift in Sources */,
 				64C6081F204170C5005D6869 /* GodfatherInteractorTests.swift in Sources */,
+				646A256B2CA8F67900F2A708 /* MockCompareView.swift in Sources */,
 				64C608D820433575005D6869 /* MockProtocolSelectorInteractorInput.swift in Sources */,
 				64C6082320418F31005D6869 /* GodfatherRouterTests.swift in Sources */,
 				AC7B8CE31870DF38E3886601 /* MockFilterInterface.swift in Sources */,
@@ -1375,6 +1469,8 @@
 				C0B6D80290C821020F9B75CE /* MockFilterInteractorInput.swift in Sources */,
 				81FCF93CEACB6CD96117EF7D /* MockFilterPresenter.swift in Sources */,
 				6488BA402B625E88004A1812 /* ASTMockGeneratorTests+SingleFunctionProtocol.swift in Sources */,
+				646A258E2CA973DE00F2A708 /* DateFactoryTests.swift in Sources */,
+				646A258C2CA9729300F2A708 /* AppKitOpenPanelFactoryTests.swift in Sources */,
 				6488BA492B628C01004A1812 /* StringProtocol+Extensions.swift in Sources */,
 				BFB040E78E3FB0167EE3CF61 /* MockFilterView.swift in Sources */,
 				648692012B6E62090021A9F1 /* MockRecentDocumentManaging.swift in Sources */,

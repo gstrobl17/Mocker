@@ -12,10 +12,11 @@ import XCTest
 class ProjectFileSelectorRouterTests: XCTestCase {
 
     let openPanelFactory = MockOpenPanelFactory()
+    let userDefaults = MockUserDefaults()
 
     func testCreateModule() {
         
-        let viewController = ProjectFileSelectorRouter.createModule(openPanelFactory: openPanelFactory)
+        let viewController = ProjectFileSelectorRouter.createModule(openPanelFactory: openPanelFactory, userDefaults: userDefaults)
         
         XCTAssertTrue(viewController is any ProjectFileSelectorViewProtocol)
         if let viewController = viewController as? any ProjectFileSelectorViewProtocol {

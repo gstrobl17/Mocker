@@ -38,6 +38,7 @@ struct GodfatherRouterTests {
             protocolSelectorRouterType: MockProtocolSelectorRouter.self,
             mockFileParametersRouterType: MockMockFileParametersRouter.self,
             contentPresenterRouterType: MockContentPresenterRouter.self,
+            compareRouterType: MockCompareRouter.self,
             filteringHandler: filteringHandler,
             recentDocumentManager: recentDocumentManager,
             documentController: documentController
