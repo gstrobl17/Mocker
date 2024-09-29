@@ -1638,7 +1638,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) var calledMethods = Method()
 
-                               var errorToThrow: Error!
+                               var errorToThrow: (any Error)!
                                var fooShouldThrowError = false
 
 
@@ -1707,7 +1707,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public var calledMethods = Method()
 
-                               public var errorToThrow: Error!
+                               public var errorToThrow: (any Error)!
                                public var fooShouldThrowError = false
 
 
@@ -1787,7 +1787,7 @@ extension ASTMockGeneratorTests {
 
                                var fooReturnValue: SomeItem!
 
-                               var errorToThrow: Error!
+                               var errorToThrow: (any Error)!
                                var fooShouldThrowError = false
 
 
@@ -1861,7 +1861,7 @@ extension ASTMockGeneratorTests {
 
                                public var fooReturnValue: SomeItem!
 
-                               public var errorToThrow: Error!
+                               public var errorToThrow: (any Error)!
                                public var fooShouldThrowError = false
 
 
@@ -2085,7 +2085,7 @@ extension ASTMockGeneratorTests {
 
                                var fooReturnValue: (any SomeItem)!
 
-                               var errorToThrow: Error!
+                               var errorToThrow: (any Error)!
                                var fooShouldThrowError = false
 
 
@@ -2159,7 +2159,7 @@ extension ASTMockGeneratorTests {
 
                                public var fooReturnValue: (any SomeItem)!
 
-                               public var errorToThrow: Error!
+                               public var errorToThrow: (any Error)!
                                public var fooShouldThrowError = false
 
 
@@ -2240,7 +2240,7 @@ extension ASTMockGeneratorTests {
 
                                var fooReturnValue: (any SomeItem)?
 
-                               var errorToThrow: Error!
+                               var errorToThrow: (any Error)!
                                var fooShouldThrowError = false
 
 
@@ -2314,7 +2314,7 @@ extension ASTMockGeneratorTests {
 
                                public var fooReturnValue: (any SomeItem)?
 
-                               public var errorToThrow: Error!
+                               public var errorToThrow: (any Error)!
                                public var fooShouldThrowError = false
 
 

@@ -816,8 +816,8 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) static var calledStaticMethods = StaticMethod()
 
-                               static var errorToThrow: Error!
-                               var errorToThrow: Error!
+                               static var errorToThrow: (any Error)!
+                               var errorToThrow: (any Error)!
                                var foo1ShouldThrowError = false
                                static var foo3ShouldThrowError = false
 
@@ -942,8 +942,8 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public static var calledStaticMethods = StaticMethod()
 
-                               public static var errorToThrow: Error!
-                               public var errorToThrow: Error!
+                               public static var errorToThrow: (any Error)!
+                               public var errorToThrow: (any Error)!
                                public var foo1ShouldThrowError = false
                                public static var foo3ShouldThrowError = false
 

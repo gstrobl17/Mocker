@@ -71,7 +71,7 @@ The exact code generated for a mock depends, obviously, on the requirements of t
     var dataForRequestDelegateReturnValue: (Data, URLResponse)!
     var dataFromUrlDelegateReturnValue: (Data, URLResponse)!
 
-    var errorToThrow: Error!
+    var errorToThrow: (any Error)!
     var dataForRequestDelegateShouldThrowError = false
     var dataFromUrlDelegateShouldThrowError = false
 ```

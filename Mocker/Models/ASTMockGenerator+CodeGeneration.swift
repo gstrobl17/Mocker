@@ -344,10 +344,10 @@ extension ASTMockGenerator {
         contentGenerated = true
 
         if generateClassErrorToThrowVariable {
-            code += "\(indentation)\(publicAccessQualifier)static var \(VariableName.staticErrorToThrow): Error!\n"
+            code += "\(indentation)\(publicAccessQualifier)static var \(VariableName.staticErrorToThrow): (any Error)!\n"
         }
         if generateInstanceErrorToThrowVariable {
-            code += "\(indentation)\(publicAccessQualifier)var \(VariableName.instanceErrorToThrow): Error!\n"
+            code += "\(indentation)\(publicAccessQualifier)var \(VariableName.instanceErrorToThrow): (any Error)!\n"
         }
 
         for method in parameters.methods where method.signature.throwsOrRethrows {

@@ -55,7 +55,7 @@ extension ASTMockGeneratorTests {
 
                                var decodeTypeFromDataReturnValue: T!
 
-                               var errorToThrow: Error!
+                               var errorToThrow: (any Error)!
                                var decodeTypeFromDataShouldThrowError = false
 
 
@@ -175,7 +175,7 @@ extension ASTMockGeneratorTests {
 
                                public var decodeTypeFromDataReturnValue: T!
 
-                               public var errorToThrow: Error!
+                               public var errorToThrow: (any Error)!
                                public var decodeTypeFromDataShouldThrowError = false
 
 

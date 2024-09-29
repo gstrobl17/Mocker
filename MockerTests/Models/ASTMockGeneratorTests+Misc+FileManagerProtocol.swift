@@ -72,7 +72,7 @@ extension ASTMockGeneratorTests {
                                var urlForDirectoryInDomainAppropriateForUrlCreateShouldCreateReturnValue: URL!
                                var fileExistsAtPathPathReturnValue: Bool!
 
-                               var errorToThrow: Error!
+                               var errorToThrow: (any Error)!
                                var urlForDirectoryInDomainAppropriateForUrlCreateShouldCreateShouldThrowError = false
                                var removeItemAtURLShouldThrowError = false
 
@@ -274,7 +274,7 @@ extension ASTMockGeneratorTests {
                                public var urlForDirectoryInDomainAppropriateForUrlCreateShouldCreateReturnValue: URL!
                                public var fileExistsAtPathPathReturnValue: Bool!
 
-                               public var errorToThrow: Error!
+                               public var errorToThrow: (any Error)!
                                public var urlForDirectoryInDomainAppropriateForUrlCreateShouldCreateShouldThrowError = false
                                public var removeItemAtURLShouldThrowError = false
 

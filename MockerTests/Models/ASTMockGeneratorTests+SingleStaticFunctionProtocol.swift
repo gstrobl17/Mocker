@@ -1638,7 +1638,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) static var calledStaticMethods = StaticMethod()
 
-                               static var errorToThrow: Error!
+                               static var errorToThrow: (any Error)!
                                static var fooShouldThrowError = false
 
 
@@ -1707,7 +1707,7 @@ extension ASTMockGeneratorTests {
                                }
                                private(set) public static var calledStaticMethods = StaticMethod()
 
-                               public static var errorToThrow: Error!
+                               public static var errorToThrow: (any Error)!
                                public static var fooShouldThrowError = false
 
 
@@ -1787,7 +1787,7 @@ extension ASTMockGeneratorTests {
 
                                static var fooReturnValue: SomeItem!
 
-                               static var errorToThrow: Error!
+                               static var errorToThrow: (any Error)!
                                static var fooShouldThrowError = false
 
 
@@ -1861,7 +1861,7 @@ extension ASTMockGeneratorTests {
 
                                public static var fooReturnValue: SomeItem!
 
-                               public static var errorToThrow: Error!
+                               public static var errorToThrow: (any Error)!
                                public static var fooShouldThrowError = false
 
 
@@ -1942,7 +1942,7 @@ extension ASTMockGeneratorTests {
 
                                static var fooReturnValue: SomeItem?
 
-                               static var errorToThrow: Error!
+                               static var errorToThrow: (any Error)!
                                static var fooShouldThrowError = false
 
 
@@ -2016,7 +2016,7 @@ extension ASTMockGeneratorTests {
 
                                public static var fooReturnValue: SomeItem?
 
-                               public static var errorToThrow: Error!
+                               public static var errorToThrow: (any Error)!
                                public static var fooShouldThrowError = false
 
 
@@ -2097,7 +2097,7 @@ extension ASTMockGeneratorTests {
 
                                static var fooReturnValue: (any SomeItem)!
 
-                               static var errorToThrow: Error!
+                               static var errorToThrow: (any Error)!
                                static var fooShouldThrowError = false
 
 
@@ -2171,7 +2171,7 @@ extension ASTMockGeneratorTests {
 
                                public static var fooReturnValue: (any SomeItem)!
 
-                               public static var errorToThrow: Error!
+                               public static var errorToThrow: (any Error)!
                                public static var fooShouldThrowError = false
 
 
@@ -2252,7 +2252,7 @@ extension ASTMockGeneratorTests {
 
                                static var fooReturnValue: (any SomeItem)?
 
-                               static var errorToThrow: Error!
+                               static var errorToThrow: (any Error)!
                                static var fooShouldThrowError = false
 
 
@@ -2326,7 +2326,7 @@ extension ASTMockGeneratorTests {
 
                                public static var fooReturnValue: (any SomeItem)?
 
-                               public static var errorToThrow: Error!
+                               public static var errorToThrow: (any Error)!
                                public static var fooShouldThrowError = false
 
 
