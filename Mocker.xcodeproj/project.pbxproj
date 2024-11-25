@@ -19,7 +19,6 @@
 		6427B9F02033954800BCA2E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427B9EF2033954800BCA2E9 /* ViewController.swift */; };
 		6427B9F22033954800BCA2E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6427B9F12033954800BCA2E9 /* Assets.xcassets */; };
 		6427B9F52033954800BCA2E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6427B9F32033954800BCA2E9 /* Main.storyboard */; };
-		64312C342C6E0C2F000BA25C /* XcodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 64312C332C6E0C2F000BA25C /* XcodeEditor */; };
 		643D97DD2A617A950001450E /* SwiftOperators in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97DC2A617A950001450E /* SwiftOperators */; };
 		643D97DF2A617A950001450E /* SwiftParser in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97DE2A617A950001450E /* SwiftParser */; };
 		643D97E12A617A950001450E /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97E02A617A950001450E /* SwiftSyntax */; };
@@ -95,6 +94,7 @@
 		6488BA472B628A3E004A1812 /* firstDifferenceBetweenStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA462B628A3E004A1812 /* firstDifferenceBetweenStrings.swift */; };
 		6488BA492B628C01004A1812 /* StringProtocol+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA482B628C01004A1812 /* StringProtocol+Extensions.swift */; };
 		6488BA4B2B62978A004A1812 /* XCTTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488BA4A2B62978A004A1812 /* XCTTest+Extensions.swift */; };
+		6489C6052CF4748400BE08B6 /* XcodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 6489C6042CF4748400BE08B6 /* XcodeEditor */; };
 		6491FE782CA73479008F7F78 /* ComparePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE742CA73479008F7F78 /* ComparePresenter.swift */; };
 		6491FE792CA73479008F7F78 /* CompareProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE752CA73479008F7F78 /* CompareProtocols.swift */; };
 		6491FE7A2CA73479008F7F78 /* CompareInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491FE732CA73479008F7F78 /* CompareInteractor.swift */; };
@@ -512,7 +512,7 @@
 				643D97DF2A617A950001450E /* SwiftParser in Frameworks */,
 				643D97E12A617A950001450E /* SwiftSyntax in Frameworks */,
 				6464F9C423D515EB00B03205 /* SourceKittenFramework in Frameworks */,
-				64312C342C6E0C2F000BA25C /* XcodeEditor in Frameworks */,
+				6489C6052CF4748400BE08B6 /* XcodeEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,7 +1127,7 @@
 				643D97DE2A617A950001450E /* SwiftParser */,
 				643D97E02A617A950001450E /* SwiftSyntax */,
 				643D97E22A617A950001450E /* SwiftSyntaxBuilder */,
-				64312C332C6E0C2F000BA25C /* XcodeEditor */,
+				6489C6042CF4748400BE08B6 /* XcodeEditor */,
 			);
 			productName = Mocker;
 			productReference = 6427B9EA2033954800BCA2E9 /* Mocker.app */;
@@ -1195,8 +1195,8 @@
 			packageReferences = (
 				6464F9C223D515EB00B03205 /* XCRemoteSwiftPackageReference "SourceKitten" */,
 				643D97DB2A617A950001450E /* XCRemoteSwiftPackageReference "swift-syntax" */,
-				64312C322C6E0C2F000BA25C /* XCRemoteSwiftPackageReference "XcodeEditor" */,
 				64EA798A2C6F7E9C007FEF86 /* XCRemoteSwiftPackageReference "MacrosForStroblMocks" */,
+				6489C6032CF4748400BE08B6 /* XCRemoteSwiftPackageReference "XcodeEditor" */,
 			);
 			productRefGroup = 6427B9EB2033954800BCA2E9 /* Products */;
 			projectDirPath = "";
@@ -1844,14 +1844,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		64312C322C6E0C2F000BA25C /* XCRemoteSwiftPackageReference "XcodeEditor" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:gstrobl17/XcodeEditor.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		643D97DB2A617A950001450E /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-syntax";
@@ -1868,6 +1860,14 @@
 				minimumVersion = 0.34.0;
 			};
 		};
+		6489C6032CF4748400BE08B6 /* XCRemoteSwiftPackageReference "XcodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gstrobl17/XcodeEditor.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		64EA798A2C6F7E9C007FEF86 /* XCRemoteSwiftPackageReference "MacrosForStroblMocks" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gstrobl17/MacrosForStroblMocks";
@@ -1879,11 +1879,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		64312C332C6E0C2F000BA25C /* XcodeEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 64312C322C6E0C2F000BA25C /* XCRemoteSwiftPackageReference "XcodeEditor" */;
-			productName = XcodeEditor;
-		};
 		643D97DC2A617A950001450E /* SwiftOperators */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 643D97DB2A617A950001450E /* XCRemoteSwiftPackageReference "swift-syntax" */;
@@ -1908,6 +1903,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6464F9C223D515EB00B03205 /* XCRemoteSwiftPackageReference "SourceKitten" */;
 			productName = SourceKittenFramework;
+		};
+		6489C6042CF4748400BE08B6 /* XcodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6489C6032CF4748400BE08B6 /* XCRemoteSwiftPackageReference "XcodeEditor" */;
+			productName = XcodeEditor;
 		};
 		64EA798B2C6F7E9C007FEF86 /* MacrosForStroblMocks */ = {
 			isa = XCSwiftPackageProductDependency;
