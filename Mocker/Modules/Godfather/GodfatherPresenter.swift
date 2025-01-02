@@ -30,16 +30,8 @@ class GodfatherPresenter {
 
 extension GodfatherPresenter: GodfatherPresenterProtocol {
     
-    func selectProject() {
-        interactor?.selectProject()
-    }
-    
-    func canReloadProject() -> Bool {
-        interactor?.canReloadProject() ?? false
-    }
-    
-    func reloadProject() {
-        interactor?.reloadProject()
+    func selectSwiftFile() {
+        interactor?.selectSwiftFile()
     }
 
     func displayChoice(_ choice: DisplayChoice) {
@@ -53,24 +45,20 @@ extension GodfatherPresenter: GodfatherPresenterProtocol {
     func viewHasAppeared() {
         interactor?.viewHasAppeared()
     }
-    
-    func openRecentProjectFile(_ url: URL) {
-        interactor?.openRecentProjectFile(url)
-    }
 
 }
 
 extension GodfatherPresenter: GodfatherInteractorOutputProtocol {
     
     //swiftlint:disable:next function_parameter_count
-    func install(projectFileSelector: NSViewController,
+    func install(swiftFileSelector: NSViewController,
                  sourceFileSelector: NSViewController,
                  sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
                  contentPresenter: NSViewController,
                  compare: NSViewController) {
-        view?.install(projectFileSelector: projectFileSelector,
+        view?.install(swiftFileSelector: swiftFileSelector,
                       sourceFileSelector: sourceFileSelector,
                       sourceFileFilter: sourceFileFilter,
                       protocolSelector: protocolSelector,

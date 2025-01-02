@@ -501,11 +501,11 @@
                         <outlet property="copyToClipboardButton" destination="dw4-Bh-iC5" id="oOk-t9-1OQ"/>
                         <outlet property="displayChoiceSegmentedControl" destination="PDT-sp-KUl" id="AXC-5n-7Ra"/>
                         <outlet property="mockFileParametersView" destination="IPV-Yd-GRl" id="6Rq-ad-N9q"/>
-                        <outlet property="projectFileSelectorView" destination="HhA-C9-KTJ" id="eez-WD-rR0"/>
                         <outlet property="protocolSelectorView" destination="1tC-3r-OJT" id="cCP-ae-dXI"/>
                         <outlet property="sourceFileFilterView" destination="2dq-R0-Qea" id="nby-uR-g0v"/>
                         <outlet property="sourceFileSelectorView" destination="Wbs-28-SyI" id="x75-i4-5Ph"/>
                         <outlet property="splitView" destination="fhE-BF-e14" id="sQp-7j-EPY"/>
+                        <outlet property="swiftFileSelectorView" destination="HhA-C9-KTJ" id="eez-WD-rR0"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -583,7 +583,7 @@
                 </viewController>
                 <customObject id="DSg-jS-mZj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-416" y="531"/>
+            <point key="canvasLocation" x="803" y="2056"/>
         </scene>
         <!--Source File Selector View Controller-->
         <scene sceneID="BYD-6q-ptc">
@@ -668,7 +668,7 @@
                 </viewController>
                 <customObject id="lAw-Cq-Qz2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-416" y="758"/>
+            <point key="canvasLocation" x="352" y="2195"/>
         </scene>
         <!--Content Presenter View Controller-->
         <scene sceneID="pJl-DB-y7f">
@@ -1055,6 +1055,221 @@
                 <customObject id="9vg-B4-26P" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-454" y="374"/>
+        </scene>
+        <!--PreUI Pivot Main View Controller-->
+        <scene sceneID="O8I-8F-gLZ">
+            <objects>
+                <viewController id="3lJ-AX-S0B" customClass="PreUIPivotMainViewController" customModule="Mocker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" wantsLayer="YES" id="kwD-Mu-8RW">
+                        <rect key="frame" x="0.0" y="0.0" width="673" height="415"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="30D-pH-eTB">
+                                <rect key="frame" x="20" y="373" width="633" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="JEx-dE-90z"/>
+                                </constraints>
+                            </customView>
+                            <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qZx-aA-dRm">
+                                <rect key="frame" x="20" y="20" width="633" height="333"/>
+                                <subviews>
+                                    <customView id="461-ZW-A5g">
+                                        <rect key="frame" x="0.0" y="0.0" width="314" height="333"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="D8K-zF-rwF">
+                                                <rect key="frame" x="0.0" y="30" width="306" height="303"/>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="fuy-fd-cFQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="306" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="22" id="0xZ-e8-0hb"/>
+                                                </constraints>
+                                            </customView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="fuy-fd-cFQ" secondAttribute="bottom" id="ALj-Eb-Enh"/>
+                                            <constraint firstAttribute="trailing" secondItem="D8K-zF-rwF" secondAttribute="trailing" constant="8" id="MAQ-z5-AY4"/>
+                                            <constraint firstItem="D8K-zF-rwF" firstAttribute="top" secondItem="461-ZW-A5g" secondAttribute="top" id="VgK-0O-Mfa"/>
+                                            <constraint firstAttribute="trailing" secondItem="fuy-fd-cFQ" secondAttribute="trailing" constant="8" id="Vhn-Xs-bFX"/>
+                                            <constraint firstItem="fuy-fd-cFQ" firstAttribute="top" secondItem="D8K-zF-rwF" secondAttribute="bottom" constant="8" id="gLA-fN-psc"/>
+                                            <constraint firstItem="D8K-zF-rwF" firstAttribute="leading" secondItem="461-ZW-A5g" secondAttribute="leading" id="rzh-de-clF"/>
+                                            <constraint firstItem="fuy-fd-cFQ" firstAttribute="leading" secondItem="461-ZW-A5g" secondAttribute="leading" id="zca-aC-Mmc"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView id="7wM-Fw-86u">
+                                        <rect key="frame" x="324" y="0.0" width="309" height="333"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KtF-q9-aLX">
+                                                <rect key="frame" x="8" y="313" width="301" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="hQ0-Eq-B5E"/>
+                                                </constraints>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="xWY-Kf-8zN">
+                                                <rect key="frame" x="8" y="188" width="301" height="117"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="117" id="Dhr-1Q-mzh"/>
+                                                </constraints>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="DLy-1z-6OI">
+                                                <rect key="frame" x="8" y="33" width="301" height="147"/>
+                                            </customView>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="15" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DBJ-Bc-2Bh">
+                                                <rect key="frame" x="8" y="0.0" width="135" height="25"/>
+                                                <subviews>
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="D0p-hx-Nn8">
+                                                        <rect key="frame" x="0.0" y="-4.5" width="25" height="34"/>
+                                                        <buttonCell key="cell" type="bevel" alternateTitle="Copy Mock to Clipboard" bezelStyle="rounded" image="arrow.right.page.on.clipboard" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="7Iv-A7-0op">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="25" id="C0T-cd-ZSG"/>
+                                                            <constraint firstAttribute="height" constant="25" id="qlL-9W-cKd"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <action selector="copyToClipboardPressed:" target="3lJ-AX-S0B" id="1Tk-L3-WLP"/>
+                                                        </connections>
+                                                    </button>
+                                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HvD-f1-qlf">
+                                                        <rect key="frame" x="39" y="3" width="97" height="20"/>
+                                                        <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fill" style="roundRect" trackingMode="selectOne" id="vfF-Ca-TQz">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <segments>
+                                                                <segment label="Mock" width="45" selected="YES"/>
+                                                                <segment label="Source" width="45" tag="1"/>
+                                                            </segments>
+                                                        </segmentedCell>
+                                                        <connections>
+                                                            <action selector="displayChoiceSegmentedChanged:" target="3lJ-AX-S0B" id="yqX-Aw-hN9"/>
+                                                        </connections>
+                                                    </segmentedControl>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NO7-Nq-Pd4">
+                                                <rect key="frame" x="249" y="0.0" width="60" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="k9Z-ud-Rz4"/>
+                                                </constraints>
+                                            </customView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="DBJ-Bc-2Bh" firstAttribute="leading" secondItem="7wM-Fw-86u" secondAttribute="leading" constant="8" id="15g-0S-ptg"/>
+                                            <constraint firstItem="xWY-Kf-8zN" firstAttribute="top" secondItem="KtF-q9-aLX" secondAttribute="bottom" constant="8" id="2sW-nF-Wcg"/>
+                                            <constraint firstAttribute="trailing" secondItem="xWY-Kf-8zN" secondAttribute="trailing" id="Bed-OC-qfQ"/>
+                                            <constraint firstItem="NO7-Nq-Pd4" firstAttribute="top" secondItem="DLy-1z-6OI" secondAttribute="bottom" constant="8" symbolic="YES" id="C5a-9k-rLp"/>
+                                            <constraint firstItem="KtF-q9-aLX" firstAttribute="leading" secondItem="7wM-Fw-86u" secondAttribute="leading" constant="8" id="W1X-5S-L2f"/>
+                                            <constraint firstItem="DLy-1z-6OI" firstAttribute="top" secondItem="xWY-Kf-8zN" secondAttribute="bottom" constant="8" id="XaF-Ki-o5l"/>
+                                            <constraint firstAttribute="trailing" secondItem="NO7-Nq-Pd4" secondAttribute="trailing" constant="4" id="drY-mR-UxB"/>
+                                            <constraint firstItem="xWY-Kf-8zN" firstAttribute="leading" secondItem="7wM-Fw-86u" secondAttribute="leading" constant="8" id="duQ-kg-o62"/>
+                                            <constraint firstAttribute="trailing" secondItem="DLy-1z-6OI" secondAttribute="trailing" id="gcA-zF-j97"/>
+                                            <constraint firstAttribute="bottom" secondItem="DBJ-Bc-2Bh" secondAttribute="bottom" id="hcg-VC-XQx"/>
+                                            <constraint firstItem="DLy-1z-6OI" firstAttribute="leading" secondItem="7wM-Fw-86u" secondAttribute="leading" constant="8" id="kvD-zO-lox"/>
+                                            <constraint firstAttribute="bottom" secondItem="NO7-Nq-Pd4" secondAttribute="bottom" id="lvk-dD-sj7"/>
+                                            <constraint firstItem="KtF-q9-aLX" firstAttribute="top" secondItem="7wM-Fw-86u" secondAttribute="top" id="qoU-3m-tpg"/>
+                                            <constraint firstItem="DBJ-Bc-2Bh" firstAttribute="top" secondItem="DLy-1z-6OI" secondAttribute="bottom" constant="8" symbolic="YES" id="sBC-wz-AZg"/>
+                                            <constraint firstAttribute="trailing" secondItem="KtF-q9-aLX" secondAttribute="trailing" id="snJ-vR-6A8"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <holdingPriorities>
+                                    <real value="250"/>
+                                    <real value="250"/>
+                                </holdingPriorities>
+                            </splitView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="qZx-aA-dRm" firstAttribute="top" secondItem="30D-pH-eTB" secondAttribute="bottom" constant="20" id="ELV-WX-Yi5"/>
+                            <constraint firstAttribute="trailing" secondItem="30D-pH-eTB" secondAttribute="trailing" constant="20" id="Era-mY-Od2"/>
+                            <constraint firstItem="qZx-aA-dRm" firstAttribute="leading" secondItem="kwD-Mu-8RW" secondAttribute="leading" constant="20" id="Hdl-bd-o6g"/>
+                            <constraint firstAttribute="trailing" secondItem="qZx-aA-dRm" secondAttribute="trailing" constant="20" id="U81-Rm-ebz"/>
+                            <constraint firstItem="30D-pH-eTB" firstAttribute="top" secondItem="kwD-Mu-8RW" secondAttribute="top" constant="20" id="b7v-ZO-q0v"/>
+                            <constraint firstAttribute="bottom" secondItem="qZx-aA-dRm" secondAttribute="bottom" constant="20" id="io6-A1-yj3"/>
+                            <constraint firstItem="30D-pH-eTB" firstAttribute="leading" secondItem="kwD-Mu-8RW" secondAttribute="leading" constant="20" id="pyZ-EH-UZQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="compareView" destination="NO7-Nq-Pd4" id="gnf-jW-O2r"/>
+                        <outlet property="contentPresenterView" destination="DLy-1z-6OI" id="d18-5k-Fjs"/>
+                        <outlet property="copyToClipboardButton" destination="D0p-hx-Nn8" id="UAx-Wf-5zk"/>
+                        <outlet property="displayChoiceSegmentedControl" destination="HvD-f1-qlf" id="Dyp-kx-C9Y"/>
+                        <outlet property="mockFileParametersView" destination="xWY-Kf-8zN" id="ScZ-BL-i9q"/>
+                        <outlet property="projectFileSelectorView" destination="30D-pH-eTB" id="3S1-MY-zRn"/>
+                        <outlet property="protocolSelectorView" destination="KtF-q9-aLX" id="8ri-38-pSY"/>
+                        <outlet property="sourceFileFilterView" destination="fuy-fd-cFQ" id="e0B-jo-FT5"/>
+                        <outlet property="sourceFileSelectorView" destination="D8K-zF-rwF" id="M75-Ut-9IG"/>
+                        <outlet property="splitView" destination="qZx-aA-dRm" id="1de-IS-hgw"/>
+                    </connections>
+                </viewController>
+                <customObject id="ftg-bx-EXh" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="469" y="1777"/>
+        </scene>
+        <!--Swift File Selector View Controller-->
+        <scene sceneID="v02-ti-nTY">
+            <objects>
+                <viewController storyboardIdentifier="SwiftFileSelector" id="gs7-WF-ShG" customClass="SwiftFileSelectorViewController" customModule="Mocker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="EJ9-Zj-jJB">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="21"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="alb-E7-YPc">
+                                <rect key="frame" x="-2" y="3" width="60" height="16"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Swift File" id="2S4-Fz-vU3">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpn-wJ-gnK">
+                                <rect key="frame" x="64" y="0.0" width="296" height="21"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingHead" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="syZ-Jc-ibz">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mfF-zR-GTb">
+                                <rect key="frame" x="359" y="-7" width="88" height="32"/>
+                                <buttonCell key="cell" type="push" title="Select ..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lWK-s4-KGw">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="selectPressed:" target="gs7-WF-ShG" id="hep-uu-wG0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="mfF-zR-GTb" secondAttribute="trailing" id="1af-2c-VD9"/>
+                            <constraint firstItem="mfF-zR-GTb" firstAttribute="baseline" secondItem="Zpn-wJ-gnK" secondAttribute="baseline" id="4ZF-K3-yZH"/>
+                            <constraint firstItem="mfF-zR-GTb" firstAttribute="leading" secondItem="Zpn-wJ-gnK" secondAttribute="trailing" constant="6" id="5Z5-g2-jNp"/>
+                            <constraint firstItem="alb-E7-YPc" firstAttribute="leading" secondItem="EJ9-Zj-jJB" secondAttribute="leading" id="JYD-P9-Td4"/>
+                            <constraint firstAttribute="bottom" secondItem="Zpn-wJ-gnK" secondAttribute="bottom" id="KsN-PZ-H95"/>
+                            <constraint firstItem="Zpn-wJ-gnK" firstAttribute="leading" secondItem="alb-E7-YPc" secondAttribute="trailing" constant="8" symbolic="YES" id="bBX-Hh-F6z"/>
+                            <constraint firstItem="Zpn-wJ-gnK" firstAttribute="top" secondItem="EJ9-Zj-jJB" secondAttribute="top" id="h9u-hS-vNw"/>
+                            <constraint firstItem="Zpn-wJ-gnK" firstAttribute="baseline" secondItem="alb-E7-YPc" secondAttribute="baseline" id="zeC-fN-PZL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="selectButton" destination="mfF-zR-GTb" id="ogA-xZ-3Bd"/>
+                        <outlet property="swiftFileLabel" destination="alb-E7-YPc" id="k1s-fh-dJi"/>
+                        <outlet property="textField" destination="Zpn-wJ-gnK" id="225-Z9-3dU"/>
+                    </connections>
+                </viewController>
+                <customObject id="9Cn-m1-c11" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-488" y="617"/>
         </scene>
     </scenes>
     <resources>

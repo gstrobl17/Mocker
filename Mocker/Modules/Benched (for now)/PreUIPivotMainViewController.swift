@@ -1,23 +1,13 @@
 //
-//  ViewController.swift
-//  Mocker
-//
-//  Created by Greg on 2/13/18.
+// Copyright © 2025 FreedomPay. All rights reserved.
 //
 
 import Cocoa
 import XcodeEditor
 
-// https://stackoverflow.com/questions/47051682/unknown-window-class-null-in-interface-builder-file-creating-generic-window-i
-class MockerWindow: NSWindow { }
+class PreUIPivotMainViewController: NSViewController {
 
-extension NSWindow.FrameAutosaveName {
-    static let mockerFrame = UserDefaultsKey.windowFrameAutosaveName
-}
-
-class ViewController: NSViewController {
-
-    @IBOutlet weak var swiftFileSelectorView: NSView!   //swiftlint:disable:this private_outlet
+    @IBOutlet weak var projectFileSelectorView: NSView! //swiftlint:disable:this private_outlet
     @IBOutlet weak var splitView: NSSplitView!          //swiftlint:disable:this private_outlet
     @IBOutlet weak var sourceFileSelectorView: NSView!  //swiftlint:disable:this private_outlet
     @IBOutlet weak var sourceFileFilterView: NSView!    //swiftlint:disable:this private_outlet
@@ -37,24 +27,24 @@ class ViewController: NSViewController {
         
         splitView.delegate = self
         
-        godfatherView = GodfatherRouter.createModule(
-            viewController: self,
-            userDefaults: userDefaults,
-            fileManager: FileManager.default,
-            dataSourceFactory: SourceFileDataSourceFactory(),
-            mockGeneratorFactory: ASTMockGeneratorFactory(),
-            openPanelFactory: AppKitOpenPanelFactory(),
-            swiftFileSelectorRouterType: SwiftFileSelectorRouter.self,
-            sourceFileSelectorRouterType: SourceFileSelectorRouter.self,
-            sourceFileFilterRouterType: FilterRouter.self,
-            protocolSelectorRouterType: ProtocolSelectorRouter.self,
-            mockFileParametersRouterType: MockFileParametersRouter.self,
-            contentPresenterRouterType: ContentPresenterRouter.self,
-            compareRouterType: CompareRouter.self,
-            filteringHandler: ProjectFilteringHandler(),
-            recentDocumentManager: RecentDocumentManager(userDefaults: userDefaults),
-            documentController: MockerDocumentController.shared
-        )
+//        godfatherView = GodfatherRouter.createModule(
+//            viewController: self,
+//            userDefaults: userDefaults,
+//            fileManager: FileManager.default,
+//            dataSourceFactory: SourceFileDataSourceFactory(),
+//            mockGeneratorFactory: ASTMockGeneratorFactory(),
+//            openPanelFactory: AppKitOpenPanelFactory(),
+//            projectFileSelectorRouterType: ProjectFileSelectorRouter.self,
+//            sourceFileSelectorRouterType: SourceFileSelectorRouter.self,
+//            sourceFileFilterRouterType: FilterRouter.self,
+//            protocolSelectorRouterType: ProtocolSelectorRouter.self,
+//            mockFileParametersRouterType: MockFileParametersRouter.self,
+//            contentPresenterRouterType: ContentPresenterRouter.self,
+//            compareRouterType: CompareRouter.self,
+//            filteringHandler: ProjectFilteringHandler(),
+//            recentDocumentManager: RecentDocumentManager(userDefaults: userDefaults),
+//            documentController: MockerDocumentController.shared
+//        )
     }
     
     override func viewWillAppear() {
@@ -80,7 +70,7 @@ class ViewController: NSViewController {
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(selectProject(_:)) {
+        if menuItem.action == #selector(selectSwiftFile(_:)) {
             return true
         }
         assertionFailure("Unexpected menu item (\(String(describing: menuItem.action))) received in \(#function)")
@@ -91,7 +81,7 @@ class ViewController: NSViewController {
         godfatherView.selectSwiftFile()
     }
 
-    @IBAction private func selectProject(_ sender: Any) {
+    @IBAction private func selectSwiftFile(_ sender: Any) {
         godfatherView.selectSwiftFile()
     }
 
@@ -107,7 +97,7 @@ class ViewController: NSViewController {
 
 }
 
-extension ViewController: NSSplitViewDelegate {
+extension PreUIPivotMainViewController: NSSplitViewDelegate {
     
     func splitViewDidResizeSubviews(_ notification: Notification) {
         guard windowSetup else { return }

@@ -14,7 +14,7 @@ class GodfatherInteractor {
 
     weak var presenter: (any GodfatherInteractorOutputProtocol)? {
         didSet {
-            presenter?.install(projectFileSelector: projectFileSelector,
+            presenter?.install(swiftFileSelector: swiftFileSelector,
                                sourceFileSelector: sourceFileSelector,
                                sourceFileFilter: sourceFileFilterModule.view,
                                protocolSelector: protocolSelector,
@@ -30,7 +30,7 @@ class GodfatherInteractor {
     let fileManager: any FileManaging
     let dataSourceFactory: any SourceFileDataSourceCreating
     let mockGeneratorFactory: any MockGeneratorFactory
-    let projectFileSelector: any NSViewController & ProjectFileSelectorInterfaceProtocol
+    let swiftFileSelector: any NSViewController & SwiftFileSelectorInterfaceProtocol
     let sourceFileSelector: any NSViewController & SourceFileSelectorInterfaceProtocol
     let sourceFileFilterModule: (view: NSViewController, interface: any FilterInterfaceProtocol)
     let protocolSelector: any NSViewController & ProtocolSelectorInterfaceProtocol
@@ -73,7 +73,7 @@ class GodfatherInteractor {
         dataSourceFactory: any SourceFileDataSourceCreating,
         mockGeneratorFactory: any MockGeneratorFactory,
         openPanelFactory: any OpenPanelFactory,
-        projectFileSelectorRouterType: any ProjectFileSelectorWireframeProtocol.Type,
+        swiftFileSelectorRouterType: any SwiftFileSelectorWireframeProtocol.Type,
         sourceFileSelectorRouterType: any SourceFileSelectorWireframeProtocol.Type,
         sourceFileFilterRouterType: any FilterWireframeProtocol.Type,
         protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
@@ -91,7 +91,7 @@ class GodfatherInteractor {
         self.fileManager = fileManager
         self.dataSourceFactory = dataSourceFactory
         self.mockGeneratorFactory = mockGeneratorFactory
-        projectFileSelector = projectFileSelectorRouterType.createModule(openPanelFactory: openPanelFactory, userDefaults: userDefaults)
+        swiftFileSelector = swiftFileSelectorRouterType.createModule(openPanelFactory: openPanelFactory, userDefaults: userDefaults)
         sourceFileSelector = sourceFileSelectorRouterType.createModule()
         sourceFileFilterModule = sourceFileFilterRouterType.createModule(userDefaults: userDefaults)
         protocolSelector = protocolSelectorRouterType.createModule()
@@ -104,7 +104,7 @@ class GodfatherInteractor {
         self.pasteboard = pasteboard
         self.stringFromURLContentsFactory = stringFromURLContentsFactory
 
-        projectFileSelector.delegate = self
+        swiftFileSelector.delegate = self
         sourceFileSelector.delegate = self
         sourceFileFilterModule.interface.delegate = self
         protocolSelector.delegate = self
@@ -112,32 +112,32 @@ class GodfatherInteractor {
         compare.delegate = self
     }
     
-    private func openProjectFile(_ url: URL) {
-        
-        userDefaults.projectFilePath = nil
+    private func openSwiftFile(_ url: URL) {
 
-        presenter?.showAsBusy(with: "Loading \(url.lastPathComponent)")
-        defer {
-            presenter?.clearBusyMessage()
-        }
+        //TODO: Implement
         
-        do {
-            if let dataSource = try dataSourceFactory.createDataSource(for: url) {
-                currentDataSource = dataSource
-                userDefaults.projectFilePath = url.path
-                renderFilteredSourceFileTree()
-                mockFileParameters.setup(for: dataSource)
-                mockFileParameters.clearProtocol()
-                
-                recentDocumentManager.add(url)
-// Removed due to Sequoia sandbox issue
-//                documentController.noteNewRecentDocumentURL(url)
-            } else {
-                reportProjectLoadFailure()
-            }
-        } catch {
-            presenter?.reportError(error)
-        }
+//        userDefaults.projectFilePath = nil
+//
+//        presenter?.showAsBusy(with: "Loading \(url.lastPathComponent)")
+//        defer {
+//            presenter?.clearBusyMessage()
+//        }
+//        
+//        do {
+//            if let dataSource = try dataSourceFactory.createDataSource(for: url) {
+//                currentDataSource = dataSource
+//                userDefaults.projectFilePath = url.path
+//                renderFilteredSourceFileTree()
+//                mockFileParameters.setup(for: dataSource)
+//                mockFileParameters.clearProtocol()
+//                
+//                recentDocumentManager.add(url)
+//            } else {
+//                reportFileLoadFailure()
+//            }
+//        } catch {
+//            presenter?.reportError(error)
+//        }
 
     }
     
@@ -153,15 +153,8 @@ class GodfatherInteractor {
         }
     }
     
-    private func reportProjectLoadFailure() {
-        presenter?.reportErrorCondition(with: "Project Load Failed", and: "Unable to load the selected project file")
-    }
-    
-    private func tryToOpenLastProject() {
-        if let projectFilePath = userDefaults.projectFilePath, fileManager.fileExists(atPath: projectFilePath) {
-            let url = URL(fileURLWithPath: projectFilePath)
-            projectFileSelector.showSelectedFile(url)
-        }
+    private func reportFileLoadFailure() {
+        presenter?.reportErrorCondition(with: "File Load Failed", and: "Unable to load the selected swift file")
     }
     
     internal func evaluateIfDisplayChoiceIsAvailable() {
@@ -178,23 +171,14 @@ class GodfatherInteractor {
 
 extension GodfatherInteractor: GodfatherInteractorInputProtocol {
     
-    func selectProject() {
-        projectFileSelector.selectProject()
-    }
-
-    func canReloadProject() -> Bool {
-        projectFileSelector.canReloadProject()
-    }
-    
-    func reloadProject() {
-        projectFileSelector.reloadProject()
+    func selectSwiftFile() {
+        swiftFileSelector.selectSwiftFile()
     }
 
     func viewHasAppeared() {
         // On the first time the view is opened, try to open the previous project
         if !theViewHasAppeared {
             theViewHasAppeared = true
-            tryToOpenLastProject()
         }
     }
     
@@ -213,17 +197,12 @@ extension GodfatherInteractor: GodfatherInteractorInputProtocol {
         presenter?.mockCopiedToClipboard()
     }
 
-    func openRecentProjectFile(_ url: URL) {
-        openProjectFile(url)
-        projectFileSelector.renderURLOfSelectedFile(url)
-    }
-
 }
 
-extension GodfatherInteractor: ProjectFileSelectorInterfaceDelegate {
+extension GodfatherInteractor: SwiftFileSelectorInterfaceDelegate {
     
-    func projectFileSelector(_ view: any NSViewController & ProjectFileSelectorInterfaceProtocol, fileSelected url: URL) {
-        openProjectFile(url)
+    func swiftFileSelector(_ view: any NSViewController & SwiftFileSelectorInterfaceProtocol, fileSelected url: URL) {
+        openSwiftFile(url)
     }
     
 }

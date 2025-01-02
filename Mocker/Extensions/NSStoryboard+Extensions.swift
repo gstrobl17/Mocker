@@ -12,8 +12,7 @@ extension NSStoryboard.Name {
 }
 
 extension NSStoryboard.SceneIdentifier {
-    static let projectFileSelector = "ProjectFileSelector"
-    static let sourceFileSelector = "SourceFileSelector"
+    static let swiftFileSelector = "SwiftFileSelector"
     static let contentPresenter = "ContentPresenter"
     static let copiedToPasteboad = "CopiedToPasteboard"
     static let activityIndicator = "ActivityIndicator"
@@ -23,4 +22,7 @@ extension NSStoryboard.SceneIdentifier {
     static let fileSynthesis = "FileSynthesis"
     static let filter = "Filter"
     static let compare = "Compare"
+    
+    static let sourceFileSelector = "SourceFileSelector"
+    static let projectFileSelector = "ProjectFileSelector"
 }

@@ -14,12 +14,9 @@ enum DisplayChoice: Int {
 
 @MainActor
 protocol GodfatherInterfaceProtocol: AnyObject {
-    func selectProject()
-    func canReloadProject() -> Bool
-    func reloadProject()
+    func selectSwiftFile()
     func displayChoice(_ choice: DisplayChoice)
     func copyMockToClipboard()
-    func openRecentProjectFile(_ url: URL)
 }
 
 // MARK: Wireframe -
@@ -35,7 +32,7 @@ protocol GodfatherWireframeProtocol: AnyObject {
         dataSourceFactory: any SourceFileDataSourceCreating,
         mockGeneratorFactory: any MockGeneratorFactory,
         openPanelFactory: any OpenPanelFactory,
-        projectFileSelectorRouterType: any ProjectFileSelectorWireframeProtocol.Type,
+        swiftFileSelectorRouterType: any SwiftFileSelectorWireframeProtocol.Type,
         sourceFileSelectorRouterType: any SourceFileSelectorWireframeProtocol.Type,
         sourceFileFilterRouterType: any FilterWireframeProtocol.Type,
         protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
@@ -55,13 +52,10 @@ protocol GodfatherPresenterProtocol: AnyObject {
 
     var interactor: (any GodfatherInteractorInputProtocol)? { get set }
 
-    func selectProject()
-    func canReloadProject() -> Bool
-    func reloadProject()
+    func selectSwiftFile()
     func displayChoice(_ choice: DisplayChoice)
     func copyMockToClipboard()
     func viewHasAppeared()
-    func openRecentProjectFile(_ url: URL)
 }
 
 // MARK: Interactor -
@@ -69,7 +63,7 @@ protocol GodfatherPresenterProtocol: AnyObject {
 protocol GodfatherInteractorOutputProtocol: AnyObject {
     
     //swiftlint:disable:next function_parameter_count
-    func install(projectFileSelector: NSViewController,
+    func install(swiftFileSelector: NSViewController,
                  sourceFileSelector: NSViewController,
                  sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
@@ -98,13 +92,10 @@ protocol GodfatherInteractorInputProtocol: AnyObject {
     var mockName: String { get }
     var mockCode: String { get }
 
-    func selectProject()
-    func canReloadProject() -> Bool
-    func reloadProject()
+    func selectSwiftFile()
     func viewHasAppeared()
     func displayChoice(_ choice: DisplayChoice)
     func copyMockToClipboard()
-    func openRecentProjectFile(_ url: URL)
     /* Presenter -> Interactor */
 }
 
@@ -115,7 +106,7 @@ protocol GodfatherViewProtocol: AnyObject {
     var presenter: (any GodfatherPresenterProtocol)? { get set }
 
     //swiftlint:disable:next function_parameter_count
-    func install(projectFileSelector: NSViewController,
+    func install(swiftFileSelector: NSViewController,
                  sourceFileSelector: NSViewController,
                  sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,

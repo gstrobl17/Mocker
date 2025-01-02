@@ -27,16 +27,8 @@ class GodfatherView {
 
 extension GodfatherView: GodfatherInterfaceProtocol {
     
-    func selectProject() {
-        presenter?.selectProject()
-    }
-    
-    func canReloadProject() -> Bool {
-        presenter?.canReloadProject() ?? false
-    }
-    
-    func reloadProject() {
-        presenter?.reloadProject()
+    func selectSwiftFile() {
+        presenter?.selectSwiftFile()
     }
 
     func displayChoice(_ choice: DisplayChoice) {
@@ -46,17 +38,13 @@ extension GodfatherView: GodfatherInterfaceProtocol {
     func copyMockToClipboard() {
         presenter?.copyMockToClipboard()
     }
-
-    func openRecentProjectFile(_ url: URL) {
-        presenter?.openRecentProjectFile(url)
-    }
     
 }
 
 extension GodfatherView: GodfatherViewProtocol {
     
     //swiftlint:disable:next function_parameter_count
-    func install(projectFileSelector: NSViewController,
+    func install(swiftFileSelector: NSViewController,
                  sourceFileSelector: NSViewController,
                  sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
@@ -64,7 +52,7 @@ extension GodfatherView: GodfatherViewProtocol {
                  contentPresenter: NSViewController,
                  compare: NSViewController
     ) {
-        guard viewController.projectFileSelectorView != nil &&
+        guard viewController.swiftFileSelectorView != nil &&
                 viewController.sourceFileSelectorView != nil &&
                 viewController.sourceFileFilterView != nil &&
                 viewController.protocolSelectorView != nil &&
@@ -72,7 +60,7 @@ extension GodfatherView: GodfatherViewProtocol {
                 viewController.contentPresenterView != nil &&
                 viewController.compareView != nil else { return }   // Added for unit testing
         
-        attach(projectFileSelector, to: viewController.projectFileSelectorView)
+        attach(swiftFileSelector, to: viewController.swiftFileSelectorView)
         attach(sourceFileSelector, to: viewController.sourceFileSelectorView)
         attach(sourceFileFilter, to: viewController.sourceFileFilterView)
         attach(protocolSelector, to: viewController.protocolSelectorView)

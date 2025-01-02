@@ -226,6 +226,12 @@
 		64F92FE9203A4B9B00AAB355 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FE8203A4B9B00AAB355 /* TreeNode.swift */; };
 		64F92FED203D80FF00AAB355 /* XCProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */; };
 		81FCF93CEACB6CD96117EF7D /* MockFilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FFA2C931820F46200E6C9 /* MockFilterPresenter.swift */; };
+		A6C143182D270AD00070235C /* PreUIPivotMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C143172D270AD00070235C /* PreUIPivotMainViewController.swift */; };
+		A6C1431B2D270BE70070235C /* SwiftFileSelectorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1431A2D270BD80070235C /* SwiftFileSelectorProtocols.swift */; };
+		A6C1431D2D270D770070235C /* SwiftFileSelectorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1431C2D270D710070235C /* SwiftFileSelectorInteractor.swift */; };
+		A6C1431F2D270DE50070235C /* SwiftFileSelectorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1431E2D270DDF0070235C /* SwiftFileSelectorPresenter.swift */; };
+		A6C143212D270EEC0070235C /* SwiftFileSelectorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C143202D270EE50070235C /* SwiftFileSelectorRouter.swift */; };
+		A6C143232D270FA10070235C /* SwiftFileSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C143222D270F9B0070235C /* SwiftFileSelectorViewController.swift */; };
 		AC7B8CE31870DF38E3886601 /* MockFilterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88AA17967D4D0EDC45D95B /* MockFilterInterface.swift */; };
 		BFB040E78E3FB0167EE3CF61 /* MockFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3DA68D6124F44FC1943971 /* MockFilterView.swift */; };
 		C0B6D80290C821020F9B75CE /* MockFilterInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2AD1AF6A67EAAC4F01385 /* MockFilterInteractorInput.swift */; };
@@ -489,6 +495,12 @@
 		64F92FEC203D80FF00AAB355 /* XCProject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCProject+Extensions.swift"; sourceTree = "<group>"; };
 		6D264A465E5D2A3EC7F78515 /* MockFilterInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFilterInteractorOutput.swift; sourceTree = "<group>"; };
 		8D88AA17967D4D0EDC45D95B /* MockFilterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFilterInterface.swift; sourceTree = "<group>"; };
+		A6C143172D270AD00070235C /* PreUIPivotMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreUIPivotMainViewController.swift; sourceTree = "<group>"; };
+		A6C1431A2D270BD80070235C /* SwiftFileSelectorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFileSelectorProtocols.swift; sourceTree = "<group>"; };
+		A6C1431C2D270D710070235C /* SwiftFileSelectorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFileSelectorInteractor.swift; sourceTree = "<group>"; };
+		A6C1431E2D270DDF0070235C /* SwiftFileSelectorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFileSelectorPresenter.swift; sourceTree = "<group>"; };
+		A6C143202D270EE50070235C /* SwiftFileSelectorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFileSelectorRouter.swift; sourceTree = "<group>"; };
+		A6C143222D270F9B0070235C /* SwiftFileSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFileSelectorViewController.swift; sourceTree = "<group>"; };
 		C2273B532211A99400582263 /* SwiftlintSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlintSupport.swift; sourceTree = "<group>"; };
 		C2635F8028621EE100F87C71 /* VariableDeclSyntax+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VariableDeclSyntax+Extensions.swift"; sourceTree = "<group>"; };
 		C2635F8228623B2000F87C71 /* DeclModifierListSyntax+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeclModifierListSyntax+Extensions.swift"; sourceTree = "<group>"; };
@@ -722,13 +734,12 @@
 		64C6076E203EC4DC005D6869 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				A6C143162D2709FC0070235C /* Benched (for now) */,
 				64C60771203EC54A005D6869 /* Godfather */,
-				64C6076F203EC503005D6869 /* Project File Selector */,
-				64C60770203EC511005D6869 /* Source File Selector */,
+				A6C143192D270B6F0070235C /* Swift File Selector */,
 				64C607A2203EC851005D6869 /* Protocol Selector */,
 				64C608E820434494005D6869 /* Mock File Parameters */,
 				64C608242041D0DD005D6869 /* Content Presenter */,
-				647C06882172014F00778040 /* Filter */,
 				6491FE682CA732D7008F7F78 /* Compare */,
 			);
 			path = Modules;
@@ -1103,6 +1114,29 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		A6C143162D2709FC0070235C /* Benched (for now) */ = {
+			isa = PBXGroup;
+			children = (
+				647C06882172014F00778040 /* Filter */,
+				A6C143172D270AD00070235C /* PreUIPivotMainViewController.swift */,
+				64C6076F203EC503005D6869 /* Project File Selector */,
+				64C60770203EC511005D6869 /* Source File Selector */,
+			);
+			path = "Benched (for now)";
+			sourceTree = "<group>";
+		};
+		A6C143192D270B6F0070235C /* Swift File Selector */ = {
+			isa = PBXGroup;
+			children = (
+				A6C1431C2D270D710070235C /* SwiftFileSelectorInteractor.swift */,
+				A6C1431E2D270DDF0070235C /* SwiftFileSelectorPresenter.swift */,
+				A6C1431A2D270BD80070235C /* SwiftFileSelectorProtocols.swift */,
+				A6C143202D270EE50070235C /* SwiftFileSelectorRouter.swift */,
+				A6C143222D270F9B0070235C /* SwiftFileSelectorViewController.swift */,
+			);
+			path = "Swift File Selector";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1303,6 +1337,7 @@
 				64C608CD2042F250005D6869 /* FileManager+Extensions.swift in Sources */,
 				64C6080D204032E4005D6869 /* XCProjectFactory.swift in Sources */,
 				C2635F8528623D1900F87C71 /* FunctionDeclSyntax+Extensions.swift in Sources */,
+				A6C1431D2D270D770070235C /* SwiftFileSelectorInteractor.swift in Sources */,
 				648691F52B6D4F210021A9F1 /* NSDocumentController+Extensions.swift in Sources */,
 				64C60792203EC807005D6869 /* ProjectFileSelectorProtocols.swift in Sources */,
 				646A25792CA94E4B00F2A708 /* StringFromURLContentsFactory.swift in Sources */,
@@ -1326,10 +1361,12 @@
 				64BB97212BF512F9007250D1 /* SwiftPackageDataSource.swift in Sources */,
 				64BB97132BF28FC9007250D1 /* SourceFileDataSource.swift in Sources */,
 				6488BA382B6179F6004A1812 /* FullNameProvider.swift in Sources */,
+				A6C143232D270FA10070235C /* SwiftFileSelectorViewController.swift in Sources */,
 				6427B9EE2033954800BCA2E9 /* AppDelegate.swift in Sources */,
 				64C608F0204344D6005D6869 /* MockFileParametersPresenter.swift in Sources */,
 				647C06A9217264A600778040 /* AsyncFilteringHandler.swift in Sources */,
 				C2635F8328623B2000F87C71 /* DeclModifierListSyntax+Extensions.swift in Sources */,
+				A6C1431B2D270BE70070235C /* SwiftFileSelectorProtocols.swift in Sources */,
 				6491FE822CA7A242008F7F78 /* BeyondCompareComparisonToolInvoker.swift in Sources */,
 				64C60788203EC7BD005D6869 /* GodfatherView.swift in Sources */,
 				641465C32BEFD8D2008CEBEA /* Pasteboard.swift in Sources */,
@@ -1342,11 +1379,14 @@
 				64C60793203EC807005D6869 /* ProjectFileSelectorRouter.swift in Sources */,
 				64C607BB203EC92C005D6869 /* ContentPresenterViewController.swift in Sources */,
 				64C608C72042EB3E005D6869 /* KeyValueStoring+Extensions.swift in Sources */,
+				A6C1431F2D270DE50070235C /* SwiftFileSelectorPresenter.swift in Sources */,
 				C2635F8B2863333400F87C71 /* FunctionParameterSyntax+Extensions.swift in Sources */,
 				646A25942CA9801100F2A708 /* ProtocolDeclSyntax+Extensions.swift in Sources */,
+				A6C143182D270AD00070235C /* PreUIPivotMainViewController.swift in Sources */,
 				64C607AB203EC906005D6869 /* ProtocolSelectorInteractor.swift in Sources */,
 				64C607AF203EC906005D6869 /* ProtocolSelectorViewController.swift in Sources */,
 				647C06AB2172653F00778040 /* ProjectFilteringHandler.swift in Sources */,
+				A6C143212D270EEC0070235C /* SwiftFileSelectorRouter.swift in Sources */,
 				64CC81D02C7239EE008EE6D4 /* SendableTreeNodeView.swift in Sources */,
 				64C607D4203F7DED005D6869 /* OpenPanelFactory.swift in Sources */,
 				64C607CF203F7B73005D6869 /* OpenPanel.swift in Sources */,

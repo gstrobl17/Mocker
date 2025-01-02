@@ -42,15 +42,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        guard let url = URL(string: filename) else { return false}
-        
-        // This app should have only one open document/window/view controller containing the "Godfather" view
-        guard let window = NSApplication.shared.orderedWindows.first,
-              let viewController = window.contentViewController as? ViewController,
-              let godfatherView = viewController.godfatherView else { return false }
-        
-        // Tell the view to open the recent file
-        godfatherView.openRecentProjectFile(url)
+//        guard let url = URL(string: filename) else { return false}
+//        
+//        // This app should have only one open document/window/view controller containing the "Godfather" view
+//        guard let window = NSApplication.shared.orderedWindows.first,
+//              let viewController = window.contentViewController as? ViewController,
+//              let godfatherView = viewController.godfatherView else { return false }
+//        
+//        // Tell the view to open the recent file
+//        godfatherView.openRecentProjectFile(url)
         return true
     }
 }
