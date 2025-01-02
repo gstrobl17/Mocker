@@ -34,7 +34,6 @@ protocol GodfatherWireframeProtocol: AnyObject {
         openPanelFactory: any OpenPanelFactory,
         swiftFileSelectorRouterType: any SwiftFileSelectorWireframeProtocol.Type,
         sourceFileSelectorRouterType: any SourceFileSelectorWireframeProtocol.Type,
-        sourceFileFilterRouterType: any FilterWireframeProtocol.Type,
         protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
         mockFileParametersRouterType: any MockFileParametersWireframeProtocol.Type,
         contentPresenterRouterType: any ContentPresenterWireframeProtocol.Type,
@@ -65,7 +64,6 @@ protocol GodfatherInteractorOutputProtocol: AnyObject {
     //swiftlint:disable:next function_parameter_count
     func install(swiftFileSelector: NSViewController,
                  sourceFileSelector: NSViewController,
-                 sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
                  contentPresenter: NSViewController,
@@ -108,7 +106,6 @@ protocol GodfatherViewProtocol: AnyObject {
     //swiftlint:disable:next function_parameter_count
     func install(swiftFileSelector: NSViewController,
                  sourceFileSelector: NSViewController,
-                 sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
                  contentPresenter: NSViewController,

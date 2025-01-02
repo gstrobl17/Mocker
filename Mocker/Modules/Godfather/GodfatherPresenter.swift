@@ -53,14 +53,12 @@ extension GodfatherPresenter: GodfatherInteractorOutputProtocol {
     //swiftlint:disable:next function_parameter_count
     func install(swiftFileSelector: NSViewController,
                  sourceFileSelector: NSViewController,
-                 sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
                  contentPresenter: NSViewController,
                  compare: NSViewController) {
         view?.install(swiftFileSelector: swiftFileSelector,
                       sourceFileSelector: sourceFileSelector,
-                      sourceFileFilter: sourceFileFilter,
                       protocolSelector: protocolSelector,
                       mockFileParameters: mockFileParameters,
                       contentPresenter: contentPresenter,

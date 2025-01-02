@@ -20,7 +20,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var swiftFileSelectorView: NSView!   //swiftlint:disable:this private_outlet
     @IBOutlet weak var splitView: NSSplitView!          //swiftlint:disable:this private_outlet
     @IBOutlet weak var sourceFileSelectorView: NSView!  //swiftlint:disable:this private_outlet
-    @IBOutlet weak var sourceFileFilterView: NSView!    //swiftlint:disable:this private_outlet
     @IBOutlet weak var protocolSelectorView: NSView!    //swiftlint:disable:this private_outlet
     @IBOutlet weak var mockFileParametersView: NSView!  //swiftlint:disable:this private_outlet
     @IBOutlet weak var contentPresenterView: NSView!    //swiftlint:disable:this private_outlet
@@ -46,7 +45,6 @@ class ViewController: NSViewController {
             openPanelFactory: AppKitOpenPanelFactory(),
             swiftFileSelectorRouterType: SwiftFileSelectorRouter.self,
             sourceFileSelectorRouterType: SourceFileSelectorRouter.self,
-            sourceFileFilterRouterType: FilterRouter.self,
             protocolSelectorRouterType: ProtocolSelectorRouter.self,
             mockFileParametersRouterType: MockFileParametersRouter.self,
             contentPresenterRouterType: ContentPresenterRouter.self,

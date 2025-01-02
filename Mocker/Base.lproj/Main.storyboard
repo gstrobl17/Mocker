@@ -375,22 +375,13 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Wbs-28-SyI">
-                                                <rect key="frame" x="0.0" y="30" width="306" height="303"/>
-                                            </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="2dq-R0-Qea">
-                                                <rect key="frame" x="0.0" y="0.0" width="306" height="22"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="22" id="7Bi-Sa-SdY"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="0.0" width="306" height="333"/>
                                             </customView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="2dq-R0-Qea" firstAttribute="leading" secondItem="Jwc-FT-YR2" secondAttribute="leading" id="1Zr-JQ-eVL"/>
-                                            <constraint firstAttribute="bottom" secondItem="2dq-R0-Qea" secondAttribute="bottom" id="8oz-ZJ-zSg"/>
                                             <constraint firstItem="Wbs-28-SyI" firstAttribute="leading" secondItem="Jwc-FT-YR2" secondAttribute="leading" id="9ls-oF-jgf"/>
                                             <constraint firstItem="Wbs-28-SyI" firstAttribute="top" secondItem="Jwc-FT-YR2" secondAttribute="top" id="F4K-gr-dRT"/>
-                                            <constraint firstAttribute="trailing" secondItem="2dq-R0-Qea" secondAttribute="trailing" constant="8" id="KaI-0Z-VPT"/>
-                                            <constraint firstItem="2dq-R0-Qea" firstAttribute="top" secondItem="Wbs-28-SyI" secondAttribute="bottom" constant="8" id="Xsw-aJ-7ZV"/>
+                                            <constraint firstAttribute="bottom" secondItem="Wbs-28-SyI" secondAttribute="bottom" id="mK7-kL-iRK"/>
                                             <constraint firstAttribute="trailing" secondItem="Wbs-28-SyI" secondAttribute="trailing" constant="8" id="uKN-xm-sjX"/>
                                         </constraints>
                                     </customView>
@@ -502,7 +493,6 @@
                         <outlet property="displayChoiceSegmentedControl" destination="PDT-sp-KUl" id="AXC-5n-7Ra"/>
                         <outlet property="mockFileParametersView" destination="IPV-Yd-GRl" id="6Rq-ad-N9q"/>
                         <outlet property="protocolSelectorView" destination="1tC-3r-OJT" id="cCP-ae-dXI"/>
-                        <outlet property="sourceFileFilterView" destination="2dq-R0-Qea" id="nby-uR-g0v"/>
                         <outlet property="sourceFileSelectorView" destination="Wbs-28-SyI" id="x75-i4-5Ph"/>
                         <outlet property="splitView" destination="fhE-BF-e14" id="sQp-7j-EPY"/>
                         <outlet property="swiftFileSelectorView" destination="HhA-C9-KTJ" id="eez-WD-rR0"/>
@@ -953,7 +943,7 @@
                 </viewController>
                 <customObject id="beY-tp-P78" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-425" y="1488"/>
+            <point key="canvasLocation" x="357" y="2426"/>
         </scene>
         <!--Compare View Controller-->
         <scene sceneID="fTc-DC-Nhy">
@@ -1269,7 +1259,7 @@
                 </viewController>
                 <customObject id="9Cn-m1-c11" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-488" y="617"/>
+            <point key="canvasLocation" x="-459" y="526"/>
         </scene>
     </scenes>
     <resources>

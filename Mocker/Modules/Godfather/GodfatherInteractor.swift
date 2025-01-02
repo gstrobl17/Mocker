@@ -16,7 +16,6 @@ class GodfatherInteractor {
         didSet {
             presenter?.install(swiftFileSelector: swiftFileSelector,
                                sourceFileSelector: sourceFileSelector,
-                               sourceFileFilter: sourceFileFilterModule.view,
                                protocolSelector: protocolSelector,
                                mockFileParameters: mockFileParameters,
                                contentPresenter: contentPresenter,
@@ -32,7 +31,6 @@ class GodfatherInteractor {
     let mockGeneratorFactory: any MockGeneratorFactory
     let swiftFileSelector: any NSViewController & SwiftFileSelectorInterfaceProtocol
     let sourceFileSelector: any NSViewController & SourceFileSelectorInterfaceProtocol
-    let sourceFileFilterModule: (view: NSViewController, interface: any FilterInterfaceProtocol)
     let protocolSelector: any NSViewController & ProtocolSelectorInterfaceProtocol
     let mockFileParameters: any NSViewController & MockFileParametersInterfaceProtocol
     let contentPresenter: any NSViewController & ContentPresenterInterfaceProtocol
@@ -75,7 +73,6 @@ class GodfatherInteractor {
         openPanelFactory: any OpenPanelFactory,
         swiftFileSelectorRouterType: any SwiftFileSelectorWireframeProtocol.Type,
         sourceFileSelectorRouterType: any SourceFileSelectorWireframeProtocol.Type,
-        sourceFileFilterRouterType: any FilterWireframeProtocol.Type,
         protocolSelectorRouterType: any ProtocolSelectorWireframeProtocol.Type,
         mockFileParametersRouterType: any MockFileParametersWireframeProtocol.Type,
         contentPresenterRouterType: any ContentPresenterWireframeProtocol.Type,
@@ -93,7 +90,6 @@ class GodfatherInteractor {
         self.mockGeneratorFactory = mockGeneratorFactory
         swiftFileSelector = swiftFileSelectorRouterType.createModule(openPanelFactory: openPanelFactory, userDefaults: userDefaults)
         sourceFileSelector = sourceFileSelectorRouterType.createModule()
-        sourceFileFilterModule = sourceFileFilterRouterType.createModule(userDefaults: userDefaults)
         protocolSelector = protocolSelectorRouterType.createModule()
         mockFileParameters = mockFileParametersRouterType.createModule(userDefaults: userDefaults)
         contentPresenter = contentPresenterRouterType.createModule()
@@ -106,7 +102,6 @@ class GodfatherInteractor {
 
         swiftFileSelector.delegate = self
         sourceFileSelector.delegate = self
-        sourceFileFilterModule.interface.delegate = self
         protocolSelector.delegate = self
         mockFileParameters.delegate = self
         compare.delegate = self

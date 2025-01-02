@@ -46,7 +46,6 @@ extension GodfatherView: GodfatherViewProtocol {
     //swiftlint:disable:next function_parameter_count
     func install(swiftFileSelector: NSViewController,
                  sourceFileSelector: NSViewController,
-                 sourceFileFilter: NSViewController,
                  protocolSelector: NSViewController,
                  mockFileParameters: NSViewController,
                  contentPresenter: NSViewController,
@@ -54,7 +53,6 @@ extension GodfatherView: GodfatherViewProtocol {
     ) {
         guard viewController.swiftFileSelectorView != nil &&
                 viewController.sourceFileSelectorView != nil &&
-                viewController.sourceFileFilterView != nil &&
                 viewController.protocolSelectorView != nil &&
                 viewController.mockFileParametersView != nil &&
                 viewController.contentPresenterView != nil &&
@@ -62,7 +60,6 @@ extension GodfatherView: GodfatherViewProtocol {
         
         attach(swiftFileSelector, to: viewController.swiftFileSelectorView)
         attach(sourceFileSelector, to: viewController.sourceFileSelectorView)
-        attach(sourceFileFilter, to: viewController.sourceFileFilterView)
         attach(protocolSelector, to: viewController.protocolSelectorView)
         attach(mockFileParameters, to: viewController.mockFileParametersView)
         attach(contentPresenter, to: viewController.contentPresenterView)
