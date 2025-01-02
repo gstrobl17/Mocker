@@ -130,7 +130,8 @@ class GodfatherInteractor {
                 mockFileParameters.clearProtocol()
                 
                 recentDocumentManager.add(url)
-                documentController.noteNewRecentDocumentURL(url)
+// Removed due to Sequoia sandbox issue
+//                documentController.noteNewRecentDocumentURL(url)
             } else {
                 reportProjectLoadFailure()
             }

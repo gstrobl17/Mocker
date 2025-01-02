@@ -25,7 +25,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         documentController.recentDocumentManager = recentDocumentsManager
         documentController.userDefaults = userDefaults
         
-        recentDocumentsManager.recents.forEach { documentController.noteNewRecentDocumentURL($0) }
+// Removed due to Sequoia sandbox issue
+//        recentDocumentsManager.recents.forEach { documentController.noteNewRecentDocumentURL($0) }
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {

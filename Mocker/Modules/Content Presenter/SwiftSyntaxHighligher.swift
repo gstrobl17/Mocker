@@ -67,22 +67,23 @@ class SwiftSyntaxHighligher: NSObject, NSTextStorageDelegate, NSLayoutManagerDel
     
     @MainActor
     func parse() {
-        guard let tokens = parseString(string: textStorage.string) else {
-            return
-        }
-        
-        let range = visibleRange()
-        let layoutManagerList = textStorage.layoutManagers as [NSLayoutManager]
-        for layoutManager in layoutManagerList {
-            layoutManager.delegate = self
-            layoutManager.removeTemporaryAttribute(.swiftElementType,
-                                                   forCharacterRange: range)
-            
-            for token in tokens {
-                layoutManager.addTemporaryAttributes([.swiftElementType: token.kind],
-                                                     forCharacterRange: token.range)
-            }
-        }
+// Turned off syntax highlighting due to Sequoia sandboxing issue
+//        guard let tokens = parseString(string: textStorage.string) else {
+//            return
+//        }
+//        
+//        let range = visibleRange()
+//        let layoutManagerList = textStorage.layoutManagers as [NSLayoutManager]
+//        for layoutManager in layoutManagerList {
+//            layoutManager.delegate = self
+//            layoutManager.removeTemporaryAttribute(.swiftElementType,
+//                                                   forCharacterRange: range)
+//            
+//            for token in tokens {
+//                layoutManager.addTemporaryAttributes([.swiftElementType: token.kind],
+//                                                     forCharacterRange: token.range)
+//            }
+//        }
     }
     
     func parseString(string: String) -> [Token]? {
