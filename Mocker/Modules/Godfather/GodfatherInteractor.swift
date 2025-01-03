@@ -243,7 +243,7 @@ extension GodfatherInteractor: SourceFileSelectorInterfaceDelegate {
   
             // Parse the source file
             do {
-                currentSourceFileCode = try stringFromURLContentsFactory.string(fromContentsOf: fileURL, encoding: .ascii)
+                currentSourceFileCode = try stringFromURLContentsFactory.string(fromContentsOf: fileURL, encoding: .utf8)
                 let sourceFileSyntax = Parser.parse(source: currentSourceFileCode)
                 let sourceFileInformation = SourceFileInformation(viewMode: .sourceAccurate)
                 sourceFileInformation.walk(sourceFileSyntax)
