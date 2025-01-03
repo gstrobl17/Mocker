@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -418,7 +418,7 @@
                                                 <subviews>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="dw4-Bh-iC5">
                                                         <rect key="frame" x="0.0" y="-4.5" width="25" height="34"/>
-                                                        <buttonCell key="cell" type="bevel" alternateTitle="Copy Mock to Clipboard" bezelStyle="rounded" image="arrow.right.doc.on.clipboard" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="uff-qS-0K1">
+                                                        <buttonCell key="cell" type="bevel" alternateTitle="Copy Mock to Clipboard" bezelStyle="rounded" image="arrow.right.page.on.clipboard" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="uff-qS-0K1">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -1059,6 +1059,6 @@
     </scenes>
     <resources>
         <image name="NSRefreshTemplate" width="18" height="21"/>
-        <image name="arrow.right.doc.on.clipboard" catalog="system" width="16" height="18"/>
+        <image name="arrow.right.page.on.clipboard" catalog="system" width="16" height="18"/>
     </resources>
 </document>

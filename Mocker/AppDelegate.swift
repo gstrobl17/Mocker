@@ -25,7 +25,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         documentController.recentDocumentManager = recentDocumentsManager
         documentController.userDefaults = userDefaults
         
-        recentDocumentsManager.recents.forEach { documentController.noteNewRecentDocumentURL($0) }
+        if #unavailable(macOS 15.0) {
+            recentDocumentsManager.recents.forEach { documentController.noteNewRecentDocumentURL($0) }
+        }
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
