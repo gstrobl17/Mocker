@@ -42,7 +42,7 @@ class MockGeneratorParameters: SyntaxVisitor {
         self.includeHeader = includeHeader
         self.includeTestableImport = includeTestableImport
         self.testableTargetName = testableTargetName
-        self.trackPropertyActivity = trackPropertyActivity
+        self.trackPropertyActivity = trackPropertyActivity || protocolDeclaration.isActor
         self.public = `public`
         super.init(viewMode: .sourceAccurate)
 

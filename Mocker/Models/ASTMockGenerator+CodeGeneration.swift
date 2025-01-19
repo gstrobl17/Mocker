@@ -73,12 +73,13 @@ extension ASTMockGenerator {
         }
     }
 
-    func startClass(for parameters: MockGeneratorParameters) {
+    func startClassOrActor(for parameters: MockGeneratorParameters) {
         contentGenerated = true
         if parameters.protocolDeclaration.hasMainActorAnnotation {
             code += "@MainActor\n"
         }
-        code += "\(publicAccessQualifier)class \(parameters.mockName): \(parameters.protocolDeclaration.name.text) {\n"
+        let keyword = parameters.isActor ? "actor" : "class"
+        code += "\(publicAccessQualifier)\(keyword) \(parameters.mockName): \(parameters.protocolDeclaration.name.text) {\n"
     }
 
     func generateEmptyPublicInitializer(for parameters: MockGeneratorParameters) {
@@ -96,7 +97,11 @@ extension ASTMockGenerator {
                 if first {
                     first = false
                     generateMark(with: "Variables for Properties Used for Protocol Conformance", includeTrailingCarriageReturn: false)
-                    generateComment(with: "Use these properties to get/set/initialize the properties without registering a method call")
+                    if parameters.isActor {
+                        generateComment(with: "Use these properties to get the properties without registering a method call")
+                    } else {
+                        generateComment(with: "Use these properties to get/set/initialize the properties without registering a method call")
+                    }
                 }
                 let prefix = variable.isStatic ? "static " : ""
                 code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.internalNameForCode)\(variable.typeForCode)\n"
@@ -110,6 +115,20 @@ extension ASTMockGenerator {
             }
         }
 
+        if parameters.isActor && parameters.trackPropertyActivity {
+            first = true
+            for variable in parameters.variables {
+                contentGenerated = true
+                
+                if first {
+                    first = false
+                    generateSpacing()
+                    generateComment(with: "Use these methods to set the properties without registering a method call")
+                }
+                let prefix = variable.isStatic ? "static " : ""
+                code += "\(indentation)\(publicAccessQualifier)\(prefix)func set\(variable.internalNameForCode)(_ value\(variable.typeForCode)) { \(variable.internalNameForCode) = value }\n"
+            }
+        }
     }
 
     func generateTrackingOptionSets(for parameters: MockGeneratorParameters) {
@@ -165,9 +184,11 @@ extension ASTMockGenerator {
                     options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
-                if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
-                    valueNumber += 1
+                if !parameters.isActor {
+                    if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
+                        options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                        valueNumber += 1
+                    }
                 }
             }
         }
@@ -220,7 +241,7 @@ extension ASTMockGenerator {
         // Pre-generate the individual options (so that we know the count when we declare the option set)
         var options = ""
         var valueNumber = 0
-        if parameters.trackPropertyActivity {
+        if parameters.trackPropertyActivity && !parameters.isActor {
             for variable in parameters.variables where variable.hasSetter && !variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
                 options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(variable.setterCaptureValueVariableName) = \(TypeName.MethodParameter)(rawValue: 1 << \(valueNumber))\n"
                 valueNumber += 1
@@ -286,7 +307,7 @@ extension ASTMockGenerator {
         
         var usedNames: Set<String> = []
         
-        if parameters.trackPropertyActivity {
+        if parameters.trackPropertyActivity && !parameters.isActor {
             for variable in parameters.variables where variable.hasSetter && !usedNames.contains(variable.setterCaptureValueVariableName) {
                 contentGenerated = true
                 generateHeader()
@@ -436,7 +457,7 @@ extension ASTMockGenerator {
             code += "\(indentation)\(indentation)\(parameters.mockName).\(VariableName.assignedStaticParameters) = []\n"
         }
 
-        if parameters.trackPropertyActivity {
+        if parameters.trackPropertyActivity && !parameters.isActor {
             for variable in parameters.variables where variable.hasSetter && !usedNames.contains(variable.setterCaptureValueVariableName) {
                 let modifier = variable.isStatic ? "\(parameters.mockName)." : ""
                 code += "\(indentation)\(indentation)\(modifier)\(variable.setterCaptureValueVariableName) = nil\n"
@@ -482,7 +503,7 @@ extension ASTMockGenerator {
 
             let prefix = variable.isStatic ? "static " : ""
             code += "\(indentation)\(publicAccessQualifier)\(prefix)var \(variable.nameForCode)\(variable.typeForCode) {\n"
-            if variable.hasGetter && !variable.hasSetter {
+            if variable.hasGetter && (!variable.hasSetter || parameters.isActor) {
                 generateGetter(with: "\(indentation)\(indentation)", for: variable)
                 
             } else {
@@ -579,7 +600,7 @@ extension ASTMockGenerator {
 
     }
 
-    func endClass() {
+    func endClassOrActor() {
         contentGenerated = true
         code += "}\n"
     }
@@ -641,8 +662,10 @@ extension ASTMockGenerator {
                 if variable.hasGetter, let calledAttributeName = getterCalledAttributeName(for: variable) {
                     generateOptionSetContainsBlock(for: calledAttributeName)
                 }
-                if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    generateOptionSetContainsBlock(for: calledAttributeName)
+                if !parameters.isActor {
+                    if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
+                        generateOptionSetContainsBlock(for: calledAttributeName)
+                    }
                 }
             }
         }
@@ -677,7 +700,7 @@ extension ASTMockGenerator {
         var usedNames: Set<String> = []
         contentGenerated = true
         generateBeginningOfOptionSetExtension(with: "\(parameters.mockName).\(TypeName.MethodParameter)")
-        if parameters.trackPropertyActivity {
+        if parameters.trackPropertyActivity && !parameters.isActor {
             for variable in parameters.variables where variable.hasSetter && !variable.isStatic && !usedNames.contains(variable.setterCaptureValueVariableName) {
                 generateOptionSetContainsBlock(for: variable.setterCaptureValueVariableName)
                 usedNames.insert(variable.setterCaptureValueVariableName)
@@ -718,6 +741,7 @@ extension ASTMockGenerator {
     }
     
     func generateCustomReflectationExtension(for parameters: MockGeneratorParameters) {
+        guard !parameters.isActor else { return }
         guard calledAttributeTracker.nonStaticNameCount > 0 || calledAttributeTracker.staticNameCount > 0 || parameterTracker.nonStaticNameCount > 0 || parameterTracker.staticNameCount > 0 else { return }
         
         let possiblePreconcurrencyAnnotation = parameters.protocolDeclaration.hasMainActorAnnotation ? "@preconcurrency " : ""

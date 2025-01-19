@@ -19,6 +19,7 @@
 		6427B9F02033954800BCA2E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427B9EF2033954800BCA2E9 /* ViewController.swift */; };
 		6427B9F22033954800BCA2E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6427B9F12033954800BCA2E9 /* Assets.xcassets */; };
 		6427B9F52033954800BCA2E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6427B9F32033954800BCA2E9 /* Main.storyboard */; };
+		642AEB762D3D2DED00B409E8 /* ASTMockGeneratorTests+Misc+ActorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642AEB752D3D2DE100B409E8 /* ASTMockGeneratorTests+Misc+ActorProtocol.swift */; };
 		643D97DD2A617A950001450E /* SwiftOperators in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97DC2A617A950001450E /* SwiftOperators */; };
 		643D97DF2A617A950001450E /* SwiftParser in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97DE2A617A950001450E /* SwiftParser */; };
 		643D97E12A617A950001450E /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 643D97E02A617A950001450E /* SwiftSyntax */; };
@@ -287,6 +288,7 @@
 		6427BA022033954800BCA2E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6429FF442A01388800E7E5B5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6429FF452A01388800E7E5B5 /* UNLICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = UNLICENSE.txt; sourceTree = "<group>"; };
+		642AEB752D3D2DE100B409E8 /* ASTMockGeneratorTests+Misc+ActorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTMockGeneratorTests+Misc+ActorProtocol.swift"; sourceTree = "<group>"; };
 		646A25672CA8ADA200F2A708 /* TemporaryFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFileHandler.swift; sourceTree = "<group>"; };
 		646A256A2CA8F67500F2A708 /* MockCompareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompareView.swift; sourceTree = "<group>"; };
 		646A256C2CA8F7A600F2A708 /* MockCompareInterfaceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompareInterfaceDelegate.swift; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 				6488BA3D2B6184AA004A1812 /* ASTMockGeneratorTests.swift */,
 				648691B42B63B1DC0021A9F1 /* ASTMockGeneratorTests+EdgeCases+Part1.swift */,
 				648691B62B63D6650021A9F1 /* ASTMockGeneratorTests+EdgeCases+Part2.swift */,
+				642AEB752D3D2DE100B409E8 /* ASTMockGeneratorTests+Misc+ActorProtocol.swift */,
 				648691A22B62F8120021A9F1 /* ASTMockGeneratorTests+Misc+AnalyticsRecording.swift */,
 				648691A42B62F9FB0021A9F1 /* ASTMockGeneratorTests+Misc+CloudStorage.swift */,
 				648691A62B62FB1C0021A9F1 /* ASTMockGeneratorTests+Misc+FileManagerProtocol.swift */,
@@ -1406,6 +1409,7 @@
 				64C6082E2041DCB8005D6869 /* MockContentPresenterView.swift in Sources */,
 				64C607DC203F8168005D6869 /* MockSavePanel.swift in Sources */,
 				648691FD2B6E55070021A9F1 /* RecentDocumentManagerTests.swift in Sources */,
+				642AEB762D3D2DED00B409E8 /* ASTMockGeneratorTests+Misc+ActorProtocol.swift in Sources */,
 				64C6090420440AEF005D6869 /* MockFileParametersPresenterTests.swift in Sources */,
 				64C607E5203F8892005D6869 /* MockProjectFileSelectorView.swift in Sources */,
 				648691A12B62E5390021A9F1 /* ASTMockGeneratorTests+SinglePropertyProtocol.swift in Sources */,

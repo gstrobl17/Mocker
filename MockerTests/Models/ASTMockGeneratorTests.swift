@@ -313,6 +313,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         XCTAssertEqual(parameters.isActor, false)
+        XCTAssertEqual(parameters.trackPropertyActivity, false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -336,6 +337,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
         XCTAssertEqual(parameters.isActor, false)
+        XCTAssertEqual(parameters.trackPropertyActivity, false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -361,6 +363,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeHeader: false, includeTestableImport: false)
         XCTAssertEqual(parameters.isActor, false)
+        XCTAssertEqual(parameters.trackPropertyActivity, false)
         let expectedCode = """
                            import Foundation
                            import UIKit
@@ -386,6 +389,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeHeader: false, includeTestableImport: false, public: true)
         XCTAssertEqual(parameters.isActor, false)
+        XCTAssertEqual(parameters.trackPropertyActivity, false)
         let expectedCode = """
                            import Foundation
                            import UIKit
@@ -416,6 +420,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         XCTAssertEqual(parameters.isActor, false)
+        XCTAssertEqual(parameters.trackPropertyActivity, false)
         let expectedCode = """
                            //
                            //  MockTest.swift
@@ -452,6 +457,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
         XCTAssertEqual(parameters.isActor, false)
+        XCTAssertEqual(parameters.trackPropertyActivity, false)
         let expectedCode = """
                            //
                            //  MockTest.swift
@@ -496,10 +502,11 @@ final class ASTMockGeneratorTests: XCTestCase {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyActorProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
         XCTAssertEqual(parameters.isActor, true)
+        XCTAssertEqual(parameters.trackPropertyActivity, true)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
-                           class MockTest: Empty {
+                           actor MockTest: Empty {
 
 
                                func reset() {
