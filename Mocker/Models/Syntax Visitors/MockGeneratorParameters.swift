@@ -13,6 +13,7 @@ class MockGeneratorParameters: SyntaxVisitor {
     let imports: [ImportDeclSyntax]
     let protocolDeclaration: ProtocolDeclSyntax
     let mockName: String
+    let isActor: Bool
     let includeHeader: Bool
     let includeTestableImport: Bool
     let testableTargetName: String
@@ -37,6 +38,7 @@ class MockGeneratorParameters: SyntaxVisitor {
         self.imports = imports
         self.protocolDeclaration = protocolDeclaration
         self.mockName = mockName
+        self.isActor = protocolDeclaration.isActor
         self.includeHeader = includeHeader
         self.includeTestableImport = includeTestableImport
         self.testableTargetName = testableTargetName

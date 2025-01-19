@@ -300,7 +300,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         return sourceFileInformation.protocols.first
     }
     
-    // MARK: Empty Protocol
+    // MARK: - Empty Protocol
     
     var emptyProtocol: String {
         """
@@ -312,6 +312,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     func testCodeGeneration_emptyProtocol_includeHeaderTRUE_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
+        XCTAssertEqual(parameters.isActor, false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -334,6 +335,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     func testCodeGeneration_emptyProtocol_includeHeaderTRUE_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
+        XCTAssertEqual(parameters.isActor, false)
         let expectedCode = """
                            \(expectedPopulatedHeader)
 
@@ -358,6 +360,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     func testCodeGeneration_emptyProtocol_includeHeaderFALSE_includeTestableImportFALSE_publicFALSE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeHeader: false, includeTestableImport: false)
+        XCTAssertEqual(parameters.isActor, false)
         let expectedCode = """
                            import Foundation
                            import UIKit
@@ -382,6 +385,7 @@ final class ASTMockGeneratorTests: XCTestCase {
     func testCodeGeneration_emptyProtocol_includeHeaderFALSE_includeTestableImportFALSE_publicTRUE() throws {
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeHeader: false, includeTestableImport: false, public: true)
+        XCTAssertEqual(parameters.isActor, false)
         let expectedCode = """
                            import Foundation
                            import UIKit
@@ -411,6 +415,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
+        XCTAssertEqual(parameters.isActor, false)
         let expectedCode = """
                            //
                            //  MockTest.swift
@@ -446,6 +451,7 @@ final class ASTMockGeneratorTests: XCTestCase {
         let expectedYear = try XCTUnwrap(self.expectedYear)
         let decl = try XCTUnwrap(protocolDeclaration(for: emptyProtocol))
         let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false, public: true)
+        XCTAssertEqual(parameters.isActor, false)
         let expectedCode = """
                            //
                            //  MockTest.swift
@@ -476,6 +482,39 @@ final class ASTMockGeneratorTests: XCTestCase {
         XCTAssertEqual(code, expectedCode)
         printFirstDifference(code, expectedCode)
     }
+
+    // MARK: - Empty Actor Protocol
+
+    var emptyActorProtocol: String {
+        """
+        protocol Empty: Actor {
+        }
+        """
+    }
+
+    func testCodeGeneration_emptyActorProtocol_includeHeaderTRUE_includeTestableImportFALSE_publicFALSE() throws {
+        let decl = try XCTUnwrap(protocolDeclaration(for: emptyActorProtocol))
+        let parameters = createParameters(protocolDeclaration: decl, includeTestableImport: false)
+        XCTAssertEqual(parameters.isActor, true)
+        let expectedCode = """
+                           \(expectedPopulatedHeader)
+
+                           class MockTest: Empty {
+
+
+                               func reset() {
+                               }
+
+                           }
+                           
+                           """
+        
+        let code = generator.generateMockCode(for: parameters)
+        
+        XCTAssertEqual(code, expectedCode)
+        printFirstDifference(code, expectedCode)
+    }
+    
 }
 
 //swiftlint:enable type_body_length file_length
