@@ -228,7 +228,7 @@ class ASTMockGenerator: MockGenerating {
         generateSpacing()
         generateProtocolFunctions(for: parameters)
         generateSpacing()
-        endClassOrActor()
+        endClassOrActor(for: parameters)
         generateOptionSetsExtensions(for: parameters)
         generateCustomReflectationExtension(for: parameters)
         return code

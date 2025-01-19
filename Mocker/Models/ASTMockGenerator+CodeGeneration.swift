@@ -600,8 +600,14 @@ extension ASTMockGenerator {
 
     }
 
-    func endClassOrActor() {
+    func endClassOrActor(for parameters: MockGeneratorParameters) {
         contentGenerated = true
+        
+        if parameters.isActor {
+            generateComment(with: "Parameter used by MacrosForStroblMocks to detect an actor", includeTrailingCarriageReturn: false)
+            code += "\(indentation)\(publicAccessQualifier)let isMockActor = true\n"
+        }
+        
         code += "}\n"
     }
 

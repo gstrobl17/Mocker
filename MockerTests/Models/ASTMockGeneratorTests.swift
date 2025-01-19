@@ -512,6 +512,8 @@ final class ASTMockGeneratorTests: XCTestCase {
                                func reset() {
                                }
 
+                               // Parameter used by MacrosForStroblMocks to detect an actor
+                               let isMockActor = true
                            }
                            
                            """

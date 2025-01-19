@@ -98,6 +98,8 @@ extension ASTMockGeneratorTests {
                                    assignedParameters.insert(.value)
                                }
 
+                               // Parameter used by MacrosForStroblMocks to detect an actor
+                               let isMockActor = true
                            }
 
                            extension MockTest.Method: CustomStringConvertible {
@@ -241,6 +243,8 @@ extension ASTMockGeneratorTests {
                                    assignedParameters.insert(.value)
                                }
 
+                               // Parameter used by MacrosForStroblMocks to detect an actor
+                               public let isMockActor = true
                            }
 
                            extension MockTest.Method: CustomStringConvertible {
