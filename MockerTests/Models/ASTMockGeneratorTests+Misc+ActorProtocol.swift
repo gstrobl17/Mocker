@@ -1,3 +1,4 @@
+//swiftlint:disable function_body_length
 //
 //  ASTMockGeneratorTests+Misc+ActorProtocol.swift
 //  Mocker
@@ -21,6 +22,9 @@ extension ASTMockGeneratorTests {
         
             func setInterval(_ value: Int)
             func setWindow(_ value: Int)
+        
+            func doSomethingSpecial() -> String
+            func doSomethingLessSpecial(_ value: Int) -> (any Logger)?
         }
         """
     }
@@ -52,6 +56,8 @@ extension ASTMockGeneratorTests {
                                    static let windowGetterCalled = Method(rawValue: 1 << 1)
                                    static let setIntervalValueCalled = Method(rawValue: 1 << 2)
                                    static let setWindowValueCalled = Method(rawValue: 1 << 3)
+                                   static let doSomethingSpecialCalled = Method(rawValue: 1 << 4)
+                                   static let doSomethingLessSpecialValueCalled = Method(rawValue: 1 << 5)
                                }
                                private(set) var calledMethods = Method()
 
@@ -65,6 +71,13 @@ extension ASTMockGeneratorTests {
 
                                private(set) var value: Int?
 
+                               // MARK: - Variables to Use as Method Return Values
+
+                               var doSomethingSpecialReturnValue: String!
+                               var doSomethingLessSpecialValueReturnValue: (any Logger)?
+
+                               func setDoSomethingSpecialReturnValue(_ value: String) { doSomethingSpecialReturnValue = value }
+                               func setDoSomethingLessSpecialValueReturnValue(_ value: (any Logger)?) { doSomethingLessSpecialValueReturnValue = value }
 
                                func reset() {
                                    calledMethods = []
@@ -98,6 +111,18 @@ extension ASTMockGeneratorTests {
                                    assignedParameters.insert(.value)
                                }
 
+                               func doSomethingSpecial() -> String {
+                                   calledMethods.insert(.doSomethingSpecialCalled)
+                                   return doSomethingSpecialReturnValue
+                               }
+
+                               func doSomethingLessSpecial(_ value: Int) -> (any Logger)? {
+                                   calledMethods.insert(.doSomethingLessSpecialValueCalled)
+                                   self.value = value
+                                   assignedParameters.insert(.value)
+                                   return doSomethingLessSpecialValueReturnValue
+                               }
+
                                // Parameter used by MacrosForStroblMocks to detect an actor
                                let isMockActor = true
                            }
@@ -129,6 +154,14 @@ extension ASTMockGeneratorTests {
                                    if self.contains(.setWindowValueCalled) {
                                        handleFirst()
                                        value += ".setWindowValueCalled"
+                                   }
+                                   if self.contains(.doSomethingSpecialCalled) {
+                                       handleFirst()
+                                       value += ".doSomethingSpecialCalled"
+                                   }
+                                   if self.contains(.doSomethingLessSpecialValueCalled) {
+                                       handleFirst()
+                                       value += ".doSomethingLessSpecialValueCalled"
                                    }
 
                                    value += "]"
@@ -196,6 +229,8 @@ extension ASTMockGeneratorTests {
                                    public static let windowGetterCalled = Method(rawValue: 1 << 1)
                                    public static let setIntervalValueCalled = Method(rawValue: 1 << 2)
                                    public static let setWindowValueCalled = Method(rawValue: 1 << 3)
+                                   public static let doSomethingSpecialCalled = Method(rawValue: 1 << 4)
+                                   public static let doSomethingLessSpecialValueCalled = Method(rawValue: 1 << 5)
                                }
                                private(set) public var calledMethods = Method()
 
@@ -210,6 +245,13 @@ extension ASTMockGeneratorTests {
 
                                private(set) public var value: Int?
 
+                               // MARK: - Variables to Use as Method Return Values
+
+                               public var doSomethingSpecialReturnValue: String!
+                               public var doSomethingLessSpecialValueReturnValue: (any Logger)?
+
+                               public func setDoSomethingSpecialReturnValue(_ value: String) { doSomethingSpecialReturnValue = value }
+                               public func setDoSomethingLessSpecialValueReturnValue(_ value: (any Logger)?) { doSomethingLessSpecialValueReturnValue = value }
 
                                public func reset() {
                                    calledMethods = []
@@ -243,6 +285,18 @@ extension ASTMockGeneratorTests {
                                    assignedParameters.insert(.value)
                                }
 
+                               public func doSomethingSpecial() -> String {
+                                   calledMethods.insert(.doSomethingSpecialCalled)
+                                   return doSomethingSpecialReturnValue
+                               }
+                           
+                               public func doSomethingLessSpecial(_ value: Int) -> (any Logger)? {
+                                   calledMethods.insert(.doSomethingLessSpecialValueCalled)
+                                   self.value = value
+                                   assignedParameters.insert(.value)
+                                   return doSomethingLessSpecialValueReturnValue
+                               }
+
                                // Parameter used by MacrosForStroblMocks to detect an actor
                                public let isMockActor = true
                            }
@@ -274,6 +328,14 @@ extension ASTMockGeneratorTests {
                                    if self.contains(.setWindowValueCalled) {
                                        handleFirst()
                                        value += ".setWindowValueCalled"
+                                   }
+                                   if self.contains(.doSomethingSpecialCalled) {
+                                       handleFirst()
+                                       value += ".doSomethingSpecialCalled"
+                                   }
+                                   if self.contains(.doSomethingLessSpecialValueCalled) {
+                                       handleFirst()
+                                       value += ".doSomethingLessSpecialValueCalled"
                                    }
 
                                    value += "]"
@@ -311,3 +373,5 @@ extension ASTMockGeneratorTests {
         printFirstDifference(code, expectedCode)
     }
 }
+
+//swiftlint:enable function_body_length

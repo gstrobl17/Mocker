@@ -361,6 +361,18 @@ extension ASTMockGenerator {
             let typeWrapperEnd = returnType.is(SomeOrAnyTypeSyntax.self) ? ")" : ""
             code += "\(indentation)\(publicAccessQualifier)\(modifier)var \(method.returnValueVariableName): \(typeWrapperStart)\(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))\(typeWrapperEnd)\(implicitlyUnwrappedOptionalModifier)\n"
         }
+        
+        // Add setters for the return value attributes if the protocol is an Actor
+        if parameters.isActor && !parameters.methods.isEmpty {
+            generateSpacing()
+
+            for method in parameters.methods {
+                guard let returnType = method.signature.returnClause?.type else { continue }
+                
+                let modifier = method.isStatic ? "static " : ""
+                code += "\(indentation)\(publicAccessQualifier)\(modifier)func set\(method.returnValueVariableName.firstUppercased)(_ value: \(returnType.processedTypeName(removeExclamationMark: true, removeEscaping: true))) { \(method.returnValueVariableName) = value }\n"
+            }
+        }
     }
 
     func generateErrorThrowingAttributes(for parameters: MockGeneratorParameters) {
