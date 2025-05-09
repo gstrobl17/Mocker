@@ -51,10 +51,10 @@ extension ProjectFileSelectorPresenter: ProjectFileSelectorPresenterProtocol {
         var openPanel = openPanelFactory.create(delegate: self)
         openPanel.directoryURL = userDefaults.lastDirectoryOfSelectedProject
         openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = false
+        openPanel.canChooseDirectories = true
         openPanel.canCreateDirectories = false
         openPanel.canChooseFiles = true
-        openPanel.message = "Select Project or Swift Package to Open"
+        openPanel.message = "Select Directory, Project, or Swift Package to Open"
         self.openPanel = openPanel
         view?.openModalSheet(with: openPanel, completionHandler: handleOpenPanelResponse)
     }

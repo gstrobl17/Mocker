@@ -14,6 +14,14 @@ extension URL {
         pathExtension == "xcodeproj"
     }
     
+    var isXcodeWorkspaceFile: Bool {
+        pathExtension == "xcworkspace"
+    }
+    
+    var isNonXcodeFileDirectory: Bool {
+        isDirectory && (!isXcodeProjectFile && !isXcodeWorkspaceFile)
+    }
+
     var isSwiftFile: Bool {
         pathExtension == SwiftPackageConstant.File.swiftFileExtension
     }

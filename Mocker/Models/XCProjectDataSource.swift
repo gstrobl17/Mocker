@@ -14,6 +14,7 @@ struct XCProjectDataSource: SourceFileDataSource {
     let project: any Project
     
     init?(filePath: String) {
+        guard let filePath = filePath.removingPercentEncoding else { return nil }
         guard let project = XCProject(filePath: filePath) else { return nil}
         self.project = project
     }

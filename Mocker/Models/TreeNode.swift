@@ -44,6 +44,10 @@ class TreeNode: NSObject {
             children: sendableChildren
         )
     }
+    
+    var containsSwiftFiles: Bool {
+        sendable.containsSwiftFiles
+    }
 }
 
 struct SendableTreeNode: Sendable, Equatable {
@@ -56,5 +60,15 @@ struct SendableTreeNode: Sendable, Equatable {
     var isSwiftFile: Bool {
         guard let fileURL else { return false }
         return fileURL.pathExtension == "swift"
+    }
+    
+    var containsSwiftFiles: Bool {
+        switch type {
+        case .file:
+            return isSwiftFile
+        case .group:
+            let first = children.first(where: { $0.containsSwiftFiles })
+            return (first != nil) ? true : false
+        }
     }
 }
