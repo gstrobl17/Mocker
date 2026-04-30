@@ -213,11 +213,11 @@ extension ASTMockGenerator {
         if parameters.trackPropertyActivity {
             for variable in parameters.variables where variable.isStatic {
                 if variable.hasGetter, let calledAttributeName = getterCalledAttributeName(for: variable) {
-                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.StaticMethod)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
                 if variable.hasSetter, let calledAttributeName = setterCalledAttributeName(for: variable) {
-                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.Method)(rawValue: 1 << \(valueNumber))\n"
+                    options += "\(indentation)\(indentation)\(publicAccessQualifier)static let \(calledAttributeName) = \(TypeName.StaticMethod)(rawValue: 1 << \(valueNumber))\n"
                     valueNumber += 1
                 }
             }

@@ -790,8 +790,8 @@ extension ASTMockGeneratorTests {
                                public struct StaticMethod: OptionSet, Sendable {
                                    public let rawValue: UInt
                                    public init(rawValue: UInt) { self.rawValue = rawValue }
-                                   public static let valueGetterCalled = Method(rawValue: 1 << 0)
-                                   public static let valueSetterCalled = Method(rawValue: 1 << 1)
+                                   public static let valueGetterCalled = StaticMethod(rawValue: 1 << 0)
+                                   public static let valueSetterCalled = StaticMethod(rawValue: 1 << 1)
                                }
                                private(set) public static var calledStaticMethods = StaticMethod()
 
